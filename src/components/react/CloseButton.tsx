@@ -1,25 +1,24 @@
-import React from 'react';
+import React, { forwardRef } from "react";
 
-export interface CloseButtonProps {
-  onClick: () => void;
-  label?: string;
-  className?: string;
-}
+export interface CloseButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
 
-export const CloseButton = React.forwardRef<HTMLButtonElement, CloseButtonProps>(
-  ({ onClick, label = 'Close', className = '' }, ref) => {
+export const CloseButton = forwardRef<HTMLButtonElement, CloseButtonProps>(
+  (
+    { className = "", children, "aria-label": ariaLabel = "Close", ...rest },
+    ref,
+  ) => {
+    const classes = ["close-btn", className].filter(Boolean).join(" ");
     return (
       <button
         ref={ref}
         type="button"
-        onClick={onClick}
-        className={`inline-flex items-center justify-center w-6 h-6 bg-transparent border-none text-lg font-bold text-[var(--fcc-primary-color)] opacity-50 hover:opacity-100 focus:opacity-100 transition-opacity ${className}`}
-        aria-label={label}
+        className={classes}
+        aria-label={ariaLabel}
+        {...rest}
       >
-        <span aria-hidden="true">&times;</span>
+        {children ?? "×"}
       </button>
     );
-  }
+  },
 );
-
-CloseButton.displayName = 'CloseButton';
+CloseButton.displayName = "CloseButton";

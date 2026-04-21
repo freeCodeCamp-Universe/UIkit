@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef } from "react";
 
 export interface TableProps extends React.TableHTMLAttributes<HTMLTableElement> {
   striped?: boolean;
@@ -6,17 +6,20 @@ export interface TableProps extends React.TableHTMLAttributes<HTMLTableElement> 
 }
 
 export const Table = forwardRef<HTMLTableElement, TableProps>(
-  ({ striped = false, condensed = false, children, className = '', ...props }, ref) => {
+  ({ striped, condensed, className = "", children, ...rest }, ref) => {
+    const classes = [
+      "table",
+      striped && "table--striped",
+      condensed && "table--condensed",
+      className,
+    ]
+      .filter(Boolean)
+      .join(" ");
     return (
-      <table
-        ref={ref}
-        className={`w-full max-w-full border-collapse text-left text-[var(--fcc-secondary-color)] ${striped ? '[&>tbody>tr:nth-of-type(odd)]:bg-[var(--fcc-tertiary-background)]' : ''} ${className}`}
-        {...props}
-      >
+      <table ref={ref} className={classes} {...rest}>
         {children}
       </table>
     );
-  }
+  },
 );
-
-Table.displayName = 'Table';
+Table.displayName = "Table";

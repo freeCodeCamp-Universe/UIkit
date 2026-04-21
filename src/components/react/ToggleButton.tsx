@@ -1,87 +1,62 @@
-import React from 'react';
+import React, { forwardRef, useState } from "react";
 
-export type ToggleButtonSize = 'small' | 'medium' | 'large';
+export type ToggleButtonSize = "sm" | "md" | "lg";
 
-export interface ToggleButtonProps {
-  children: React.ReactNode;
-  checked?: boolean;
-  onChange?: (value: boolean) => void;
-  disabled?: boolean;
-  bsSize?: ToggleButtonSize;
-  value?: string;
-  name?: string;
-  type?: 'button' | 'radio';
-  className?: string;
+export interface ToggleButtonProps extends Omit<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  "onChange"
+> {
+  pressed?: boolean;
+  defaultPressed?: boolean;
+  onPressedChange?: (pressed: boolean) => void;
+  size?: ToggleButtonSize;
 }
 
-const sizeClasses: Record<ToggleButtonSize, string> = {
-  small: 'px-5 py-1 text-sm',
-  medium: 'px-6 py-1.5 text-base',
-  large: 'px-8 py-2.5 text-lg',
-};
+export const ToggleButton = forwardRef<HTMLButtonElement, ToggleButtonProps>(
+  (
+    {
+      pressed,
+      defaultPressed,
+      onPressedChange,
+      size = "md",
+      className = "",
+      onClick,
+      children,
+      ...rest
+    },
+    ref,
+  ) => {
+    const [internal, setInternal] = useState(defaultPressed ?? false);
+    const isControlled = pressed !== undefined;
+    const value = isControlled ? (pressed as boolean) : internal;
 
-export const ToggleButton: React.FC<ToggleButtonProps> = ({
-  children,
-  checked = false,
-  onChange,
-  disabled = false,
-  bsSize = 'small',
-  value,
-  name,
-  type = 'button',
-  className = '',
-}) => {
-  const baseClasses =
-    'relative border-3 border-[var(--fcc-border-color)] text-center inline-block cursor-pointer focus-within:ring focus-within:ring-[var(--fcc-focus-ring)] transition-colors';
+    const classes = [
+      "toggle-btn",
+      size !== "md" && `toggle-btn--${size}`,
+      className,
+    ]
+      .filter(Boolean)
+      .join(" ");
 
-  const stateClasses = checked
-    ? 'bg-[var(--fcc-primary-color)] text-[var(--fcc-gray-90)]'
-    : 'bg-[var(--fcc-tertiary-background)] text-[var(--fcc-secondary-color)]';
+    const handleClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+      const next = !value;
+      if (!isControlled) setInternal(next);
+      onPressedChange?.(next);
+      onClick?.(e);
+    };
 
-  const hoverClasses = !disabled
-    ? checked
-      ? 'hover:bg-[var(--fcc-tertiary-background)] hover:text-[var(--fcc-secondary-color)]'
-      : 'hover:bg-[var(--fcc-primary-color)] hover:text-[var(--fcc-gray-90)]'
-    : '';
-
-  const disabledClasses = disabled ? 'opacity-50 cursor-not-allowed' : '';
-
-  const handleChange = () => {
-    if (!disabled && onChange) {
-      onChange(true);
-    }
-  };
-
-  if (type === 'radio') {
     return (
-      <label
-        className={`${baseClasses} ${stateClasses} ${hoverClasses} ${disabledClasses} ${sizeClasses[bsSize]} ${className}`}
+      <button
+        ref={ref}
+        type="button"
+        aria-pressed={value}
+        className={classes}
+        onClick={handleClick}
+        {...rest}
       >
-        <input
-          type="radio"
-          name={name}
-          value={value}
-          checked={checked}
-          onChange={handleChange}
-          disabled={disabled}
-          className="absolute h-0 w-0 opacity-0"
-        />
         {children}
-      </label>
+      </button>
     );
-  }
-
-  return (
-    <button
-      type="button"
-      aria-pressed={checked}
-      disabled={disabled}
-      onClick={handleChange}
-      className={`${baseClasses} ${stateClasses} ${hoverClasses} ${disabledClasses} ${sizeClasses[bsSize]} ${className}`}
-    >
-      {children}
-    </button>
-  );
-};
-
-ToggleButton.displayName = 'ToggleButton';
+  },
+);
+ToggleButton.displayName = "ToggleButton";

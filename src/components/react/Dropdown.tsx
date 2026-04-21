@@ -1,109 +1,165 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, {
+  createContext,
+  forwardRef,
+  useContext,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+} from "react";
 
-export interface DropdownProps {
-  children: React.ReactNode;
-  id?: string;
-}
-
-export interface DropdownToggleProps {
-  children: React.ReactNode;
-  className?: string;
-}
-
-export interface DropdownMenuProps {
-  children: React.ReactNode;
-  className?: string;
-}
-
-export interface DropdownItemProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  children: React.ReactNode;
-  active?: boolean;
-}
-
-const DropdownContext = React.createContext<{
+interface DropdownContextShape {
   open: boolean;
-  setOpen: (v: boolean) => void;
-  toggleRef: React.RefObject<HTMLButtonElement | null>;
-} | null>(null);
+  setOpen: (next: boolean) => void;
+  toggleId: string;
+  menuId: string;
+}
 
-export const Dropdown: React.FC<DropdownProps> & {
-  Toggle: React.FC<DropdownToggleProps>;
-  Menu: React.FC<DropdownMenuProps>;
-  Item: React.FC<DropdownItemProps>;
-} = ({ children, id }) => {
+const Ctx = createContext<DropdownContextShape | null>(null);
+
+export interface DropdownProps extends React.HTMLAttributes<HTMLDivElement> {}
+
+const DropdownRoot = ({ className = "", children, ...rest }: DropdownProps) => {
   const [open, setOpen] = useState(false);
-  const toggleRef = useRef<HTMLButtonElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const toggleId = useId();
+  const menuId = useId();
 
   useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+    if (!open) return;
+    const onMouseDown = (e: MouseEvent) => {
+      if (rootRef.current && !rootRef.current.contains(e.target as Node)) {
         setOpen(false);
       }
     };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("mousedown", onMouseDown);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onMouseDown);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
 
+  const classes = ["dropdown", className].filter(Boolean).join(" ");
   return (
-    <DropdownContext.Provider value={{ open, setOpen, toggleRef }}>
-      <div ref={containerRef} className="relative inline-block" id={id}>
+    <Ctx.Provider value={{ open, setOpen, toggleId, menuId }}>
+      <div ref={rootRef} className={classes} {...rest}>
         {children}
       </div>
-    </DropdownContext.Provider>
+    </Ctx.Provider>
   );
 };
+DropdownRoot.displayName = "Dropdown";
 
-Dropdown.Toggle = ({ children, className = '' }) => {
-  const ctx = React.useContext(DropdownContext);
-  if (!ctx) return null;
+interface DropdownToggleProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
 
-  return (
-    <button
-      ref={ctx.toggleRef}
-      type="button"
-      onClick={() => ctx.setOpen(!ctx.open)}
-      aria-expanded={ctx.open}
-      className={`inline-flex items-center gap-2 px-3 py-1.5 border-3 border-solid border-[var(--fcc-border-color)] bg-[var(--fcc-tertiary-background)] text-[var(--fcc-secondary-color)] hover:bg-[var(--fcc-secondary-color)] hover:text-[var(--fcc-gray-90)] transition-colors cursor-pointer ${className}`}
-    >
-      {children}
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d={ctx.open ? 'm18 15-6-6-6 6' : 'm6 9 6 6 6-6'} />
-      </svg>
-    </button>
-  );
-};
+const DropdownToggle = forwardRef<HTMLButtonElement, DropdownToggleProps>(
+  ({ className = "", onClick, children, ...rest }, ref) => {
+    const ctx = useContext(Ctx);
+    if (!ctx) throw new Error("Dropdown.Toggle must be used inside <Dropdown>");
+    return (
+      <button
+        ref={ref}
+        type="button"
+        id={ctx.toggleId}
+        className={["btn", className].filter(Boolean).join(" ")}
+        aria-haspopup="menu"
+        aria-expanded={ctx.open}
+        aria-controls={ctx.menuId}
+        onClick={(e) => {
+          ctx.setOpen(!ctx.open);
+          onClick?.(e);
+        }}
+        {...rest}
+      >
+        {children}
+      </button>
+    );
+  },
+);
+DropdownToggle.displayName = "Dropdown.Toggle";
 
-Dropdown.Menu = ({ children, className = '' }) => {
-  const ctx = React.useContext(DropdownContext);
-  if (!ctx || !ctx.open) return null;
-
+const DropdownMenu = forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className = "", children, ...rest }, ref) => {
+  const ctx = useContext(Ctx);
+  if (!ctx) throw new Error("Dropdown.Menu must be used inside <Dropdown>");
+  if (!ctx.open) return null;
   return (
     <div
-      className={`absolute top-full left-0 mt-1 min-w-max z-10 bg-[var(--fcc-primary-background)] border border-solid border-[var(--fcc-border-color)] shadow-lg ${className}`}
+      ref={ref}
+      id={ctx.menuId}
+      role="menu"
+      aria-labelledby={ctx.toggleId}
+      className={["dropdown__menu", className].filter(Boolean).join(" ")}
+      {...rest}
     >
       {children}
     </div>
   );
-};
+});
+DropdownMenu.displayName = "Dropdown.Menu";
 
-Dropdown.Item = ({ children, active, className = '', ...props }) => {
-  return (
-    <button
-      type="button"
-      className={`block w-full text-left px-4 py-2 text-sm border-none cursor-pointer transition-colors ${
-        active
-          ? 'bg-[var(--fcc-secondary-color)] text-[var(--fcc-gray-90)]'
-          : 'bg-transparent text-[var(--fcc-secondary-color)] hover:bg-[var(--fcc-secondary-color)] hover:text-[var(--fcc-gray-90)]'
-      } ${className}`}
-      {...props}
-    >
-      {children}
-    </button>
-  );
-};
+export interface DropdownItemProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+  active?: boolean;
+  as?: "a" | "button";
+  onSelect?: () => void;
+}
 
-Dropdown.displayName = 'Dropdown';
-Dropdown.Toggle.displayName = 'Dropdown.Toggle';
-Dropdown.Menu.displayName = 'Dropdown.Menu';
-Dropdown.Item.displayName = 'Dropdown.Item';
+const DropdownItem = forwardRef<
+  HTMLAnchorElement | HTMLButtonElement,
+  DropdownItemProps
+>(
+  (
+    { active, as = "a", className = "", onClick, onSelect, children, ...rest },
+    ref,
+  ) => {
+    const ctx = useContext(Ctx);
+    const classes = ["dropdown__item", className].filter(Boolean).join(" ");
+    const handleActivate = (e: React.SyntheticEvent) => {
+      (onClick as ((e: React.SyntheticEvent) => void) | undefined)?.(e);
+      onSelect?.();
+      ctx?.setOpen(false);
+    };
+    if (as === "button") {
+      const { href: _href, ...buttonRest } =
+        rest as React.AnchorHTMLAttributes<HTMLAnchorElement>;
+      return (
+        <button
+          ref={ref as React.Ref<HTMLButtonElement>}
+          type="button"
+          role="menuitem"
+          className={classes}
+          aria-current={active ? "true" : undefined}
+          onClick={handleActivate as React.MouseEventHandler<HTMLButtonElement>}
+          {...(buttonRest as React.ButtonHTMLAttributes<HTMLButtonElement>)}
+        >
+          {children}
+        </button>
+      );
+    }
+    return (
+      <a
+        ref={ref as React.Ref<HTMLAnchorElement>}
+        role="menuitem"
+        className={classes}
+        aria-current={active ? "true" : undefined}
+        onClick={handleActivate as React.MouseEventHandler<HTMLAnchorElement>}
+        {...rest}
+      >
+        {children}
+      </a>
+    );
+  },
+);
+DropdownItem.displayName = "Dropdown.Item";
+
+export const Dropdown = Object.assign(DropdownRoot, {
+  Toggle: DropdownToggle,
+  Menu: DropdownMenu,
+  Item: DropdownItem,
+});

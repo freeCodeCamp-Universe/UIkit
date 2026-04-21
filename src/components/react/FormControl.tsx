@@ -1,39 +1,57 @@
-import React, { forwardRef, useContext } from 'react';
-import { FormContext } from './FormGroup';
+import React, { forwardRef } from "react";
 
-export interface FormControlProps extends React.InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> {
-  componentClass?: 'input' | 'textarea';
-  id?: string;
-}
+type CommonProps = {
+  className?: string;
+  invalid?: boolean;
+};
 
-export const FormControl = forwardRef<HTMLInputElement | HTMLTextAreaElement, FormControlProps>(
-  ({ componentClass = 'input', id, className = '', ...props }, ref) => {
-    const { controlId } = useContext(FormContext);
-    const inputId = id || controlId;
+type InputBased = CommonProps &
+  Omit<React.InputHTMLAttributes<HTMLInputElement>, "as"> & {
+    as?: "input";
+  };
 
-    const baseClasses =
-      'block w-full py-1.5 px-2.5 text-base text-[var(--fcc-primary-color)] bg-[var(--fcc-primary-background)] border border-solid border-[var(--fcc-border-color)] rounded-none shadow-none transition-colors duration-150 focus:border-[var(--fcc-highlight-color)] focus:outline-none focus:ring-1 focus:ring-[var(--fcc-highlight-color)]';
+type TextareaBased = CommonProps &
+  Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, "as"> & {
+    as: "textarea";
+  };
 
-    if (componentClass === 'textarea') {
-      return (
-        <textarea
-          id={inputId}
-          className={`${baseClasses} ${className}`}
-          ref={ref as React.Ref<HTMLTextAreaElement>}
-          {...(props as React.TextareaHTMLAttributes<HTMLTextAreaElement>)}
-        />
-      );
-    }
+export type FormControlProps = InputBased | TextareaBased;
 
+export const FormControl = forwardRef<
+  HTMLInputElement | HTMLTextAreaElement,
+  FormControlProps
+>((props, ref) => {
+  const {
+    as = "input",
+    className = "",
+    invalid,
+    ...rest
+  } = props as CommonProps & {
+    as?: "input" | "textarea";
+    [key: string]: unknown;
+  };
+  const isTextarea = as === "textarea";
+  const classes = ["input", isTextarea && "input--textarea", className]
+    .filter(Boolean)
+    .join(" ");
+  const ariaInvalid = invalid || undefined;
+  if (isTextarea) {
     return (
-      <input
-        id={inputId}
-        className={`${baseClasses} h-10 ${className}`}
-        ref={ref as React.Ref<HTMLInputElement>}
-        {...props}
+      <textarea
+        ref={ref as React.Ref<HTMLTextAreaElement>}
+        className={classes}
+        aria-invalid={ariaInvalid}
+        {...(rest as React.TextareaHTMLAttributes<HTMLTextAreaElement>)}
       />
     );
   }
-);
-
-FormControl.displayName = 'FormControl';
+  return (
+    <input
+      ref={ref as React.Ref<HTMLInputElement>}
+      className={classes}
+      aria-invalid={ariaInvalid}
+      {...(rest as React.InputHTMLAttributes<HTMLInputElement>)}
+    />
+  );
+});
+FormControl.displayName = "FormControl";

@@ -1,24 +1,25 @@
-import React, { forwardRef, useContext } from 'react';
-import { FormContext } from './FormGroup';
+import React, { forwardRef } from "react";
 
-export const HelpBlock = forwardRef<HTMLSpanElement, React.HTMLAttributes<HTMLSpanElement>>(
-  ({ children, className = '', ...props }, ref) => {
-    const { validationState } = useContext(FormContext);
+export type HelpBlockVariant = "default" | "error" | "success";
 
-    const validationColors = {
-      success: 'text-[var(--fcc-green-light)]',
-      warning: 'text-[var(--fcc-yellow-light)]',
-      error: 'text-[var(--fcc-red-light)]',
-    };
+export interface HelpBlockProps extends React.HTMLAttributes<HTMLParagraphElement> {
+  variant?: HelpBlockVariant;
+}
 
-    const colorClass = validationState ? validationColors[validationState] : 'text-[var(--fcc-muted-color)]';
-
+export const HelpBlock = forwardRef<HTMLParagraphElement, HelpBlockProps>(
+  ({ variant = "default", className = "", children, ...rest }, ref) => {
+    const classes = [
+      "form-help",
+      variant !== "default" && `form-help--${variant}`,
+      className,
+    ]
+      .filter(Boolean)
+      .join(" ");
     return (
-      <span ref={ref} className={`block mt-1 text-sm ${colorClass} ${className}`} {...props}>
+      <p ref={ref} className={classes} {...rest}>
         {children}
-      </span>
+      </p>
     );
-  }
+  },
 );
-
-HelpBlock.displayName = 'HelpBlock';
+HelpBlock.displayName = "HelpBlock";

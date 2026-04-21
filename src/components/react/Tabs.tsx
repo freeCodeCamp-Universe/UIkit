@@ -1,66 +1,84 @@
-import React, { useState } from 'react';
+import React, { Children, isValidElement, useState } from "react";
 
-export interface TabsProps {
-  children: React.ReactNode;
-  defaultActiveKey?: string;
-}
-
-export interface TabProps {
+export interface TabProps extends React.HTMLAttributes<HTMLDivElement> {
   eventKey: string;
   title: React.ReactNode;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
-const TabsContext = React.createContext<{
-  activeKey: string;
-  setActiveKey: (key: string) => void;
-} | null>(null);
+export function Tab(_props: TabProps): null {
+  // Rendered indirectly by <Tabs>. Config shell only.
+  return null;
+}
+Tab.displayName = "Tab";
 
-export const Tabs: React.FC<TabsProps> = ({ children, defaultActiveKey }) => {
-  const tabs = React.Children.toArray(children).filter(
-    (child): child is React.ReactElement<TabProps> =>
-      React.isValidElement(child) && child.type === Tab
+export interface TabsProps extends Omit<
+  React.HTMLAttributes<HTMLDivElement>,
+  "onChange"
+> {
+  activeKey?: string;
+  defaultActiveKey?: string;
+  onSelect?: (key: string) => void;
+  children?: React.ReactNode;
+}
+
+export function Tabs({
+  activeKey,
+  defaultActiveKey,
+  onSelect,
+  className = "",
+  children,
+  ...rest
+}: TabsProps) {
+  const tabs = Children.toArray(children).filter(
+    (c): c is React.ReactElement<TabProps> =>
+      isValidElement(c) && (c.type as React.ComponentType) === Tab,
   );
+  const initial = defaultActiveKey ?? tabs[0]?.props.eventKey ?? "";
+  const [internal, setInternal] = useState(initial);
+  const isControlled = activeKey !== undefined;
+  const current = isControlled ? (activeKey as string) : internal;
 
-  const [activeKey, setActiveKey] = useState(defaultActiveKey || tabs[0]?.props.eventKey);
+  const classes = ["tabs", className].filter(Boolean).join(" ");
+
+  const select = (key: string) => {
+    if (!isControlled) setInternal(key);
+    onSelect?.(key);
+  };
 
   return (
-    <TabsContext.Provider value={{ activeKey: activeKey || '', setActiveKey }}>
-      <div>
-        <div className="flex mb-0 pl-0 mt-0 border-b border-[var(--fcc-border-color)]">
-          {tabs.map((tab) => (
+    <div className={classes} {...rest}>
+      <div role="tablist" className="tabs__list">
+        {tabs.map((t) => {
+          const selected = current === t.props.eventKey;
+          return (
             <button
-              key={tab.props.eventKey}
-              onClick={() => setActiveKey(tab.props.eventKey)}
-              className={`flex-1 block relative px-3 py-[5px] text-sm border-none cursor-pointer transition-colors ${
-                activeKey === tab.props.eventKey
-                  ? 'font-bold bg-[var(--fcc-tertiary-background)] text-[var(--fcc-primary-color)]'
-                  : 'text-[var(--fcc-secondary-color)] hover:bg-[var(--fcc-tertiary-background)]'
-              }`}
+              key={t.props.eventKey}
+              type="button"
               role="tab"
-              aria-selected={activeKey === tab.props.eventKey}
+              className="tabs__tab"
+              aria-selected={selected}
+              tabIndex={selected ? 0 : -1}
+              onClick={() => select(t.props.eventKey)}
             >
-              {tab.props.title}
+              {t.props.title}
             </button>
-          ))}
-        </div>
-        <div className="py-4">
-          {tabs.map((tab) => (
-            <div
-              key={tab.props.eventKey}
-              role="tabpanel"
-              hidden={activeKey !== tab.props.eventKey}
-            >
-              {tab.props.children}
-            </div>
-          ))}
-        </div>
+          );
+        })}
       </div>
-    </TabsContext.Provider>
+      {tabs.map((t) => {
+        const selected = current === t.props.eventKey;
+        return (
+          <div
+            key={t.props.eventKey}
+            role="tabpanel"
+            className="tabs__panel"
+            hidden={!selected}
+          >
+            {t.props.children}
+          </div>
+        );
+      })}
+    </div>
   );
-};
-
-export const Tab: React.FC<TabProps> = () => null;
-
-Tabs.displayName = 'Tabs';
-Tab.displayName = 'Tab';
+}

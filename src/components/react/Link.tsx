@@ -1,24 +1,19 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef } from "react";
 
 export interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
-  to?: string;
   block?: boolean;
 }
 
 export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
-  ({ children, to, href, block, className = '', ...props }, ref) => {
-    const targetHref = to || href;
+  ({ block = false, className = "", children, ...rest }, ref) => {
+    const classes = ["fcc-link", block && "fcc-link--block", className]
+      .filter(Boolean)
+      .join(" ");
     return (
-      <a
-        ref={ref}
-        href={targetHref}
-        className={`text-[var(--fcc-primary-color)] text-center hover:no-underline hover:bg-[var(--fcc-tertiary-background)] transition-colors ${block ? 'block w-full' : ''} ${className}`}
-        {...props}
-      >
+      <a ref={ref} className={classes} {...rest}>
         {children}
       </a>
     );
-  }
+  },
 );
-
-Link.displayName = 'Link';
+Link.displayName = "Link";
