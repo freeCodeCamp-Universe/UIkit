@@ -15,7 +15,7 @@ import { nav } from '../data/nav.ts';
           <li>
             <a
               class="sidebar__link"
-              href={`#${item.id}`}
+              href={item.href}
               data-sidebar-link
               data-target={item.id}
             >{item.label}</a>
@@ -32,19 +32,36 @@ import { nav } from '../data/nav.ts';
   (function () {
     const links = Array.from(document.querySelectorAll('[data-sidebar-link]'));
     if (!links.length) return;
-    const byId = new Map(links.map((a) => [a.getAttribute('data-target'), a]));
+    const byTarget = new Map(links.map((a) => [a.getAttribute('data-target'), a]));
+    const path = window.location.pathname.replace(/\/$/, '') || '/';
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        const id = entry.target.getAttribute('id');
-        if (!id) return;
-        links.forEach((a) => a.classList.remove('is-active'));
-        const match = byId.get(id);
-        if (match) match.classList.add('is-active');
-      });
-    }, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
+    // Highlight the current page for cross-page links (guides landing/sub-pages).
+    links.forEach((a) => {
+      const href = a.getAttribute('href') || '';
+      const hrefPath = href.split('#')[0].replace(/\/$/, '') || '/';
+      if (hrefPath === path && !href.includes('#')) {
+        a.classList.add('is-active');
+      }
+    });
 
-    document.querySelectorAll('section[id]').forEach((s) => observer.observe(s));
+    // On the storybook page, also track the current section via scroll.
+    if (path === '/' || path === '') {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const id = entry.target.getAttribute('id');
+          if (!id) return;
+          const match = byTarget.get(id);
+          if (!match) return;
+          links.forEach((a) => {
+            const href = a.getAttribute('href') || '';
+            if (href.startsWith('/#')) a.classList.remove('is-active');
+          });
+          match.classList.add('is-active');
+        });
+      }, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
+
+      document.querySelectorAll('section[id]').forEach((s) => observer.observe(s));
+    }
   })();
 </script>

@@ -1,0 +1,143 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AppHeader from '../../components/AppHeader.astro';
+import AppSidebar from '../../components/AppSidebar.astro';
+---
+<BaseLayout title="fCC UIKit — Use via CDN">
+  <div class="app" id="top">
+    <AppHeader />
+    <div class="app__body">
+      <AppSidebar />
+      <main class="content" tabindex="-1">
+        <div class="content__inner">
+
+          <section class="hero" id="introduction">
+            <p class="hero__kicker">Pattern 01 · CDN</p>
+            <h1 class="hero__title">Use via CDN.</h1>
+            <p class="hero__lede">
+              One import gets you every token, every component class, and every
+              font. The stylesheet lives at
+              <code>https://cdn.freecodecamp.org/uikit/styles.min.css</code>
+              and resolves its own fonts relative to that URL.
+            </p>
+            <nav class="guide-toc" aria-label="On this page">
+              <a href="#link-the-stylesheet">Link the stylesheet</a>
+              <a href="#windmill-raw-app">Windmill raw app</a>
+              <a href="#pin-a-version">Pin a version</a>
+              <a href="#troubleshooting">Troubleshooting</a>
+            </nav>
+          </section>
+
+          <section class="section" id="link-the-stylesheet">
+            <p class="section__eyebrow">Step 01</p>
+            <h2 class="section__title">Link the stylesheet</h2>
+            <p class="section__lede">
+              Two ways to pull it in — same result. Pick whichever fits your
+              app's build setup.
+            </p>
+
+            <div class="guide-block">
+              <p class="guide-block__title">Option A · Inside a CSS file (recommended for bundled apps)</p>
+              <pre class="guide-pre"><code>@import url("https://cdn.freecodecamp.org/uikit/styles.min.css");</code></pre>
+              <p class="guide-meta">Works with Vite, webpack, esbuild, Rollup, PostCSS, and Windmill raw apps.</p>
+            </div>
+
+            <div class="guide-block">
+              <p class="guide-block__title">Option B · From an HTML shell</p>
+              <pre class="guide-pre"><code>&lt;link rel="stylesheet" href="https://cdn.freecodecamp.org/uikit/styles.min.css"&gt;</code></pre>
+              <p class="guide-meta">Drop into <code>&lt;head&gt;</code> for static sites, email templates, or preview pages.</p>
+            </div>
+
+            <div class="alert alert--info">
+              <span class="alert__icon" aria-hidden="true">i</span>
+              <div class="alert__body">
+                <p class="alert__title">Fonts come with</p>
+                <p>Lato and Hack-ZeroSlash are served from <code>https://cdn.freecodecamp.org/uikit/fonts/</code>. No extra <code>@font-face</code>, no additional <code>&lt;link&gt;</code> tags.</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="section" id="windmill-raw-app">
+            <p class="section__eyebrow">Step 02</p>
+            <h2 class="section__title">Windmill raw app walkthrough</h2>
+            <p class="section__lede">
+              Drop these two files into any <code>*__raw_app</code> folder.
+              Windmill bundles the app; the CDN delivers the styles.
+            </p>
+
+            <div class="guide-block">
+              <p class="guide-block__title">index.css</p>
+              <pre class="guide-pre"><code>@import url("https://cdn.freecodecamp.org/uikit/styles.min.css");
+
+body &#123;
+  padding: 24px;
+&#125;</code></pre>
+            </div>
+
+            <div class="guide-block">
+              <p class="guide-block__title">App.tsx</p>
+              <pre class="guide-pre"><code>import "./index.css";
+
+export default function App() &#123;
+  return (
+    &lt;div className="card" style=&#123;&#123; maxWidth: 480 &#125;&#125;&gt;
+      &lt;header className="card__header"&gt;
+        &lt;span className="card__dot card__dot--purple" aria-hidden="true" /&gt;
+        &lt;p className="card__hours"&gt;300 HOURS&lt;/p&gt;
+      &lt;/header&gt;
+      &lt;h3 className="card__title"&gt;Responsive Web Design&lt;/h3&gt;
+      &lt;p className="card__body"&gt;Build five certification projects.&lt;/p&gt;
+      &lt;footer className="card__footer"&gt;
+        &lt;span className="badge badge--success"&gt;Passed&lt;/span&gt;
+        &lt;button className="btn btn--cta"&gt;Resume&lt;/button&gt;
+      &lt;/footer&gt;
+    &lt;/div&gt;
+  );
+&#125;</code></pre>
+            </div>
+
+            <p class="guide-meta">
+              Every <code>className</code> above resolves to a rule in
+              <code>styles.min.css</code>. No other imports required.
+            </p>
+          </section>
+
+          <section class="section" id="pin-a-version">
+            <p class="section__eyebrow">Step 03</p>
+            <h2 class="section__title">Pin a version (optional)</h2>
+            <p class="section__lede">
+              The unversioned URL tracks the latest release. For apps that
+              can't absorb breaking changes, point at a versioned copy.
+            </p>
+            <div class="guide-block">
+              <p class="guide-block__title">Versioned URL</p>
+              <pre class="guide-pre"><code>@import url("https://cdn.freecodecamp.org/uikit/0.1.0/styles.min.css");</code></pre>
+              <p class="guide-meta">Each release ships a <code>/&lt;version&gt;/</code> subtree alongside the rolling latest.</p>
+            </div>
+          </section>
+
+          <section class="section" id="troubleshooting">
+            <p class="section__eyebrow">Step 04</p>
+            <h2 class="section__title">Troubleshooting</h2>
+            <div class="callout callout--tip">
+              <p class="callout__label">Fonts not loading</p>
+              <p class="callout__body">If your app runs under a strict CSP, allow <code>cdn.freecodecamp.org</code> for <code>style-src</code> and <code>font-src</code>.</p>
+            </div>
+            <div class="callout callout--warning">
+              <p class="callout__label">Classes render unstyled</p>
+              <p class="callout__body">Make sure the BEM names match. Button CTA is <code>btn btn--cta</code> (double dash), not <code>btn-cta</code>.</p>
+            </div>
+            <div class="callout callout--note">
+              <p class="callout__label">Dev vs prod</p>
+              <p class="callout__body">The Astro storybook in this repo loads tokens and components from source. Consumers always go through <code>styles.min.css</code> for identical output.</p>
+            </div>
+          </section>
+
+          <footer class="footer">
+            <p>Guide · <a href="/guides">All guides</a> · <a href="/guides/copy-paste">Copy &amp; vendor →</a></p>
+          </footer>
+        </div>
+      </main>
+    </div>
+  </div>
+</BaseLayout>

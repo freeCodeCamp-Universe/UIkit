@@ -1,6 +1,7 @@
 export interface NavItem {
   readonly id: string;
   readonly label: string;
+  readonly href: string;
 }
 
 export interface NavSection {
@@ -13,69 +14,84 @@ export interface FlatNavItem extends NavItem {
   readonly section: string;
 }
 
+const component = (id: string, label: string): NavItem => ({
+  id,
+  label,
+  href: `/#${id}`,
+});
+
 export const nav: readonly NavSection[] = [
   {
-    id: 'overview',
-    label: 'Overview',
+    id: "guides",
+    label: "Guides",
     items: [
-      { id: 'introduction', label: 'Introduction' },
-      { id: 'installation', label: 'Installation' },
-      { id: 'tokens', label: 'Design tokens' },
+      { id: "guides", label: "Overview", href: "/guides" },
+      { id: "guides-cdn", label: "Use via CDN", href: "/guides/cdn" },
+      {
+        id: "guides-copy-paste",
+        label: "Copy & vendor",
+        href: "/guides/copy-paste",
+      },
     ],
   },
   {
-    id: 'actions',
-    label: 'Actions',
+    id: "overview",
+    label: "Overview",
     items: [
-      { id: 'button', label: 'Button' },
-      { id: 'toggle-button', label: 'Toggle button' },
-      { id: 'close-button', label: 'Close button' },
-      { id: 'link', label: 'Link' },
+      component("introduction", "Introduction"),
+      component("tokens", "Design tokens"),
     ],
   },
   {
-    id: 'forms',
-    label: 'Forms',
+    id: "actions",
+    label: "Actions",
     items: [
-      { id: 'input', label: 'Input' },
-      { id: 'checkbox', label: 'Checkbox' },
-      { id: 'switch', label: 'Switch' },
-      { id: 'form-group', label: 'Form group' },
-      { id: 'form-control', label: 'Form control' },
+      component("button", "Button"),
+      component("toggle-button", "Toggle button"),
+      component("close-button", "Close button"),
+      component("link", "Link"),
     ],
   },
   {
-    id: 'feedback',
-    label: 'Feedback',
+    id: "forms",
+    label: "Forms",
     items: [
-      { id: 'alert', label: 'Alert' },
-      { id: 'callout', label: 'Callout' },
-      { id: 'badge', label: 'Badge' },
-      { id: 'tooltip', label: 'Tooltip' },
-      { id: 'modal', label: 'Modal' },
+      component("input", "Input"),
+      component("checkbox", "Checkbox"),
+      component("switch", "Switch"),
+      component("form-group", "Form group"),
+      component("form-control", "Form control"),
     ],
   },
   {
-    id: 'layout',
-    label: 'Layout',
+    id: "feedback",
+    label: "Feedback",
     items: [
-      { id: 'card', label: 'Card' },
-      { id: 'panel', label: 'Panel' },
-      { id: 'tabs', label: 'Tabs' },
-      { id: 'dropdown', label: 'Dropdown' },
-      { id: 'spacer', label: 'Spacer' },
+      component("alert", "Alert"),
+      component("callout", "Callout"),
+      component("badge", "Badge"),
+      component("tooltip", "Tooltip"),
+      component("modal", "Modal"),
     ],
   },
   {
-    id: 'data',
-    label: 'Data',
+    id: "layout",
+    label: "Layout",
     items: [
-      { id: 'table', label: 'Table' },
-      { id: 'image', label: 'Image' },
+      component("card", "Card"),
+      component("panel", "Panel"),
+      component("tabs", "Tabs"),
+      component("dropdown", "Dropdown"),
+      component("spacer", "Spacer"),
     ],
+  },
+  {
+    id: "data",
+    label: "Data",
+    items: [component("table", "Table"), component("image", "Image")],
   },
 ];
 
 export const flatNav: readonly FlatNavItem[] = nav.flatMap((section) =>
-  section.items.map((item) => ({ ...item, section: section.id }))
+  section.items.map((item) => ({ ...item, section: section.id })),
 );

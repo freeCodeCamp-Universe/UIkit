@@ -27,3 +27,19 @@ test("nav ids are unique across all items", () => {
   const ids = flatNav.map((i) => i.id);
   assert.equal(new Set(ids).size, ids.length);
 });
+
+test("every nav item carries an href", () => {
+  for (const entry of flatNav) {
+    assert.ok(entry.href.length > 0, `${entry.id} missing href`);
+    assert.ok(
+      entry.href.startsWith("/"),
+      `${entry.id} href "${entry.href}" must be absolute`,
+    );
+  }
+});
+
+test("Guides section lives at the top of the nav", () => {
+  assert.equal(nav[0]?.id, "guides");
+  const labels = nav[0]?.items.map((i) => i.label);
+  assert.deepEqual(labels, ["Overview", "Use via CDN", "Copy & vendor"]);
+});

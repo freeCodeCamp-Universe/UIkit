@@ -52,10 +52,11 @@ const spacing = [0, 4, 8, 12, 16, 24, 32, 48, 64];
               for terminals and textbooks. No framework lock-in — take the
               React file, the vanilla CSS, or both.
             </p>
+            <p class="hero__hint"><code>@import url("https://cdn.freecodecamp.org/uikit/styles.min.css");</code> — full setup in the <a class="fcc-link" href="/guides/cdn">CDN guide</a>.</p>
             <div class="hero__actions">
-              <a class="btn btn-cta" href="#installation">Get started</a>
+              <a class="btn btn--cta" href="/guides">Read the guides</a>
               <a class="btn" href="#button">Browse components</a>
-              <a class="btn btn-ghost" href="https://github.com/freeCodeCamp/ui" target="_blank" rel="noreferrer noopener">View on GitHub →</a>
+              <a class="btn btn--ghost" href="https://github.com/freeCodeCamp/ui" target="_blank" rel="noreferrer noopener">View on GitHub →</a>
             </div>
             <dl class="hero__stats">
               <div class="hero__stat">
@@ -78,37 +79,10 @@ const spacing = [0, 4, 8, 12, 16, 24, 32, 48, 64];
           </section>
 
           <!-- ============================================================ -->
-          <!-- INSTALLATION -->
-          <!-- ============================================================ -->
-          <section class="section" id="installation">
-            <p class="section__eyebrow">01 · start here</p>
-            <h2 class="section__title">Installation</h2>
-            <p class="section__lede">
-              The kit is copy-paste. There is no package to install and no
-              runtime to ship. Drop the tokens, drop the components you want,
-              and move on.
-            </p>
-
-            <div class="showcase">
-              <header class="showcase__head">
-                <p class="showcase__head-title">Three files. One lineage.</p>
-                <p class="showcase__head-meta">setup</p>
-              </header>
-              <div class="showcase__preview showcase__preview--plain showcase__preview--stacked">
-                <ol style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:14px;max-width:60ch;color:var(--foreground-secondary);font-size:17px;line-height:1.55;">
-                  <li><strong style="color:var(--foreground-primary)">Copy the tokens.</strong> Paste <code>tokens.css</code> into your app and import it once in your entry stylesheet. It ships the palette, type scale, and spacing.</li>
-                  <li><strong style="color:var(--foreground-primary)">Grab a component.</strong> Each component below has a React file and a vanilla CSS class ready to copy — one button per snippet.</li>
-                  <li><strong style="color:var(--foreground-primary)">Own it.</strong> Rename classes, change tokens, cut features. Nothing here assumes you keep it unchanged.</li>
-                </ol>
-              </div>
-            </div>
-          </section>
-
-          <!-- ============================================================ -->
           <!-- TOKENS -->
           <!-- ============================================================ -->
           <section class="section" id="tokens">
-            <p class="section__eyebrow">02 · design tokens</p>
+            <p class="section__eyebrow">01 · design tokens</p>
             <h2 class="section__title">Tokens</h2>
             <p class="section__lede">
               The whole kit reads from a small CSS custom-property layer.
@@ -165,12 +139,12 @@ const spacing = [0, 4, 8, 12, 16, 24, 32, 48, 64];
 
             <Showcase id="button" slug="Button" title="Button" description="The workhorse. 3px square border, inverted fill on primary, no shadow.">
               <Fragment slot="preview">
-                <button class="btn btn-cta">Start curriculum</button>
+                <button class="btn btn--cta">Start curriculum</button>
                 <button class="btn">Secondary</button>
-                <button class="btn btn-danger">Dangerous</button>
-                <button class="btn btn-ghost">Ghost</button>
-                <button class="btn btn-sm">Small</button>
-                <button class="btn btn-lg">Large</button>
+                <button class="btn btn--danger">Dangerous</button>
+                <button class="btn btn--ghost">Ghost</button>
+                <button class="btn btn--sm">Small</button>
+                <button class="btn btn--lg">Large</button>
                 <button class="btn" disabled>Disabled</button>
               </Fragment>
               <Code slot="react" lang="tsx" code={`import { Button } from './ui/Button';
@@ -178,17 +152,17 @@ const spacing = [0, 4, 8, 12, 16, 24, 32, 48, 64];
 export function Actions() {
   return (
     <div style={{ display: 'flex', gap: 12 }}>
-      <Button variant="primary">Start curriculum</Button>
+      <Button variant="cta">Start curriculum</Button>
       <Button variant="secondary">Secondary</Button>
       <Button variant="danger">Dangerous</Button>
       <Button variant="ghost">Ghost</Button>
     </div>
   );
 }`} />
-              <Code slot="vanilla" lang="html" code={`<button class="btn btn-cta">Start curriculum</button>
+              <Code slot="vanilla" lang="html" code={`<button class="btn btn--cta">Start curriculum</button>
 <button class="btn">Secondary</button>
-<button class="btn btn-danger">Dangerous</button>
-<button class="btn btn-ghost">Ghost</button>`} />
+<button class="btn btn--danger">Dangerous</button>
+<button class="btn btn--ghost">Ghost</button>`} />
             </Showcase>
 
             <Showcase id="toggle-button" slug="ToggleButton" title="Toggle button" description="For stateful binary choices — hours pressed, unit selected, dark mode on.">
@@ -375,7 +349,7 @@ export function Pressed() {
                 <span class="badge badge--warning">In review</span>
                 <span class="badge badge--danger">Failed</span>
                 <span class="badge badge--info">Preview</span>
-                <span class="badge badge--accent">New</span>
+                <span class="badge badge--purple">New</span>
               </Fragment>
               <Code slot="react" lang="tsx" code={`import { Badge } from './ui/Badge';
 
@@ -407,7 +381,7 @@ export function Pressed() {
 
             <Showcase id="modal" slug="Modal" title="Modal" previewStacked previewPlain description="Blocking dialog — confirmations and short-form destructive choices.">
               <Fragment slot="preview">
-                <button class="btn btn-danger" data-modal-trigger="modal-reset">Open modal</button>
+                <button class="btn btn--danger" data-modal-trigger="modal-reset">Open modal</button>
                 <div class="modal" id="modal-reset" data-open="false" role="dialog" aria-labelledby="modal-reset-title" aria-modal="true">
                   <div class="modal__panel">
                     <header class="modal__header">
@@ -419,7 +393,7 @@ export function Pressed() {
                     </div>
                     <footer class="modal__footer">
                       <button class="btn" data-modal-close>Cancel</button>
-                      <button class="btn btn-danger" data-modal-close>Reset progress</button>
+                      <button class="btn btn--danger" data-modal-close>Reset progress</button>
                     </footer>
                   </div>
                 </div>
@@ -436,14 +410,14 @@ export function Pressed() {
   </Modal.Footer>
 </Modal>`} />
               <Code slot="vanilla" lang="html" code={`<div class="modal" role="dialog" aria-labelledby="m-title">
-  <header class="modal__head">
+  <header class="modal__header">
     <p class="modal__title" id="m-title">Reset progress?</p>
     <button class="close-btn" aria-label="Close">×</button>
   </header>
   <div class="modal__body"><p>...</p></div>
-  <footer class="modal__foot">
+  <footer class="modal__footer">
     <button class="btn">Cancel</button>
-    <button class="btn btn-danger">Reset progress</button>
+    <button class="btn btn--danger">Reset progress</button>
   </footer>
 </div>`} />
             </Showcase>
@@ -461,14 +435,14 @@ export function Pressed() {
             <Showcase id="card" slug="Card" title="Card" previewStacked description="Flat bordered container. Grid-friendly. No shadow, no hover lift.">
               <Fragment slot="preview">
                 <article class="card" style="max-width:480px;margin:0 auto;">
-                  <header class="card__head">
+                  <header class="card__header">
                     <span class="card__dot card__dot--purple" aria-hidden="true"></span>
                     <p class="card__hours">300 HOURS</p>
                   </header>
                   <h3 class="card__title">Responsive Web Design</h3>
                   <p class="card__body">Build five certification projects using HTML, CSS, flexbox, grid, and accessibility primitives.</p>
                   <div class="progress"><div class="progress__bar progress__bar--purple" style="width:62%"></div></div>
-                  <footer class="card__foot">
+                  <footer class="card__footer">
                     <span>62% complete</span>
                     <a class="fcc-link" href="#">Resume →</a>
                   </footer>
@@ -478,19 +452,21 @@ export function Pressed() {
 
 <Card>
   <Card.Header>
-    <Badge variant="accent" dot />
-    <p>300 HOURS</p>
+    <span className="card__dot card__dot--purple" aria-hidden="true" />
+    <p className="card__hours">300 HOURS</p>
   </Card.Header>
   <Card.Title>Responsive Web Design</Card.Title>
   <Card.Body>Build five certification projects...</Card.Body>
-  <Progress value={62} hue="purple" />
+  <div className="progress">
+    <div className="progress__bar progress__bar--purple" style={{ width: '62%' }} />
+  </div>
   <Card.Footer>
     <span>62% complete</span>
     <Link href="/learn/rwd">Resume →</Link>
   </Card.Footer>
 </Card>`} />
               <Code slot="vanilla" lang="html" code={`<article class="card">
-  <header class="card__head">
+  <header class="card__header">
     <span class="card__dot card__dot--purple"></span>
     <p class="card__hours">300 HOURS</p>
   </header>
@@ -503,7 +479,7 @@ export function Pressed() {
             <Showcase id="panel" slug="Panel" title="Panel" previewStacked description="Borderless surface-two container — sidebars, inspectors, nested regions.">
               <Fragment slot="preview">
                 <div class="panel" style="max-width:520px;margin:0 auto;">
-                  <p class="panel__title">Editor hints</p>
+                  <p class="panel__heading">Editor hints</p>
                   <p class="panel__body">Your code runs against the first test each time you save. Open the console tab to inspect logs.</p>
                 </div>
               </Fragment>
@@ -513,7 +489,7 @@ export function Pressed() {
   Your code runs against the first test each time you save.
 </Panel>`} />
               <Code slot="vanilla" lang="html" code={`<div class="panel">
-  <p class="panel__title">Editor hints</p>
+  <p class="panel__heading">Editor hints</p>
   <p class="panel__body">Your code runs against the first test each time you save.</p>
 </div>`} />
             </Showcase>
