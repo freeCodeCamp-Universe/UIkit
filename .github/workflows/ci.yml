@@ -22,8 +22,7 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm lint
+      - run: pnpm format:check
       - run: pnpm test
-      - run: pnpm build:cdn
-      - run: pnpm verify:cdn
       - run: pnpm build
+      - run: pnpm --filter @freecodecamp/uikit-cdn run verify

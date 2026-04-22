@@ -37,31 +37,31 @@ jobs:
 
       - name: Lint
         working-directory: uikit
-        run: pnpm lint
+        run: pnpm format:check
 
       - name: Test
         working-directory: uikit
         run: pnpm test
 
-      - name: Build CDN bundle
+      - name: Build
         working-directory: uikit
-        run: pnpm build:cdn
+        run: pnpm build
 
       - name: Verify CDN bundle
         working-directory: uikit
-        run: pnpm verify:cdn
+        run: pnpm --filter @freecodecamp/uikit-cdn run verify
 
       - name: Read UIkit version
         id: version
         working-directory: uikit
-        run: echo "value=$(node -p 'require(\"./package.json\").version')" >> "$GITHUB_OUTPUT"
+        run: echo "value=$(node -p 'require(\"./packages/uikit/package.json\").version')" >> "$GITHUB_OUTPUT"
 
       - name: Validate version is semver x.y.z
         env:
           VERSION: ${{ steps.version.outputs.value }}
         run: |
           if ! [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-            echo "::error::package.json version must be a full semver x.y.z value, got '$VERSION'"
+            echo "::error::packages/uikit/package.json version must be a full semver x.y.z value, got '$VERSION'"
             exit 1
           fi
 
