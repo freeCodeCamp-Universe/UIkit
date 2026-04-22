@@ -1,0 +1,26 @@
+{
+  "name": "@freecodecamp/uikit-docs",
+  "version": "0.1.0",
+  "scripts": {
+    "test": "tsx --test --test-reporter=spec src/data/*.test.ts",
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "lint": "astro check && eslint .",
+    "typecheck": "astro check"
+  },
+  "author": "freeCodeCamp.org <team@freecodecamp.org>",
+  "license": "BSD-3-Clause",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/freeCodeCamp/ui.git",
+    "directory": "apps/docs"
+  },
+  "bugs": {
+    "url": "https://github.com/freeCodeCamp/ui/issues"
+  },
+  "homepage": "https://fcc-uikit.netlify.app",
+  "description": "freeCodeCamp UIKit — living design-system documentation site",
+  "private": true
+}

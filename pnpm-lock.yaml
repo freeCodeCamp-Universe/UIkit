@@ -57,6 +57,20 @@ importers:
         specifier: 8.58.2
         version: 8.58.2(eslint@9.39.4)(typescript@6.0.3)
 
+  apps/docs: {}
+
+  packages/uikit: {}
+
+  packages/uikit-cdn: {}
+
+  packages/uikit-css: {}
+
+  packages/uikit-icons: {}
+
+  packages/uikit-js: {}
+
+  packages/uikit-tailwind: {}
+
 packages:
 
   '@astrojs/compiler@2.13.1':

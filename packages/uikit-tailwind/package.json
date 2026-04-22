@@ -1,0 +1,27 @@
+{
+  "name": "@freecodecamp/uikit-tailwind",
+  "version": "0.1.0",
+  "scripts": {
+    "test": "tsx --test --test-reporter=spec src/**/*.test.ts",
+    "build": "tsup",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit"
+  },
+  "author": "freeCodeCamp.org <team@freecodecamp.org>",
+  "license": "BSD-3-Clause",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/freeCodeCamp/ui.git",
+    "directory": "packages/uikit-tailwind"
+  },
+  "bugs": {
+    "url": "https://github.com/freeCodeCamp/ui/issues"
+  },
+  "homepage": "https://fcc-uikit.netlify.app",
+  "description": "Tailwind preset + plugin mirroring fCC UIKit tokens",
+  "files": [
+    "dist",
+    "src"
+  ]
+}
