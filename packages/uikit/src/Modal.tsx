@@ -1,6 +1,16 @@
-import React, { useEffect, useId } from 'react';
+// Modal — Ark UI powered dialog with the fCC "modal" class hooks.
+// Public API (`open`, `onClose`, `title`, `closeOnBackdrop`) is
+// preserved verbatim so consumers migrating from the hand-rolled
+// implementation do not see a breaking change. Ark handles focus
+// trap, a11y, escape-to-close, and the data-state attribute that
+// components.css keys its enter/exit animations off of.
+import React from 'react';
+import { Dialog } from '@ark-ui/react/dialog';
 
-export interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface ModalProps extends Omit<
+  React.HTMLAttributes<HTMLDivElement>,
+  'onChange'
+> {
   open: boolean;
   onClose: () => void;
   title?: React.ReactNode;
@@ -16,57 +26,40 @@ const ModalRoot = ({
   children,
   ...rest
 }: ModalProps) => {
-  const titleId = useId();
-
-  useEffect(() => {
-    if (!open) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-    };
-    document.addEventListener('keydown', onKey);
-    return () => document.removeEventListener('keydown', onKey);
-  }, [open, onClose]);
-
-  if (!open) return null;
-
-  const classes = ['modal', className].filter(Boolean).join(' ');
-  const onBackdropClick = (e: React.MouseEvent) => {
-    if (closeOnBackdrop && e.target === e.currentTarget) onClose();
-  };
+  const panelClasses = ['modal__panel', className].filter(Boolean).join(' ');
 
   return (
-    <div
-      className={classes}
-      data-open='true'
-      role='dialog'
-      aria-modal='true'
-      aria-labelledby={title !== undefined ? titleId : undefined}
-      onClick={onBackdropClick}
-      {...rest}
+    <Dialog.Root
+      open={open}
+      onOpenChange={details => {
+        if (!details.open) onClose();
+      }}
+      closeOnInteractOutside={closeOnBackdrop}
+      lazyMount={false}
+      unmountOnExit
     >
-      <div className='modal__panel' onClick={e => e.stopPropagation()}>
-        {title !== undefined && (
-          <header className='modal__header'>
-            <p className='modal__title' id={titleId}>
-              {title}
-            </p>
-            <button
-              type='button'
-              className='close-btn'
-              aria-label='Close'
-              onClick={onClose}
-            >
-              ×
-            </button>
-          </header>
-        )}
-        {children}
-      </div>
-    </div>
+      <Dialog.Backdrop className='modal__backdrop' />
+      <Dialog.Positioner className='modal'>
+        <Dialog.Content className={panelClasses} {...rest}>
+          {title !== undefined && (
+            <header className='modal__header'>
+              <Dialog.Title className='modal__title'>{title}</Dialog.Title>
+              <Dialog.CloseTrigger className='close-btn' aria-label='Close'>
+                {'×'}
+              </Dialog.CloseTrigger>
+            </header>
+          )}
+          {children}
+        </Dialog.Content>
+      </Dialog.Positioner>
+    </Dialog.Root>
   );
 };
 ModalRoot.displayName = 'Modal';
 
+// Namespaced subcomponents remain thin wrappers around the underlying
+// semantic elements so existing usage of <Modal.Body>, <Modal.Footer>,
+// <Modal.Header> keeps working alongside the new Ark-driven shell.
 const ModalHeader = ({
   className = '',
   children,

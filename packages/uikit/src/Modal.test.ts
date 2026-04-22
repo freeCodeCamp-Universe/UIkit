@@ -4,11 +4,19 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { createElement } from 'react';
 import { Modal } from './Modal.tsx';
 
-test('Modal renders nothing when open=false', () => {
+test('Modal renders closed-state shell when open=false', () => {
   const html = renderToStaticMarkup(
-    createElement(Modal, { open: false, onClose: () => {}, title: 'Hi' })
+    createElement(Modal, {
+      open: false,
+      onClose: () => {},
+      title: 'Hi'
+    })
   );
-  assert.equal(html, '');
+  // Ark keeps the dialog element in the tree with hidden + data-state
+  // so CSS can drive exit transitions. Verify those a11y-safe signals
+  // are present rather than asserting the node is gone.
+  assert.match(html, /data-state="closed"/);
+  assert.match(html, /hidden=""/);
 });
 
 test('Modal renders dialog shell when open=true', () => {
@@ -23,8 +31,19 @@ test('Modal renders dialog shell when open=true', () => {
   assert.match(html, /role="dialog"/);
   assert.match(html, /aria-modal="true"/);
   assert.match(html, /class="modal"/);
-  assert.match(html, /class="modal__panel"/);
-  assert.match(html, /class="modal__title"/);
-  assert.match(html, /class="modal__body"/);
-  assert.match(html, /class="modal__footer"/);
+  assert.match(html, /modal__panel/);
+  assert.match(html, /modal__title/);
+  assert.match(html, /modal__body/);
+  assert.match(html, /modal__footer/);
+});
+
+test('Modal exposes data-state=open for motion hooks', () => {
+  const html = renderToStaticMarkup(
+    createElement(Modal, {
+      open: true,
+      onClose: () => {},
+      title: 'Motion'
+    })
+  );
+  assert.match(html, /data-state="open"/);
 });

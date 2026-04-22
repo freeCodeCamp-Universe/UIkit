@@ -691,6 +691,21 @@
 
 /* ---------- Modal ---------- */
 
+/* Backdrop + positioner live as sibling Ark parts. The positioner
+   carries the .modal class; Ark toggles `data-state` between open and
+   closed so CSS can drive both the layout flip and the fade/scale
+   enter animations without React re-renders. */
+.modal__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--z-modal) - 1);
+  background: rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  transition: opacity var(--dur-fast) var(--ease-out);
+}
+.modal__backdrop[data-state='open'] {
+  opacity: 1;
+}
 .modal {
   position: fixed;
   inset: 0;
@@ -699,11 +714,14 @@
   align-items: flex-start;
   justify-content: center;
   padding: 48px 16px;
-  background: rgba(0, 0, 0, 0.55);
   overflow: auto;
 }
+/* Legacy class hook + Ark's data-state-driven hook both open the
+   positioner. The data-state selector also matches the Positioner
+   itself once Ark flips it to open. */
 .modal[data-open='true'],
-.modal--open {
+.modal--open,
+.modal:has(> [data-state='open']) {
   display: flex;
 }
 .modal__panel {
@@ -711,6 +729,24 @@
   border: 1px solid var(--background-quaternary);
   width: 100%;
   max-width: 560px;
+  opacity: 0;
+  transform: scale(0.96);
+  transition:
+    opacity var(--dur-fast) var(--ease-out),
+    transform var(--dur-slow) var(--ease-out);
+}
+.modal__panel[data-state='open'] {
+  opacity: 1;
+  transform: scale(1);
+}
+.modal__panel[data-state='closed'] {
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .modal__backdrop,
+  .modal__panel {
+    transition: none;
+  }
 }
 .modal__header {
   display: flex;
