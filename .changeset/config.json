@@ -1,0 +1,19 @@
+{
+  "$schema": "https://unpkg.com/@changesets/config@3.0.0/schema.json",
+  "changelog": "@changesets/cli/changelog",
+  "commit": false,
+  "fixed": [],
+  "linked": [
+    [
+      "@freecodecamp/uikit",
+      "@freecodecamp/uikit-css",
+      "@freecodecamp/uikit-js",
+      "@freecodecamp/uikit-tailwind",
+      "@freecodecamp/uikit-icons"
+    ]
+  ],
+  "access": "public",
+  "baseBranch": "main",
+  "updateInternalDependencies": "patch",
+  "ignore": ["@freecodecamp/uikit-docs", "@freecodecamp/uikit-cdn"]
+}

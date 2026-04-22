@@ -6,6 +6,10 @@
 **/dist-cdn
 **/.astro
 **/__coverage__
+**/.turbo
+
+# Scratch work (contains third-party sources with their own configs)
+.scratchpad/
 
 # Files
 pnpm-lock.yaml

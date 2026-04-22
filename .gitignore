@@ -21,3 +21,9 @@ pnpm-debug.log*
 
 # macOS-specific files
 .DS_Store
+
+# Turborepo
+.turbo/
+
+# Local scratch work
+.scratchpad/

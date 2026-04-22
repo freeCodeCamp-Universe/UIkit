@@ -1,32 +1,21 @@
 {
-  "name": "fcc-uikit",
+  "name": "fcc-uikit-monorepo",
   "type": "module",
-  "version": "0.1.0",
+  "version": "0.2.0-pre",
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro",
-    "build:cdn": "node scripts/build-cdn.mjs",
-    "verify:cdn": "node scripts/verify-cdn.mjs",
-    "prepare:cdn": "pnpm build:cdn && pnpm verify:cdn",
-    "test": "tsx --test --test-reporter=spec scripts/build-cdn.test.ts src/data/nav.test.ts src/components/react/Alert.test.ts src/components/react/Badge.test.ts src/components/react/Button.test.ts src/components/react/Callout.test.ts src/components/react/Card.test.ts src/components/react/Checkbox.test.ts src/components/react/CloseButton.test.ts src/components/react/Dropdown.test.ts src/components/react/FormControl.test.ts src/components/react/FormGroup.test.ts src/components/react/HelpBlock.test.ts src/components/react/Image.test.ts src/components/react/Input.test.ts src/components/react/Link.test.ts src/components/react/Modal.test.ts src/components/react/Panel.test.ts src/components/react/Spacer.test.ts src/components/react/Switch.test.ts src/components/react/Table.test.ts src/components/react/Tabs.test.ts src/components/react/ToggleButton.test.ts src/components/react/Tooltip.test.ts",
     "prepare": "is-ci || husky",
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
     "format": "prettier . --write && eslint . --fix",
-    "lint": "prettier . --check && eslint ."
-  },
-  "dependencies": {
-    "@astrojs/mdx": "^5.0.3",
-    "@astrojs/react": "^5.0.3",
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.3",
-    "astro": "^6.0.1",
-    "react": "^19.2.5",
-    "react-dom": "^19.2.5",
-    "sharp": "^0.34.2"
+    "format:check": "prettier . --check && eslint .",
+    "changeset": "changeset",
+    "release": "turbo run build && changeset publish"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.31.0",
     "@eslint/js": "9.39.4",
     "eslint": "9.39.4",
     "eslint-config-prettier": "10.1.8",
@@ -35,11 +24,12 @@
     "globals": "16.5.0",
     "husky": "9.1.7",
     "is-ci": "4.1.0",
-    "lightningcss": "^1.32.0",
     "lint-staged": "16.4.0",
     "prettier": "3.8.2",
     "prettier-plugin-astro": "0.14.1",
     "tsx": "^4.21.0",
+    "turbo": "^2.9.6",
+    "typescript": "^6.0.3",
     "typescript-eslint": "8.58.2"
   },
   "lint-staged": {
@@ -49,5 +39,10 @@
     "**/*.{mdx,md}": [
       "pnpm exec prettier . --write"
     ]
+  },
+  "private": true,
+  "packageManager": "pnpm@9.15.0",
+  "engines": {
+    "node": ">=20"
   }
 }
