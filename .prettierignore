@@ -11,6 +11,9 @@
 # Scratch work (contains third-party sources with their own configs)
 .scratchpad/
 
+# Local agent state
+.claude/
+
 # Files
 pnpm-lock.yaml
 pre-commit
