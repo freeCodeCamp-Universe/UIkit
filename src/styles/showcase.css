@@ -452,7 +452,7 @@
   align-items: center;
   justify-content: center;
   gap: 12px;
-  background: var(--background-secondary);
+  background: var(--background-tertiary);
   border-bottom: 1px solid var(--border-soft);
 }
 .showcase__preview::before {
