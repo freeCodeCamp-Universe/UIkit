@@ -2,8 +2,8 @@
   "name": "@freecodecamp/uikit-tailwind",
   "version": "0.1.0",
   "scripts": {
-    "test": "echo '[packages/uikit-tailwind] no tests yet' && exit 0",
-    "build": "echo '[packages/uikit-tailwind] build wired in later phase' && exit 0",
+    "test": "tsx --test --test-reporter=spec 'src/**/*.test.ts'",
+    "build": "tsup",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit"
   },
@@ -23,5 +23,35 @@
   "files": [
     "dist",
     "src"
-  ]
+  ],
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "tailwindcss": "^3",
+    "tsup": "^8.5.1",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.3"
+  },
+  "peerDependencies": {
+    "tailwindcss": ">=3 <5"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    },
+    "./preset": {
+      "import": "./dist/preset.js",
+      "require": "./dist/preset.cjs",
+      "types": "./dist/preset.d.ts"
+    },
+    "./plugin": {
+      "import": "./dist/plugin.js",
+      "require": "./dist/plugin.cjs",
+      "types": "./dist/plugin.d.ts"
+    }
+  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts"
 }

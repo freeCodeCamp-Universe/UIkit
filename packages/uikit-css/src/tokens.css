@@ -168,6 +168,12 @@
   --z-site-header: 200;
   --z-modal: 1050;
 
+  --ease-snap: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 120ms;
+  --dur-base: 180ms;
+  --dur-slow: 260ms;
+
   --header-height: 48px;
   --sidebar-width: 288px;
   --content-max: 1040px;
