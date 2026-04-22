@@ -43,3 +43,20 @@ test('Guides section lives at the top of the nav', () => {
   const labels = nav[0]?.items.map(i => i.label);
   assert.deepEqual(labels, ['Overview', 'Use via CDN', 'Copy & vendor']);
 });
+
+test('Foundations section lists every pillar', () => {
+  const foundations = nav.find(s => s.id === 'foundations');
+  assert.ok(foundations, 'foundations section missing');
+  const labels = foundations.items.map(i => i.label);
+  assert.deepEqual(labels, [
+    'Colors',
+    'Typography',
+    'Spacing',
+    'Iconography',
+    'Motion',
+    'Voice'
+  ]);
+  for (const item of foundations.items) {
+    assert.match(item.href, /^\/foundations\//);
+  }
+});

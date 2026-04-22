@@ -20,6 +20,12 @@ const component = (id: string, label: string): NavItem => ({
   href: `/#${id}`
 });
 
+const foundation = (id: string, label: string): NavItem => ({
+  id: `foundations-${id}`,
+  label,
+  href: `/foundations/${id}`
+});
+
 export const nav: readonly NavSection[] = [
   {
     id: 'guides',
@@ -32,6 +38,18 @@ export const nav: readonly NavSection[] = [
         label: 'Copy & vendor',
         href: '/guides/copy-paste'
       }
+    ]
+  },
+  {
+    id: 'foundations',
+    label: 'Foundations',
+    items: [
+      foundation('colors', 'Colors'),
+      foundation('typography', 'Typography'),
+      foundation('spacing', 'Spacing'),
+      foundation('iconography', 'Iconography'),
+      foundation('motion', 'Motion'),
+      foundation('voice', 'Voice')
     ]
   },
   {
