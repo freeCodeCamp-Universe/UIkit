@@ -1,4 +1,6 @@
 ---
+import Search from '../components/Search.astro';
+
 export interface Props {
   title: string;
   description?: string;
@@ -39,6 +41,7 @@ const {
   </head>
   <body>
     <slot />
+    <Search />
     <script is:inline>
       (function () {
         try {

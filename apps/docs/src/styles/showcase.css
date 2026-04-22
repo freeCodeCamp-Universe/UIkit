@@ -69,23 +69,34 @@
 
 .site-search {
   position: relative;
-  width: 280px;
+  width: 320px;
   display: flex;
   align-items: center;
 }
-.site-search input {
-  width: 100%;
+.site-search--button {
   height: 28px;
   padding: 0 10px 0 30px;
   font-family: var(--font-sans);
   font-size: 14px;
-  color: var(--foreground-primary);
+  color: var(--foreground-muted);
   background: var(--background-secondary);
   border: 1px solid var(--background-quaternary);
+  cursor: pointer;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-.site-search input:focus {
-  outline: 0;
+.site-search--button:hover,
+.site-search--button:focus-visible {
+  color: var(--foreground-primary);
   border-color: var(--highlight-color);
+  outline: 0;
+}
+.site-search--button span {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .site-search::before {
   content: '/';

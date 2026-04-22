@@ -4,7 +4,7 @@
   "scripts": {
     "test": "tsx --test --test-reporter=spec src/data/*.test.ts",
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && pagefind --site dist --output-subdir _pagefind",
     "preview": "astro preview",
     "lint": "astro check && eslint .",
     "typecheck": "astro check"
@@ -36,6 +36,7 @@
   },
   "devDependencies": {
     "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.3"
+    "@types/react-dom": "^19.2.3",
+    "pagefind": "^1.5.2"
   }
 }
