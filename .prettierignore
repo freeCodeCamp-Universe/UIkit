@@ -1,0 +1,13 @@
+# Deep Directories
+**/node_modules
+
+# Generated Directories
+**/dist
+**/dist-cdn
+**/.astro
+**/__coverage__
+
+# Files
+pnpm-lock.yaml
+pre-commit
+.prettierignore

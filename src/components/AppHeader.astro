@@ -1,34 +1,75 @@
 ---
 // Sticky site header with brand, nav, search, theme swap.
 ---
-<header class="site-header" role="banner">
-  <a class="site-header__brand" href="#top" aria-label="fCC UIKit home">
-    <img src="/brand/fcc-puck.svg" alt="" width="22" height="22" />
+
+<header class='site-header' role='banner'>
+  <a class='site-header__brand' href='#top' aria-label='fCC UIKit home'>
+    <img src='/brand/fcc-puck.svg' alt='' width='22' height='22' />
     <span>fCC UIKit</span>
     <em>v0.1.0</em>
   </a>
 
-  <nav class="site-header__nav" aria-label="Primary">
-    <a href="/guides">Guides</a>
-    <a href="/#tokens">Tokens</a>
-    <a href="/#button">Components</a>
-    <a href="https://github.com/freeCodeCamp/ui" target="_blank" rel="noreferrer noopener">GitHub</a>
+  <nav class='site-header__nav' aria-label='Primary'>
+    <a href='/guides'>Guides</a>
+    <a href='/#tokens'>Tokens</a>
+    <a href='/#button'>Components</a>
+    <a
+      href='https://github.com/freeCodeCamp/ui'
+      target='_blank'
+      rel='noreferrer noopener'>GitHub</a
+    >
   </nav>
 
-  <div class="site-header__spacer"></div>
+  <div class='site-header__spacer'></div>
 
-  <label class="site-search" aria-label="Filter components">
-    <input id="component-search" type="search" placeholder="Filter components" autocomplete="off" spellcheck="false" />
+  <label class='site-search' aria-label='Filter components'>
+    <input
+      id='component-search'
+      type='search'
+      placeholder='Filter components'
+      autocomplete='off'
+      spellcheck='false'
+    />
     <kbd>/</kbd>
   </label>
 
-  <button class="theme-swap" type="button" aria-label="Toggle color palette" data-theme-swap>
-    <svg data-icon-dark width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <circle cx="12" cy="12" r="4" />
-      <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+  <button
+    class='theme-swap'
+    type='button'
+    aria-label='Toggle color palette'
+    data-theme-swap
+  >
+    <svg
+      data-icon-dark
+      width='16'
+      height='16'
+      viewBox='0 0 24 24'
+      fill='none'
+      stroke='currentColor'
+      stroke-width='2'
+      stroke-linecap='round'
+      stroke-linejoin='round'
+      aria-hidden='true'
+    >
+      <circle cx='12' cy='12' r='4'></circle>
+      <path
+        d='M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41'
+      ></path>
     </svg>
-    <svg data-icon-light width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none">
-      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+    <svg
+      data-icon-light
+      width='16'
+      height='16'
+      viewBox='0 0 24 24'
+      fill='none'
+      stroke='currentColor'
+      stroke-width='2'
+      stroke-linecap='round'
+      stroke-linejoin='round'
+      aria-hidden='true'
+      style='display:none'
+    >
+      <path d='M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z'></path>
     </svg>
   </button>
 </header>
@@ -40,24 +81,29 @@
       const darkIcon = btn.querySelector('[data-icon-dark]');
       const lightIcon = btn.querySelector('[data-icon-light]');
       const sync = () => {
-        const light = document.documentElement.classList.contains('light-palette');
+        const light =
+          document.documentElement.classList.contains('light-palette');
         if (darkIcon) darkIcon.style.display = light ? 'none' : '';
         if (lightIcon) lightIcon.style.display = light ? '' : 'none';
       };
       sync();
       btn.addEventListener('click', () => {
         const root = document.documentElement;
-        const next = root.classList.contains('light-palette') ? 'dark' : 'light';
+        const next = root.classList.contains('light-palette')
+          ? 'dark'
+          : 'light';
         root.classList.remove('dark-palette', 'light-palette');
         root.classList.add(next + '-palette');
-        try { localStorage.setItem('fcc-palette', next); } catch (_) {}
+        try {
+          localStorage.setItem('fcc-palette', next);
+        } catch {}
         sync();
       });
     }
 
     const search = document.getElementById('component-search');
     if (search) {
-      document.addEventListener('keydown', (e) => {
+      document.addEventListener('keydown', e => {
         if (e.key === '/' && document.activeElement !== search) {
           e.preventDefault();
           search.focus();
@@ -65,7 +111,7 @@
       });
       search.addEventListener('input', () => {
         const q = search.value.trim().toLowerCase();
-        document.querySelectorAll('[data-sidebar-link]').forEach((a) => {
+        document.querySelectorAll('[data-sidebar-link]').forEach(a => {
           const label = (a.textContent || '').toLowerCase();
           a.hidden = q.length > 0 && !label.includes(q);
         });

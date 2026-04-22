@@ -6,23 +6,36 @@ export interface Props {
 
 const {
   title,
-  description = 'The official freeCodeCamp UI kit. Copy-paste components, design tokens, and layout primitives styled in the Command-line Chic language.',
+  description = 'The official freeCodeCamp UI kit. Copy-paste components, design tokens, and layout primitives styled in the Command-line Chic language.'
 } = Astro.props;
 ---
+
 <!doctype html>
-<html lang="en" dir="ltr" class="dark-palette">
+<html lang='en' dir='ltr' class='dark-palette'>
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="color-scheme" content="dark light" />
+    <meta charset='utf-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1' />
+    <meta name='color-scheme' content='dark light' />
     <title>{title}</title>
-    <meta name="description" content={description} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="preload" as="font" type="font/woff2" href="/fonts/Hack-ZeroSlash-Regular.woff2" crossorigin />
-    <link rel="preload" as="font" type="font/woff" href="/fonts/Lato-Regular.woff" crossorigin />
+    <meta name='description' content={description} />
+    <meta property='og:title' content={title} />
+    <meta property='og:description' content={description} />
+    <meta property='og:type' content='website' />
+    <link rel='icon' href='/favicon.svg' type='image/svg+xml' />
+    <link
+      rel='preload'
+      as='font'
+      type='font/woff2'
+      href='/fonts/Hack-ZeroSlash-Regular.woff2'
+      crossorigin
+    />
+    <link
+      rel='preload'
+      as='font'
+      type='font/woff'
+      href='/fonts/Lato-Regular.woff'
+      crossorigin
+    />
   </head>
   <body>
     <slot />
@@ -34,7 +47,7 @@ const {
             document.documentElement.classList.remove('dark-palette');
             document.documentElement.classList.add('light-palette');
           }
-        } catch (_) {}
+        } catch {}
       })();
     </script>
 
