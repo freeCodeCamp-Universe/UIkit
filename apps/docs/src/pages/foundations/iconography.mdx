@@ -1,0 +1,70 @@
+---
+layout: ../../layouts/FoundationsLayout.astro
+title: Iconography
+eyebrow: Foundations · 04
+summary: A curated Lucide subset. 24x24 viewBox, 2px stroke, currentColor. One canonical source, three delivery modes — React, CSS sprite, inline body.
+order: 4
+---
+
+import { icons } from '@freecodecamp/uikit-icons';
+
+## Why Lucide
+
+- Permissive license (ISC).
+- 1400+ icons, one visual language (stroke-based, 24x24, consistent stroke weight).
+- Actively maintained fork of Feather with a larger, more consistent set.
+
+We do not vendor the whole set. Each wave adds only the icons an actual
+component needs, keeping the bundle honest.
+
+## Pilot set
+
+The first 5 icons cover Showcase's copy button, the theme toggle's validation
+check, dismissable surfaces, search, and external links.
+
+<ul class='icon-preview' role='list'>
+  {Object.keys(icons).map(name => (
+    <li class='icon-preview__cell'>
+      <svg
+        width='24'
+        height='24'
+        viewBox='0 0 24 24'
+        fill='none'
+        stroke='currentColor'
+        stroke-width='2'
+        stroke-linecap='round'
+        stroke-linejoin='round'
+        data-icon={name}
+        aria-hidden='true'
+        set:html={icons[name]}
+      />
+      <p>{name}</p>
+    </li>
+  ))}
+</ul>
+
+## Usage
+
+```tsx
+import { Icon } from '@freecodecamp/uikit-icons/react';
+
+// Decorative (default) — sits next to a text label inside a button.
+<Icon name="copy" size={16} />
+
+// Meaningful — icon stands alone and needs an accessible name.
+<Icon name="external-link" label="Open in new tab" />
+```
+
+Pure-HTML consumers reference the CSS sprite instead:
+
+```html
+<svg width="16" height="16" aria-hidden="true">
+  <use href="/uikit/sprite.svg#fcc-icon-copy" />
+</svg>
+```
+
+## Rules
+
+- Use `aria-hidden` when an icon pairs with text; use `label` + `role="img"` when it stands alone.
+- Stick to the 24 / 20 / 16 size ladder. Inline buttons take 13–16; standalone buttons take 20; marketing/hero surfaces take 24.
+- Icons inherit colour via `currentColor`. Never set an explicit `stroke` override — theme the parent instead.

@@ -1,0 +1,96 @@
+---
+// Live type scale specimen. Each row renders a sample at the requested
+// size token so the preview updates automatically when tokens.css changes.
+
+export interface Specimen {
+  token: string;
+  name: string;
+  sample: string;
+  tag?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p';
+  mono?: boolean;
+  meta?: string;
+}
+
+export interface Props {
+  specimens: Specimen[];
+}
+
+const { specimens } = Astro.props;
+---
+
+<ul class='type-specimens' role='list'>
+  {
+    specimens.map(({ token, name, sample, tag, mono, meta }) => {
+      const Tag = tag ?? 'p';
+      return (
+        <li class='type-row'>
+          <div class='type-meta'>
+            <p class='type-meta__name'>{name}</p>
+            <p class='type-meta__token'>{token}</p>
+            {meta && <p class='type-meta__note'>{meta}</p>}
+          </div>
+          <Tag
+            class={['type-sample', mono ? 'type-sample--mono' : '']
+              .filter(Boolean)
+              .join(' ')}
+            style={{ fontSize: `var(${token})` }}
+          >
+            {sample}
+          </Tag>
+        </li>
+      );
+    })
+  }
+</ul>
+
+<style>
+  .type-specimens {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .type-row {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 24px;
+    align-items: baseline;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .type-row:last-child {
+    border-bottom: 0;
+  }
+  .type-meta {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--foreground-muted);
+  }
+  .type-meta__name {
+    margin: 0;
+    color: var(--foreground-primary);
+    font-size: 13px;
+  }
+  .type-meta__token {
+    margin: 2px 0 0;
+  }
+  .type-meta__note {
+    margin: 2px 0 0;
+  }
+  .type-sample {
+    margin: 0;
+    color: var(--foreground-primary);
+    line-height: var(--lh-snug);
+  }
+  .type-sample--mono {
+    font-family: var(--font-mono);
+  }
+  @media (max-width: 720px) {
+    .type-row {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+  }
+</style>

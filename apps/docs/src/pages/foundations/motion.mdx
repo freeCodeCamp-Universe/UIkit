@@ -1,0 +1,43 @@
+---
+layout: ../../layouts/FoundationsLayout.astro
+title: Motion
+eyebrow: Foundations · 05
+summary: Snap-in, ease-out, 120–260ms. No bounces, no drifts, no hover parallax. Every transition has a purpose and an honest end state.
+order: 5
+---
+
+import MotionDemo from '../../components/foundations/MotionDemo.astro';
+
+## Tokens
+
+```css
+--ease-snap: cubic-bezier(0.2, 0.8, 0.2, 1);
+--ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+--dur-fast: 120ms;
+--dur-base: 180ms;
+--dur-slow: 260ms;
+```
+
+## Feel
+
+<MotionDemo />
+
+## Rules
+
+- Default ease is `--ease-snap`. Use `--ease-out` only for entrances (dialog, drawer, page transitions) where a longer trailing decay reads as intentional arrival.
+- Default duration is `--dur-base` (180ms). Micro-interactions (tooltips, hover fades) take `--dur-fast`. Large surfaces (dialog, drawer) take `--dur-slow`.
+- Exits are always **120–140ms** with `--ease-snap`. Exits are faster than enters so the UI feels responsive and dismissable.
+- **Respect reduced motion.** Wrap non-essential transitions in `@media (prefers-reduced-motion: reduce) { transition: none; }`. State still swaps; the animation does not.
+- No bounces, no springs, no overshoot. No parallax, no hover scale > 1.02. Motion is informative, not decorative.
+
+## Per-component budget
+
+| Surface            | Enter                                          | Exit                | Notes                               |
+| :----------------- | :--------------------------------------------- | :------------------ | :---------------------------------- |
+| Dialog             | fade 120ms + scale 0.96 → 1 260ms `--ease-out` | reverse 140ms       | Backdrop fades independently.       |
+| Drawer             | translateX 260ms `--ease-out`                  | reverse 200ms       | Also translateY for bottom sheet.   |
+| Dropdown / Listbox | translateY(-4) + fade 120ms                    | reverse 100ms       | No scale — menus should not "grow". |
+| Tooltip            | fade 80ms after 300ms delay                    | fade 80ms, no delay | Delay resets per group.             |
+| Tabs               | indicator translateX 180ms `--ease-snap`       | —                   | Content cross-fades 120ms.          |
+| Switch             | thumb translateX 160ms `--ease-snap`           | —                   | No bounce.                          |
+| Page               | opacity 120ms on Astro view transitions        | —                   | Reduced-motion honored.             |

@@ -1,0 +1,72 @@
+---
+// 8-step visual ruler for the --space-* scale. Each row renders a block
+// whose width resolves from the token itself, so bumping the scale in
+// tokens.css updates the preview for free.
+
+const steps = [
+  { token: '--space-0', label: '0 — zero' },
+  { token: '--space-1', label: '4 — hairline gap' },
+  { token: '--space-2', label: '8 — inline rhythm' },
+  { token: '--space-3', label: '12 — inside control' },
+  { token: '--space-4', label: '16 — card padding' },
+  { token: '--space-5', label: '24 — block rhythm' },
+  { token: '--space-6', label: '32 — section padding' },
+  { token: '--space-7', label: '48 — section gap' },
+  { token: '--space-8', label: '64 — page rhythm' }
+];
+---
+
+<ul class='ruler' role='list'>
+  {
+    steps.map(({ token, label }) => (
+      <li class='ruler__row'>
+        <p class='ruler__token'>{token}</p>
+        <div
+          class='ruler__bar'
+          style={{ width: `var(${token})` }}
+          aria-hidden='true'
+        />
+        <p class='ruler__label'>{label}</p>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .ruler {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .ruler__row {
+    display: grid;
+    grid-template-columns: 140px 80px 1fr;
+    align-items: center;
+    gap: 14px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .ruler__row:last-child {
+    border-bottom: 0;
+  }
+  .ruler__token {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--foreground-muted);
+    margin: 0;
+  }
+  .ruler__bar {
+    height: 12px;
+    background: var(--cta-background);
+    min-width: 1px;
+  }
+  .ruler__label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--foreground-secondary);
+    margin: 0;
+  }
+</style>

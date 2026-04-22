@@ -1,0 +1,116 @@
+---
+// Swatch grid: each entry renders a colour chip with the live token value
+// (CSS custom property) alongside its resolved static hex for reference.
+// Clicking the chip copies the `var(--token)` string to the clipboard so
+// readers can paste it straight into code.
+
+export interface Swatch {
+  token: string;
+  hex: string;
+  label?: string;
+}
+
+export interface Props {
+  swatches: Swatch[];
+}
+
+const { swatches } = Astro.props;
+---
+
+<ul class='swatches' role='list'>
+  {
+    swatches.map(({ token, hex, label }) => (
+      <li class='swatch'>
+        <button
+          class='swatch__chip'
+          type='button'
+          data-copy-token={`var(${token})`}
+          style={{ background: `var(${token})` }}
+          aria-label={`Copy var(${token})`}
+        />
+        <div class='swatch__body'>
+          <p class='swatch__token'>{token}</p>
+          <p class='swatch__hex'>{hex}</p>
+          {label && <p class='swatch__label'>{label}</p>}
+        </div>
+      </li>
+    ))
+  }
+</ul>
+
+<script>
+  document
+    .querySelectorAll<HTMLButtonElement>('[data-copy-token]')
+    .forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const value = btn.dataset.copyToken ?? '';
+        if (!value) return;
+        try {
+          await navigator.clipboard.writeText(value);
+          btn.classList.add('is-copied');
+          window.setTimeout(() => btn.classList.remove('is-copied'), 1200);
+        } catch {
+          /* noop — clipboard unavailable */
+        }
+      });
+    });
+</script>
+
+<style>
+  .swatches {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+  }
+  .swatch {
+    display: flex;
+    border: 1px solid var(--border-strong);
+    background: var(--background-secondary);
+  }
+  .swatch__chip {
+    width: 72px;
+    flex: 0 0 72px;
+    border: 0;
+    cursor: pointer;
+    padding: 0;
+    transition: outline var(--dur-fast) var(--ease-out);
+  }
+  .swatch__chip:focus-visible,
+  .swatch__chip:hover {
+    outline: 2px solid var(--cta-background);
+    outline-offset: -2px;
+  }
+  .swatch__chip.is-copied {
+    outline: 2px solid var(--success-color);
+    outline-offset: -2px;
+  }
+  .swatch__body {
+    padding: 10px 12px;
+    font-size: 13px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+  .swatch__token {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--foreground-primary);
+    margin: 0;
+    word-break: break-all;
+  }
+  .swatch__hex {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--foreground-muted);
+    margin: 0;
+  }
+  .swatch__label {
+    font-size: 12px;
+    color: var(--foreground-secondary);
+    margin: 0;
+  }
+</style>

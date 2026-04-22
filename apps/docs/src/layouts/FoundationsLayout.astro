@@ -1,0 +1,124 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import AppHeader from '../components/AppHeader.astro';
+import AppSidebar from '../components/AppSidebar.astro';
+
+export interface Props {
+  title: string;
+  eyebrow: string;
+  summary?: string;
+  description?: string;
+}
+
+const { title, eyebrow, summary, description } = Astro.props;
+---
+
+<BaseLayout title={`fCC UIKit — ${title}`} description={description ?? summary}>
+  <div class='app' id='top'>
+    <AppHeader />
+    <div class='app__body'>
+      <AppSidebar />
+      <main class='content' tabindex='-1'>
+        <div class='content__inner'>
+          <section class='hero' id='introduction'>
+            <p class='hero__kicker'>{eyebrow}</p>
+            <h1 class='hero__title'>{title}</h1>
+            {summary && <p class='hero__lede'>{summary}</p>}
+          </section>
+
+          <article class='foundations'>
+            <slot />
+          </article>
+
+          <footer class='footer'>
+            <p>
+              fCC UIKit · <a href='/'>Components</a> · <a href='/guides'
+                >Guides</a
+              > · <a href='https://github.com/freeCodeCamp/ui'>Source</a>
+            </p>
+          </footer>
+        </div>
+      </main>
+    </div>
+  </div>
+</BaseLayout>
+
+<style is:global>
+  .foundations {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    max-width: 72ch;
+  }
+  .foundations.is-wide {
+    max-width: none;
+  }
+  .foundations h2 {
+    margin: 16px 0 8px;
+    font-size: var(--fs-xl);
+  }
+  .foundations h3 {
+    margin: 12px 0 6px;
+    font-size: var(--fs-lg);
+  }
+  .foundations p {
+    margin: 0;
+    color: var(--foreground-secondary);
+    font-size: var(--fs-md);
+    line-height: var(--lh-loose);
+  }
+  .foundations ul {
+    margin: 0;
+    padding-left: 20px;
+    color: var(--foreground-secondary);
+    font-size: var(--fs-md);
+  }
+  .foundations ul li {
+    margin-bottom: 6px;
+  }
+  .foundations code {
+    font-size: 0.9em;
+  }
+  .foundations__block {
+    margin: 0;
+  }
+  .foundations__block-title {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--foreground-muted);
+    margin: 0 0 12px;
+  }
+  .foundations__lede {
+    color: var(--foreground-secondary);
+    font-size: var(--fs-md);
+    line-height: var(--lh-loose);
+    max-width: 66ch;
+  }
+
+  .icon-preview {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 12px;
+  }
+  .icon-preview__cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 16px;
+    background: var(--background-secondary);
+    border: 1px solid var(--border-strong);
+    color: var(--foreground-primary);
+  }
+  .icon-preview__cell p {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--foreground-muted);
+  }
+</style>

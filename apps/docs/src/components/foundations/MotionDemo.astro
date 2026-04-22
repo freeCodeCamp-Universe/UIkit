@@ -1,0 +1,116 @@
+---
+// Motion curve preview. Each card shows a block that translates across
+// its row on click using the named duration + easing token, so readers
+// can feel the snap vs. out curves without needing a component context.
+
+const demos = [
+  {
+    title: '--dur-fast · --ease-snap',
+    duration: '--dur-fast',
+    easing: '--ease-snap',
+    note: '120ms · enter for tooltips, menu fades'
+  },
+  {
+    title: '--dur-base · --ease-snap',
+    duration: '--dur-base',
+    easing: '--ease-snap',
+    note: '180ms · tabs, switches, state swaps'
+  },
+  {
+    title: '--dur-slow · --ease-out',
+    duration: '--dur-slow',
+    easing: '--ease-out',
+    note: '260ms · dialog, drawer, page transitions'
+  }
+];
+---
+
+<ul class='motion-demos' role='list'>
+  {
+    demos.map(({ title, duration, easing, note }) => (
+      <li class='motion-demo'>
+        <button
+          class='motion-demo__track'
+          type='button'
+          data-motion-demo
+          aria-label={`Play ${title}`}
+          style={{
+            '--demo-duration': `var(${duration})`,
+            '--demo-easing': `var(${easing})`
+          }}
+        >
+          <span class='motion-demo__puck' aria-hidden='true' />
+        </button>
+        <p class='motion-demo__title'>{title}</p>
+        <p class='motion-demo__note'>{note}</p>
+      </li>
+    ))
+  }
+</ul>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-motion-demo]').forEach(el => {
+    el.addEventListener('click', () => {
+      el.classList.remove('is-playing');
+      // Force reflow so the class toggle restarts the transition.
+      void el.offsetWidth;
+      el.classList.add('is-playing');
+    });
+  });
+</script>
+
+<style>
+  .motion-demos {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+  }
+  .motion-demo {
+    padding: 16px;
+    background: var(--background-secondary);
+    border: 1px solid var(--border-strong);
+  }
+  .motion-demo__track {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 28px;
+    padding: 0;
+    background: var(--background-tertiary);
+    border: 1px dashed var(--border-strong);
+    cursor: pointer;
+    overflow: hidden;
+  }
+  .motion-demo__puck {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 24px;
+    height: 24px;
+    background: var(--cta-background);
+    transition: transform var(--demo-duration) var(--demo-easing);
+  }
+  .motion-demo__track.is-playing .motion-demo__puck {
+    transform: translateX(calc(100% * 8));
+  }
+  .motion-demo__title {
+    margin: 10px 0 2px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--foreground-primary);
+  }
+  .motion-demo__note {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--foreground-muted);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .motion-demo__puck {
+      transition: none;
+    }
+  }
+</style>

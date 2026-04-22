@@ -1,0 +1,39 @@
+---
+layout: ../../layouts/FoundationsLayout.astro
+title: Spacing
+eyebrow: Foundations · 03
+summary: Eight-step linear scale. 4 px grid, powers of two. Compose padding, gap, and block rhythm exclusively from these tokens — no arbitrary pixel values.
+order: 3
+---
+
+import SpacingRuler from '../../components/foundations/SpacingRuler.astro';
+
+## The scale
+
+<SpacingRuler />
+
+## Where each step lands
+
+- `--space-1` (**4px**) — icon gap inside a chip, hairline separator, tight badge padding.
+- `--space-2` (**8px**) — rhythm between inline elements (icon + label), badge paddings.
+- `--space-3` (**12px**) — inside-control padding (buttons, inputs, rows).
+- `--space-4` (**16px**) — card/panel padding, form field spacing.
+- `--space-5` (**24px**) — block rhythm between paragraphs, card→card gap.
+- `--space-6` (**32px**) — section internal padding.
+- `--space-7` (**48px**) — gap between major page sections.
+- `--space-8` (**64px**) — rhythm between distinct page regions (hero → body).
+
+## Rules
+
+- Compose layouts from at most three steps per level. If you need a fourth, you are probably mis-sizing a container.
+- Prefer `gap` over margin. Margin is for resetting content; gap is for laying out controls.
+- Never mix token-spacing with arbitrary pixel values. If a step is missing, add it to the scale.
+
+```css
+.my-card {
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+```

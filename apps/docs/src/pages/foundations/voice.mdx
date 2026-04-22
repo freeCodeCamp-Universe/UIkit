@@ -1,0 +1,50 @@
+---
+layout: ../../layouts/FoundationsLayout.astro
+title: Voice
+eyebrow: Foundations · 06
+summary: Terminal-native copy. Clear, learner-respectful, never cutesy. Command-line Chic on the page — literal where it matters, warm where it counts.
+order: 6
+---
+
+## Tone pillars
+
+- **Direct.** "Copy-paste and it just works." Not "Our robust, enterprise-grade toolkit empowers you to…"
+- **Literal.** Say exactly what a surface does: "Toggle theme", "Dismiss notification", "Search components". No marketing verbs on buttons.
+- **Learner-first.** Assume the reader is smart but new. Gloss acronyms on first use ("SRI — subresource integrity hashes") and link to deeper primers.
+- **Honest about tradeoffs.** "Ships 3KB of vanilla JS" is better than "lightweight runtime". Numbers earn trust.
+
+## Micro-copy patterns
+
+| Surface           | Do                                 | Don't                          |
+| :---------------- | :--------------------------------- | :----------------------------- |
+| Primary button    | `Copy`, `Install`, `Run benchmark` | `Click here`, `Submit`         |
+| Secondary button  | `Cancel`, `Back`, `Dismiss`        | `No thanks`, `Skip for now`    |
+| Empty state title | `No components yet`                | `Oops! Nothing to see here 😅` |
+| Error             | `Token expired — sign in again.`   | `Something went wrong.`        |
+| Success           | `Copied to clipboard.`             | `Done!`, `Success!`            |
+| Tooltip           | `Keyboard shortcut: ⌘K`            | `Tap to open search`           |
+
+## The "command-line" tell
+
+When we want to lean into the brand, frame prose as if it's happening in a
+terminal:
+
+```
+camp@fcc:~$ pnpm add @freecodecamp/uikit
+camp@fcc:~$ open components
+```
+
+Use this sparingly — the landing hero, a README banner, a CLI-adjacent guide
+page. Every section heading does not need to be a prompt.
+
+## Accessibility voice
+
+- Error messages identify **what** failed and **how to recover** in the same sentence.
+- Loading states use a noun-first structure: "Loading palette…" not "Please wait…".
+- Confirmation dialogs frame the destructive verb in the title ("Delete component?") and name the affected thing in the body.
+
+## Localisation guardrails
+
+- Keep sentences short — 60 characters or fewer for labels.
+- No idioms in UI surfaces. Idioms are fine in marketing prose, never in a button.
+- Date / time always formatted with `Intl.*` — never hand-rolled.

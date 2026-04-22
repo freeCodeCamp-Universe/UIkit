@@ -1,0 +1,85 @@
+---
+layout: ../../layouts/FoundationsLayout.astro
+title: Colors
+eyebrow: Foundations · 01
+summary: Navy-dark base, gold CTA, terminal semantics. The palette is driven by CSS custom properties so every surface re-themes together.
+order: 1
+---
+
+import SwatchGrid from '../../components/foundations/SwatchGrid.astro';
+
+## Palette roots
+
+The dark palette is the source of truth. Switch the `.light-palette` class on
+`<html>` and every token remaps without re-rendering any component.
+
+<SwatchGrid
+  swatches={[
+    {
+      token: '--gray-00',
+      hex: '#ffffff',
+      label: 'Foreground base — dark mode'
+    },
+    { token: '--gray-05', hex: '#f5f6f7' },
+    { token: '--gray-10', hex: '#dfdfe2' },
+    { token: '--gray-45', hex: '#858591', label: 'Muted body copy' },
+    { token: '--gray-75', hex: '#3b3b4f' },
+    { token: '--gray-85', hex: '#1b1b32', label: 'Secondary surfaces' },
+    {
+      token: '--gray-90',
+      hex: '#0a0a23',
+      label: 'Primary surface — "dark night sky"'
+    }
+  ]}
+/>
+
+## Semantic surfaces
+
+Every component reaches for these five surface tokens instead of raw grays.
+Swap a surface once and the whole kit follows.
+
+<SwatchGrid
+  swatches={[
+    { token: '--background-primary', hex: 'var(--gray-90)' },
+    { token: '--background-secondary', hex: 'var(--gray-85)' },
+    { token: '--background-tertiary', hex: '#33334f' },
+    { token: '--background-quaternary', hex: '#4b4b66' },
+    { token: '--foreground-primary', hex: 'var(--gray-00)' },
+    { token: '--foreground-muted', hex: '#b0b0bd', label: 'Captions, metadata' }
+  ]}
+/>
+
+## Intent colors
+
+Semantic pairs — a foreground for on-surface text and a background for solid
+fills — so `success`, `danger`, `warning`, `highlight`, `purple`, and `love`
+each carry their own readable on-dark / on-light variants.
+
+<SwatchGrid
+  swatches={[
+    { token: '--cta-background', hex: '#ffbf00', label: 'Primary CTA fill' },
+    { token: '--highlight-color', hex: '#99c9ff', label: 'Links, active nav' },
+    { token: '--success-color', hex: '#acd157' },
+    { token: '--warning-color', hex: '#f1be32' },
+    { token: '--danger-color', hex: '#ffadad' },
+    { token: '--purple-color', hex: '#dbb8ff' },
+    {
+      token: '--love-color',
+      hex: '#f8577c',
+      label: 'Donate, heart affordances'
+    }
+  ]}
+/>
+
+## Using colour in code
+
+Reach for the semantic token, never a raw hex. If you need a new shade, add it
+to `packages/uikit-css/src/tokens.css` first so every surface picks it up.
+
+```css
+.my-card {
+  background: var(--background-secondary);
+  color: var(--foreground-primary);
+  border: 1px solid var(--border-strong);
+}
+```

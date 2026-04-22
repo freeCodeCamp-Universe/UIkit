@@ -1,0 +1,80 @@
+---
+layout: ../../layouts/FoundationsLayout.astro
+title: Typography
+eyebrow: Foundations · 02
+summary: Lato carries body and UI copy. Hack-ZeroSlash carries code, metadata, and anything mono-spaced. Both ship with the package; no external font CDN.
+order: 2
+---
+
+import TypeSpecimen from '../../components/foundations/TypeSpecimen.astro';
+
+## Scale
+
+Six steps — small enough to keep the system honest, wide enough to express
+hierarchy without ornamental sizes. Every scale step is a token so redefining
+the scale per palette is a one-line change.
+
+<TypeSpecimen
+  specimens={[
+    {
+      token: '--fs-3xl',
+      name: 'Display',
+      sample: 'Command-line Chic.',
+      tag: 'h1',
+      meta: '56px · --lh-tight'
+    },
+    {
+      token: '--fs-2xl',
+      name: 'Heading 1',
+      sample: 'Ship UIKit however you like.',
+      tag: 'h2',
+      meta: '42px · --lh-snug'
+    },
+    {
+      token: '--fs-xl',
+      name: 'Heading 2',
+      sample: 'Tokens are the API.',
+      tag: 'h3',
+      meta: '32px · --lh-snug'
+    },
+    {
+      token: '--fs-lg',
+      name: 'Heading 3',
+      sample: 'Motion should feel honest.',
+      tag: 'h4',
+      meta: '24px · --lh-snug'
+    },
+    {
+      token: '--fs-md',
+      name: 'Body',
+      sample:
+        'A sans-serif for prose, mono for labels and code. Two fonts, zero compromises.',
+      tag: 'p',
+      meta: '18px · --lh-base'
+    },
+    {
+      token: '--fs-sm',
+      name: 'Small · Mono',
+      sample: 'camp@fcc:~$ pnpm add @freecodecamp/uikit',
+      tag: 'p',
+      mono: true,
+      meta: '16px · eyebrows, kbd, meta'
+    }
+  ]}
+/>
+
+## Stacks
+
+```css
+--font-sans: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+--font-mono: 'Hack-ZeroSlash', 'Fira Mono', Menlo, Consolas, monospace;
+```
+
+- **Lato** — licensed under the SIL Open Font License. Six weights ship preloaded.
+- **Hack-ZeroSlash** — MIT-licensed fork of Hack with a slashed zero, so `0` and `O` never trade places in code.
+
+## Rules of the road
+
+- Every heading uses `--lh-snug` (1.33); body text uses `--lh-base` (1.43); call-to-action or prose paragraphs at `--lh-loose` (1.6).
+- Monospace is reserved for metadata, code, keyboard shortcuts (`<kbd>`), inline tokens, and anything you want to feel terminal-native.
+- Eyebrows use `text-transform: uppercase` + `letter-spacing: 0.05em` + `--fs-sm` + mono. Do not inline-style — reach for the `.section__eyebrow` utility instead.
