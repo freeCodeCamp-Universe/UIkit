@@ -28,6 +28,7 @@
     "@astrojs/react": "^5.0.4",
     "@freecodecamp/uikit": "workspace:^",
     "@freecodecamp/uikit-css": "workspace:^",
+    "@freecodecamp/uikit-icons": "workspace:^",
     "astro": "^6.1.9",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",

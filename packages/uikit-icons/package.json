@@ -2,8 +2,8 @@
   "name": "@freecodecamp/uikit-icons",
   "version": "0.1.0",
   "scripts": {
-    "test": "echo '[packages/uikit-icons] no tests yet' && exit 0",
-    "build": "echo '[packages/uikit-icons] build wired in later phase' && exit 0",
+    "test": "tsx --test --test-reporter=spec 'src/**/*.test.tsx'",
+    "build": "tsup && node scripts/build-sprite.mjs",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit"
   },
@@ -24,5 +24,32 @@
   "files": [
     "dist",
     "src"
-  ]
+  ],
+  "devDependencies": {
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "react": "^19",
+    "react-dom": "^19",
+    "tsup": "^8.5.1",
+    "tsx": "^4.21.0"
+  },
+  "peerDependencies": {
+    "react": ">=18 <20"
+  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    },
+    "./react": {
+      "import": "./dist/react.js",
+      "require": "./dist/react.cjs",
+      "types": "./dist/react.d.ts"
+    },
+    "./sprite.svg": "./dist/sprite.svg"
+  }
 }
