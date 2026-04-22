@@ -107,14 +107,20 @@ const spacing = [0, 4, 8, 12, 16, 24, 32, 48, 64];
                 rel='noreferrer noopener'>View on GitHub →</a
               >
             </div>
+            <pre
+              class='hero__terminal'
+              aria-hidden='true'
+              data-terminal><code data-terminal-body /><span class='hero__terminal-caret' data-terminal-caret>&#x2588;</span></pre>
             <dl class='hero__stats'>
               <div class='hero__stat'>
-                <p class='hero__stat-value'>21</p>
+                <p class='hero__stat-value'>22</p>
                 <p class='hero__stat-label'>components</p>
               </div>
               <div class='hero__stat'>
-                <p class='hero__stat-value'>2</p>
-                <p class='hero__stat-label'>flavors — React + Vanilla</p>
+                <p class='hero__stat-value'>3</p>
+                <p class='hero__stat-label'>
+                  surfaces — React · HTML · Tailwind
+                </p>
               </div>
               <div class='hero__stat'>
                 <p class='hero__stat-value'>0kB</p>
@@ -125,6 +131,103 @@ const spacing = [0, 4, 8, 12, 16, 24, 32, 48, 64];
                 <p class='hero__stat-label'>contrast, focus, motion</p>
               </div>
             </dl>
+          </section>
+
+          <!-- ============================================================ -->
+          <!-- THREE SURFACES BAND -->
+          <!-- ============================================================ -->
+          <section class='section surfaces-band' id='surfaces'>
+            <p class='section__eyebrow'>00 · three surfaces, one system</p>
+            <h2 class='section__title'>
+              Pick the flavour, keep the behaviour.
+            </h2>
+            <ul class='surfaces' role='list'>
+              <li class='surfaces__card'>
+                <p class='surfaces__kicker'>01 · React</p>
+                <h3 class='surfaces__title'>&lt;Button variant="cta" /&gt;</h3>
+                <p class='surfaces__lede'>
+                  Tree-shakeable ESM, Ark UI under the hood, React 18+ peer.
+                </p>
+                <pre
+                  class='surfaces__code'><code>{'pnpm add @freecodecamp/uikit\nimport { Button } from \'@freecodecamp/uikit\';'}</code></pre>
+              </li>
+              <li class='surfaces__card'>
+                <p class='surfaces__kicker'>02 · HTML</p>
+                <h3 class='surfaces__title'>
+                  &lt;button class="btn btn--cta"&gt;
+                </h3>
+                <p class='surfaces__lede'>
+                  Drop-in vanilla CSS + 3 KB runtime. No framework required.
+                </p>
+                <pre
+                  class='surfaces__code'><code>{'<link rel="stylesheet"\n  href="cdn.freecodecamp.org/uikit/styles.min.css">'}</code></pre>
+              </li>
+              <li class='surfaces__card'>
+                <p class='surfaces__kicker'>03 · Tailwind</p>
+                <h3 class='surfaces__title'>bg-cta text-fg-primary</h3>
+                <p class='surfaces__lede'>
+                  Preset mirrors every token; palette variants fcc-dark /
+                  fcc-light.
+                </p>
+                <pre
+                  class='surfaces__code'><code>{'// tailwind.config.js\nimport fcc from \'@freecodecamp/uikit-tailwind\';\nexport default { presets: [fcc] };'}</code></pre>
+              </li>
+            </ul>
+          </section>
+
+          <!-- ============================================================ -->
+          <!-- FOUNDATIONS QUICKLINKS -->
+          <!-- ============================================================ -->
+          <section class='section' id='foundations'>
+            <p class='section__eyebrow'>Foundations</p>
+            <h2 class='section__title'>Start with the tokens.</h2>
+            <p class='section__lede'>
+              The component layer is only honest if the token layer is. Six
+              pillars define how surfaces read, resize, and respond.
+            </p>
+            <ul class='foundations-links' role='list'>
+              <li>
+                <a href='/foundations/colors'
+                  ><strong>Colors</strong><span
+                    >Navy base · gold CTA · terminal semantics</span
+                  ></a
+                >
+              </li>
+              <li>
+                <a href='/foundations/typography'
+                  ><strong>Typography</strong><span
+                    >Lato body · Hack-ZeroSlash mono</span
+                  ></a
+                >
+              </li>
+              <li>
+                <a href='/foundations/spacing'
+                  ><strong>Spacing</strong><span>8-step scale, 4 px grid</span
+                  ></a
+                >
+              </li>
+              <li>
+                <a href='/foundations/iconography'
+                  ><strong>Iconography</strong><span
+                    >Lucide subset · 24/20/16</span
+                  ></a
+                >
+              </li>
+              <li>
+                <a href='/foundations/motion'
+                  ><strong>Motion</strong><span
+                    >Snap · ease-out · 120–260ms</span
+                  ></a
+                >
+              </li>
+              <li>
+                <a href='/foundations/voice'
+                  ><strong>Voice</strong><span
+                    >Direct · literal · learner-first</span
+                  ></a
+                >
+              </li>
+            </ul>
           </section>
 
           <!-- ============================================================ -->
@@ -1183,5 +1286,121 @@ export function Pressed() {
   <script>
     import '../scripts/showcase.client.ts';
     import '../scripts/preview.client.ts';
+    import '../scripts/terminal.client.ts';
   </script>
 </BaseLayout>
+
+<style is:global>
+  .hero__terminal {
+    margin: 24px 0 20px;
+    padding: 16px 18px;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    line-height: 1.55;
+    background: var(--editor-background);
+    color: var(--foreground-tertiary);
+    border: 1px solid var(--border-strong);
+    max-width: 68ch;
+    min-height: 108px;
+    white-space: pre;
+    overflow: hidden;
+  }
+  .hero__terminal-caret {
+    display: inline-block;
+    color: var(--cta-background);
+    animation: hero-caret 1s steps(1) infinite;
+  }
+  @keyframes hero-caret {
+    0%,
+    60% {
+      opacity: 1;
+    }
+    61%,
+    100% {
+      opacity: 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero__terminal-caret {
+      animation: none;
+    }
+  }
+
+  .surfaces {
+    list-style: none;
+    margin: 16px 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .surfaces__card {
+    padding: 20px;
+    background: var(--background-secondary);
+    border: 1px solid var(--border-strong);
+  }
+  .surfaces__kicker {
+    margin: 0 0 8px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--foreground-muted);
+  }
+  .surfaces__title {
+    margin: 0 0 8px;
+    font-family: var(--font-mono);
+    font-size: 15px;
+    color: var(--foreground-primary);
+  }
+  .surfaces__lede {
+    margin: 0 0 12px;
+    color: var(--foreground-secondary);
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  .surfaces__code {
+    margin: 0;
+    padding: 12px 14px;
+    background: var(--editor-background);
+    color: var(--foreground-tertiary);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    line-height: 1.55;
+    overflow-x: auto;
+  }
+
+  .foundations-links {
+    list-style: none;
+    margin: 16px 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 12px;
+  }
+  .foundations-links a {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 14px 16px;
+    background: var(--background-secondary);
+    border: 1px solid var(--border-strong);
+    color: var(--foreground-primary);
+    text-decoration: none;
+    transition:
+      border-color var(--dur-fast) var(--ease-snap),
+      background-color var(--dur-fast) var(--ease-snap);
+  }
+  .foundations-links a:hover {
+    border-color: var(--cta-background);
+    background: var(--background-tertiary);
+  }
+  .foundations-links strong {
+    font-size: 16px;
+  }
+  .foundations-links span {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--foreground-muted);
+  }
+</style>
