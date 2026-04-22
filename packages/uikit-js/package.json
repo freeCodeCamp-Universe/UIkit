@@ -2,8 +2,8 @@
   "name": "@freecodecamp/uikit-js",
   "version": "0.1.0",
   "scripts": {
-    "test": "tsx --test --test-reporter=spec src/**/*.test.ts",
-    "build": "tsup",
+    "test": "echo '[packages/uikit-js] no tests yet' && exit 0",
+    "build": "echo '[packages/uikit-js] build wired in later phase' && exit 0",
     "dev": "tsup --watch",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit"

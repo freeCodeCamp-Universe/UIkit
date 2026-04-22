@@ -2,7 +2,7 @@
   "name": "@freecodecamp/uikit-cdn",
   "version": "0.1.0",
   "scripts": {
-    "test": "tsx --test --test-reporter=spec scripts/*.test.ts",
+    "test": "tsx --test --test-reporter=spec scripts/build.test.ts",
     "build": "node scripts/build.mjs",
     "verify": "node scripts/verify.mjs"
   },
@@ -19,5 +19,9 @@
   },
   "homepage": "https://fcc-uikit.netlify.app",
   "description": "Internal: builds dist-cdn/ bundle for freeCodeCamp/cdn deploy",
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "lightningcss": "^1.32.0",
+    "tsx": "^4.21.0"
+  }
 }

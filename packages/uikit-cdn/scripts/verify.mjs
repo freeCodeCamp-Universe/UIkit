@@ -16,8 +16,15 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const repoRoot = path.resolve(__dirname, '..');
-const outRoot = path.join(repoRoot, 'dist-cdn', 'uikit');
+const pkgRoot = path.resolve(__dirname, '..');
+const monorepoRoot = path.resolve(pkgRoot, '..', '..');
+const uikitPkgJson = path.join(
+  monorepoRoot,
+  'packages',
+  'uikit',
+  'package.json'
+);
+const outRoot = path.join(monorepoRoot, 'dist-cdn', 'uikit');
 
 const FAILURES = [];
 const fail = msg => FAILURES.push(msg);
@@ -71,7 +78,7 @@ async function checkFontUrlRewrite(cssPath) {
   const bad = css.match(/url\(\s*["']?\/fonts\//g);
   if (bad) {
     fail(
-      `${path.relative(repoRoot, cssPath)}: found ${bad.length} absolute /fonts/ urls (must be ./fonts/...)`
+      `${path.relative(monorepoRoot, cssPath)}: found ${bad.length} absolute /fonts/ urls (must be ./fonts/...)`
     );
   }
   const refs = [
@@ -82,7 +89,7 @@ async function checkFontUrlRewrite(cssPath) {
     const absolute = path.join(cssDir, ref);
     if (!(await exists(absolute))) {
       fail(
-        `${path.relative(repoRoot, cssPath)}: references missing font ${ref}`
+        `${path.relative(monorepoRoot, cssPath)}: references missing font ${ref}`
       );
     }
   }
@@ -92,7 +99,7 @@ async function checkFontUrlRewrite(cssPath) {
 async function verifyManifest(dir) {
   const manifestPath = path.join(dir, 'manifest.json');
   if (!(await exists(manifestPath))) {
-    fail(`${path.relative(repoRoot, manifestPath)} missing`);
+    fail(`${path.relative(monorepoRoot, manifestPath)} missing`);
     return;
   }
   const manifest = JSON.parse(await fs.readFile(manifestPath, 'utf8'));
@@ -113,7 +120,7 @@ async function verifyManifest(dir) {
 
 async function verifyDir(dir, label) {
   if (!(await exists(dir))) {
-    fail(`${label} directory missing at ${path.relative(repoRoot, dir)}`);
+    fail(`${label} directory missing at ${path.relative(monorepoRoot, dir)}`);
     return;
   }
   const required = [
@@ -167,9 +174,7 @@ async function verifyMirror(sourceDir, targetDir, label, aliasDirs) {
 }
 
 async function main() {
-  const pkg = JSON.parse(
-    await fs.readFile(path.join(repoRoot, 'package.json'), 'utf8')
-  );
+  const pkg = JSON.parse(await fs.readFile(uikitPkgJson, 'utf8'));
   const aliasDirs = getAliasDirs(pkg.version);
 
   await verifyDir(outRoot, 'dist-cdn/uikit');

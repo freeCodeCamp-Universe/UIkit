@@ -22,5 +22,19 @@
   },
   "homepage": "https://fcc-uikit.netlify.app",
   "description": "freeCodeCamp UIKit — living design-system documentation site",
-  "private": true
+  "private": true,
+  "dependencies": {
+    "@astrojs/mdx": "^5.0.4",
+    "@astrojs/react": "^5.0.4",
+    "@freecodecamp/uikit": "workspace:^",
+    "@freecodecamp/uikit-css": "workspace:^",
+    "astro": "^6.1.9",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "sharp": "^0.34.5"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3"
+  }
 }

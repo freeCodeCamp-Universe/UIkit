@@ -2,8 +2,8 @@
   "name": "@freecodecamp/uikit-css",
   "version": "0.1.0",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "node scripts/build.mjs",
+    "test": "echo '[packages/uikit-css] no tests yet' && exit 0",
+    "build": "echo '[uikit-css] ships source — no build' && exit 0",
     "lint": "prettier --check src"
   },
   "author": "freeCodeCamp.org <team@freecodecamp.org>",
@@ -24,5 +24,12 @@
   ],
   "files": [
     "src"
-  ]
+  ],
+  "exports": {
+    "./index.css": "./src/index.css",
+    "./tokens.css": "./src/tokens.css",
+    "./components.css": "./src/components.css",
+    "./fonts/*": "./src/fonts/*",
+    "./brand/*": "./src/brand/*"
+  }
 }

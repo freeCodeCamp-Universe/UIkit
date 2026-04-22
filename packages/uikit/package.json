@@ -2,8 +2,8 @@
   "name": "@freecodecamp/uikit",
   "version": "0.1.0",
   "scripts": {
-    "test": "tsx --test --test-reporter=spec src/**/*.test.ts",
-    "build": "tsup",
+    "test": "tsx --test --test-reporter=spec 'src/**/*.test.ts'",
+    "build": "echo '[packages/uikit] build wired in later phase' && exit 0",
     "dev": "tsup --watch",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit"
@@ -25,5 +25,18 @@
   "files": [
     "dist",
     "src"
-  ]
+  ],
+  "devDependencies": {
+    "@ark-ui/react": "^5.36.2",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "tsx": "^4.21.0"
+  },
+  "peerDependencies": {
+    "@ark-ui/react": "^4.0.0",
+    "react": ">=18 <20",
+    "react-dom": ">=18 <20"
+  }
 }

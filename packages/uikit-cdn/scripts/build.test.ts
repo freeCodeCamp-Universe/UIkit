@@ -7,10 +7,17 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const repoRoot = path.resolve(__dirname, '..');
-const outRoot = path.join(repoRoot, 'dist-cdn', 'uikit');
-const buildScript = path.join(__dirname, 'build-cdn.mjs');
-const verifyScript = path.join(__dirname, 'verify-cdn.mjs');
+const pkgRoot = path.resolve(__dirname, '..');
+const monorepoRoot = path.resolve(pkgRoot, '..', '..');
+const uikitPkgJson = path.join(
+  monorepoRoot,
+  'packages',
+  'uikit',
+  'package.json'
+);
+const outRoot = path.join(monorepoRoot, 'dist-cdn', 'uikit');
+const buildScript = path.join(__dirname, 'build.mjs');
+const verifyScript = path.join(__dirname, 'verify.mjs');
 
 async function exists(p: string): Promise<boolean> {
   try {
@@ -22,7 +29,7 @@ async function exists(p: string): Promise<boolean> {
 }
 
 async function readPkgVersion(): Promise<string> {
-  const raw = await fs.readFile(path.join(repoRoot, 'package.json'), 'utf8');
+  const raw = await fs.readFile(uikitPkgJson, 'utf8');
   return JSON.parse(raw).version as string;
 }
 
@@ -62,7 +69,7 @@ async function walk(
 
 test('build-cdn produces the expected layout', async () => {
   const result = spawnSync('node', [buildScript], {
-    cwd: repoRoot,
+    cwd: monorepoRoot,
     encoding: 'utf8'
   });
   assert.equal(
@@ -147,7 +154,7 @@ test('manifest.json hashes match files on disk', async () => {
 
 test('verify-cdn exits 0 on a clean build', async () => {
   const result = spawnSync('node', [verifyScript], {
-    cwd: repoRoot,
+    cwd: monorepoRoot,
     encoding: 'utf8'
   });
   assert.equal(

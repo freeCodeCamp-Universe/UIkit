@@ -2,8 +2,8 @@
   "name": "@freecodecamp/uikit-icons",
   "version": "0.1.0",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsup && node scripts/build-sprite.mjs",
+    "test": "echo '[packages/uikit-icons] no tests yet' && exit 0",
+    "build": "echo '[packages/uikit-icons] build wired in later phase' && exit 0",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit"
   },

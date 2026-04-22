@@ -27,10 +27,19 @@ import { fileURLToPath } from 'node:url';
 import { bundle } from 'lightningcss';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const repoRoot = path.resolve(__dirname, '..');
-const stylesDir = path.join(repoRoot, 'src', 'styles');
-const publicDir = path.join(repoRoot, 'public');
-const outRoot = path.join(repoRoot, 'dist-cdn', 'uikit');
+const pkgRoot = path.resolve(__dirname, '..');
+const monorepoRoot = path.resolve(pkgRoot, '..', '..');
+const uikitCssSrc = path.join(monorepoRoot, 'packages', 'uikit-css', 'src');
+const uikitPkgJson = path.join(
+  monorepoRoot,
+  'packages',
+  'uikit',
+  'package.json'
+);
+const stylesDir = uikitCssSrc;
+const fontsSrc = path.join(uikitCssSrc, 'fonts');
+const brandSrc = path.join(uikitCssSrc, 'brand');
+const outRoot = path.join(monorepoRoot, 'dist-cdn', 'uikit');
 
 const rewriteFontUrl = url => (url.startsWith('/fonts/') ? '.' + url : url);
 
@@ -54,10 +63,9 @@ function bundleCss(entryFile) {
 }
 
 async function readVersion() {
-  const pkg = JSON.parse(
-    await fs.readFile(path.join(repoRoot, 'package.json'), 'utf8')
-  );
-  if (!pkg.version) throw new Error('package.json is missing "version".');
+  const pkg = JSON.parse(await fs.readFile(uikitPkgJson, 'utf8'));
+  if (!pkg.version)
+    throw new Error('packages/uikit/package.json is missing "version".');
   return pkg.version;
 }
 
@@ -125,14 +133,8 @@ async function writeBundle(destDir) {
     fs.writeFile(path.join(destDir, 'components.min.css'), componentsOnly)
   ]);
 
-  await copyDirIfExists(
-    path.join(publicDir, 'fonts'),
-    path.join(destDir, 'fonts')
-  );
-  await copyDirIfExists(
-    path.join(publicDir, 'brand'),
-    path.join(destDir, 'brand')
-  );
+  await copyDirIfExists(fontsSrc, path.join(destDir, 'fonts'));
+  await copyDirIfExists(brandSrc, path.join(destDir, 'brand'));
 
   const files = await walk(destDir);
   const manifest = {};
@@ -164,7 +166,7 @@ async function removeEntryCss() {
 async function main() {
   const version = await readVersion();
   const aliasDirs = getAliasDirs(version);
-  const stagingDir = path.join(repoRoot, 'dist-cdn', '.uikit-staging');
+  const stagingDir = path.join(monorepoRoot, 'dist-cdn', '.uikit-staging');
 
   await fs.rm(outRoot, { recursive: true, force: true });
   await fs.rm(stagingDir, { recursive: true, force: true });
@@ -182,7 +184,7 @@ async function main() {
     await fs.rm(stagingDir, { recursive: true, force: true });
   }
 
-  const rel = path.relative(repoRoot, outRoot);
+  const rel = path.relative(monorepoRoot, outRoot);
   console.log(
     `[build-cdn] wrote ${rel}/ (version ${version}, aliases: ${aliasDirs.join(', ')})`
   );
