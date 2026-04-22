@@ -73,6 +73,18 @@ jobs:
           path: cdn
           fetch-depth: 1
 
+      - name: Warn if version already published
+        id: republish_check
+        env:
+          VERSION: ${{ steps.version.outputs.value }}
+        run: |
+          if [ -d "cdn/build/uikit/${VERSION}" ]; then
+            echo "republished=true" >> "$GITHUB_OUTPUT"
+            echo "::warning title=Republishing same version::uikit v${VERSION} already exists at freeCodeCamp/cdn:build/uikit/${VERSION}/. This run will overwrite it in place. Bump package.json if this was not intended."
+          else
+            echo "republished=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Sync uikit bundle into cdn/build/uikit
         run: |
           mkdir -p cdn/build/uikit
@@ -99,6 +111,7 @@ jobs:
       - name: Write release summary
         env:
           VERSION: ${{ steps.version.outputs.value }}
+          REPUBLISHED: ${{ steps.republish_check.outputs.republished }}
         run: |
           {
             echo "## Release dispatched"
@@ -106,5 +119,8 @@ jobs:
             echo "- UIkit ref: \`${{ inputs.ref }}\`"
             echo "- UIkit version: \`v${VERSION}\`"
             echo "- Target: freeCodeCamp/cdn branch \`release/uikit-v${VERSION}\`"
+            if [ "${REPUBLISHED}" = "true" ]; then
+              echo "- :warning: **Republishing**: v${VERSION} already exists at \`build/uikit/${VERSION}/\` in \`freeCodeCamp/cdn\`. The PR overwrites it in place."
+            fi
             echo "- Next step: review and merge the PR opened on \`freeCodeCamp/cdn\`."
           } >> "$GITHUB_STEP_SUMMARY"
