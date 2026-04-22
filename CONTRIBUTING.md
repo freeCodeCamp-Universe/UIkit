@@ -10,28 +10,41 @@ pnpm build:cdn
 pnpm verify:cdn
 ```
 
+`pnpm install` also installs husky's git hook. The `pre-commit` hook runs `lint-staged`, which formats staged files with Prettier + ESLint before the commit lands.
+
 ## Day-to-day workflow
 
 - Branch from `main`.
 - Make your change.
 - Keep `package.json` on the intended release version.
-- Run `pnpm test` and the relevant build steps before opening a PR.
+- Run `pnpm lint`, `pnpm test`, and the relevant build steps before opening a PR.
+
+## Linting and formatting
+
+```bash
+pnpm lint     # prettier --check + eslint
+pnpm format   # prettier --write + eslint --fix
+```
+
+Configs:
+
+- `prettier.config.js` — Prettier rules (single quotes, no trailing commas, `prettier-plugin-astro` for `.astro`).
+- `eslint.config.js` — ESLint flat config (`eslint-plugin-astro` + `typescript-eslint`).
 
 ## CI and release flow
 
-- `CI` runs on pushes to `main` and pull requests targeting `main`.
+- `CI` runs on pushes to `main` and pull requests targeting `main`: `pnpm lint`, `pnpm test`, `pnpm build:cdn`, `pnpm verify:cdn`, `pnpm build`.
 - `Release` is manual. Run it from GitHub Actions with `workflow_dispatch` when you want to cut a release.
-- The release workflow builds from the selected ref, runs tests, verifies the CDN bundle, tags the repo as `v<version>`, and uploads release assets.
-- The workflow does not publish directly to `freeCodeCamp/cdn`. The default `GITHUB_TOKEN` can create releases in this repo, but it does not have cross-repo write access.
+- The release workflow builds from the selected ref, verifies the CDN bundle, then opens a pull request on `freeCodeCamp/cdn` that updates `build/uikit/`.
+- Cross-repo push uses the `CDN_PUSH_TOKEN` secret (fine-grained PAT scoped to `freeCodeCamp/cdn`). The default `GITHUB_TOKEN` is never used outside this repo.
+- No GitHub release or tag is created on this repo.
 
-## Manual release checklist
+## Release checklist
 
 1. Set `package.json` to the exact `x.y.z` version you want to ship.
 2. Merge that change to `main`.
-3. Run the `Release` workflow from the default branch.
-4. Download the generated release asset bundle.
-5. Extract `uikit/` and copy it into `freeCodeCamp/cdn/build/uikit/`.
-6. Commit and publish that CDN repo change separately.
+3. Run the `Release` workflow from the default branch with `ref: main`.
+4. Review the PR it opens on `freeCodeCamp/cdn` (branch `release/uikit-v<version>`) and merge once approved.
 
 ## More docs
 

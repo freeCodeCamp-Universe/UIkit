@@ -7,7 +7,7 @@ A component library for freeCodeCamp's Command-line Chic design language.
 Add one line to your app's entry CSS:
 
 ```css
-@import url("https://cdn.freecodecamp.org/uikit/styles.min.css");
+@import url('https://cdn.freecodecamp.org/uikit/styles.min.css');
 ```
 
 Fonts, tokens, and every component class come with it. Use the BEM class names in any framework:
@@ -34,27 +34,29 @@ The CDN ships one rolling bundle plus semver-style aliases:
 Examples:
 
 ```css
-@import url("https://cdn.freecodecamp.org/uikit/styles.min.css");         /* rolling latest */
-@import url("https://cdn.freecodecamp.org/uikit/latest/styles.min.css");  /* explicit latest */
-@import url("https://cdn.freecodecamp.org/uikit/0/styles.min.css");       /* latest 0.x */
-@import url("https://cdn.freecodecamp.org/uikit/0.1/styles.min.css");     /* latest 0.1.x */
-@import url("https://cdn.freecodecamp.org/uikit/0.1.0/styles.min.css");   /* pinned */
+@import url('https://cdn.freecodecamp.org/uikit/styles.min.css'); /* rolling latest */
+@import url('https://cdn.freecodecamp.org/uikit/latest/styles.min.css'); /* explicit latest */
+@import url('https://cdn.freecodecamp.org/uikit/0/styles.min.css'); /* latest 0.x */
+@import url('https://cdn.freecodecamp.org/uikit/0.1/styles.min.css'); /* latest 0.1.x */
+@import url('https://cdn.freecodecamp.org/uikit/0.1.0/styles.min.css'); /* pinned */
 ```
 
 ## Publishing
 
-Cut releases from GitHub Actions with the manual `Release` workflow. It builds from the chosen ref, verifies the CDN bundle, tags the repo as `v<version>`, and uploads release assets for that version.
+Releases are cut from GitHub Actions with the manual `Release` workflow. It builds from the chosen ref, verifies the CDN bundle, and opens a pull request on `freeCodeCamp/cdn` that updates `build/uikit/` with the new rolling bundle plus versioned aliases. A cdn maintainer reviews and merges that PR.
 
-Why this is manual: the default `GITHUB_TOKEN` is scoped to the repository that runs the workflow, so this repo's workflow can create releases here but cannot push into `freeCodeCamp/cdn` without a separate cross-repo credential.
+No GitHub release or tag is created on this repo.
+
+Cross-repo push uses a fine-grained PAT stored as the `CDN_PUSH_TOKEN` repository secret, scoped to `freeCodeCamp/cdn` with `Contents: Read and write` and `Pull requests: Read and write`.
 
 Typical flow:
 
 - Bump `package.json` to the exact `x.y.z` version you want to ship.
+- Merge that change to `main`.
 - Run the `Release` workflow from the default branch with the target ref.
-- Download `fcc-uikit-<version>.tar.gz` or `fcc-uikit-<version>.zip` from the GitHub release.
-- Extract `uikit/` and copy its contents into `freeCodeCamp/cdn/build/uikit/`.
+- Review and merge the PR it opens on `freeCodeCamp/cdn` (branch `release/uikit-v<version>`).
 
-Assets that need to ship:
+What lands in `freeCodeCamp/cdn/build/uikit/`:
 
 - `styles.min.css` for the full kit.
 - `tokens.min.css` for tokens and fonts only.
@@ -93,6 +95,8 @@ pnpm build        # Astro static build → dist/
 pnpm build:cdn    # produce CDN bundle → dist-cdn/uikit/
 pnpm verify:cdn   # sanity-check the CDN bundle
 pnpm test         # unit tests (node:test + tsx)
+pnpm lint         # prettier --check + eslint
+pnpm format       # prettier --write + eslint --fix
 ```
 
 ## Architecture
