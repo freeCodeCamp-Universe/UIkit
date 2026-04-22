@@ -6,6 +6,11 @@
       "cache": false,
       "persistent": true
     },
+    "preview": {
+      "cache": false,
+      "persistent": true,
+      "dependsOn": ["^build", "build"]
+    },
     "build": {
       "dependsOn": ["^build"],
       "outputs": ["dist/**", "dist-cdn/**", ".astro/**", "!.astro/cache/**"]

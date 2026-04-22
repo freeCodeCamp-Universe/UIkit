@@ -24,11 +24,15 @@ export default defineConfig([
       '**/dist',
       '**/dist-cdn',
       '**/.astro',
+      '**/.next',
+      '**/.turbo',
       '**/__coverage__',
       '**/pnpm-*.yaml',
       '**/pre-commit',
       '**/.prettierignore',
-      '**/.wrangler/'
+      '**/.wrangler/',
+      '.scratchpad/',
+      '.claude/'
     ]
   }
 ]);

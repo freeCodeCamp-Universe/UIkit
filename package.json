@@ -12,7 +12,10 @@
     "format": "prettier . --write && eslint . --fix",
     "format:check": "prettier . --check && eslint .",
     "changeset": "changeset",
-    "release": "turbo run build && changeset publish"
+    "release": "turbo run build && changeset publish",
+    "preview": "turbo run preview --filter=@freecodecamp/uikit-docs",
+    "dev:docs": "turbo run dev --filter=@freecodecamp/uikit-docs",
+    "build:docs": "turbo run build --filter=@freecodecamp/uikit-docs"
   },
   "devDependencies": {
     "@changesets/cli": "^2.31.0",
