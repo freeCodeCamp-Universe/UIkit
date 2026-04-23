@@ -1,0 +1,95 @@
+---
+title: SidebarLayout
+eyebrow: <SidebarLayout />
+status: stable
+since: '0.3.0'
+category: layout
+summary: Page-scale chrome — optional header row on top of a sidebar + main grid. The aside column collapses at the md breakpoint (≤ 768 px) so mobile screens stay single-column.
+a11yPattern: https://www.w3.org/WAI/ARIA/apg/patterns/landmarks/
+tokens:
+  - --background-primary
+  - --foreground-primary
+order: 50
+---
+
+import PropTable from '../../components/site/PropTable.astro';
+import TokenChips from '../../components/site/TokenChips.astro';
+import DoDont from '../../components/site/DoDont.astro';
+import RelatedComponents from '../../components/site/RelatedComponents.astro';
+
+SidebarLayout is the full-page shell for app screens with a persistent
+side rail. Drop a Navbar into `header`, a Sidebar into `sidebar`, and
+your route content as children — the grid math and responsive
+collapse are already wired.
+
+## Props
+
+<PropTable
+  rows={[
+    {
+      name: 'header',
+      type: 'ReactNode',
+      default: '—',
+      description: 'Top row. Typically a <Navbar />.'
+    },
+    {
+      name: 'sidebar',
+      type: 'ReactNode',
+      default: '—',
+      description:
+        'Left column. Typically a <Sidebar />. Hidden at widths ≤ 768 px.'
+    }
+  ]}
+/>
+
+## Accessibility
+
+Semantic landmarks come from the slot contents — Navbar brings
+`role="banner"`, Sidebar brings `role="navigation"`, and the main
+column is a native `<main>`. The layout itself ships no landmarks so
+consumers can swap Navbar/Sidebar for custom chrome without
+duplication.
+
+## Tokens consumed
+
+<TokenChips tokens={['--background-primary', '--foreground-primary']} />
+
+## Do & Don't
+
+<DoDont>
+  <Fragment slot='do'>
+    <ul>
+      <li>
+        Use SidebarLayout for app shells: dashboards, admin panels, settings
+        screens.
+      </li>
+      <li>
+        Pair `header={<Navbar />}` + `sidebar={<Sidebar />}` for the classic
+        chrome.
+      </li>
+      <li>
+        Lift the Sidebar into a drawer pattern at mobile widths if the rail is
+        essential — the layout hides it by default.
+      </li>
+    </ul>
+  </Fragment>
+  <Fragment slot='dont'>
+    <ul>
+      <li>
+        Don't reach for SidebarLayout on marketing or content pages — use
+        StackedLayout.
+      </li>
+      <li>
+        Don't nest SidebarLayout inside SidebarLayout. One layout per route.
+      </li>
+      <li>
+        Don't stuff non-landmark content in `header`; keep it to navigation
+        chrome.
+      </li>
+    </ul>
+  </Fragment>
+</DoDont>
+
+## Related
+
+<RelatedComponents slugs={['stacked-layout', 'auth-layout', 'navbar']} />
