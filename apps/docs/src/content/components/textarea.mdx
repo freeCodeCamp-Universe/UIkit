@@ -1,0 +1,117 @@
+---
+title: Textarea
+eyebrow: <Textarea />
+status: stable
+since: '0.3.0'
+category: form
+summary: Native textarea with terminal styling, an opt-in monospace variant, and an auto-resize mode that grows the control with its content.
+a11yPattern: https://www.w3.org/WAI/ARIA/apg/patterns/
+tokens:
+  - --background-quaternary
+  - --foreground-primary
+  - --foreground-secondary
+  - --font-sans
+  - --font-mono
+  - --danger-color
+order: 19
+---
+
+import PropTable from '../../components/site/PropTable.astro';
+import TokenChips from '../../components/site/TokenChips.astro';
+import DoDont from '../../components/site/DoDont.astro';
+import RelatedComponents from '../../components/site/RelatedComponents.astro';
+
+Textarea is the native multi-line input, restyled to match the rest of
+the terminal form shell. Drop in `variant="mono"` for code and command
+capture; flip `autoResize` on when the control should grow and shrink
+with its content instead of using the default vertical scroll affordance.
+
+## Props
+
+<PropTable
+  rows={[
+    {
+      name: 'variant',
+      type: "'default' | 'mono'",
+      default: "'default'",
+      description:
+        'Swaps body font for the mono token — for code, commands, logs.'
+    },
+    {
+      name: 'invalid',
+      type: 'boolean',
+      default: 'false',
+      description:
+        'Sets aria-invalid=true and shifts the border to the danger token.'
+    },
+    {
+      name: 'autoResize',
+      type: 'boolean',
+      default: 'false',
+      description:
+        'Grows the textarea to fit its content. Disables the native resize handle.'
+    },
+    {
+      name: '...rest',
+      type: 'TextareaHTMLAttributes<HTMLTextAreaElement>',
+      default: '—',
+      description:
+        'Every native textarea prop passes through (rows, cols, placeholder, value, defaultValue, disabled, …).'
+    }
+  ]}
+/>
+
+## Accessibility
+
+Native `<textarea>` — every screen reader and keyboard affordance works
+out of the box. Pair with a `<label>` (or FormGroup + HelpBlock) for
+the accessible name. When `invalid` is set, surface a matching error
+message through HelpBlock so the assistive tech announcement has
+something to read.
+
+## Tokens consumed
+
+<TokenChips
+  tokens={[
+    '--background-quaternary',
+    '--foreground-primary',
+    '--foreground-secondary',
+    '--font-sans',
+    '--font-mono',
+    '--danger-color'
+  ]}
+/>
+
+## Do & Don't
+
+<DoDont>
+  <Fragment slot='do'>
+    <ul>
+      <li>
+        Set a sensible default `rows` so the control has a reasonable starting
+        footprint.
+      </li>
+      <li>
+        Use `autoResize` for comment boxes and prompts — the overflow guesswork
+        disappears.
+      </li>
+      <li>
+        Reach for `variant="mono"` whenever the user is entering code or shell
+        commands.
+      </li>
+    </ul>
+  </Fragment>
+  <Fragment slot='dont'>
+    <ul>
+      <li>Don't forget the label — every Textarea needs an accessible name.</li>
+      <li>
+        Don't toggle `autoResize` on controls that must honour a fixed height.
+      </li>
+      <li>Don't reach for Textarea when a single-line Input will do.</li>
+    </ul>
+  </Fragment>
+</DoDont>
+
+## Related
+
+<RelatedComponents slugs={['form-control', 'form-group', 'input']} />

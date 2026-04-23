@@ -10,4 +10,6 @@ export type { RadioProps, RadioGroupProps } from './Radio';
 export { Select } from './Select';
 export type { SelectProps } from './Select';
 export { Switch } from './Switch';
+export { Textarea } from './Textarea';
+export type { TextareaProps, TextareaVariant } from './Textarea';
 export { ToggleButton } from './ToggleButton';
