@@ -167,6 +167,10 @@ importers:
       '@zag-js/tabs':
         specifier: ^1.40.0
         version: 1.40.0
+    devDependencies:
+      tsup:
+        specifier: ^8.5.1
+        version: 8.5.1(jiti@1.21.7)(postcss@8.5.10)(tsx@4.21.0)(typescript@6.0.3)(yaml@2.8.3)
 
   packages/uikit-tailwind:
     devDependencies:

@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>uikit-js — dialog fixture</title>
+    <style>
+      body {
+        background: #0a0a23;
+        color: #f5f6f7;
+        font-family: system-ui, sans-serif;
+        padding: 2rem;
+      }
+      button {
+        background: #f1be32;
+        color: #0a0a23;
+        border: 0;
+        padding: 0.5rem 0.75rem;
+        cursor: pointer;
+      }
+      [data-uikit-dialog] {
+        position: fixed;
+        inset: 0;
+        display: grid;
+        place-items: center;
+      }
+      [data-uikit-dialog][data-state='closed'] {
+        display: none;
+      }
+      [data-uikit-dialog-backdrop] {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+      }
+      [data-uikit-dialog-content] {
+        position: relative;
+        background: #1b1b32;
+        padding: 1.5rem;
+        border: 2px solid #3b3b4f;
+        min-width: 280px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>uikit-js dialog smoke test</h1>
+    <button type="button" data-uikit-dialog-trigger="demo">Open dialog</button>
+
+    <div
+      id="demo"
+      data-uikit-dialog
+      data-state="closed"
+      role="dialog"
+      aria-modal="true"
+    >
+      <div data-uikit-dialog-backdrop></div>
+      <div data-uikit-dialog-content>
+        <h2>Dialog</h2>
+        <p>Escape, backdrop click, or the close button all dismiss.</p>
+        <button type="button" data-uikit-dialog-close>Close</button>
+      </div>
+    </div>
+
+    <script src="../../dist/uikit.global.js"></script>
+  </body>
+</html>

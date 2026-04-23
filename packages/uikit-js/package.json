@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "scripts": {
     "test": "echo '[packages/uikit-js] no tests yet' && exit 0",
-    "build": "echo '[packages/uikit-js] build wired in later phase' && exit 0",
+    "build": "tsup",
     "dev": "tsup --watch",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit"
@@ -26,11 +26,24 @@
     "dist",
     "src"
   ],
+  "main": "./dist/uikit.js",
+  "module": "./dist/uikit.js",
+  "types": "./dist/uikit.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/uikit.js",
+      "types": "./dist/uikit.d.ts"
+    },
+    "./iife": "./dist/uikit.global.js"
+  },
   "dependencies": {
     "@zag-js/combobox": "^1.40.0",
     "@zag-js/dialog": "^1.40.0",
     "@zag-js/listbox": "^1.40.0",
     "@zag-js/pagination": "^1.40.0",
     "@zag-js/tabs": "^1.40.0"
+  },
+  "devDependencies": {
+    "tsup": "^8.5.1"
   }
 }
