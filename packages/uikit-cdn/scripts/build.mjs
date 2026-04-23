@@ -36,6 +36,20 @@ const uikitPkgJson = path.join(
   'uikit',
   'package.json'
 );
+const uikitJsGlobal = path.join(
+  monorepoRoot,
+  'packages',
+  'uikit-js',
+  'dist',
+  'uikit.global.js'
+);
+const uikitIconsSprite = path.join(
+  monorepoRoot,
+  'packages',
+  'uikit-icons',
+  'dist',
+  'sprite.svg'
+);
 const stylesDir = uikitCssSrc;
 const fontsSrc = path.join(uikitCssSrc, 'fonts');
 const brandSrc = path.join(uikitCssSrc, 'brand');
@@ -92,10 +106,26 @@ async function copyDirIfExists(src, dest) {
 
 async function hashFile(filePath) {
   const buf = await fs.readFile(filePath);
+  // sha256 (hex) stays for backwards-compatible content addressing; sha384
+  // ships as a W3C-shaped integrity string (`sha384-<base64>`) so consumers
+  // can paste it straight into <link integrity="...">.
+  const sha384B64 = createHash('sha384').update(buf).digest('base64');
   return {
     sha256: createHash('sha256').update(buf).digest('hex'),
+    sha384: `sha384-${sha384B64}`,
     bytes: buf.byteLength
   };
+}
+
+async function copyFileIfExists(src, dest) {
+  try {
+    await fs.access(src);
+  } catch {
+    return false;
+  }
+  await fs.mkdir(path.dirname(dest), { recursive: true });
+  await fs.copyFile(src, dest);
+  return true;
 }
 
 async function walk(dir, basePath = dir) {
@@ -135,6 +165,30 @@ async function writeBundle(destDir) {
 
   await copyDirIfExists(fontsSrc, path.join(destDir, 'fonts'));
   await copyDirIfExists(brandSrc, path.join(destDir, 'brand'));
+
+  // Pull the vanilla-JS IIFE bundle and the icon sprite into the same tree
+  // so consumers grab both from `cdn.freecodecamp.org/uikit/*`. Fail loud
+  // if the upstream dists are missing — the bundle must not ship partial.
+  if (
+    !(await copyFileIfExists(
+      uikitJsGlobal,
+      path.join(destDir, 'uikit.global.js')
+    ))
+  ) {
+    throw new Error(
+      `uikit-js build output missing at ${path.relative(monorepoRoot, uikitJsGlobal)}; run uikit-js build first`
+    );
+  }
+  if (
+    !(await copyFileIfExists(
+      uikitIconsSprite,
+      path.join(destDir, 'sprite.svg')
+    ))
+  ) {
+    throw new Error(
+      `uikit-icons sprite missing at ${path.relative(monorepoRoot, uikitIconsSprite)}; run uikit-icons build first`
+    );
+  }
 
   const files = await walk(destDir);
   const manifest = {};

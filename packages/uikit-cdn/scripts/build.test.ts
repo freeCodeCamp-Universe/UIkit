@@ -84,6 +84,8 @@ test('build-cdn produces the expected layout', async () => {
     'styles.min.css',
     'tokens.min.css',
     'components.min.css',
+    'uikit.global.js',
+    'sprite.svg',
     'manifest.json',
     'fonts'
   ];
@@ -92,6 +94,8 @@ test('build-cdn produces the expected layout', async () => {
       path.join(alias, 'styles.min.css'),
       path.join(alias, 'tokens.min.css'),
       path.join(alias, 'components.min.css'),
+      path.join(alias, 'uikit.global.js'),
+      path.join(alias, 'sprite.svg'),
       path.join(alias, 'manifest.json'),
       path.join(alias, 'fonts')
     );
@@ -102,6 +106,68 @@ test('build-cdn produces the expected layout', async () => {
       `dist-cdn/uikit/${rel} missing`
     );
   }
+});
+
+test('manifest entries carry a W3C SRI sha384 string alongside sha256', async () => {
+  const manifest = JSON.parse(
+    await fs.readFile(path.join(outRoot, 'manifest.json'), 'utf8')
+  );
+  const entries = Object.entries(
+    manifest.files as Record<
+      string,
+      { sha256: string; sha384: string; bytes: number }
+    >
+  );
+  assert.ok(entries.length > 0, 'manifest must list at least one file');
+  for (const [rel, meta] of entries) {
+    assert.match(
+      meta.sha384 ?? '',
+      /^sha384-[A-Za-z0-9+/]+=*$/,
+      `${rel}: sha384 must be a W3C SRI 'sha384-<base64>' string`
+    );
+    // Sanity: decode length corresponds to SHA-384 (48 bytes → 64 base64 chars + padding).
+    const b64 = (meta.sha384 ?? '').slice('sha384-'.length);
+    assert.equal(
+      Buffer.from(b64, 'base64').byteLength,
+      48,
+      `${rel}: sha384 payload should decode to 48 bytes`
+    );
+  }
+});
+
+test('uikit.global.js exposes window.UIKit and looks like valid JS', async () => {
+  const js = await fs.readFile(path.join(outRoot, 'uikit.global.js'), 'utf8');
+  assert.ok(js.length > 1000, 'uikit.global.js appears truncated');
+  assert.match(
+    js,
+    /UIKit/,
+    'uikit.global.js must reference the UIKit namespace'
+  );
+});
+
+test('uikit.global.js wires every shipped Tier-4 adapter attribute', async () => {
+  const js = await fs.readFile(path.join(outRoot, 'uikit.global.js'), 'utf8');
+  for (const attr of [
+    'data-uikit-dialog',
+    'data-uikit-pagination',
+    'data-uikit-listbox',
+    'data-uikit-combobox'
+  ]) {
+    assert.match(
+      js,
+      new RegExp(attr),
+      `${attr} must be wired in the vanilla bundle`
+    );
+  }
+});
+
+test('sprite.svg carries the 60-glyph curated set', async () => {
+  const svg = await fs.readFile(path.join(outRoot, 'sprite.svg'), 'utf8');
+  const symbolCount = (svg.match(/<symbol\s/g) ?? []).length;
+  assert.ok(
+    symbolCount >= 60,
+    `sprite.svg should ship >=60 symbols, found ${symbolCount}`
+  );
 });
 
 test('alias directories mirror the top-level bundle', async () => {

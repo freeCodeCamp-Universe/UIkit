@@ -40,7 +40,10 @@ async function exists(p) {
 
 async function hashFile(p) {
   const buf = await fs.readFile(p);
-  return createHash('sha256').update(buf).digest('hex');
+  return {
+    sha256: createHash('sha256').update(buf).digest('hex'),
+    sha384: `sha384-${createHash('sha384').update(buf).digest('base64')}`
+  };
 }
 
 function getAliasDirs(version) {
@@ -110,9 +113,18 @@ async function verifyManifest(dir) {
       continue;
     }
     const actual = await hashFile(p);
-    if (actual !== meta.sha256) {
+    if (actual.sha256 !== meta.sha256) {
       fail(
-        `manifest hash mismatch for ${rel}: expected ${meta.sha256}, got ${actual}`
+        `manifest sha256 mismatch for ${rel}: expected ${meta.sha256}, got ${actual.sha256}`
+      );
+    }
+    if (!meta.sha384 || !/^sha384-[A-Za-z0-9+/]+=*$/.test(meta.sha384)) {
+      fail(`manifest missing or malformed sha384 for ${rel}`);
+      continue;
+    }
+    if (actual.sha384 !== meta.sha384) {
+      fail(
+        `manifest sha384 mismatch for ${rel}: expected ${meta.sha384}, got ${actual.sha384}`
       );
     }
   }
@@ -127,6 +139,8 @@ async function verifyDir(dir, label) {
     'styles.min.css',
     'tokens.min.css',
     'components.min.css',
+    'uikit.global.js',
+    'sprite.svg',
     'fonts',
     'manifest.json'
   ];
@@ -167,7 +181,7 @@ async function verifyMirror(sourceDir, targetDir, label, aliasDirs) {
       hashFile(path.join(sourceDir, rel)),
       hashFile(path.join(targetDir, rel))
     ]);
-    if (sourceHash !== targetHash) {
+    if (sourceHash.sha256 !== targetHash.sha256) {
       fail(`${label}: ${rel} does not match top-level bundle`);
     }
   }
