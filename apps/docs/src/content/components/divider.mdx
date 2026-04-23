@@ -1,0 +1,60 @@
+---
+title: Divider
+eyebrow: <Divider />
+status: stable
+since: '0.3.0'
+category: primitive
+summary: Horizontal or vertical rule. Solid by default, dashed for the terminal-native version. Renders `<hr role="separator">`.
+a11yPattern: https://www.w3.org/WAI/ARIA/apg/patterns/
+tokens:
+  - --background-tertiary
+order: 12
+---
+
+import PropTable from '../../components/site/PropTable.astro';
+import TokenChips from '../../components/site/TokenChips.astro';
+import RelatedComponents from '../../components/site/RelatedComponents.astro';
+
+A thin structural rule. Horizontal by default, vertical when you need
+to split a row of controls. Pass `decorative` for pure visual dividers
+that should be invisible to assistive tech.
+
+## Props
+
+<PropTable
+  rows={[
+    {
+      name: 'orientation',
+      type: "'horizontal' | 'vertical'",
+      default: "'horizontal'",
+      description: 'Direction of the rule.'
+    },
+    {
+      name: 'variant',
+      type: "'solid' | 'dashed'",
+      default: "'solid'",
+      description: 'Line style. Dashed leans into the terminal aesthetic.'
+    },
+    {
+      name: 'decorative',
+      type: 'boolean',
+      default: 'false',
+      description: 'When true, drops `role="separator"` and sets `aria-hidden`.'
+    }
+  ]}
+/>
+
+## Accessibility
+
+Semantic dividers render as `<hr role="separator">`; vertical dividers
+also carry `aria-orientation="vertical"`. Use `decorative` when the
+rule is pure ornamentation — e.g., between inline metadata rows where
+the adjacent structure already carries the boundary.
+
+## Tokens consumed
+
+<TokenChips tokens={['--background-tertiary']} />
+
+## Related
+
+<RelatedComponents slugs={['spacer']} />
