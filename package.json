@@ -15,6 +15,9 @@
     "release": "turbo run build && changeset publish",
     "preview": "turbo run preview --filter=@freecodecamp/uikit-docs",
     "dev:docs": "turbo run dev --filter=@freecodecamp/uikit-docs",
+    "dev:uikit": "pnpm --filter @freecodecamp/uikit dev",
+    "dev:vanilla": "pnpm --filter @freecodecamp/uikit-js dev",
+    "test:watch": "pnpm --filter @freecodecamp/uikit test:watch",
     "build:docs": "turbo run build --filter=@freecodecamp/uikit-docs"
   },
   "devDependencies": {
