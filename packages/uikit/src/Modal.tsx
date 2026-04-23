@@ -1,4 +1,4 @@
-// Modal — Ark UI powered dialog with the fCC "modal" class hooks.
+// Modal — Ark UI powered dialog with the freeCodeCamp "modal" class hooks.
 // Public API (`open`, `onClose`, `title`, `closeOnBackdrop`) is
 // preserved verbatim so consumers migrating from the hand-rolled
 // implementation do not see a breaking change. Ark handles focus

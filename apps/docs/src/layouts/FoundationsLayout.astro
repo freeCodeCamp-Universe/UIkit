@@ -13,7 +13,10 @@ export interface Props {
 const { title, eyebrow, summary, description } = Astro.props;
 ---
 
-<BaseLayout title={`fCC UIKit — ${title}`} description={description ?? summary}>
+<BaseLayout
+  title={`freeCodeCamp UIKit — ${title}`}
+  description={description ?? summary}
+>
   <div class='app' id='top'>
     <AppHeader />
     <div class='app__body'>
@@ -32,8 +35,8 @@ const { title, eyebrow, summary, description } = Astro.props;
 
           <footer class='footer'>
             <p>
-              fCC UIKit · <a href='/'>Components</a> · <a href='/guides'
-                >Guides</a
+              freeCodeCamp UIKit · <a href='/'>Components</a> · <a
+                href='/guides'>Guides</a
               > · <a href='https://github.com/freeCodeCamp/ui'>Source</a>
             </p>
           </footer>

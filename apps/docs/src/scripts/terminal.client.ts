@@ -5,8 +5,8 @@
 
 const lines: string[] = [
   'camp@fcc:~$ pnpm add @freecodecamp/uikit',
-  '+ @freecodecamp/uikit 0.2.0',
-  '+ @freecodecamp/uikit-css 0.2.0',
+  '+ @freecodecamp/uikit 0.1.0',
+  '+ @freecodecamp/uikit-css 0.1.0',
   'camp@fcc:~$ open components',
   '→ opening https://fcc-uikit.netlify.app/#button'
 ];

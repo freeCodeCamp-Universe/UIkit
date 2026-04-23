@@ -1,4 +1,4 @@
-# fCC UIKit
+# freeCodeCamp UIKit
 
 A component library for freeCodeCamp's Command-line Chic design language.
 
