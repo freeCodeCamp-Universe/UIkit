@@ -1,0 +1,151 @@
+---
+title: Pagination
+eyebrow: <Pagination />
+status: stable
+since: '0.3.0'
+category: navigation
+summary: Page navigator for tabular and paged content. Ships a React layer for app code and a data-uikit-pagination adapter for the vanilla runtime — both speak the same DOM contract so the layers stay swappable.
+a11yPattern: https://www.w3.org/WAI/ARIA/apg/patterns/
+tokens:
+  - --font-mono
+  - --foreground-primary
+  - --foreground-secondary
+  - --cta-background
+  - --cta-foreground
+  - --border-width-thin
+order: 30
+---
+
+import PropTable from '../../components/site/PropTable.astro';
+import TokenChips from '../../components/site/TokenChips.astro';
+import DoDont from '../../components/site/DoDont.astro';
+import RelatedComponents from '../../components/site/RelatedComponents.astro';
+
+Pagination renders a compact page navigator with ellipsis markers for
+large ranges, next/previous buttons, and keyboard arrow navigation.
+The React layer is a controlled component — you own `page` state and
+pass `onPageChange`. The vanilla runtime exposes the same DOM through
+`[data-uikit-pagination]` and fires `uikit:pagination-change` events
+so server-rendered pages can page without React.
+
+## Props
+
+<PropTable
+  rows={[
+    {
+      name: 'count',
+      type: 'number',
+      default: '—',
+      description: 'Total item count. `pageCount = ceil(count / pageSize)`.'
+    },
+    {
+      name: 'pageSize',
+      type: 'number',
+      default: '—',
+      description: 'Items per page.'
+    },
+    {
+      name: 'page',
+      type: 'number',
+      default: '—',
+      description: '1-based current page. The component is fully controlled.'
+    },
+    {
+      name: 'siblingCount',
+      type: 'number',
+      default: '1',
+      description:
+        'Numeric siblings shown around the current page before an ellipsis is inserted.'
+    },
+    {
+      name: 'onPageChange',
+      type: '(page: number) => void',
+      default: '—',
+      description:
+        'Fires when the user clicks a page button, prev, next, or presses an arrow / Home / End.'
+    },
+    {
+      name: 'prevLabel',
+      type: 'ReactNode',
+      default: "'Previous'",
+      description: 'Label for the previous-page button.'
+    },
+    {
+      name: 'nextLabel',
+      type: 'ReactNode',
+      default: "'Next'",
+      description: 'Label for the next-page button.'
+    }
+  ]}
+/>
+
+## Keyboard
+
+| Key    | Action        |
+| ------ | ------------- |
+| `←`    | Previous page |
+| `→`    | Next page     |
+| `Home` | First page    |
+| `End`  | Last page     |
+
+## Accessibility
+
+Renders as `<nav aria-label="pagination">`; the current page carries
+`aria-current="page"`. Ellipsis markers are non-interactive and
+`aria-hidden`. Keyboard navigation is handled by the vanilla adapter
+on the root — the React layer leaves key handling to consumers so
+routing libraries can own the shortcut map.
+
+## Tokens consumed
+
+<TokenChips
+  tokens={[
+    '--font-mono',
+    '--foreground-primary',
+    '--foreground-secondary',
+    '--cta-background',
+    '--cta-foreground',
+    '--border-width-thin'
+  ]}
+/>
+
+## Do & Don't
+
+<DoDont>
+  <Fragment slot='do'>
+    <ul>
+      <li>
+        Control `page` from your router so bookmarks and back/forward survive
+        reloads.
+      </li>
+      <li>
+        Use `siblingCount=2` for very dense page counts where a single sibling
+        feels jumpy.
+      </li>
+      <li>
+        Pair with Table for list views that need server-side or client-side
+        paging.
+      </li>
+    </ul>
+  </Fragment>
+  <Fragment slot='dont'>
+    <ul>
+      <li>
+        Don't uncontrol `page` — keep the source of truth in your router or
+        store.
+      </li>
+      <li>
+        Don't hide the prev/next buttons; they are the primary keyboard
+        affordance for touch users.
+      </li>
+      <li>
+        Don't reach for Pagination when infinite scroll matches the data set
+        better.
+      </li>
+    </ul>
+  </Fragment>
+</DoDont>
+
+## Related
+
+<RelatedComponents slugs={['table', 'tabs']} />

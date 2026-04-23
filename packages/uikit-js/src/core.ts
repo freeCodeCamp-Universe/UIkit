@@ -5,6 +5,7 @@
 // consumers can drop one <script> tag and stop thinking about setup.
 
 import { dialog, type DialogInstance } from './adapters/dialog';
+import { pagination, type PaginationInstance } from './adapters/pagination';
 
 export type Adapter<TInstance = unknown> = (el: HTMLElement) => TInstance;
 
@@ -14,7 +15,8 @@ interface Registration {
 }
 
 const registry: Registration[] = [
-  { attribute: 'data-uikit-dialog', adapter: dialog as Adapter }
+  { attribute: 'data-uikit-dialog', adapter: dialog as Adapter },
+  { attribute: 'data-uikit-pagination', adapter: pagination as Adapter }
 ];
 
 function bootScope(scope: ParentNode): void {
@@ -50,5 +52,5 @@ if (typeof document !== 'undefined') {
   }
 }
 
-export { dialog };
-export type { DialogInstance };
+export { dialog, pagination };
+export type { DialogInstance, PaginationInstance };
