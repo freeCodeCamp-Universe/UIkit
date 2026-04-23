@@ -1,3 +1,5 @@
+export { Combobox, filterItemsByLabel } from './Combobox';
+export type { ComboboxProps, ComboboxItem } from './Combobox';
 export { Listbox } from './Listbox';
 export type {
   ListboxProps,

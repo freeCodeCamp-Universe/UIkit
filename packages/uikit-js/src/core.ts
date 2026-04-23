@@ -4,6 +4,7 @@
 // via a single MutationObserver. Designed as a ~3 KB IIFE so vanilla
 // consumers can drop one <script> tag and stop thinking about setup.
 
+import { combobox, type ComboboxInstance } from './adapters/combobox';
 import { dialog, type DialogInstance } from './adapters/dialog';
 import { listbox, type ListboxInstance } from './adapters/listbox';
 import { pagination, type PaginationInstance } from './adapters/pagination';
@@ -16,6 +17,7 @@ interface Registration {
 }
 
 const registry: Registration[] = [
+  { attribute: 'data-uikit-combobox', adapter: combobox as Adapter },
   { attribute: 'data-uikit-dialog', adapter: dialog as Adapter },
   { attribute: 'data-uikit-listbox', adapter: listbox as Adapter },
   { attribute: 'data-uikit-pagination', adapter: pagination as Adapter }
@@ -54,5 +56,10 @@ if (typeof document !== 'undefined') {
   }
 }
 
-export { dialog, listbox, pagination };
-export type { DialogInstance, ListboxInstance, PaginationInstance };
+export { combobox, dialog, listbox, pagination };
+export type {
+  ComboboxInstance,
+  DialogInstance,
+  ListboxInstance,
+  PaginationInstance
+};

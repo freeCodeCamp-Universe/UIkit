@@ -1,0 +1,166 @@
+---
+title: Combobox
+eyebrow: <Combobox />
+status: stable
+since: '0.3.0'
+category: navigation
+summary: Text input paired with a filterable option list — the marquee Wave 2 component. Sync filter, custom item renderers, and a data-uikit-combobox adapter that boots the vanilla runtime for server-rendered pages.
+a11yPattern: https://www.w3.org/WAI/ARIA/apg/patterns/combobox/
+tokens:
+  - --background-quaternary
+  - --background-tertiary
+  - --cta-background
+  - --cta-foreground
+  - --foreground-primary
+  - --foreground-secondary
+  - --border-width-thin
+order: 32
+---
+
+import PropTable from '../../components/site/PropTable.astro';
+import TokenChips from '../../components/site/TokenChips.astro';
+import DoDont from '../../components/site/DoDont.astro';
+import RelatedComponents from '../../components/site/RelatedComponents.astro';
+
+Combobox is a text input paired with a filterable option list — the
+marquee Wave 2 component. The React layer is fully controlled: you
+own `value`, `inputValue`, and the filtered `items` array; the
+component renders the resulting DOM. The vanilla runtime attaches to
+`[data-uikit-combobox]`, filters by substring as the user types,
+handles arrow-key navigation, and dispatches
+`uikit:combobox-change` + `uikit:combobox-input` for server-rendered
+pages that want to stay behind native forms.
+
+Async filtering is scheduled for Wave 4 polish — this release covers
+the sync-filter case only.
+
+## Props
+
+<PropTable
+  rows={[
+    {
+      name: 'items',
+      type: 'Array<{ value: string; label: ReactNode; disabled?: boolean }>',
+      default: '—',
+      description:
+        'Currently visible options. Filter externally on input change and re-pass.'
+    },
+    {
+      name: 'value',
+      type: 'string | null',
+      default: 'null',
+      description:
+        'Selected value. The matching item renders aria-selected=true.'
+    },
+    {
+      name: 'inputValue',
+      type: 'string',
+      default: 'uncontrolled',
+      description: 'Controlled text input value. Pair with onInputValueChange.'
+    },
+    {
+      name: 'onValueChange',
+      type: '(value: string) => void',
+      default: '—',
+      description: 'Fires when the user picks an option.'
+    },
+    {
+      name: 'onInputValueChange',
+      type: '(inputValue: string) => void',
+      default: '—',
+      description: 'Fires on every keystroke in the text input.'
+    },
+    {
+      name: 'renderItem',
+      type: '(item: ComboboxItem) => ReactNode',
+      default: 'item.label',
+      description:
+        'Custom per-item renderer. Useful for avatars, eyebrows, secondary text.'
+    },
+    {
+      name: 'placeholder',
+      type: 'string',
+      default: '—',
+      description: 'Input placeholder.'
+    }
+  ]}
+/>
+
+## Helpers
+
+`filterItemsByLabel(items, query)` — exported alongside the component.
+Case-insensitive substring match on each `item.label` (falling back to
+`item.value` when the label is not a string). Same predicate the
+vanilla adapter uses, so React and runtime renderers stay in sync.
+
+## Keyboard (vanilla runtime)
+
+| Key       | Action                      |
+| --------- | --------------------------- |
+| `↓` / `↑` | Move active option          |
+| `Enter`   | Select the active option    |
+| `Escape`  | Collapse the listbox        |
+| Type      | Filter options by substring |
+
+## Accessibility
+
+Follows the [APG Combobox pattern](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/).
+The `<input>` carries `role="combobox"`, `aria-autocomplete="list"`,
+and `aria-controls` pointing to the listbox id; `aria-expanded`
+mirrors the open/closed state. Each option is a `<li role="option">`
+with `aria-selected` and optional `aria-disabled`. Always pair with
+`aria-label` or `aria-labelledby`.
+
+## Tokens consumed
+
+<TokenChips
+  tokens={[
+    '--background-quaternary',
+    '--background-tertiary',
+    '--cta-background',
+    '--cta-foreground',
+    '--foreground-primary',
+    '--foreground-secondary',
+    '--border-width-thin'
+  ]}
+/>
+
+## Do & Don't
+
+<DoDont>
+  <Fragment slot='do'>
+    <ul>
+      <li>
+        Filter the `items` array in your own state hook — Combobox renders
+        exactly what it receives.
+      </li>
+      <li>
+        Use `renderItem` for richer option rows (avatar + label + eyebrow)
+        without forking the component.
+      </li>
+      <li>
+        Reach for the vanilla adapter on server-rendered pages where React isn't
+        shipped.
+      </li>
+    </ul>
+  </Fragment>
+  <Fragment slot='dont'>
+    <ul>
+      <li>
+        Don't reach for Combobox when a short, static Select does the job —
+        fewer moving parts.
+      </li>
+      <li>
+        Don't attempt async filtering yet — that ships in Wave 4 polish with
+        dedicated loading states.
+      </li>
+      <li>
+        Don't forget the accessible name — an unlabelled Combobox is a footgun.
+      </li>
+    </ul>
+  </Fragment>
+</DoDont>
+
+## Related
+
+<RelatedComponents slugs={['select', 'listbox', 'input']} />
