@@ -1,0 +1,90 @@
+---
+title: Avatar
+eyebrow: <Avatar />
+status: stable
+since: '0.3.0'
+category: primitive
+summary: Square user badge. Image by default, two-letter initials fallback, optional status dot. Three sizes locked to the type scale.
+a11yPattern: https://www.w3.org/WAI/ARIA/apg/
+tokens:
+  - --background-tertiary
+  - --foreground-primary
+order: 13
+---
+
+import PropTable from '../../components/site/PropTable.astro';
+import TokenChips from '../../components/site/TokenChips.astro';
+import DoDont from '../../components/site/DoDont.astro';
+import RelatedComponents from '../../components/site/RelatedComponents.astro';
+
+Square, flat, high-contrast — the Command-line Chic avatar. Fall back
+to initials when no image is available (the 99% case in new sign-ups)
+and attach a status dot when presence matters.
+
+## Props
+
+<PropTable
+  rows={[
+    {
+      name: 'name',
+      type: 'string',
+      required: true,
+      description: 'Display name. Used for `alt` text and initials fallback.'
+    },
+    {
+      name: 'src',
+      type: 'string',
+      description: 'Image URL. Omit to render initials.'
+    },
+    {
+      name: 'size',
+      type: "'sm' | 'md' | 'lg'",
+      default: "'md'",
+      description: 'Square side length.'
+    },
+    {
+      name: 'status',
+      type: "'online' | 'away' | 'offline'",
+      description: 'Renders a colored dot in the corner.'
+    }
+  ]}
+/>
+
+## Accessibility
+
+When `src` is present, `alt` is filled from `name`. When falling back
+to initials, the wrapper carries `aria-label={name}` and the initials
+node is `aria-hidden`. Status dots include an `aria-label`
+describing the state.
+
+## Tokens consumed
+
+<TokenChips tokens={['--background-tertiary', '--foreground-primary']} />
+
+## Do & Don't
+
+<DoDont>
+  <Fragment slot='do'>
+    <ul>
+      <li>Use `name` even when you have a `src` — it's the alt text.</li>
+      <li>
+        Keep the initials path working — not every user has uploaded a photo.
+      </li>
+    </ul>
+  </Fragment>
+  <Fragment slot='dont'>
+    <ul>
+      <li>
+        Don't skip the border-radius override — Avatars are square by design.
+      </li>
+      <li>
+        Don't layer status dots on top of decorative icons; use them for
+        presence only.
+      </li>
+    </ul>
+  </Fragment>
+</DoDont>
+
+## Related
+
+<RelatedComponents slugs={['badge']} />

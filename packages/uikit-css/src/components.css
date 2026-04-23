@@ -914,3 +914,59 @@
   border-left-style: dashed;
   border-top-style: solid;
 }
+
+/* ---------- Avatar ---------- */
+
+.avatar {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--background-tertiary);
+  color: var(--foreground-primary);
+  font-family: var(--font-sans, 'Lato', system-ui, sans-serif);
+  font-weight: 700;
+  overflow: hidden;
+  border: 2px solid var(--background-tertiary);
+}
+.avatar--sm {
+  width: 1.75rem;
+  height: 1.75rem;
+  font-size: 0.75rem;
+}
+.avatar--md {
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 0.95rem;
+}
+.avatar--lg {
+  width: 3.5rem;
+  height: 3.5rem;
+  font-size: 1.25rem;
+}
+.avatar__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.avatar__initials {
+  letter-spacing: 0.02em;
+}
+.avatar__status {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 0.6em;
+  height: 0.6em;
+  border: 2px solid var(--background-primary);
+}
+.avatar__status--online {
+  background: var(--success-color, #55b848);
+}
+.avatar__status--away {
+  background: var(--warning-color, #f1be32);
+}
+.avatar__status--offline {
+  background: var(--background-tertiary);
+}
