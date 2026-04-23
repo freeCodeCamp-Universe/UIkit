@@ -1,0 +1,106 @@
+---
+title: Fieldset
+eyebrow: <Fieldset />
+status: stable
+since: '0.3.0'
+category: form
+summary: Semantic field grouping with legend. Native fieldset + legend styled to the terminal shell — the right container for any cluster of related form controls.
+a11yPattern: https://www.w3.org/WAI/ARIA/apg/patterns/
+tokens:
+  - --font-mono
+  - --foreground-primary
+  - --foreground-secondary
+  - --background-tertiary
+  - --border-width-thin
+order: 15
+---
+
+import PropTable from '../../components/site/PropTable.astro';
+import TokenChips from '../../components/site/TokenChips.astro';
+import DoDont from '../../components/site/DoDont.astro';
+import RelatedComponents from '../../components/site/RelatedComponents.astro';
+
+Fieldset is the grouping container for related form controls. It renders
+a native `<fieldset>` with an optional `<legend>`, carrying our border
+and spacing tokens so the group reads as a single terminal block. Pair
+it with FormGroup, FormControl, Checkbox, Radio, and friends.
+
+## Props
+
+<PropTable
+  rows={[
+    {
+      name: 'legend',
+      type: 'ReactNode',
+      default: '—',
+      description: 'Rendered inside <legend>. Accepts text or nodes.'
+    },
+    {
+      name: 'tone',
+      type: "'default' | 'subtle'",
+      default: "'default'",
+      description: 'Border intensity. Subtle drops to the tertiary surface.'
+    },
+    {
+      name: 'disabled',
+      type: 'boolean',
+      default: 'false',
+      description: 'Native disabled — cascades to every contained control.'
+    }
+  ]}
+/>
+
+## Accessibility
+
+Uses the native `fieldset` + `legend` pair — screen readers announce the
+legend as the group label for every control inside. Prefer this over an
+ad-hoc `div` + heading pattern whenever a group of controls needs a
+shared name. `disabled` cascades automatically; no extra ARIA needed.
+
+## Tokens consumed
+
+<TokenChips
+  tokens={[
+    '--font-mono',
+    '--foreground-primary',
+    '--foreground-secondary',
+    '--background-tertiary',
+    '--border-width-thin'
+  ]}
+/>
+
+## Do & Don't
+
+<DoDont>
+  <Fragment slot='do'>
+    <ul>
+      <li>
+        Group related controls (address fields, preference toggles) inside a
+        single Fieldset.
+      </li>
+      <li>
+        Give every Fieldset a `legend` — it's the group's accessible name.
+      </li>
+      <li>
+        Use `disabled` at the Fieldset level to lock a whole section at once.
+      </li>
+    </ul>
+  </Fragment>
+  <Fragment slot='dont'>
+    <ul>
+      <li>
+        Don't nest Fieldsets more than one level — screen readers get noisy
+        fast.
+      </li>
+      <li>Don't reach for Fieldset as a generic card — use Card or Panel.</li>
+      <li>
+        Don't hide the legend visually; if the group truly needs no label, it
+        probably doesn't need a Fieldset.
+      </li>
+    </ul>
+  </Fragment>
+</DoDont>
+
+## Related
+
+<RelatedComponents slugs={['form-control', 'form-group', 'checkbox']} />

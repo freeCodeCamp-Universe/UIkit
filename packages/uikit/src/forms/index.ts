@@ -1,4 +1,6 @@
 export { Checkbox } from './Checkbox';
+export { Fieldset } from './Fieldset';
+export type { FieldsetProps, FieldsetTone } from './Fieldset';
 export { FormControl } from './FormControl';
 export { FormGroup } from './FormGroup';
 export { HelpBlock } from './HelpBlock';
