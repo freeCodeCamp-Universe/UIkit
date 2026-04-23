@@ -1,0 +1,141 @@
+---
+title: Sidebar
+eyebrow: <Sidebar />
+status: stable
+since: '0.3.0'
+category: navigation
+summary: Vertical navigation rail with section eyebrows, icon + label items, and active-state highlighting. Compound component — Sidebar + SidebarSection + SidebarItem.
+a11yPattern: https://www.w3.org/WAI/ARIA/apg/patterns/landmarks/
+tokens:
+  - --background-primary
+  - --background-tertiary
+  - --cta-background
+  - --cta-foreground
+  - --foreground-primary
+  - --foreground-secondary
+  - --font-sans
+  - --font-mono
+order: 41
+---
+
+import PropTable from '../../components/site/PropTable.astro';
+import TokenChips from '../../components/site/TokenChips.astro';
+import DoDont from '../../components/site/DoDont.astro';
+import RelatedComponents from '../../components/site/RelatedComponents.astro';
+
+Sidebar is the vertical navigation rail. The compound API keeps
+consumer code declarative: `<Sidebar>` wraps one or more
+`<SidebarSection>`s, each with optional eyebrow label, and each
+section contains `<SidebarItem>` entries. Items render as `<a>` when
+`href` is supplied and as `<button type="button">` otherwise.
+
+## Props
+
+### Sidebar
+
+<PropTable
+  rows={[
+    {
+      name: '...rest',
+      type: 'HTMLAttributes<HTMLElement>',
+      default: '—',
+      description:
+        'All standard aside attributes pass through. Pair with aria-label for an accessible name.'
+    }
+  ]}
+/>
+
+### SidebarSection
+
+<PropTable
+  rows={[
+    {
+      name: 'label',
+      type: 'ReactNode',
+      default: '—',
+      description: 'Rendered as a mono terminal eyebrow above the items.'
+    }
+  ]}
+/>
+
+### SidebarItem
+
+<PropTable
+  rows={[
+    {
+      name: 'href',
+      type: 'string',
+      default: '—',
+      description: 'When provided renders an <a>; otherwise a <button>.'
+    },
+    {
+      name: 'active',
+      type: 'boolean',
+      default: 'false',
+      description:
+        'Sets aria-current="page" and data-active="true" for styling.'
+    },
+    {
+      name: 'icon',
+      type: 'ReactNode',
+      default: '—',
+      description: 'Rendered inside a .sidebar__icon slot before the label.'
+    }
+  ]}
+/>
+
+## Accessibility
+
+Sidebar renders `<aside role="navigation">` — always pair with
+`aria-label` so screen readers can distinguish multiple navigation
+landmarks on the page. The active item carries `aria-current="page"`
+so users of assistive tech know where they are in the hierarchy.
+
+## Tokens consumed
+
+<TokenChips
+  tokens={[
+    '--background-primary',
+    '--background-tertiary',
+    '--cta-background',
+    '--cta-foreground',
+    '--foreground-primary',
+    '--foreground-secondary',
+    '--font-sans',
+    '--font-mono'
+  ]}
+/>
+
+## Do & Don't
+
+<DoDont>
+  <Fragment slot='do'>
+    <ul>
+      <li>
+        Group items into sections with short mono eyebrows (Main, Workspace,
+        Account).
+      </li>
+      <li>Mark exactly one SidebarItem as `active` per page.</li>
+      <li>
+        Use `href` for real links — it keeps `Cmd+click` / middle-click working.
+      </li>
+    </ul>
+  </Fragment>
+  <Fragment slot='dont'>
+    <ul>
+      <li>
+        Don't bury primary actions inside the sidebar — they belong in the
+        Navbar.
+      </li>
+      <li>Don't nest sections; keep the tree flat for scanability.</li>
+      <li>
+        Don't render both `href` and a custom click handler that prevents
+        default — pick one.
+      </li>
+    </ul>
+  </Fragment>
+</DoDont>
+
+## Related
+
+<RelatedComponents slugs={['navbar', 'tabs']} />
