@@ -2,7 +2,7 @@
   "name": "@freecodecamp/uikit-icons",
   "version": "0.1.0",
   "scripts": {
-    "test": "tsx --test --test-reporter=spec 'src/**/*.test.tsx'",
+    "test": "tsx --test --test-reporter=spec 'src/**/*.test.ts' 'src/**/*.test.tsx'",
     "build": "tsup && node scripts/build-sprite.mjs",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit"
