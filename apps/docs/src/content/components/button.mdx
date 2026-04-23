@@ -1,0 +1,107 @@
+---
+title: Button
+eyebrow: <button />
+status: stable
+since: '0.1.0'
+category: primitive
+summary: The primary action primitive. Gold CTA by default, three sizes, six variants, polymorphic via a single `variant` prop.
+a11yPattern: https://www.w3.org/WAI/ARIA/apg/patterns/button/
+tokens:
+  - --cta-background
+  - --cta-foreground
+  - --foreground-primary
+  - --background-secondary
+  - --dur-fast
+  - --ease-snap
+order: 1
+---
+
+import PropTable from '../../components/site/PropTable.astro';
+import TokenChips from '../../components/site/TokenChips.astro';
+import DoDont from '../../components/site/DoDont.astro';
+import RelatedComponents from '../../components/site/RelatedComponents.astro';
+
+Buttons trigger immediate actions. Use a link for navigation, a button for
+anything that changes state on the current page.
+
+## Props
+
+<PropTable
+  rows={[
+    {
+      name: 'variant',
+      type: "'primary' | 'secondary' | 'info' | 'success' | 'warning' | 'danger'",
+      default: "'primary'",
+      description: 'Visual weight. `primary` is the gold CTA.'
+    },
+    {
+      name: 'size',
+      type: "'sm' | 'md' | 'lg'",
+      default: "'md'",
+      description:
+        'Control scale. Height is locked per size; padding scales with it.'
+    },
+    {
+      name: 'disabled',
+      type: 'boolean',
+      default: 'false',
+      description: 'Non-interactive state with 40% opacity.'
+    },
+    {
+      name: 'type',
+      type: "'button' | 'submit' | 'reset'",
+      default: "'button'",
+      description: 'Forwarded to the native button element.'
+    }
+  ]}
+/>
+
+## Keyboard
+
+| Key           | Action                                     |
+| ------------- | ------------------------------------------ |
+| Space / Enter | Activates the button.                      |
+| Tab           | Moves focus to the next focusable element. |
+
+## Accessibility
+
+Renders a native `<button>` element. The focus ring is 3 px solid
+`--blue-mid` — the same ring every interactive primitive uses.
+Disabled buttons forward `aria-disabled="true"` and drop out of the
+tab order.
+
+## Tokens consumed
+
+<TokenChips
+  tokens={[
+    '--cta-background',
+    '--cta-foreground',
+    '--foreground-primary',
+    '--background-secondary',
+    '--dur-fast',
+    '--ease-snap'
+  ]}
+/>
+
+## Do & Don't
+
+<DoDont>
+  <Fragment slot='do'>
+    <ul>
+      <li>Use one `primary` button per view to anchor the main action.</li>
+      <li>Pair `secondary` with `primary` for cancel / save decisions.</li>
+      <li>Write the action verb on the button — never the noun.</li>
+    </ul>
+  </Fragment>
+  <Fragment slot='dont'>
+    <ul>
+      <li>Don't stack more than one `primary` in a row.</li>
+      <li>Don't use `danger` for "delete" if the action is reversible.</li>
+      <li>Don't swap Buttons for Links — each carries a different contract.</li>
+    </ul>
+  </Fragment>
+</DoDont>
+
+## Related
+
+<RelatedComponents slugs={['link', 'close-button', 'toggle-button']} />

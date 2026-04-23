@@ -1,0 +1,56 @@
+---
+// DoDont — side-by-side usage guidance. Two slots: do and dont.
+// Author pattern:
+//   <DoDont>
+//     <Fragment slot="do">...</Fragment>
+//     <Fragment slot="dont">...</Fragment>
+//   </DoDont>
+---
+
+<div class='dodont' role='region' aria-label='Usage guidance'>
+  <section class='dodont__col dodont__col--do'>
+    <p class='dodont__label'>Do</p>
+    <slot name='do' />
+  </section>
+  <section class='dodont__col dodont__col--dont'>
+    <p class='dodont__label'>Don't</p>
+    <slot name='dont' />
+  </section>
+</div>
+
+<style>
+  .dodont {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3, 1rem);
+  }
+  .dodont__col {
+    border: 2px solid var(--background-tertiary, #2a2a40);
+    padding: var(--space-4, 1.5rem);
+    background: var(--background-secondary, #1b1b32);
+  }
+  .dodont__col--do {
+    border-color: var(--semantic-success, #55b848);
+  }
+  .dodont__col--dont {
+    border-color: var(--semantic-danger, #d0021b);
+  }
+  .dodont__label {
+    font-family: var(--font-mono);
+    text-transform: lowercase;
+    letter-spacing: 0.06em;
+    font-size: 0.8125rem;
+    margin: 0 0 0.5rem;
+  }
+  .dodont__col--do .dodont__label {
+    color: var(--semantic-success, #55b848);
+  }
+  .dodont__col--dont .dodont__label {
+    color: var(--semantic-danger, #d0021b);
+  }
+  @media (max-width: 720px) {
+    .dodont {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

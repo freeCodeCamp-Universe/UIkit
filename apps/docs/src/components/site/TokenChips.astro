@@ -1,0 +1,68 @@
+---
+// TokenChips — renders design-token names as chips that deep-link to
+// the matching foundations page. Foundation inferred from token prefix
+// (--background-* → colors, --space-* → spacing, --dur-* / --ease-* →
+// motion, --font-* → typography). Unknown tokens link to /foundations.
+export interface Props {
+  tokens: string[];
+}
+const { tokens } = Astro.props;
+
+function foundationFor(token: string): string {
+  if (
+    token.startsWith('--background') ||
+    token.startsWith('--foreground') ||
+    token.includes('color') ||
+    /--(gray|blue|yellow|green|red|gold)/.test(token)
+  ) {
+    return '/foundations/colors';
+  }
+  if (token.startsWith('--space')) return '/foundations/spacing';
+  if (token.startsWith('--font') || token.startsWith('--text')) {
+    return '/foundations/typography';
+  }
+  if (token.startsWith('--dur-') || token.startsWith('--ease-')) {
+    return '/foundations/motion';
+  }
+  return '/foundations';
+}
+---
+
+<ul class='chips' role='list'>
+  {
+    tokens.map(token => (
+      <li>
+        <a class='chip' href={foundationFor(token)}>
+          <code>{token}</code>
+        </a>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .chips {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .chip {
+    display: inline-block;
+    padding: 0.25rem 0.625rem;
+    border: 1px solid var(--background-tertiary, #2a2a40);
+    color: var(--foreground-primary, #f5f6f7);
+    text-decoration: none;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    transition: border-color 120ms
+      var(--ease-snap, cubic-bezier(0.2, 0.8, 0.2, 1));
+  }
+  .chip:hover,
+  .chip:focus-visible {
+    border-color: var(--cta-background, #f1be32);
+    color: var(--cta-background, #f1be32);
+  }
+</style>

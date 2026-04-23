@@ -1,0 +1,80 @@
+---
+// PropTable — renders a component's prop schema from an inline array.
+// For Phase 2A we accept props explicitly from the MDX author; Wave 2
+// Tier 4 will add a build step that reads TS types directly so this
+// component becomes `<PropTable component="Button" />` only.
+export interface PropRow {
+  name: string;
+  type: string;
+  required?: boolean;
+  default?: string;
+  description?: string;
+}
+export interface Props {
+  rows: PropRow[];
+}
+const { rows } = Astro.props;
+---
+
+<div class='proptable' role='region' aria-label='Props'>
+  <table>
+    <thead>
+      <tr>
+        <th scope='col'>Prop</th>
+        <th scope='col'>Type</th>
+        <th scope='col'>Default</th>
+        <th scope='col'>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        rows.map(row => (
+          <tr>
+            <td>
+              <code>{row.name}</code>
+              {row.required && <span class='proptable__required'>*</span>}
+            </td>
+            <td>
+              <code>{row.type}</code>
+            </td>
+            <td>{row.default ? <code>{row.default}</code> : '—'}</td>
+            <td>{row.description ?? ''}</td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .proptable {
+    overflow-x: auto;
+    border: 2px solid var(--background-tertiary, #2a2a40);
+  }
+  .proptable table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+  }
+  .proptable th,
+  .proptable td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--background-tertiary, #2a2a40);
+    vertical-align: top;
+    text-align: left;
+  }
+  .proptable thead th {
+    background: var(--background-secondary, #1b1b32);
+    font-family: var(--font-mono);
+    font-weight: 500;
+    text-transform: lowercase;
+    letter-spacing: 0.04em;
+  }
+  .proptable code {
+    font-size: 0.875em;
+  }
+  .proptable__required {
+    color: var(--semantic-danger, #d0021b);
+    margin-left: 0.125rem;
+  }
+</style>
