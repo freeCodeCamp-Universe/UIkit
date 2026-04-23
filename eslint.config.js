@@ -24,6 +24,9 @@ export default defineConfig([
       '**/dist',
       '**/dist-cdn',
       '**/.astro',
+      // docs/public/uikit/ is build-populated from workspace dists
+      // (sprite.svg + minified uikit.global.js); do not lint vendored JS.
+      '**/public/uikit/',
       '**/.next',
       '**/.turbo',
       '**/__coverage__',

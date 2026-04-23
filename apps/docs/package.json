@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "scripts": {
     "test": "tsx --test --test-reporter=spec src/data/*.test.ts",
+    "predev": "node scripts/copy-sprite.mjs",
     "dev": "astro dev",
+    "prebuild": "node scripts/copy-sprite.mjs",
     "build": "astro build && pagefind --site dist --output-subdir _pagefind",
     "preview": "astro preview",
     "lint": "astro check && eslint .",
@@ -29,6 +31,7 @@
     "@freecodecamp/uikit": "workspace:^",
     "@freecodecamp/uikit-css": "workspace:^",
     "@freecodecamp/uikit-icons": "workspace:^",
+    "@freecodecamp/uikit-js": "workspace:^",
     "astro": "^6.1.9",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",

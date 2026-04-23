@@ -4,6 +4,8 @@ dist/
 dist-cdn/
 # generated types
 .astro/
+# docs: sprite copied from uikit-icons/dist on predev/prebuild
+apps/docs/public/uikit/
 
 # dependencies
 node_modules/

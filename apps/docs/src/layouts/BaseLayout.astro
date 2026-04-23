@@ -54,6 +54,17 @@ const {
       })();
     </script>
 
+    <!--
+      Dogfood: the vanilla JS adapter bundle is copied from
+      packages/uikit-js/dist into public/uikit/ by scripts/copy-sprite.mjs
+      on predev+prebuild. `defer` so the IIFE runs after the DOM is
+      parsed, which lets it bind every `data-uikit-*` attribute already
+      present in each page body (dialog, pagination, listbox, combobox).
+      Plain <script src> instead of a module import because Astro
+      tree-shakes side-effect-only imports in layouts.
+    -->
+    <script src='/uikit/uikit.global.js' defer is:inline></script>
+
     <style is:global>
       @import '@freecodecamp/uikit-css/tokens.css';
       @import '@freecodecamp/uikit-css/components.css';
