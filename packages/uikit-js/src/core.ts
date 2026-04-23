@@ -5,6 +5,7 @@
 // consumers can drop one <script> tag and stop thinking about setup.
 
 import { dialog, type DialogInstance } from './adapters/dialog';
+import { listbox, type ListboxInstance } from './adapters/listbox';
 import { pagination, type PaginationInstance } from './adapters/pagination';
 
 export type Adapter<TInstance = unknown> = (el: HTMLElement) => TInstance;
@@ -16,6 +17,7 @@ interface Registration {
 
 const registry: Registration[] = [
   { attribute: 'data-uikit-dialog', adapter: dialog as Adapter },
+  { attribute: 'data-uikit-listbox', adapter: listbox as Adapter },
   { attribute: 'data-uikit-pagination', adapter: pagination as Adapter }
 ];
 
@@ -52,5 +54,5 @@ if (typeof document !== 'undefined') {
   }
 }
 
-export { dialog, pagination };
-export type { DialogInstance, PaginationInstance };
+export { dialog, listbox, pagination };
+export type { DialogInstance, ListboxInstance, PaginationInstance };
