@@ -1478,3 +1478,49 @@
   color: var(--foreground-secondary);
   font-size: var(--fs-sm);
 }
+
+/* ---------- AuthLayout ---------- */
+
+.auth-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  min-height: 100vh;
+  padding: 32px 16px;
+  background: var(--background-primary);
+  color: var(--foreground-primary);
+}
+.auth-layout--pattern {
+  background-color: var(--background-primary);
+  background-image:
+    linear-gradient(
+      var(--background-tertiary) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      var(--background-tertiary) 1px,
+      transparent 1px
+    );
+  background-size: 32px 32px;
+  background-position: center center;
+}
+.auth-layout__brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+}
+.auth-layout__card {
+  width: 100%;
+  max-width: 400px;
+  padding: 24px;
+  background: var(--background-quaternary);
+  border: var(--border-width-thin) solid var(--foreground-secondary);
+}
+.auth-layout__footer {
+  color: var(--foreground-secondary);
+  font-size: var(--fs-sm);
+}
