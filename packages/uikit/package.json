@@ -35,7 +35,7 @@
     "tsx": "^4.21.0"
   },
   "peerDependencies": {
-    "@ark-ui/react": "^4.0.0",
+    "@ark-ui/react": "^5.0.0",
     "react": ">=18 <20",
     "react-dom": ">=18 <20"
   }

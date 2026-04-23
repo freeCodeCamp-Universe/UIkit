@@ -25,5 +25,12 @@
   "files": [
     "dist",
     "src"
-  ]
+  ],
+  "dependencies": {
+    "@zag-js/combobox": "^1.40.0",
+    "@zag-js/dialog": "^1.40.0",
+    "@zag-js/listbox": "^1.40.0",
+    "@zag-js/pagination": "^1.40.0",
+    "@zag-js/tabs": "^1.40.0"
+  }
 }
