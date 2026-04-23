@@ -860,3 +860,31 @@
   color: var(--foreground-secondary);
   opacity: 0.7;
 }
+
+/* ---------- Heading ---------- */
+
+.heading {
+  font-family: var(--font-sans, 'Lato', system-ui, sans-serif);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--foreground-primary);
+  margin: 0 0 0.75rem;
+  letter-spacing: -0.01em;
+}
+.heading--display {
+  font-size: clamp(2.5rem, 5vw, 3.75rem);
+  line-height: 1.05;
+}
+.heading--xl {
+  font-size: 2.25rem;
+}
+.heading--lg {
+  font-size: 1.75rem;
+}
+.heading--md {
+  font-size: 1.375rem;
+}
+.heading--sm {
+  font-size: 1.125rem;
+  letter-spacing: 0;
+}

@@ -1,0 +1,75 @@
+---
+title: Heading
+eyebrow: <Heading />
+status: stable
+since: '0.3.0'
+category: primitive
+summary: Section and page headings. Level and visual size decoupled so you can honour document outline without sacrificing composition.
+a11yPattern: https://www.w3.org/WAI/ARIA/apg/patterns/
+tokens:
+  - --font-sans
+  - --foreground-primary
+order: 11
+---
+
+import PropTable from '../../components/site/PropTable.astro';
+import TokenChips from '../../components/site/TokenChips.astro';
+import DoDont from '../../components/site/DoDont.astro';
+import RelatedComponents from '../../components/site/RelatedComponents.astro';
+
+Pick `level` for the semantic outline, pick `size` for the visual weight.
+Decoupling lets you keep the page's H1→H6 structure intact while still
+compressing a subheading into something discreet.
+
+## Props
+
+<PropTable
+  rows={[
+    {
+      name: 'level',
+      type: '1 | 2 | 3 | 4 | 5 | 6',
+      default: '2',
+      description:
+        'Rendered heading tag. Invalid values clamp to the nearest h1/h6.'
+    },
+    {
+      name: 'size',
+      type: "'display' | 'xl' | 'lg' | 'md' | 'sm'",
+      default: "'md'",
+      description: 'Visual size. Independent of level.'
+    }
+  ]}
+/>
+
+## Accessibility
+
+Always use `level` to match the document outline. Size is a presentation
+choice; a `<h6 size="display">` is legitimate if the outline requires it.
+
+## Tokens consumed
+
+<TokenChips tokens={['--font-sans', '--foreground-primary']} />
+
+## Do & Don't
+
+<DoDont>
+  <Fragment slot='do'>
+    <ul>
+      <li>Match `level` to the outline, not the visual target.</li>
+      <li>Use `size="display"` once per page at most.</li>
+    </ul>
+  </Fragment>
+  <Fragment slot='dont'>
+    <ul>
+      <li>
+        Don't use Heading for marketing titles with custom fonts — that's
+        content, not system.
+      </li>
+      <li>Don't skip heading levels for visual spacing.</li>
+    </ul>
+  </Fragment>
+</DoDont>
+
+## Related
+
+<RelatedComponents slugs={['text']} />
