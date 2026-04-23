@@ -1,0 +1,101 @@
+---
+title: DescriptionList
+eyebrow: <DescriptionList />
+status: stable
+since: '0.3.0'
+category: data-display
+summary: Semantic dl/dt/dd pair with mono terminal terms and Lato body details. Two layouts — vertical grid for metadata panels, inline for compact key/value strips.
+a11yPattern: https://www.w3.org/WAI/ARIA/apg/patterns/
+tokens:
+  - --font-mono
+  - --font-sans
+  - --foreground-primary
+  - --foreground-secondary
+  - --fs-sm
+  - --fs-md
+order: 16
+---
+
+import PropTable from '../../components/site/PropTable.astro';
+import TokenChips from '../../components/site/TokenChips.astro';
+import DoDont from '../../components/site/DoDont.astro';
+import RelatedComponents from '../../components/site/RelatedComponents.astro';
+
+DescriptionList is the semantic pair for key/value metadata — native
+`<dl>` with `<dt>` terms rendered as mono terminal eyebrows and `<dd>`
+details in Lato body. The default vertical layout is a two-column grid
+for settings and summary panels; the `inline` layout flows term/detail
+pairs inline for compact status strips.
+
+## Props
+
+<PropTable
+  rows={[
+    {
+      name: 'items',
+      type: 'Array<{ term: ReactNode; detail: ReactNode }>',
+      default: '—',
+      description: 'Term/detail pairs rendered in order.'
+    },
+    {
+      name: 'layout',
+      type: "'vertical' | 'inline'",
+      default: "'vertical'",
+      description: 'Two-column grid or inline flow.'
+    }
+  ]}
+/>
+
+## Accessibility
+
+Uses the native `dl` + `dt` + `dd` triple — screen readers announce the
+relationship between each term and its detail automatically. No ARIA
+needed. Order matters semantically: keep the most important pair first.
+
+## Tokens consumed
+
+<TokenChips
+  tokens={[
+    '--font-mono',
+    '--font-sans',
+    '--foreground-primary',
+    '--foreground-secondary',
+    '--fs-sm',
+    '--fs-md'
+  ]}
+/>
+
+## Do & Don't
+
+<DoDont>
+  <Fragment slot='do'>
+    <ul>
+      <li>
+        Reach for DescriptionList whenever you'd otherwise build a two-column
+        key/value table.
+      </li>
+      <li>
+        Use `inline` for status strips and metadata ribbons, `vertical` for side
+        panels.
+      </li>
+      <li>
+        Keep each term short — one or two words reads best in the mono eyebrow
+        treatment.
+      </li>
+    </ul>
+  </Fragment>
+  <Fragment slot='dont'>
+    <ul>
+      <li>Don't use DescriptionList for tabular data — use Table.</li>
+      <li>
+        Don't style `dt` or `dd` with inline color; tone everything through
+        tokens.
+      </li>
+      <li>Don't duplicate terms — each term should appear once per list.</li>
+    </ul>
+  </Fragment>
+</DoDont>
+
+## Related
+
+<RelatedComponents slugs={['table', 'panel', 'card']} />
