@@ -1033,3 +1033,31 @@
 .dl--inline .dl__detail {
   margin-right: 16px;
 }
+
+/* ---------- Radio ---------- */
+
+.radio {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-family: var(--font-sans);
+  font-size: var(--fs-md);
+  color: var(--foreground-primary);
+  cursor: pointer;
+}
+.radio input[type='radio'] {
+  width: 18px;
+  height: 18px;
+  margin-top: 3px;
+  accent-color: var(--cta-background);
+  cursor: inherit;
+}
+.radio:has(input:disabled) {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}

@@ -1,0 +1,139 @@
+---
+title: Radio
+eyebrow: <Radio />
+status: stable
+since: '0.3.0'
+category: form
+summary: Native radio input with label wrapper and RadioGroup context for single-choice selection. Pairs with Fieldset for semantic grouping.
+a11yPattern: https://www.w3.org/WAI/ARIA/apg/patterns/radio/
+tokens:
+  - --cta-background
+  - --font-sans
+  - --fs-md
+  - --foreground-primary
+order: 17
+---
+
+import PropTable from '../../components/site/PropTable.astro';
+import TokenChips from '../../components/site/TokenChips.astro';
+import DoDont from '../../components/site/DoDont.astro';
+import RelatedComponents from '../../components/site/RelatedComponents.astro';
+
+Radio is the native single-choice control. It renders a real
+`<input type="radio">` wrapped in a `<label>` when `label` is provided.
+RadioGroup is a thin container that wires a shared `name`, the current
+`value`, and the `onChange` handler to every child Radio through
+context — no prop-drilling.
+
+## Props
+
+<PropTable
+  rows={[
+    {
+      name: 'label',
+      type: 'ReactNode',
+      default: '—',
+      description: 'Wraps the input in a <label> with this content.'
+    },
+    {
+      name: 'value',
+      type: 'string',
+      default: '—',
+      description:
+        'Native value. Matched against the parent RadioGroup value to decide checked state.'
+    },
+    {
+      name: 'name',
+      type: 'string',
+      default: 'inherited',
+      description: 'Overrides the group name; rarely needed.'
+    },
+    {
+      name: 'labelClassName',
+      type: 'string',
+      default: '—',
+      description: 'Extra class applied to the wrapping <label>.'
+    }
+  ]}
+/>
+
+### RadioGroup props
+
+<PropTable
+  rows={[
+    {
+      name: 'name',
+      type: 'string',
+      default: '—',
+      description: 'Form field name shared by every child Radio.'
+    },
+    {
+      name: 'value',
+      type: 'string',
+      default: '—',
+      description:
+        'Currently selected value; the matching Radio renders as checked.'
+    },
+    {
+      name: 'onChange',
+      type: '(e: ChangeEvent<HTMLInputElement>) => void',
+      default: '—',
+      description: 'Change handler forwarded to every Radio.'
+    }
+  ]}
+/>
+
+## Accessibility
+
+Follows the [APG Radio Group pattern](https://www.w3.org/WAI/ARIA/apg/patterns/radio/).
+RadioGroup carries `role="radiogroup"`; pair with `aria-label` or
+`aria-labelledby` (for example via a preceding heading or a
+wrapping Fieldset+Legend). Keyboard behaviour comes from the native
+radio pair — Tab to enter, arrow keys to move within the group.
+
+## Tokens consumed
+
+<TokenChips
+  tokens={[
+    '--cta-background',
+    '--font-sans',
+    '--fs-md',
+    '--foreground-primary'
+  ]}
+/>
+
+## Do & Don't
+
+<DoDont>
+  <Fragment slot='do'>
+    <ul>
+      <li>
+        Always wrap radios in a RadioGroup so the shared `name` and keyboard
+        navigation work.
+      </li>
+      <li>
+        Pair with a Fieldset + legend whenever the group needs a visible label.
+      </li>
+      <li>
+        Use `value` + `onChange` on RadioGroup for controlled state — keep
+        children declarative.
+      </li>
+    </ul>
+  </Fragment>
+  <Fragment slot='dont'>
+    <ul>
+      <li>Don't reach for Radio for multi-select — use Checkbox.</li>
+      <li>
+        Don't skip the RadioGroup and set `name` on every Radio by hand; context
+        exists for a reason.
+      </li>
+      <li>
+        Don't hide the label visually — every Radio needs an accessible name.
+      </li>
+    </ul>
+  </Fragment>
+</DoDont>
+
+## Related
+
+<RelatedComponents slugs={['checkbox', 'fieldset', 'form-control']} />

@@ -5,5 +5,7 @@ export { FormControl } from './FormControl';
 export { FormGroup } from './FormGroup';
 export { HelpBlock } from './HelpBlock';
 export { Input } from './Input';
+export { Radio, RadioGroup } from './Radio';
+export type { RadioProps, RadioGroupProps } from './Radio';
 export { Switch } from './Switch';
 export { ToggleButton } from './ToggleButton';
