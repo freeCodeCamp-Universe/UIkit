@@ -1,0 +1,113 @@
+---
+title: Navbar
+eyebrow: <Navbar />
+status: stable
+since: '0.3.0'
+category: navigation
+summary: Top-of-page chrome with start, center, and end slots. Responsive collapse at the md breakpoint (768 px) so the center band wraps below the start and end rows on narrow screens.
+a11yPattern: https://www.w3.org/WAI/ARIA/apg/patterns/landmarks/
+tokens:
+  - --background-primary
+  - --foreground-primary
+  - --foreground-secondary
+  - --font-sans
+  - --fs-md
+  - --border-width-thin
+order: 40
+---
+
+import PropTable from '../../components/site/PropTable.astro';
+import TokenChips from '../../components/site/TokenChips.astro';
+import DoDont from '../../components/site/DoDont.astro';
+import RelatedComponents from '../../components/site/RelatedComponents.astro';
+
+Navbar is the top-of-page chrome — a semantic `<header role="banner">`
+with three optional slots: `start` (brand + primary nav), `center`
+(supporting nav, breadcrumb, search), and `end` (actions, user menu).
+At widths ≤ 768 px the center slot wraps to a new row so the start and
+end rails stay on one line.
+
+## Props
+
+<PropTable
+  rows={[
+    {
+      name: 'start',
+      type: 'ReactNode',
+      default: '—',
+      description: 'Left rail. Typically the brand lockup and primary links.'
+    },
+    {
+      name: 'center',
+      type: 'ReactNode',
+      default: '—',
+      description: 'Middle band. Search, breadcrumbs, or supporting nav.'
+    },
+    {
+      name: 'end',
+      type: 'ReactNode',
+      default: '—',
+      description: 'Right rail. Actions, auth controls, user menu.'
+    }
+  ]}
+/>
+
+## Accessibility
+
+Renders a `<header role="banner">`. Pair contained navigation lists
+with `<nav aria-label="…">` so screen reader users can distinguish
+primary navigation from secondary. Use real `<button>` or `<a>`
+elements for every interactive child — no `role="button"` on divs.
+
+## Tokens consumed
+
+<TokenChips
+  tokens={[
+    '--background-primary',
+    '--foreground-primary',
+    '--foreground-secondary',
+    '--font-sans',
+    '--fs-md',
+    '--border-width-thin'
+  ]}
+/>
+
+## Do & Don't
+
+<DoDont>
+  <Fragment slot='do'>
+    <ul>
+      <li>
+        Keep the brand + primary nav in `start` so they stay visible on narrow
+        screens.
+      </li>
+      <li>
+        Use `end` for global actions — search, sign-in, user menu, theme toggle.
+      </li>
+      <li>
+        Pair with SidebarLayout for apps that need a persistent side rail under
+        the Navbar.
+      </li>
+    </ul>
+  </Fragment>
+  <Fragment slot='dont'>
+    <ul>
+      <li>
+        Don't stuff every nav link in `center` — the wrap band gets crowded fast
+        on mobile.
+      </li>
+      <li>
+        Don't mix unrelated actions into `end` — keep it focused on global
+        actions only.
+      </li>
+      <li>
+        Don't hide the Navbar on scroll unless the page genuinely needs the
+        vertical space.
+      </li>
+    </ul>
+  </Fragment>
+</DoDont>
+
+## Related
+
+<RelatedComponents slugs={['sidebar', 'tabs']} />
