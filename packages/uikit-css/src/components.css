@@ -1453,3 +1453,28 @@
     display: none;
   }
 }
+
+/* ---------- StackedLayout ---------- */
+
+.stacked-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--background-primary);
+  color: var(--foreground-primary);
+}
+.stacked-layout__header {
+  flex: 0 0 auto;
+}
+.stacked-layout__main {
+  flex: 1 1 auto;
+  padding: 24px;
+  min-width: 0;
+}
+.stacked-layout__footer {
+  flex: 0 0 auto;
+  padding: 16px 24px;
+  border-top: var(--border-width-thin) solid var(--foreground-secondary);
+  color: var(--foreground-secondary);
+  font-size: var(--fs-sm);
+}
