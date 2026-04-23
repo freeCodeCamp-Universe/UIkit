@@ -27,3 +27,5 @@ pnpm-debug.log*
 
 # Local scratch work
 .scratchpad/
+# CocoIndex Code (ccc)
+/.cocoindex_code/
