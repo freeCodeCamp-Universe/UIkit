@@ -1,0 +1,154 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AppHeader from '../../components/site/AppHeader.astro';
+import AppSidebar from '../../components/site/AppSidebar.astro';
+
+const entries = await getCollection('components');
+const sorted = entries
+  .slice()
+  .sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+---
+
+<BaseLayout
+  title='freeCodeCamp UIKit — Components'
+  description='Command-line Chic components. Dark-first, flat, square. React and vanilla.'
+>
+  <div class='app' id='top'>
+    <AppHeader />
+    <div class='app__body'>
+      <AppSidebar />
+      <main class='app__main' id='content'>
+        <header class='components-index__header'>
+          <p class='components-index__eyebrow'>Components</p>
+          <h1 class='components-index__title'>Every brick, every layer</h1>
+          <p class='components-index__lede'>
+            React on top, tokens underneath, Tailwind in the middle. Pick a
+            component to see all three renderings side by side.
+          </p>
+        </header>
+
+        {
+          sorted.length === 0 ? (
+            <div class='components-index__empty'>
+              <p>
+                No components in the collection yet. Wave 2 is under way —
+                <a href='/guides/copy-paste'>copy-paste guide</a> in the
+                meantime.
+              </p>
+            </div>
+          ) : (
+            <ul class='components-index__grid' role='list'>
+              {sorted.map(entry => (
+                <li class='components-index__card'>
+                  <a href={`/components/${entry.id}`} class='card'>
+                    <p class='card__eyebrow'>{entry.data.eyebrow}</p>
+                    <h2 class='card__title'>{entry.data.title}</h2>
+                    <p class='card__summary'>{entry.data.summary}</p>
+                    <p class='card__meta'>
+                      <span class={`chip chip--${entry.data.status}`}>
+                        {entry.data.status}
+                      </span>
+                      {entry.data.since && (
+                        <span class='card__since'>
+                          since v{entry.data.since}
+                        </span>
+                      )}
+                    </p>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )
+        }
+      </main>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .components-index__header {
+    padding: var(--space-6, 2.5rem) var(--space-5, 2rem);
+    border-bottom: 2px solid var(--background-tertiary, #2a2a40);
+  }
+  .components-index__eyebrow {
+    font-family: var(--font-mono);
+    text-transform: lowercase;
+    letter-spacing: 0.08em;
+    color: var(--cta-background, #f1be32);
+    margin: 0 0 0.5rem;
+  }
+  .components-index__title {
+    font-size: 2.25rem;
+    margin: 0 0 0.75rem;
+  }
+  .components-index__lede {
+    max-width: 52ch;
+    color: var(--foreground-secondary, #dfdfe2);
+    margin: 0;
+  }
+  .components-index__empty {
+    padding: var(--space-6, 2.5rem) var(--space-5, 2rem);
+    color: var(--foreground-secondary, #dfdfe2);
+  }
+  .components-index__grid {
+    list-style: none;
+    margin: 0;
+    padding: var(--space-5, 2rem);
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: var(--space-4, 1.5rem);
+  }
+  .components-index__card .card {
+    display: block;
+    border: 2px solid var(--background-tertiary, #2a2a40);
+    padding: var(--space-4, 1.5rem);
+    background: var(--background-secondary, #1b1b32);
+    color: inherit;
+    text-decoration: none;
+    transition: border-color 120ms
+      var(--ease-snap, cubic-bezier(0.2, 0.8, 0.2, 1));
+  }
+  .components-index__card .card:hover,
+  .components-index__card .card:focus-visible {
+    border-color: var(--cta-background, #f1be32);
+  }
+  .card__eyebrow {
+    font-family: var(--font-mono);
+    color: var(--cta-background, #f1be32);
+    margin: 0 0 0.5rem;
+    letter-spacing: 0.04em;
+  }
+  .card__title {
+    margin: 0 0 0.5rem;
+    font-size: 1.125rem;
+  }
+  .card__summary {
+    color: var(--foreground-secondary, #dfdfe2);
+    margin: 0 0 0.75rem;
+  }
+  .card__meta {
+    display: flex;
+    gap: var(--space-2, 0.75rem);
+    align-items: center;
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+  }
+  .chip {
+    padding: 0.125rem 0.5rem;
+    border: 1px solid currentColor;
+  }
+  .chip--stable {
+    color: var(--semantic-success, #55b848);
+  }
+  .chip--beta {
+    color: var(--semantic-warning, #f1be32);
+  }
+  .chip--planned {
+    color: var(--foreground-secondary, #dfdfe2);
+  }
+  .card__since {
+    color: var(--foreground-secondary, #dfdfe2);
+  }
+</style>

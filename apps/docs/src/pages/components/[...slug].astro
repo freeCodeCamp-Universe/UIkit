@@ -1,0 +1,89 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AppHeader from '../../components/site/AppHeader.astro';
+import AppSidebar from '../../components/site/AppSidebar.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('components');
+  return entries.map(entry => ({
+    params: { slug: entry.id },
+    props: { entry }
+  }));
+}
+
+type Props = { entry: CollectionEntry<'components'> };
+const { entry } = Astro.props as Props;
+const { Content } = await render(entry);
+const { title, eyebrow, summary, status, since } = entry.data;
+---
+
+<BaseLayout title={`freeCodeCamp UIKit — ${title}`} description={summary}>
+  <div class='app' id='top'>
+    <AppHeader />
+    <div class='app__body'>
+      <AppSidebar />
+      <main class='app__main' id='content'>
+        <header class='component-hero'>
+          <p class='component-hero__eyebrow'>{eyebrow}</p>
+          <h1 class='component-hero__title'>{title}</h1>
+          <p class='component-hero__summary'>{summary}</p>
+          <p class='component-hero__meta'>
+            <span class={`chip chip--${status}`}>{status}</span>
+            {since && <span>since v{since}</span>}
+          </p>
+        </header>
+        <article class='component-body'>
+          <Content />
+        </article>
+      </main>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .component-hero {
+    padding: var(--space-6, 2.5rem) var(--space-5, 2rem);
+    border-bottom: 2px solid var(--background-tertiary, #2a2a40);
+  }
+  .component-hero__eyebrow {
+    font-family: var(--font-mono);
+    color: var(--cta-background, #f1be32);
+    margin: 0 0 0.5rem;
+  }
+  .component-hero__title {
+    margin: 0 0 0.5rem;
+    font-size: 2.25rem;
+  }
+  .component-hero__summary {
+    max-width: 56ch;
+    color: var(--foreground-secondary, #dfdfe2);
+    margin: 0 0 0.75rem;
+  }
+  .component-hero__meta {
+    display: flex;
+    gap: var(--space-2, 0.75rem);
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--foreground-secondary, #dfdfe2);
+    margin: 0;
+  }
+  .chip {
+    padding: 0.125rem 0.5rem;
+    border: 1px solid currentColor;
+  }
+  .chip--stable {
+    color: var(--semantic-success, #55b848);
+  }
+  .chip--beta {
+    color: var(--semantic-warning, #f1be32);
+  }
+  .chip--planned {
+    color: var(--foreground-secondary, #dfdfe2);
+  }
+  .component-body {
+    padding: var(--space-5, 2rem);
+    max-width: 72ch;
+  }
+</style>

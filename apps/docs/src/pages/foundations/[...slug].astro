@@ -1,0 +1,26 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import FoundationsLayout from '../../layouts/FoundationsLayout.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('foundations');
+  return entries.map(entry => ({
+    params: { slug: entry.id },
+    props: { entry }
+  }));
+}
+
+type Props = { entry: CollectionEntry<'foundations'> };
+const { entry } = Astro.props as Props;
+const { Content } = await render(entry);
+const { title, eyebrow, summary, description } = entry.data;
+---
+
+<FoundationsLayout
+  title={title}
+  eyebrow={eyebrow}
+  summary={summary}
+  description={description}
+>
+  <Content />
+</FoundationsLayout>
