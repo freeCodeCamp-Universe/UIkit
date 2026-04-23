@@ -1,0 +1,94 @@
+---
+title: Text
+eyebrow: <Text />
+status: stable
+since: '0.3.0'
+category: primitive
+summary: Body-copy primitive. Polymorphic element, token-driven size scale, Lato by default, terminal semantics for tone.
+a11yPattern: https://www.w3.org/WAI/ARIA/apg/patterns/
+tokens:
+  - --font-sans
+  - --foreground-primary
+  - --foreground-secondary
+order: 10
+---
+
+import PropTable from '../../components/site/PropTable.astro';
+import TokenChips from '../../components/site/TokenChips.astro';
+import DoDont from '../../components/site/DoDont.astro';
+import RelatedComponents from '../../components/site/RelatedComponents.astro';
+
+Text is the body-copy primitive. It renders a `<p>` by default, swaps to
+any inline or block element via `as`, and exposes four size steps, two
+weights, and three tones — every other styling decision comes from
+tokens.
+
+## Props
+
+<PropTable
+  rows={[
+    {
+      name: 'as',
+      type: "'p' | 'span' | 'div' | 'small'",
+      default: "'p'",
+      description: 'Rendered element.'
+    },
+    {
+      name: 'size',
+      type: "'xs' | 'sm' | 'base' | 'lg'",
+      default: "'base'",
+      description: 'Type scale step.'
+    },
+    {
+      name: 'weight',
+      type: "'regular' | 'bold'",
+      default: "'regular'",
+      description: 'Text weight.'
+    },
+    {
+      name: 'tone',
+      type: "'default' | 'secondary' | 'muted'",
+      default: "'default'",
+      description: 'Foreground token.'
+    }
+  ]}
+/>
+
+## Accessibility
+
+Pure styling wrapper — no ARIA. Use semantic elements via `as` when the
+content demands it (`small` for legal text, `span` inside inline flow,
+etc.).
+
+## Tokens consumed
+
+<TokenChips
+  tokens={['--font-sans', '--foreground-primary', '--foreground-secondary']}
+/>
+
+## Do & Don't
+
+<DoDont>
+  <Fragment slot='do'>
+    <ul>
+      <li>Use Text for every paragraph, caption, and inline description.</li>
+      <li>Reach for `tone="muted"` to de-emphasise helper copy.</li>
+    </ul>
+  </Fragment>
+  <Fragment slot='dont'>
+    <ul>
+      <li>
+        Don't use Text for headings — use `<Heading />
+        `.
+      </li>
+      <li>
+        Don't style Text with inline font-family or color. Change tokens
+        instead.
+      </li>
+    </ul>
+  </Fragment>
+</DoDont>
+
+## Related
+
+<RelatedComponents slugs={['heading', 'link']} />
