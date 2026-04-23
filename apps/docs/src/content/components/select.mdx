@@ -1,0 +1,97 @@
+---
+title: Select
+eyebrow: <Select />
+status: stable
+since: '0.3.0'
+category: form
+summary: Native HTML select restyled to fit the terminal shell. A real <select> — no portal, no popover, no Combobox. Chevron is an inlined Lucide glyph.
+a11yPattern: https://www.w3.org/WAI/ARIA/apg/patterns/combobox/
+tokens:
+  - --background-quaternary
+  - --foreground-primary
+  - --foreground-secondary
+  - --danger-color
+  - --border-width-thin
+order: 18
+---
+
+import PropTable from '../../components/site/PropTable.astro';
+import TokenChips from '../../components/site/TokenChips.astro';
+import DoDont from '../../components/site/DoDont.astro';
+import RelatedComponents from '../../components/site/RelatedComponents.astro';
+
+Select is the native dropdown. It renders a real HTML `<select>` — no
+popover, no portal — styled with our border, spacing, and chevron so
+it sits flush with the rest of the form shell. Reach for Combobox only
+when you need filtering, async loads, or custom option rendering.
+
+## Props
+
+<PropTable
+  rows={[
+    {
+      name: 'invalid',
+      type: 'boolean',
+      default: 'false',
+      description:
+        'Sets aria-invalid=true and shifts the border to the danger token.'
+    },
+    {
+      name: '...rest',
+      type: 'SelectHTMLAttributes<HTMLSelectElement>',
+      default: '—',
+      description:
+        'All native select props pass through (name, value, defaultValue, multiple, size, disabled, …).'
+    }
+  ]}
+/>
+
+## Accessibility
+
+Native `<select>` — every platform screen reader, keyboard navigation,
+and mobile picker works out of the box. Pair with a `<label>` (or
+FormGroup + HelpBlock) for an accessible name. Use `invalid` plus
+HelpBlock's error tone to signal validation failures.
+
+## Tokens consumed
+
+<TokenChips
+  tokens={[
+    '--background-quaternary',
+    '--foreground-primary',
+    '--foreground-secondary',
+    '--danger-color',
+    '--border-width-thin'
+  ]}
+/>
+
+## Do & Don't
+
+<DoDont>
+  <Fragment slot='do'>
+    <ul>
+      <li>
+        Use Select for short, stable option lists (countries, sizes, status).
+      </li>
+      <li>Ship a blank default option when no value is selected at mount.</li>
+      <li>Pair with HelpBlock for inline validation messages.</li>
+    </ul>
+  </Fragment>
+  <Fragment slot='dont'>
+    <ul>
+      <li>
+        Don't use Select when users need to search, filter, or async-load
+        options — use Combobox.
+      </li>
+      <li>
+        Don't style the dropdown list — browsers refuse to honour most of it
+        anyway.
+      </li>
+      <li>Don't hide the label; every Select needs an accessible name.</li>
+    </ul>
+  </Fragment>
+</DoDont>
+
+## Related
+
+<RelatedComponents slugs={['form-control', 'form-group', 'radio']} />

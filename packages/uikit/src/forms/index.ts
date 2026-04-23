@@ -7,5 +7,7 @@ export { HelpBlock } from './HelpBlock';
 export { Input } from './Input';
 export { Radio, RadioGroup } from './Radio';
 export type { RadioProps, RadioGroupProps } from './Radio';
+export { Select } from './Select';
+export type { SelectProps } from './Select';
 export { Switch } from './Switch';
 export { ToggleButton } from './ToggleButton';
