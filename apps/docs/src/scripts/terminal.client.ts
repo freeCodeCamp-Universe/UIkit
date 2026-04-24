@@ -8,7 +8,7 @@ const lines: string[] = [
   '+ @freecodecamp/uikit 0.1.0',
   '+ @freecodecamp/uikit-css 0.1.0',
   'camp@fcc:~$ open components',
-  '→ opening https://fcc-uikit.netlify.app/#button'
+  '→ opening https://fcc-uikit.netlify.app/components/button'
 ];
 
 const script: string = lines.join('\n');
