@@ -1,6 +1,13 @@
 export { Alert } from './Alert';
 export { Callout } from './Callout';
 export { Card } from './Card';
+export { DataTable } from './DataTable';
+export type {
+  DataTableProps,
+  DataTableColumn,
+  DataTableSort,
+  DataTableAlign
+} from './DataTable';
 export { DescriptionList } from './DescriptionList';
 export type {
   DescriptionListProps,

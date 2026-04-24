@@ -1,0 +1,146 @@
+---
+title: DataTable
+eyebrow: <DataTable />
+status: stable
+since: '1.0.0'
+category: data-display
+summary: Structured tabular display with sortable columns, row selection, loading skeletons, and an empty-state slot. Caller owns sort and selection state; columns accept string-key or function accessors.
+a11yPattern: https://www.w3.org/WAI/ARIA/apg/patterns/grid/
+tokens:
+  - --background-tertiary
+  - --background-quaternary
+  - --foreground-primary
+  - --foreground-secondary
+order: 65
+---
+
+import PropTable from '../../components/site/PropTable.astro';
+import TokenChips from '../../components/site/TokenChips.astro';
+import RelatedComponents from '../../components/site/RelatedComponents.astro';
+import DoDont from '../../components/site/DoDont.astro';
+
+Use DataTable for lists with comparable fields (users, tasks,
+incidents). For cards or read-heavy summaries reach for `<Panel>` or
+`<DescriptionList>`. Sort and selection are controlled — the table
+stays pure and lets the caller wire URL state, persistence, etc.
+
+## Usage
+
+```tsx
+import { DataTable, EmptyState } from '@freecodecamp/uikit/data-display';
+
+const columns = [
+  { id: 'name', header: 'Name', accessor: 'name', sortable: true },
+  { id: 'email', header: 'Email', accessor: row => row.email },
+  { id: 'status', header: 'Status', accessor: 'status', align: 'right' }
+];
+
+<DataTable
+  columns={columns}
+  rows={users}
+  rowId={row => row.id}
+  sortBy={sort}
+  onSortChange={setSort}
+  selection={selected}
+  onSelectionChange={setSelected}
+  loading={isLoading}
+  emptyState={<EmptyState title='No users yet' />}
+/>;
+```
+
+## Props
+
+<PropTable
+  rows={[
+    {
+      name: 'columns',
+      type: 'DataTableColumn[]',
+      default: '—',
+      description:
+        'Column definitions. `accessor` is a key or a `(row) => ReactNode` function. Supports `sortable`, `align`, `width`.'
+    },
+    {
+      name: 'rows',
+      type: 'TRow[]',
+      default: '—',
+      description:
+        'Ordered rows. The table does not sort internally — pass pre-sorted data.'
+    },
+    {
+      name: 'rowId',
+      type: '(row) => string',
+      default: '(row) => String(row.id)',
+      description: 'Stable row id for keys, selection, and `data-row-id`.'
+    },
+    {
+      name: 'sortBy / onSortChange',
+      type: "{columnId, direction: 'asc'|'desc'} | null / (next) => void",
+      default: '—',
+      description:
+        'Controlled sort. Click sortable header cycles asc → desc → null. Table fires onSortChange; caller re-orders rows.'
+    },
+    {
+      name: 'selection / onSelectionChange',
+      type: 'ReadonlySet<string> / (next: Set<string>) => void',
+      default: '—',
+      description:
+        'Controlled selection. Enables checkbox column + select-all header checkbox with indeterminate state.'
+    },
+    {
+      name: 'loading',
+      type: 'boolean',
+      default: 'false',
+      description:
+        'Renders `skeletonRows` shimmer rows instead of the data body.'
+    },
+    {
+      name: 'emptyState',
+      type: 'ReactNode',
+      default: '—',
+      description:
+        'Rendered in a full-width cell when `rows.length === 0` and not loading. Pair with `<EmptyState>`.'
+    },
+    {
+      name: 'caption',
+      type: 'ReactNode',
+      default: '—',
+      description: 'Optional `<caption>` for screen readers + visual summaries.'
+    }
+  ]}
+/>
+
+## Accessibility
+
+Renders a native `<table>` — sortable headers use `aria-sort` and wrap
+the label in a `<button>` so keyboard users can cycle sort direction.
+Selected rows carry `data-selected="true"`. The select-all checkbox
+enters `indeterminate` when some (but not all) rows are selected. Use
+`caption` to name the table for assistive tech.
+
+<DoDont
+  dos={[
+    'Pre-sort the row array before passing — the table does not sort internally.',
+    'Pair loading + empty states with Skeleton and EmptyState respectively.',
+    'Keep column count ≤ 6 on mobile; scroll horizontally is OK but not across dense data.'
+  ]}
+  donts={[
+    'Build filtering inside DataTable — filter outside, pass the result as `rows`.',
+    'Rely on row drag or virtualisation here — Wave 4 candidate.',
+    'Use DataTable for layout grids; reach for `<Card>` + CSS grid.'
+  ]}
+/>
+
+## Tokens consumed
+
+<TokenChips
+  tokens={[
+    '--background-tertiary',
+    '--background-quaternary',
+    '--foreground-primary',
+    '--foreground-secondary'
+  ]}
+/>
+
+## Related
+
+<RelatedComponents slugs={['table', 'skeleton', 'empty-state', 'pagination']} />

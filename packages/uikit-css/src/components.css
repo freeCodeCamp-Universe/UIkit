@@ -1952,3 +1952,100 @@
 .form-stepper__body {
   min-width: 0;
 }
+
+/* ---------- DataTable ---------- */
+
+.data-table {
+  width: 100%;
+  overflow-x: auto;
+  border: var(--border-width-thin) solid var(--foreground-secondary);
+}
+.data-table__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-sm);
+  color: var(--foreground-primary);
+}
+.data-table__table caption {
+  padding: 8px 12px;
+  text-align: left;
+  font-size: var(--fs-xs);
+  color: var(--foreground-secondary);
+  border-bottom: var(--border-width-thin) solid var(--foreground-secondary);
+}
+.data-table__header {
+  padding: 10px 12px;
+  text-align: left;
+  font-family: var(--font-heading);
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--foreground-secondary);
+  background: var(--background-tertiary);
+  border-bottom: var(--border-width-thin) solid var(--foreground-secondary);
+}
+.data-table__header--right {
+  text-align: right;
+}
+.data-table__header--center {
+  text-align: center;
+}
+.data-table__select-all {
+  width: 36px;
+  padding: 10px 12px;
+  background: var(--background-tertiary);
+  border-bottom: var(--border-width-thin) solid var(--foreground-secondary);
+  text-align: center;
+}
+.data-table__sort-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  text-transform: inherit;
+  letter-spacing: inherit;
+}
+.data-table__sort-indicator {
+  font-size: 10px;
+  line-height: 1;
+  opacity: 0.8;
+}
+.data-table__table tbody tr {
+  border-top: var(--border-width-thin) solid var(--background-tertiary);
+}
+.data-table__table tbody tr[data-selected='true'] {
+  background: var(--background-quaternary);
+}
+.data-table__cell {
+  padding: 10px 12px;
+  vertical-align: top;
+  text-align: left;
+}
+.data-table__cell--right {
+  text-align: right;
+}
+.data-table__cell--center {
+  text-align: center;
+}
+.data-table__select-cell {
+  width: 36px;
+  text-align: center;
+}
+.data-table__skeleton .skeleton {
+  height: 14px;
+  width: 80%;
+  display: block;
+}
+.data-table__empty-row {
+  background: transparent;
+}
+.data-table__empty-cell {
+  padding: 32px 16px;
+  text-align: center;
+  color: var(--foreground-secondary);
+}
