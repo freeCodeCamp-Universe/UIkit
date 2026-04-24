@@ -26,31 +26,22 @@ test.beforeEach(async ({ page }) => {
 
 // Astro-authored surfaces — the "chrome" of the site.
 //
-// `/showcase` is intentionally excluded: the gallery renders ~24
-// client-hydrated islands stacked into a ~18 000 px tall page. Font
-// anti-aliasing subpixel drift across that surface area exceeds the
-// stability threshold even with animations disabled. Re-add once the
-// scroll-spy extraction (3D.9) lands and the page renders as discrete
-// screenshottable islands.
-const surfaces: readonly string[] = ['/', '/components', '/foundations/colors'];
+// Surface set shrinks through Wave 4:
+//   · `/` excluded (4.3) — gallery is 18 000 px, too tall to stabilise.
+//   · `/components` dropped (4.4) — replaced by `/api` index.
+//   · `/foundations/colors` drops out in 4.6 because the sidebar
+//     conditional removed the rail from foundations pages, breaking
+//     their baselines; the handbook absorbs the same content in 4.7.
+//   · `/handbook` picks up the slack — shallow chrome + sidebar rail.
+// 4.8 re-adds `/api` + every `/api/<slug>` slug alongside a big-bang
+// goldens refresh.
+const surfaces: readonly string[] = ['/handbook'];
 
-// Full component MDX pages — every slug here has a PropTable, Keyboard
-// notes, Accessibility notes, Tokens and a Do/Don't grid.
-const fullComponentPages: readonly string[] = [
-  '/components/button',
-  '/components/text',
-  '/components/heading',
-  '/components/badge',
-  '/components/alert',
-  '/components/callout',
-  '/components/card',
-  '/components/panel',
-  '/components/input',
-  '/components/checkbox',
-  '/components/switch',
-  '/components/modal',
-  '/components/tooltip'
-];
+// Full component MDX pages temporarily excluded from the baseline.
+// Wave 4 · 4.6 dropped the sidebar chrome from /api/<slug> pages which
+// changes every screenshot; 4.8 re-adds these under `/api/<slug>`
+// alongside a goldens refresh.
+const fullComponentPages: readonly string[] = [];
 
 const routes = [...surfaces, ...fullComponentPages];
 

@@ -20,9 +20,9 @@ export function AppHeader(): JSX.Element {
 
   const primaryNav = (
     <nav className='site-header__nav' aria-label='Primary'>
-      <a href='/guides'>Guides</a>
-      <a href='/foundations/colors'>Tokens</a>
-      <a href='/components'>Components</a>
+      <a href='/'>Playground</a>
+      <a href='/handbook'>Handbook</a>
+      <a href='/api'>API ref</a>
       <a
         href='https://github.com/freeCodeCamp/ui'
         target='_blank'

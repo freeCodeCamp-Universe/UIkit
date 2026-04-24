@@ -39,33 +39,23 @@ test('every nav item carries an href', () => {
   }
 });
 
-test('Guides section lives at the top of the nav', () => {
-  assert.equal(nav[0]?.id, 'guides');
-  const labels = nav[0]?.items.map(i => i.label);
-  assert.deepEqual(labels, ['Overview', 'Use via CDN', 'Copy & vendor']);
+test('Primitives section lives at the top of the nav', () => {
+  // Wave 4 · 4.7 pruned `guides` + `foundations` from the nav. The
+  // first section is now the component layer.
+  assert.equal(nav[0]?.id, 'primitives');
 });
 
-test('Foundations section lists every pillar', () => {
-  const foundations = nav.find(s => s.id === 'foundations');
-  assert.ok(foundations, 'foundations section missing');
-  const labels = foundations.items.map(i => i.label);
-  assert.deepEqual(labels, [
-    'Colors',
-    'Typography',
-    'Spacing',
-    'Iconography',
-    'Motion',
-    'Voice'
-  ]);
-  for (const item of foundations.items) {
-    assert.match(item.href, /^\/foundations\//);
-  }
+test('guides and foundations sections are gone post Wave 4 · 4.7', () => {
+  const ids = nav.map(s => s.id);
+  assert.ok(!ids.includes('guides'), 'guides should redirect to /handbook');
+  assert.ok(
+    !ids.includes('foundations'),
+    'foundations should redirect to /handbook'
+  );
 });
 
 test('nav includes every layered component section', () => {
   const expected = [
-    'guides',
-    'foundations',
     'primitives',
     'actions',
     'forms',
@@ -90,7 +80,7 @@ test('no nav item has an anchor-only href', () => {
   }
 });
 
-test('every cmp-* item points to /components/<slug> with a known slug', () => {
+test('every cmp-* item points to /api/<slug> with a known slug', () => {
   const componentEntries = flatNav.filter(i => i.id.startsWith('cmp-'));
   assert.ok(
     componentEntries.length >= 40,
@@ -98,10 +88,10 @@ test('every cmp-* item points to /components/<slug> with a known slug', () => {
   );
   for (const entry of componentEntries) {
     assert.ok(
-      entry.href.startsWith('/components/'),
-      `${entry.id} href ${entry.href} must start with /components/`
+      entry.href.startsWith('/api/'),
+      `${entry.id} href ${entry.href} must start with /api/`
     );
-    const slug = entry.href.slice('/components/'.length);
+    const slug = entry.href.slice('/api/'.length);
     assert.ok(
       knownComponentSlugs.has(slug),
       `${entry.id} points at unknown slug ${slug}`

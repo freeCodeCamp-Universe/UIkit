@@ -44,6 +44,10 @@ const sourceHref = source
     <header class='showcase__head'>
       <p class='showcase__head-title'>{title}</p>
       <p class='showcase__head-meta'>preview</p>
+      <a class='showcase__source showcase__api' href={`/api/${id}`}>
+        <span>View API</span>
+        <span aria-hidden='true'>→</span>
+      </a>
       {
         sourceHref && (
           <a

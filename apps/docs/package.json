@@ -5,9 +5,9 @@
     "test": "tsx --test --test-reporter=spec 'src/**/*.test.ts'",
     "test:visual": "playwright test",
     "test:visual:update": "playwright test --update-snapshots",
-    "predev": "node scripts/copy-sprite.mjs",
+    "predev": "node scripts/copy-sprite.mjs && node scripts/build-asset-kit.mjs",
     "dev": "astro dev",
-    "prebuild": "node scripts/copy-sprite.mjs",
+    "prebuild": "node scripts/copy-sprite.mjs && node scripts/build-asset-kit.mjs",
     "build": "astro build && pagefind --site dist --output-subdir _pagefind",
     "preview": "astro preview",
     "lint": "astro check && eslint .",
@@ -40,6 +40,7 @@
     "sharp": "^0.34.5"
   },
   "devDependencies": {
+    "@astrojs/sitemap": "^3.7.2",
     "@playwright/test": "^1.59.1",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",

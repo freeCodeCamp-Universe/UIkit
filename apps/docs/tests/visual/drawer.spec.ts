@@ -22,7 +22,10 @@ test('mobile drawer opens when hamburger is clicked', async ({
     'Hamburger only renders ≤900 px'
   );
 
-  await page.goto('/components/button', { waitUntil: 'networkidle' });
+  // Target /handbook — post Wave 4 · 4.6 the sidebar only renders on
+  // the scroll-anchored surfaces (`/` and `/handbook`), so that's where
+  // the drawer is meaningful to exercise.
+  await page.goto('/handbook', { waitUntil: 'networkidle' });
   await page.evaluate(async () => {
     if ('fonts' in document) await document.fonts.ready;
   });

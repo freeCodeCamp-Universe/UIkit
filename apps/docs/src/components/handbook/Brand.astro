@@ -1,0 +1,406 @@
+---
+// Brand — five subsections that land under `/handbook#brand`:
+//   1. Marks          — three marks with a clear-space overlay + per-mark download
+//   2. Clear space    — range slider that tightens the envelope; frame turns red under 0.5x
+//   3. Misuse         — DoDont grid: stretched / recoloured / busy background
+//   4. Wordmark usage — "freeCodeCamp" vs "fCC" vs puck-only
+//   5. Asset kit      — single zip download
+//
+// The asset-kit zip is generated at predev + prebuild by
+// `apps/docs/scripts/build-asset-kit.mjs`; `public/brand/asset-kit.zip`
+// is gitignored because the zip CLI writes a non-deterministic payload
+// (timestamps + compression flags drift per run).
+import DoDont from '../site/DoDont.astro';
+
+const marks: readonly { file: string; label: string; desc: string }[] = [
+  {
+    file: 'fcc-primary.svg',
+    label: 'Primary',
+    desc: 'Full lockup — wordmark + puck. Default for hero + header.'
+  },
+  {
+    file: 'fcc-secondary.svg',
+    label: 'Secondary',
+    desc: 'Compact lockup — wordmark only. Navs, cards, footers.'
+  },
+  {
+    file: 'fcc-puck.svg',
+    label: 'Puck',
+    desc: 'Standalone puck. Favicons, avatars, tight chrome.'
+  }
+];
+---
+
+<div class='brand'>
+  <!-- 1 · Marks -->
+  <article class='brand__sub' id='brand-marks'>
+    <h3 class='brand__sub-title'>Marks</h3>
+    <p class='brand__sub-lede'>
+      Three official marks. The dotted frame is the clear-space envelope —
+      nothing else enters that margin.
+    </p>
+    <ul class='brand-marks'>
+      {
+        marks.map(m => (
+          <li class='brand-marks__item'>
+            <figure class='brand-marks__frame'>
+              <img
+                class='brand-marks__img'
+                src={`/brand/${m.file}`}
+                alt={`freeCodeCamp ${m.label} mark`}
+              />
+            </figure>
+            <p class='brand-marks__label'>{m.label}</p>
+            <p class='brand-marks__desc'>{m.desc}</p>
+            <a class='btn btn--sm' href={`/brand/${m.file}`} download>
+              Download SVG
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </article>
+
+  <!-- 2 · Clear space -->
+  <article class='brand__sub' id='brand-clear-space'>
+    <h3 class='brand__sub-title'>Clear space</h3>
+    <p class='brand__sub-lede'>
+      The puck height <code>x</code> is the minimum margin on every side. Drag the
+      slider to tighten the margin — the frame turns red when it falls below <code
+        >0.5x</code
+      >.
+    </p>
+    <div class='brand-clear' data-brand-clear>
+      <div class='brand-clear__stage' data-brand-clear-stage>
+        <div class='brand-clear__inner'>
+          <img
+            class='brand-clear__img'
+            src='/brand/fcc-primary.svg'
+            alt='freeCodeCamp primary mark'
+          />
+        </div>
+      </div>
+      <label class='brand-clear__control'>
+        <span class='brand-clear__control-label'>Clear-space ratio</span>
+        <input
+          type='range'
+          min='0'
+          max='150'
+          value='100'
+          step='1'
+          data-brand-clear-range
+          aria-label='Clear-space ratio'
+        />
+        <output data-brand-clear-output>1.00x</output>
+      </label>
+    </div>
+  </article>
+
+  <!-- 3 · Misuse -->
+  <article class='brand__sub' id='brand-misuse'>
+    <h3 class='brand__sub-title'>Misuse</h3>
+    <p class='brand__sub-lede'>
+      Three failure modes. Don't stretch, don't recolour, don't sit on a busy
+      background.
+    </p>
+    <DoDont>
+      <Fragment slot='do'>
+        <div class='brand-dodont'>
+          <img
+            src='/brand/fcc-primary.svg'
+            alt='Primary mark, correct proportions'
+          />
+        </div>
+        <p class='brand-dodont__caption'>
+          Keep aspect ratio, one-tone fill, quiet surface.
+        </p>
+      </Fragment>
+      <Fragment slot='dont'>
+        <div class='brand-dodont brand-dodont--stretched'>
+          <img src='/brand/fcc-primary.svg' alt='Stretched mark' />
+        </div>
+        <p class='brand-dodont__caption'>
+          Don't stretch — aspect ratio is locked.
+        </p>
+        <div class='brand-dodont brand-dodont--recoloured'>
+          <img src='/brand/fcc-primary.svg' alt='Recoloured mark' />
+        </div>
+        <p class='brand-dodont__caption'>
+          Don't recolour — use the kit palette.
+        </p>
+        <div class='brand-dodont brand-dodont--busy'>
+          <img src='/brand/fcc-primary.svg' alt='Mark on busy background' />
+        </div>
+        <p class='brand-dodont__caption'>
+          Don't sit on a busy background — find a calm surface.
+        </p>
+      </Fragment>
+    </DoDont>
+  </article>
+
+  <!-- 4 · Wordmark usage -->
+  <article class='brand__sub' id='brand-wordmark'>
+    <h3 class='brand__sub-title'>Wordmark usage</h3>
+    <p class='brand__sub-lede'>
+      One canonical spelling, one compact abbreviation, one graphic-only
+      fallback.
+    </p>
+    <ul class='brand-wordmark'>
+      <li class='brand-wordmark__tile'>
+        <p class='brand-wordmark__sample'>freeCodeCamp</p>
+        <p class='brand-wordmark__rule'>
+          Full name. Long-form copy, first use in body text, legal, about pages.
+          Lowercase f, capital C and C.
+        </p>
+      </li>
+      <li class='brand-wordmark__tile'>
+        <p class='brand-wordmark__sample'>fCC</p>
+        <p class='brand-wordmark__rule'>
+          Short form. Breadcrumbs, tight UI chrome, code comments. Only after a
+          full-name first use on the same surface.
+        </p>
+      </li>
+      <li class='brand-wordmark__tile'>
+        <img
+          class='brand-wordmark__img'
+          src='/brand/fcc-puck.svg'
+          alt='freeCodeCamp puck'
+        />
+        <p class='brand-wordmark__rule'>
+          Puck-only. Favicons, avatars, 32 px or smaller. Never as the sole
+          brand cue in a header.
+        </p>
+      </li>
+    </ul>
+  </article>
+
+  <!-- 5 · Asset kit -->
+  <article class='brand__sub' id='brand-asset-kit'>
+    <h3 class='brand__sub-title'>Asset kit</h3>
+    <p class='brand__sub-lede'>
+      The three marks as a single zip. Brand PDF + Figma community file arrive
+      post-1.0.
+    </p>
+    <a class='btn btn--cta' href='/brand/asset-kit.zip' download>
+      Download asset kit
+    </a>
+  </article>
+</div>
+
+<script>
+  // Clear-space demo — tighten the outer padding as the slider moves.
+  // Below 0.5x the stage flips `data-under-threshold` so CSS can flag
+  // the violation in red.
+  function mountClearSpace(): void {
+    const root = document.querySelector<HTMLElement>('[data-brand-clear]');
+    if (!root) return;
+    const range = root.querySelector<HTMLInputElement>(
+      '[data-brand-clear-range]'
+    );
+    const stage = root.querySelector<HTMLElement>('[data-brand-clear-stage]');
+    const output = root.querySelector<HTMLOutputElement>(
+      '[data-brand-clear-output]'
+    );
+    if (!range || !stage || !output) return;
+
+    const THRESHOLD = 0.5;
+
+    function apply(): void {
+      if (!range || !stage || !output) return;
+      const ratio = Number(range.value) / 100;
+      stage.style.setProperty('--brand-clear-ratio', String(ratio));
+      output.textContent = `${ratio.toFixed(2)}x`;
+      stage.toggleAttribute('data-under-threshold', ratio < THRESHOLD);
+    }
+
+    range.addEventListener('input', apply);
+    apply();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', mountClearSpace);
+  } else {
+    mountClearSpace();
+  }
+</script>
+
+<style is:global>
+  .brand {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+  .brand__sub-title {
+    margin: 0 0 8px;
+    font-size: var(--fs-lg);
+  }
+  .brand__sub-lede {
+    margin: 0 0 16px;
+    color: var(--foreground-secondary);
+    font-size: var(--fs-md);
+    line-height: var(--lh-loose);
+  }
+
+  .brand-marks {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+  }
+  .brand-marks__item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 16px;
+    background: var(--background-secondary);
+    border: 1px solid var(--border-strong);
+  }
+  .brand-marks__frame {
+    margin: 0;
+    padding: 24px;
+    background: var(--background-primary);
+    border: 1px dashed var(--foreground-quaternary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 112px;
+  }
+  .brand-marks__img {
+    max-width: 100%;
+    height: auto;
+  }
+  .brand-marks__label {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--foreground-muted);
+  }
+  .brand-marks__desc {
+    margin: 0;
+    color: var(--foreground-secondary);
+    font-size: 14px;
+    line-height: var(--lh-loose);
+  }
+
+  .brand-clear {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+    background: var(--background-secondary);
+    border: 1px solid var(--border-strong);
+  }
+  .brand-clear__stage {
+    --brand-clear-ratio: 1;
+    padding: calc(32px * var(--brand-clear-ratio));
+    background: var(--background-primary);
+    border: 2px solid var(--border-strong);
+    transition: border-color var(--dur-fast) var(--ease-snap);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 160px;
+  }
+  .brand-clear__stage[data-under-threshold] {
+    border-color: var(--danger-color);
+  }
+  .brand-clear__inner {
+    padding: 12px;
+    background: var(--background-tertiary);
+  }
+  .brand-clear__img {
+    max-width: 280px;
+    height: auto;
+    display: block;
+  }
+  .brand-clear__control {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--foreground-muted);
+  }
+  .brand-clear__control-label {
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .brand-clear__control input[type='range'] {
+    width: 100%;
+  }
+
+  .brand-dodont {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background: var(--background-primary);
+    min-height: 96px;
+  }
+  .brand-dodont img {
+    max-width: 220px;
+    height: auto;
+  }
+  .brand-dodont--stretched img {
+    transform: scaleX(1.6);
+    transform-origin: center;
+  }
+  .brand-dodont--recoloured img {
+    filter: hue-rotate(200deg) saturate(2);
+  }
+  .brand-dodont--busy {
+    background-image: repeating-linear-gradient(
+      45deg,
+      var(--purple-color) 0,
+      var(--purple-color) 12px,
+      var(--warning-color) 12px,
+      var(--warning-color) 24px
+    );
+  }
+  .brand-dodont__caption {
+    margin: 8px 0 16px;
+    color: var(--foreground-secondary);
+    font-size: 13px;
+    line-height: var(--lh-loose);
+  }
+
+  .brand-wordmark {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+  }
+  .brand-wordmark__tile {
+    padding: 20px;
+    background: var(--background-secondary);
+    border: 1px solid var(--border-strong);
+    min-height: 140px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .brand-wordmark__sample {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--foreground-primary);
+  }
+  .brand-wordmark__img {
+    max-width: 64px;
+    height: auto;
+  }
+  .brand-wordmark__rule {
+    margin: 0;
+    color: var(--foreground-secondary);
+    font-size: 13px;
+    line-height: var(--lh-loose);
+  }
+</style>

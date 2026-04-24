@@ -17,41 +17,14 @@ export interface FlatNavItem extends NavItem {
 const c = (slug: string, label: string): NavItem => ({
   id: `cmp-${slug}`,
   label,
-  href: `/components/${slug}`
+  href: `/api/${slug}`
 });
 
-const foundation = (id: string, label: string): NavItem => ({
-  id: `foundations-${id}`,
-  label,
-  href: `/foundations/${id}`
-});
-
+// Wave 4 · 4.7 pruned the guides + foundations sections — that content
+// folded into `/handbook`. The sidebar-rendered nav is now the
+// component index only; jumps to foundations/guides live on the
+// handbook page itself.
 export const nav: readonly NavSection[] = [
-  {
-    id: 'guides',
-    label: 'Guides',
-    items: [
-      { id: 'guides', label: 'Overview', href: '/guides' },
-      { id: 'guides-cdn', label: 'Use via CDN', href: '/guides/cdn' },
-      {
-        id: 'guides-copy-paste',
-        label: 'Copy & vendor',
-        href: '/guides/copy-paste'
-      }
-    ]
-  },
-  {
-    id: 'foundations',
-    label: 'Foundations',
-    items: [
-      foundation('colors', 'Colors'),
-      foundation('typography', 'Typography'),
-      foundation('spacing', 'Spacing'),
-      foundation('iconography', 'Iconography'),
-      foundation('motion', 'Motion'),
-      foundation('voice', 'Voice')
-    ]
-  },
   {
     id: 'primitives',
     label: 'Primitives',

@@ -1,0 +1,146 @@
+---
+// API reference index — compact two-column table: slug / status / since
+// / link. Replaces the 231-line category-grid that lived at
+// `/components` before Wave 4 · 4.4 moved the component pages under
+// `/api/<slug>`. The Playground at `/` is the browsable surface; this
+// table is the reference spine for each shipped MDX.
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AppHeader from '../../components/site/AppHeader.astro';
+import AppSidebar from '../../components/site/AppSidebar.astro';
+
+const entries = (await getCollection('components')).sort((a, b) => {
+  const ao = a.data.order ?? 999;
+  const bo = b.data.order ?? 999;
+  if (ao !== bo) return ao - bo;
+  return a.data.title.localeCompare(b.data.title);
+});
+
+const STATUS_LABEL: Readonly<Record<'stable' | 'beta' | 'planned', string>> = {
+  stable: 'Stable',
+  beta: 'Beta',
+  planned: 'Planned'
+};
+---
+
+<BaseLayout
+  title='freeCodeCamp UIKit — API reference'
+  description='Per-component API reference — every shipped slug, its status, the version it landed in, and a link to the full page.'
+>
+  <div class='app' id='top'>
+    <AppHeader />
+    <div class='app__body'>
+      <main class='content' tabindex='-1' data-pagefind-ignore='all'>
+        <div class='content__inner api-index'>
+          <section class='hero' id='introduction'>
+            <p class='hero__kicker'>API reference</p>
+            <h1 class='hero__title'>Every component, one table.</h1>
+            <p class='hero__lede'>
+              Full API pages for every shipped slug. Click a row for the prop
+              table, keyboard map, accessibility notes, and tokens. Preview the
+              same components live on the <a class='fcc-link' href='/'
+                >playground</a
+              >.
+            </p>
+          </section>
+
+          <table class='api-table'>
+            <thead>
+              <tr>
+                <th scope='col'>Component</th>
+                <th scope='col'>Status</th>
+                <th scope='col'>Since</th>
+                <th scope='col' class='api-table__link'>Link</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                entries.map(entry => (
+                  <tr>
+                    <td>
+                      <a class='fcc-link' href={`/api/${entry.id}`}>
+                        {entry.data.title}
+                      </a>
+                      <p class='api-table__slug'>{entry.id}</p>
+                    </td>
+                    <td>
+                      <span class={`chip chip--${entry.data.status}`}>
+                        {STATUS_LABEL[entry.data.status]}
+                      </span>
+                    </td>
+                    <td>{entry.data.since ? `v${entry.data.since}` : '—'}</td>
+                    <td class='api-table__link'>
+                      <a class='fcc-link' href={`/api/${entry.id}`}>
+                        /api/{entry.id} →
+                      </a>
+                    </td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </main>
+    </div>
+  </div>
+</BaseLayout>
+
+<style is:global>
+  .api-index {
+    max-width: 960px;
+  }
+  .api-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-mono);
+    font-size: 13px;
+  }
+  .api-table thead th {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 2px solid var(--border-strong);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--foreground-muted);
+    font-weight: 600;
+  }
+  .api-table tbody tr {
+    border-bottom: 1px solid var(--border-strong);
+  }
+  .api-table tbody tr:hover {
+    background: var(--background-secondary);
+  }
+  .api-table td {
+    padding: 10px 12px;
+    vertical-align: top;
+    color: var(--foreground-primary);
+  }
+  .api-table__slug {
+    margin: 2px 0 0;
+    color: var(--foreground-muted);
+    font-size: 12px;
+  }
+  .api-table__link a {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--cta-background);
+  }
+  .chip {
+    display: inline-block;
+    padding: 2px 8px;
+    border: 1px solid currentColor;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .chip--stable {
+    color: var(--success-color);
+  }
+  .chip--beta {
+    color: var(--warning-color);
+  }
+  .chip--planned {
+    color: var(--foreground-muted);
+  }
+</style>

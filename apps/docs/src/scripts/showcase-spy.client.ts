@@ -1,6 +1,7 @@
-// Sidebar scroll-spy for the /showcase gallery. Mirrors each
-// `<section[id]>` into a sidebar link's `data-active` attribute as the
-// section scrolls through a central band (rootMargin -30% / -60%).
+// Scroll-spy for scroll-anchored surfaces — the playground at `/`
+// (post Wave 4 · 4.3) and the /handbook. Mirrors each `<section[id]>`
+// into a sidebar-link's `data-active` attribute as the section scrolls
+// through a central band (rootMargin -30% / -60%).
 //
 // Opt-out flag: Playwright full-page screenshots stitch by scrolling,
 // which triggers the observer repeatedly and drifts the active state
@@ -40,7 +41,18 @@ function init(): void {
   function clearActive(): void {
     links.forEach(a => {
       const href = a.getAttribute('href') ?? '';
-      if (href.startsWith('/showcase#') || href.startsWith('/#')) {
+      // Spy-managed anchors carry one of three href shapes:
+      //   `/showcase#foo` — `<a>` on /showcase,
+      //   `/#foo`         — `<a>` on `/`,
+      //   `#foo`          — in-page TOC on /handbook (and future
+      //                     single-page surfaces).
+      // Anything else (e.g. `/components/button`) is a route link and
+      // gets its `data-active` from server-side rendering; leave it be.
+      if (
+        href.startsWith('/showcase#') ||
+        href.startsWith('/#') ||
+        href.startsWith('#')
+      ) {
         a.removeAttribute('data-active');
       }
     });

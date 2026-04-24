@@ -3,6 +3,11 @@
 // active state is driven by `currentPath` (threaded in from `Astro.url`)
 // via the `isActiveHref` helper, so we no longer need a client-side
 // script to mark the active link.
+//
+// Wave 4 · 4.6 dropped the `shouldOpenSection` / `DEFAULT_OPEN` dance.
+// After the IA flattened (/ as Playground + /handbook as reference),
+// the sidebar renders on exactly two routes and serves as a shallow
+// jump-list — every section ships expanded.
 import type { JSX } from 'react';
 import {
   Sidebar,
@@ -17,23 +22,6 @@ export interface AppSidebarProps {
   readonly currentPath: string;
 }
 
-/**
- * Sections that always render expanded regardless of the current route.
- * Guides and foundations are universally useful; primitives is the first
- * level of the component layer so we keep it open to surface depth.
- */
-const DEFAULT_OPEN = new Set<string>(['guides', 'foundations', 'primitives']);
-
-export function shouldOpenSection(
-  section: NavSection,
-  currentPath: string
-): boolean {
-  if (DEFAULT_OPEN.has(section.id)) return true;
-  return section.items.some(item =>
-    isActiveHref(currentPath, item.href, { exact: false })
-  );
-}
-
 export function AppSidebar({ nav, currentPath }: AppSidebarProps): JSX.Element {
   return (
     <Sidebar aria-label='Component navigation'>
@@ -42,12 +30,7 @@ export function AppSidebar({ nav, currentPath }: AppSidebarProps): JSX.Element {
         <p className='sidebar__intro-title'>Docs</p>
       </div>
       {nav.map(section => (
-        <SidebarSection
-          key={section.id}
-          label={section.label}
-          collapsible
-          defaultOpen={shouldOpenSection(section, currentPath)}
-        >
+        <SidebarSection key={section.id} label={section.label}>
           {section.items.map(item => (
             <SidebarItem
               key={item.id}

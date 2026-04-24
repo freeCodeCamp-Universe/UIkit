@@ -1,0 +1,395 @@
+---
+// Handbook — single-page reference that absorbs every foundations MDX +
+// the three guides + a brand placeholder + a short contributing guide.
+// Each major block is a `<section id='...'>` so
+// `scripts/showcase-spy.client.ts` can spy the active anchor as the
+// reader scrolls. The in-page TOC re-uses `data-sidebar-link` +
+// `data-target` so the same spy wiring that powers /showcase works here
+// with zero extra code.
+//
+// Brand content arrives in Wave 4 · 4.2; this page ships the scaffold
+// and a coming-soon callout.
+//
+// When Wave 4 · 4.7 lands, the legacy `/foundations/<slug>` and
+// `/guides/*` routes fold into 301 redirects pointing back at these
+// anchors.
+import { getEntry, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AppHeader from '../components/site/AppHeader.astro';
+import AppSidebar from '../components/site/AppSidebar.astro';
+import Brand from '../components/handbook/Brand.astro';
+
+async function loadFoundation(slug: string) {
+  const entry = await getEntry('foundations', slug);
+  if (!entry) throw new Error(`Missing foundations entry: ${slug}`);
+  return render(entry);
+}
+
+const { Content: Palette } = await loadFoundation('colors');
+const { Content: Typography } = await loadFoundation('typography');
+const { Content: Spacing } = await loadFoundation('spacing');
+const { Content: Iconography } = await loadFoundation('iconography');
+const { Content: Motion } = await loadFoundation('motion');
+const { Content: Voice } = await loadFoundation('voice');
+
+const tocLinks: readonly { id: string; label: string }[] = [
+  { id: 'palette', label: 'Palette' },
+  { id: 'typography', label: 'Typography' },
+  { id: 'spacing', label: 'Spacing' },
+  { id: 'iconography', label: 'Iconography' },
+  { id: 'motion', label: 'Motion' },
+  { id: 'voice', label: 'Voice' },
+  { id: 'brand', label: 'Brand' },
+  { id: 'install', label: 'Install' },
+  { id: 'cdn', label: 'CDN' },
+  { id: 'overview', label: 'Overview' },
+  { id: 'contributing', label: 'Contributing' }
+];
+---
+
+<BaseLayout
+  title='freeCodeCamp UIKit — Handbook'
+  description='One-page reference — palette, typography, spacing, iconography, motion, voice, brand, install, CDN, overview, contributing.'
+>
+  <div class='app' id='top'>
+    <AppHeader />
+    <div class='app__body'>
+      <AppSidebar />
+      <main class='content' tabindex='-1'>
+        <div class='content__inner'>
+          <section class='hero' id='introduction'>
+            <p class='hero__kicker'>Handbook</p>
+            <h1 class='hero__title'>One page. Every rule.</h1>
+            <p class='hero__lede'>
+              Everything a builder needs to ship fluently with freeCodeCamp
+              UIKit — tokens, type, motion, voice, brand, install, CDN, and how
+              to contribute. Scroll, or jump from the table of contents.
+            </p>
+          </section>
+
+          <nav class='handbook-toc' aria-label='On this page'>
+            {
+              tocLinks.map(l => (
+                <a
+                  class='handbook-toc__link'
+                  data-sidebar-link
+                  data-target={l.id}
+                  href={`#${l.id}`}
+                >
+                  {l.label}
+                </a>
+              ))
+            }
+          </nav>
+
+          <section class='section handbook-section' id='palette'>
+            <p class='section__eyebrow'>Foundation · 01</p>
+            <h2 class='section__title'>Palette</h2>
+            <div class='foundations'>
+              <Palette />
+            </div>
+          </section>
+
+          <section class='section handbook-section' id='typography'>
+            <p class='section__eyebrow'>Foundation · 02</p>
+            <h2 class='section__title'>Typography</h2>
+            <div class='foundations'>
+              <Typography />
+            </div>
+          </section>
+
+          <section class='section handbook-section' id='spacing'>
+            <p class='section__eyebrow'>Foundation · 03</p>
+            <h2 class='section__title'>Spacing</h2>
+            <div class='foundations'>
+              <Spacing />
+            </div>
+          </section>
+
+          <section class='section handbook-section' id='iconography'>
+            <p class='section__eyebrow'>Foundation · 04</p>
+            <h2 class='section__title'>Iconography</h2>
+            <div class='foundations'>
+              <Iconography />
+            </div>
+          </section>
+
+          <section class='section handbook-section' id='motion'>
+            <p class='section__eyebrow'>Foundation · 05</p>
+            <h2 class='section__title'>Motion</h2>
+            <div class='foundations'>
+              <Motion />
+            </div>
+          </section>
+
+          <section class='section handbook-section' id='voice'>
+            <p class='section__eyebrow'>Foundation · 06</p>
+            <h2 class='section__title'>Voice</h2>
+            <div class='foundations'>
+              <Voice />
+            </div>
+          </section>
+
+          <section class='section handbook-section' id='brand'>
+            <p class='section__eyebrow'>Brand</p>
+            <h2 class='section__title'>Brand</h2>
+            <p class='section__lede'>
+              Marks, clear-space, misuse, wordmark usage, and the asset kit.
+            </p>
+            <Brand />
+          </section>
+
+          <section class='section handbook-section' id='install'>
+            <p class='section__eyebrow'>Install</p>
+            <h2 class='section__title'>Install the kit</h2>
+            <p class='section__lede'>
+              Ship UIKit however you like — two patterns, identical output.
+            </p>
+            <div class='handbook-block'>
+              <p class='handbook-block__title'>1 · Add the packages</p>
+              <pre
+                class='guide-pre'><code>pnpm add @freecodecamp/uikit @freecodecamp/uikit-css</code></pre>
+            </div>
+            <div class='handbook-block'>
+              <p class='handbook-block__title'>2 · Import the stylesheets</p>
+              <p>Tokens first, components second.</p>
+              <pre
+                class='guide-pre'><code>{`@import '@freecodecamp/uikit-css/tokens.css';
+@import '@freecodecamp/uikit-css/components.css';`}</code></pre>
+            </div>
+            <div class='handbook-block'>
+              <p class='handbook-block__title'>3 · Use the components</p>
+              <pre
+                class='guide-pre'><code>{`import { Button } from '@freecodecamp/uikit';
+
+<Button variant="cta">Start curriculum</Button>`}</code></pre>
+            </div>
+          </section>
+
+          <section class='section handbook-section' id='cdn'>
+            <p class='section__eyebrow'>CDN</p>
+            <h2 class='section__title'>Use via CDN</h2>
+            <p class='section__lede'>
+              One <code>@import</code> line pulls every token, every component class,
+              and every font. Fonts resolve relative to the stylesheet URL.
+            </p>
+            <div class='handbook-block'>
+              <p class='handbook-block__title'>
+                CSS <code>@import</code>
+              </p>
+              <pre
+                class='guide-pre'><code>{`@import url('https://cdn.freecodecamp.org/uikit/styles.min.css');`}</code></pre>
+            </div>
+            <div class='handbook-block'>
+              <p class='handbook-block__title'>
+                Or the <code>&lt;link&gt;</code> tag
+              </p>
+              <pre
+                class='guide-pre'><code>{`<link
+  rel="stylesheet"
+  href="https://cdn.freecodecamp.org/uikit/styles.min.css"
+  crossorigin="anonymous"
+/>`}</code></pre>
+            </div>
+            <p>
+              Pin a specific version by swapping the root for
+              <code>https://cdn.freecodecamp.org/uikit/v1.0.0/</code>. The
+              un-versioned URL always serves <code>latest</code>.
+            </p>
+          </section>
+
+          <section class='section handbook-section' id='overview'>
+            <p class='section__eyebrow'>Overview</p>
+            <h2 class='section__title'>What you always get</h2>
+            <ul class='guide-list'>
+              <li>
+                <strong>Flat, square, dark-first.</strong> No shadows, no rounded
+                corners, AA+ contrast.
+              </li>
+              <li>
+                <strong>CSS variables own the palette.</strong> Toggle
+                <code>.light-palette</code> on <code>&lt;html&gt;</code> to recolour
+                the whole surface without touching components.
+              </li>
+              <li>
+                <strong>Three layers.</strong> CSS primitives, vanilla-JS adapters
+                that mount off
+                <code>data-uikit-*</code>, and React components that render the
+                same class names.
+              </li>
+              <li>
+                <strong>SSR-first.</strong> Every React component renders as pure
+                HTML first. Hydration only kicks in where a component needs state.
+              </li>
+              <li>
+                <strong>One icon sprite.</strong> React and vanilla consumers both
+                reference the same SVG symbol set via
+                <code>&lt;use href='#slug' /&gt;</code>.
+              </li>
+            </ul>
+          </section>
+
+          <section class='section handbook-section' id='contributing'>
+            <p class='section__eyebrow'>Contributing</p>
+            <h2 class='section__title'>Contribute a change</h2>
+            <p class='section__lede'>
+              UIKit lives in the <a
+                class='fcc-link'
+                href='https://github.com/freeCodeCamp/ui'>freeCodeCamp/ui</a
+              > monorepo. Small fixes go straight to PR; larger features start with
+              a short RFC in a GitHub Discussion.
+            </p>
+            <ol class='guide-list handbook-steps'>
+              <li>Fork the repo and branch off <code>main</code>.</li>
+              <li>
+                One concern per commit. TDD: failing test → implementation →
+                green.
+              </li>
+              <li>
+                Commit with <code>type(scope): subject</code> — title-only, no body.
+                Use <code>feat</code>, <code>fix</code>, <code>refactor</code>, <code
+                  >chore</code
+                >, <code>docs</code>, or <code>test</code>.
+              </li>
+              <li>
+                Run the full battery locally before pushing:
+                <pre
+                  class='guide-pre'><code>{`pnpm install
+pnpm test
+pnpm build
+pnpm format:check
+pnpm --filter @freecodecamp/uikit-docs test:visual`}</code></pre>
+              </li>
+              <li>
+                Add a Changeset for user-visible changes —
+                <code>pnpm changeset</code>. Pick packages, bump type, and write
+                a one-line summary.
+              </li>
+              <li>
+                Open a PR against <code>main</code>. CodeRabbit reviews; CI is
+                the source of truth. Releases cut from merged PRs — individual
+                PRs don't publish.
+              </li>
+            </ol>
+          </section>
+
+          <footer class='footer'>
+            <p>
+              freeCodeCamp UIKit · <a href='/'>Home</a> · <a
+                href='https://github.com/freeCodeCamp/ui'>Source</a
+              >.
+            </p>
+          </footer>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    import '../scripts/showcase-spy.client.ts';
+  </script>
+</BaseLayout>
+
+<style is:global>
+  /* In-page table of contents — compact row of mono chips. Spy marks
+     the active section via data-active="true". */
+  .handbook-toc {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 8px;
+    margin: 0 0 32px;
+    padding: 12px 16px;
+    background: var(--background-secondary);
+    border: 1px solid var(--border-strong);
+    font-family: var(--font-mono);
+    font-size: 12px;
+  }
+  .handbook-toc__link {
+    padding: 4px 8px;
+    color: var(--foreground-secondary);
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition:
+      color var(--dur-fast) var(--ease-snap),
+      border-color var(--dur-fast) var(--ease-snap),
+      background-color var(--dur-fast) var(--ease-snap);
+  }
+  .handbook-toc__link:hover {
+    color: var(--foreground-primary);
+    border-color: var(--border-strong);
+    background: var(--background-tertiary);
+  }
+  .handbook-toc__link[data-active='true'] {
+    color: var(--background-primary);
+    background: var(--cta-background);
+    border-color: var(--cta-background);
+  }
+
+  .handbook-section {
+    scroll-margin-top: 96px;
+  }
+  .handbook-section + .handbook-section {
+    margin-top: 40px;
+  }
+
+  .handbook-block {
+    margin: 16px 0;
+    padding: 16px;
+    background: var(--background-secondary);
+    border: 1px solid var(--border-strong);
+  }
+  .handbook-block__title {
+    margin: 0 0 12px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--foreground-muted);
+  }
+  .handbook-block p {
+    margin: 12px 0;
+    color: var(--foreground-secondary);
+    font-size: var(--fs-md);
+    line-height: var(--lh-loose);
+  }
+
+  .handbook-steps li {
+    margin-bottom: 12px;
+  }
+
+  /* Mirrors the `.foundations` rules that historically lived in
+     `layouts/FoundationsLayout.astro`. Wave 4 · 4.7 will retire the old
+     layout; having the styles here keeps /handbook self-contained. */
+  .foundations {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    max-width: 72ch;
+  }
+  .foundations h2 {
+    margin: 16px 0 8px;
+    font-size: var(--fs-xl);
+  }
+  .foundations h3 {
+    margin: 12px 0 6px;
+    font-size: var(--fs-lg);
+  }
+  .foundations p {
+    margin: 0;
+    color: var(--foreground-secondary);
+    font-size: var(--fs-md);
+    line-height: var(--lh-loose);
+  }
+  .foundations ul {
+    margin: 0;
+    padding-left: 20px;
+    color: var(--foreground-secondary);
+    font-size: var(--fs-md);
+  }
+  .foundations ul li {
+    margin-bottom: 6px;
+  }
+  .foundations code {
+    font-size: 0.9em;
+  }
+</style>

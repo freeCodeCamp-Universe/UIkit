@@ -6,6 +6,8 @@ dist-cdn/
 .astro/
 # docs: sprite copied from uikit-icons/dist on predev/prebuild
 apps/docs/public/uikit/
+# docs: brand asset kit built from public/brand/*.svg on predev/prebuild
+apps/docs/public/brand/asset-kit.zip
 
 # dependencies
 node_modules/
