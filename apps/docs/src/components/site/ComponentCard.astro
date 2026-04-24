@@ -1,0 +1,21 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+export interface Props {
+  entry: CollectionEntry<'components'>;
+}
+
+const { entry } = Astro.props;
+const { title, eyebrow, summary, status, since } = entry.data;
+const href = `/components/${entry.id}`;
+---
+
+<a href={href} class='card' aria-label={`Open ${title} page`}>
+  <p class='card__eyebrow'>{eyebrow}</p>
+  <h2 class='card__title'>{title}</h2>
+  <p class='card__summary'>{summary}</p>
+  <p class='card__meta'>
+    <span class={`chip chip--${status}`}>{status}</span>
+    {since && <span class='card__since'>since v{since}</span>}
+  </p>
+</a>
