@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "scripts": {
     "test": "tsx --test --test-reporter=spec 'src/**/*.test.ts'",
+    "test:visual": "playwright test",
+    "test:visual:update": "playwright test --update-snapshots",
     "predev": "node scripts/copy-sprite.mjs",
     "dev": "astro dev",
     "prebuild": "node scripts/copy-sprite.mjs",
@@ -38,6 +40,7 @@
     "sharp": "^0.34.5"
   },
   "devDependencies": {
+    "@playwright/test": "^1.59.1",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "pagefind": "^1.5.2"

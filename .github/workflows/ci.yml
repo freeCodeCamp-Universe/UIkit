@@ -26,3 +26,33 @@ jobs:
       - run: pnpm test
       - run: pnpm build
       - run: pnpm --filter @freecodecamp/uikit-cdn run verify
+
+  visual:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
+        with:
+          version: 10
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Cache Playwright browsers
+        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+      - run: pnpm --filter @freecodecamp/uikit-docs exec playwright install chromium --with-deps
+      - run: pnpm build
+      - run: pnpm --filter @freecodecamp/uikit-docs test:visual
+      - name: Upload failure artefacts
+        if: failure()
+        uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # v4.4.3
+        with:
+          name: playwright-report
+          path: |
+            apps/docs/playwright-report/
+            apps/docs/test-results/
+          retention-days: 14

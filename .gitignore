@@ -31,3 +31,9 @@ pnpm-debug.log*
 .scratchpad/
 # CocoIndex Code (ccc)
 /.cocoindex_code/
+
+# Playwright (goldens committed; results + reports are local-only)
+apps/docs/test-results/
+apps/docs/playwright-report/
+apps/docs/blob-report/
+apps/docs/playwright/.cache/

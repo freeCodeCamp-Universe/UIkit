@@ -1293,6 +1293,11 @@ export function Pressed() {
 
   <script is:inline>
     (function () {
+      // Visual-regression opt-out: Playwright stitches full-page
+      // screenshots by scrolling, which drifts the active-state and
+      // pollutes goldens. The test harness sets window.__NO_SPY__ via
+      // `page.addInitScript` before this script runs.
+      if (window.__NO_SPY__) return;
       const links = Array.from(
         document.querySelectorAll('[data-sidebar-link]')
       );
