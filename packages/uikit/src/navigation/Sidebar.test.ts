@@ -2,7 +2,12 @@ import { strict as assert } from 'node:assert';
 import { test } from 'node:test';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { createElement } from 'react';
-import { Sidebar, SidebarSection, SidebarItem } from './Sidebar.tsx';
+import {
+  Sidebar,
+  SidebarSection,
+  SidebarItem,
+  isActiveHref
+} from './Sidebar.tsx';
 
 test('Sidebar renders <aside> with base class and role=navigation', () => {
   const html = renderToStaticMarkup(
@@ -78,4 +83,67 @@ test('SidebarItem renders icon slot before label', () => {
     html,
     /<span class="sidebar__icon"><svg data-icon="home"><\/svg><\/span>/
   );
+});
+
+test('SidebarSection without collapsible keeps <section> output (regression pin)', () => {
+  const html = renderToStaticMarkup(
+    createElement(SidebarSection, { label: 'Main' }, 'inner')
+  );
+  assert.match(html, /<section class="sidebar__section">/);
+  assert.doesNotMatch(html, /<details/);
+});
+
+test('SidebarSection collapsible with defaultOpen=true emits <details open> with summary', () => {
+  const html = renderToStaticMarkup(
+    createElement(
+      SidebarSection,
+      { label: 'Main', collapsible: true, defaultOpen: true },
+      'inner'
+    )
+  );
+  assert.match(
+    html,
+    /<details[^>]*class="sidebar__section sidebar__section--collapsible"[^>]*open/
+  );
+  assert.match(html, /<summary class="sidebar__section__summary">/);
+  assert.match(html, /<span class="sidebar__eyebrow">Main<\/span>/);
+  assert.match(
+    html,
+    /<span class="sidebar__section__caret" aria-hidden="true">/
+  );
+});
+
+test('SidebarSection collapsible with defaultOpen=false emits <details> without open', () => {
+  const html = renderToStaticMarkup(
+    createElement(
+      SidebarSection,
+      { label: 'Main', collapsible: true, defaultOpen: false },
+      'inner'
+    )
+  );
+  assert.match(
+    html,
+    /<details[^>]*class="sidebar__section sidebar__section--collapsible"/
+  );
+  assert.doesNotMatch(html, /<details[^>]*open/);
+});
+
+test('isActiveHref normalises trailing slashes and matches exactly', () => {
+  assert.equal(isActiveHref('/components/button/', '/components/button'), true);
+  assert.equal(isActiveHref('/components/button', '/components/button/'), true);
+});
+
+test('isActiveHref with exact:false matches descendants', () => {
+  assert.equal(
+    isActiveHref('/components/button', '/components', { exact: false }),
+    true
+  );
+  assert.equal(
+    isActiveHref('/components', '/components', { exact: false }),
+    true
+  );
+});
+
+test('isActiveHref default is exact — descendant paths do not match', () => {
+  assert.equal(isActiveHref('/components/button', '/components'), false);
 });

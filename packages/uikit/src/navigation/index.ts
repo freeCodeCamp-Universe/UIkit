@@ -3,11 +3,12 @@ export type { ComboboxProps, ComboboxItem } from './Combobox';
 export { Listbox } from './Listbox';
 export { Navbar } from './Navbar';
 export type { NavbarProps } from './Navbar';
-export { Sidebar, SidebarSection, SidebarItem } from './Sidebar';
+export { Sidebar, SidebarSection, SidebarItem, isActiveHref } from './Sidebar';
 export type {
   SidebarProps,
   SidebarSectionProps,
-  SidebarItemProps
+  SidebarItemProps,
+  IsActiveHrefOptions
 } from './Sidebar';
 export type {
   ListboxProps,
