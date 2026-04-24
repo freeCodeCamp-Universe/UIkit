@@ -129,6 +129,15 @@ importers:
 
   packages/uikit-cdn:
     devDependencies:
+      '@freecodecamp/uikit-css':
+        specifier: workspace:^
+        version: link:../uikit-css
+      '@freecodecamp/uikit-icons':
+        specifier: workspace:^
+        version: link:../uikit-icons
+      '@freecodecamp/uikit-js':
+        specifier: workspace:^
+        version: link:../uikit-js
       lightningcss:
         specifier: ^1.32.0
         version: 1.32.0

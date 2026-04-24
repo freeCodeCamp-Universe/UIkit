@@ -21,6 +21,9 @@
   "description": "Internal: builds dist-cdn/ bundle for freeCodeCamp/cdn deploy",
   "private": true,
   "devDependencies": {
+    "@freecodecamp/uikit-css": "workspace:^",
+    "@freecodecamp/uikit-icons": "workspace:^",
+    "@freecodecamp/uikit-js": "workspace:^",
     "lightningcss": "^1.32.0",
     "tsx": "^4.21.0"
   }
