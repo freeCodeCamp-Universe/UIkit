@@ -1,0 +1,87 @@
+/* ---------- Landing page (/) local flourishes ----------
+ * Page-local styling only. Showcase storybook has its own chrome in
+ * showcase.css. */
+
+.landing {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(3rem, 6vw, 5rem);
+  padding: clamp(2rem, 5vw, 4rem) clamp(1.5rem, 4vw, 3rem) 6rem;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.landing__section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.landing__hero {
+  padding-top: clamp(1.5rem, 4vw, 3rem);
+}
+.landing__kicker {
+  font-family: var(--font-mono);
+  text-transform: lowercase;
+  letter-spacing: 0.08em;
+  color: var(--cta-background);
+  margin: 0 0 0.5rem;
+}
+.landing__ctas {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.landing__why {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0;
+}
+.landing__why-card {
+  border: 2px solid var(--background-tertiary);
+  padding: 1.5rem;
+  background: var(--background-secondary);
+}
+.landing__why-title {
+  margin: 0 0 0.5rem;
+  font-size: 1.125rem;
+}
+.landing__why-body {
+  color: var(--foreground-secondary);
+  margin: 0;
+}
+
+.landing__tasting {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+.landing__tasting > * {
+  min-height: 140px;
+}
+
+.landing__numbers {
+  border-top: 1px dashed var(--background-tertiary);
+  border-bottom: 1px dashed var(--background-tertiary);
+  padding: 1.5rem 0;
+}
+
+.landing__footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  color: var(--foreground-secondary);
+  padding-top: 1rem;
+  border-top: 1px solid var(--background-tertiary);
+}
+.landing__footer a {
+  color: var(--foreground-primary);
+}
