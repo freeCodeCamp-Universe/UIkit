@@ -1,0 +1,35 @@
+---
+title: Form control
+eyebrow: <FormControl />
+status: beta
+since: '1.0.0'
+category: form
+summary: A label-plus-control compound that threads `id` / `htmlFor` / `aria-describedby` across its slots. Wraps Input, Textarea, or a custom field.
+order: 25
+---
+
+import RelatedComponents from '../../components/site/RelatedComponents.astro';
+
+`<FormControl>` wires the label ↔ control ↔ help relationship together so
+consumers do not have to hand-generate ids. Drop an `<Input>`,
+`<Textarea>`, or render prop inside it and the a11y plumbing goes with it.
+
+## Usage
+
+```tsx
+import { FormControl, HelpBlock } from '@freecodecamp/uikit/forms';
+
+<FormControl
+  label='Project name'
+  help={<HelpBlock>Lowercase, hyphens, no spaces.</HelpBlock>}
+  as='input'
+  type='text'
+/>;
+```
+
+## Status
+
+This page is a **beta** stub — see the [live storybook](/showcase#form-control)
+for every slot variant while the dedicated page expands through Wave 4.
+
+<RelatedComponents slugs={['form-group', 'help-block', 'fieldset']} />

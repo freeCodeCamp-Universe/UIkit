@@ -1,0 +1,39 @@
+---
+title: Tabs
+eyebrow: <Tabs />
+status: beta
+since: '1.0.0'
+category: navigation
+summary: A keyboard-accessible tab panel with `<Tab eventKey>` children and an optional controlled `activeKey`. Arrow keys move focus; Enter activates.
+a11yPattern: https://www.w3.org/WAI/ARIA/apg/patterns/tabs/
+order: 28
+---
+
+import RelatedComponents from '../../components/site/RelatedComponents.astro';
+
+`<Tabs>` + `<Tab>` render a proper `role='tablist'` / `role='tab'` /
+`role='tabpanel'` triad. Arrow keys move focus between tabs; Enter and
+Space activate the focused tab. Works controlled via `activeKey` or
+uncontrolled via `defaultActiveKey`.
+
+## Usage
+
+```tsx
+import { Tabs, Tab } from '@freecodecamp/uikit/navigation';
+
+<Tabs defaultActiveKey='one'>
+  <Tab eventKey='one' title='One'>
+    First panel body.
+  </Tab>
+  <Tab eventKey='two' title='Two'>
+    Second panel body.
+  </Tab>
+</Tabs>;
+```
+
+## Status
+
+This page is a **beta** stub — see the [live storybook](/showcase#tabs) for
+the full keyboard matrix while the dedicated page expands through Wave 4.
+
+<RelatedComponents slugs={['navbar', 'sidebar', 'pagination']} />

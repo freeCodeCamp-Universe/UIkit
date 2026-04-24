@@ -1,0 +1,38 @@
+---
+title: Dropdown
+eyebrow: <Dropdown />
+status: beta
+since: '1.0.0'
+category: overlay
+summary: A menu button pattern with keyboard navigation and outside-click dismiss. Pair `<Dropdown.Toggle>` with `<Dropdown.Menu>` / `<Dropdown.Item>`.
+a11yPattern: https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/
+order: 27
+---
+
+import RelatedComponents from '../../components/site/RelatedComponents.astro';
+
+`<Dropdown>` is the menu-button compound: a trigger (`Dropdown.Toggle`),
+a panel (`Dropdown.Menu`), and items (`Dropdown.Item`). It owns the
+keyboard navigation and the click-outside dismiss behaviour so consumers
+stay declarative.
+
+## Usage
+
+```tsx
+import { Dropdown } from '@freecodecamp/uikit/overlays';
+
+<Dropdown>
+  <Dropdown.Toggle>Actions</Dropdown.Toggle>
+  <Dropdown.Menu>
+    <Dropdown.Item onSelect={() => edit()}>Edit</Dropdown.Item>
+    <Dropdown.Item onSelect={() => share()}>Share</Dropdown.Item>
+  </Dropdown.Menu>
+</Dropdown>;
+```
+
+## Status
+
+This page is a **beta** stub — see the [live storybook](/showcase#dropdown) for
+the full keyboard matrix while the dedicated page expands through Wave 4.
+
+<RelatedComponents slugs={['modal', 'combobox', 'command-palette']} />

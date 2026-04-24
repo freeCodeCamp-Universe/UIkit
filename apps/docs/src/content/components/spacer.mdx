@@ -1,0 +1,31 @@
+---
+title: Spacer
+eyebrow: <Spacer />
+status: beta
+since: '1.0.0'
+category: primitive
+summary: Explicit whitespace as a component. Step 0–8 maps onto the token scale, any other number is treated as raw pixels.
+order: 23
+---
+
+import RelatedComponents from '../../components/site/RelatedComponents.astro';
+
+`<Spacer>` is the explicit layout gap. It's handy when the surrounding
+components should not carry margin of their own — typical in MDX content
+where paragraphs and code blocks already own their spacing.
+
+## Usage
+
+```tsx
+import { Spacer } from '@freecodecamp/uikit/primitives';
+
+<Spacer size={4} />
+<Spacer size={20} axis='horizontal' />
+```
+
+## Status
+
+This page is a **beta** stub — see the [live storybook](/showcase#spacer) for
+all step values while the dedicated page expands through Wave 4.
+
+<RelatedComponents slugs={['divider', 'stacked-layout', 'sidebar-layout']} />

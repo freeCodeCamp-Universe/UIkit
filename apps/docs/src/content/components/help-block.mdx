@@ -1,0 +1,30 @@
+---
+title: Help block
+eyebrow: <HelpBlock />
+status: beta
+since: '1.0.0'
+category: form
+summary: The help / success / error microcopy line that sits beneath a form control. Three tones, one primitive.
+order: 26
+---
+
+import RelatedComponents from '../../components/site/RelatedComponents.astro';
+
+`<HelpBlock>` is the tiny explanatory line that sits under a control. The
+`variant` prop flips its tone for success or error without changing the
+DOM shape — so `aria-describedby` wiring stays stable.
+
+## Usage
+
+```tsx
+import { HelpBlock } from '@freecodecamp/uikit/forms';
+
+<HelpBlock variant='error'>That name is already taken.</HelpBlock>;
+```
+
+## Status
+
+This page is a **beta** stub — see the [live storybook](/showcase#help-block)
+for tone examples while the dedicated page expands through Wave 4.
+
+<RelatedComponents slugs={['form-control', 'form-group', 'alert']} />

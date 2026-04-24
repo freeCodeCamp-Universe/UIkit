@@ -1,0 +1,37 @@
+---
+title: Toggle button
+eyebrow: <ToggleButton />
+status: beta
+since: '1.0.0'
+category: form
+summary: A button that remembers its pressed state. Reach for it when the same control must flip between "on" and "off" without leaving the row.
+a11yPattern: https://www.w3.org/WAI/ARIA/apg/patterns/button/
+order: 20
+---
+
+import RelatedComponents from '../../components/site/RelatedComponents.astro';
+
+`<ToggleButton>` is a pressable button that surfaces its state through
+`aria-pressed`. It's the right control for icon-bar toolbars (bold / italic
+/ strike) and settings where the label never changes but the meaning flips.
+
+## Usage
+
+```tsx
+import { ToggleButton } from '@freecodecamp/uikit/forms';
+
+<ToggleButton
+  size='md'
+  defaultPressed={false}
+  onPressedChange={next => console.log('pressed?', next)}
+>
+  Bold
+</ToggleButton>;
+```
+
+## Status
+
+This page is a **beta** stub — see the [live storybook](/showcase#toggle-button)
+for every variant while the dedicated page expands through Wave 4.
+
+<RelatedComponents slugs={['button', 'switch', 'close-button']} />

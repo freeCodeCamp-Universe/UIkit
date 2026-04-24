@@ -1,0 +1,33 @@
+---
+title: Link
+eyebrow: <Link />
+status: beta
+since: '1.0.0'
+category: primitive
+summary: The styled anchor primitive. Wraps `<a>` with the UIKit hover/focus ring and a `block` flag for full-width link rows.
+a11yPattern: https://www.w3.org/WAI/ARIA/apg/patterns/link/
+order: 22
+---
+
+import RelatedComponents from '../../components/site/RelatedComponents.astro';
+
+`<Link>` is the styled anchor. It forwards every native anchor attribute
+and adds a `block` boolean so the anchor can own an entire row (for
+navigation menus, card-wide clicks).
+
+## Usage
+
+```tsx
+import { Link } from '@freecodecamp/uikit/primitives';
+
+<Link href='/guides' block>
+  Start the intro guide →
+</Link>;
+```
+
+## Status
+
+This page is a **beta** stub — see the [live storybook](/showcase#link) for
+every variant while the dedicated page expands through Wave 4.
+
+<RelatedComponents slugs={['button', 'navbar', 'sidebar']} />

@@ -1,0 +1,40 @@
+---
+title: Form group
+eyebrow: <FormGroup />
+status: beta
+since: '1.0.0'
+category: form
+summary: A vertical cluster for a single control plus its label, help, and error text. Pairs with `<FormControl>` and `<HelpBlock>`.
+order: 24
+---
+
+import RelatedComponents from '../../components/site/RelatedComponents.astro';
+
+`<FormGroup>` is the spacing wrapper for one form field. It owns the
+vertical rhythm between a label, control, and help/error block so
+consumers do not have to fight margins.
+
+## Usage
+
+```tsx
+import {
+  FormGroup,
+  FormControl,
+  HelpBlock,
+  Input
+} from '@freecodecamp/uikit/forms';
+
+<FormGroup>
+  <FormControl label='Email'>
+    <Input type='email' />
+  </FormControl>
+  <HelpBlock>We use this for security alerts only.</HelpBlock>
+</FormGroup>;
+```
+
+## Status
+
+This page is a **beta** stub — see the [live storybook](/showcase#form-group)
+for the full composition while the dedicated page expands through Wave 4.
+
+<RelatedComponents slugs={['form-control', 'help-block', 'fieldset']} />

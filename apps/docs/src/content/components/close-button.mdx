@@ -1,0 +1,31 @@
+---
+title: Close button
+eyebrow: <CloseButton />
+status: beta
+since: '1.0.0'
+category: primitive
+summary: The small × affordance for dismissing panels, toasts, and modals. Defaults to `aria-label='Close'` so every dismiss target stays labelled.
+a11yPattern: https://www.w3.org/WAI/ARIA/apg/patterns/button/
+order: 21
+---
+
+import RelatedComponents from '../../components/site/RelatedComponents.astro';
+
+`<CloseButton>` wraps a native `<button>` with the shared dismiss visual
+and a sensible default `aria-label`. It's the right primitive for toast
+close-affordances, modal close-×, and dismissible banners.
+
+## Usage
+
+```tsx
+import { CloseButton } from '@freecodecamp/uikit/primitives';
+
+<CloseButton onClick={() => setOpen(false)} />;
+```
+
+## Status
+
+This page is a **beta** stub — see the [live storybook](/showcase#close-button)
+for the full demo while the dedicated page expands through Wave 4.
+
+<RelatedComponents slugs={['button', 'toggle-button', 'modal']} />
