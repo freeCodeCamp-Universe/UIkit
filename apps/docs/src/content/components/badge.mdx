@@ -1,0 +1,98 @@
+---
+title: Badge
+eyebrow: <Badge />
+status: stable
+since: '1.0.0'
+category: primitive
+summary: A compact coloured tag for statuses, counts, and metadata. Polymorphic via `variant`, semantic-free by default.
+tokens:
+  - --background-secondary
+  - --foreground-primary
+  - --foreground-muted
+  - --foreground-info
+  - --foreground-success
+  - --foreground-warning
+  - --foreground-danger
+order: 2
+---
+
+import PropTable from '../../components/site/PropTable.astro';
+import TokenChips from '../../components/site/TokenChips.astro';
+import DoDont from '../../components/site/DoDont.astro';
+import RelatedComponents from '../../components/site/RelatedComponents.astro';
+
+Badges surface small pieces of structured metadata next to a label — a
+status chip, a count, or a category tag. The default variant is the neutral
+tag; the tone variants map to the semantic foreground tokens.
+
+## Usage
+
+```tsx
+import { Badge } from '@freecodecamp/uikit/primitives';
+
+<Badge variant='success'>Stable</Badge>;
+```
+
+## Props
+
+<PropTable
+  rows={[
+    {
+      name: 'variant',
+      type: "'default' | 'success' | 'warning' | 'danger' | 'info' | 'purple'",
+      default: "'default'",
+      description:
+        'Tonal colour. The `default` variant uses the neutral palette; others tint the background and foreground from semantic tokens.'
+    }
+  ]}
+/>
+
+## Accessibility
+
+Badges are decorative by default — they render as `<span>` with no role.
+If a badge carries meaning that is not repeated in adjacent text, add an
+`aria-label` so screen readers announce it. Avoid using colour alone to
+communicate status.
+
+## Tokens consumed
+
+<TokenChips
+  tokens={[
+    '--background-secondary',
+    '--foreground-primary',
+    '--foreground-muted',
+    '--foreground-info',
+    '--foreground-success',
+    '--foreground-warning',
+    '--foreground-danger'
+  ]}
+/>
+
+## Do & Don't
+
+<DoDont>
+  <Fragment slot='do'>
+    <ul>
+      <li>Keep badges to one or two words.</li>
+      <li>
+        Repeat the meaning in text for screen-reader users when the badge
+        carries status.
+      </li>
+      <li>
+        Use `success` / `warning` / `danger` sparingly — reserve them for real
+        signal.
+      </li>
+    </ul>
+  </Fragment>
+  <Fragment slot='dont'>
+    <ul>
+      <li>Don't use Badge as a button — it is not interactive.</li>
+      <li>Don't line up more than three badges in a row.</li>
+      <li>Don't colour a badge purely for decoration.</li>
+    </ul>
+  </Fragment>
+</DoDont>
+
+## Related
+
+<RelatedComponents slugs={['button', 'callout', 'avatar']} />

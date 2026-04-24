@@ -1,0 +1,135 @@
+---
+title: Modal
+eyebrow: <Modal />
+status: stable
+since: '1.0.0'
+category: overlay
+summary: An accessible dialog with backdrop, focus trap, and escape-to-close. Controlled component — you own the `open` state.
+a11yPattern: https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/
+tokens:
+  - --background-primary
+  - --background-secondary
+  - --foreground-primary
+  - --foreground-muted
+  - --cta-background
+order: 1
+---
+
+import PropTable from '../../components/site/PropTable.astro';
+import TokenChips from '../../components/site/TokenChips.astro';
+import DoDont from '../../components/site/DoDont.astro';
+import RelatedComponents from '../../components/site/RelatedComponents.astro';
+
+`<Modal>` is the accessible dialog primitive. It locks focus, closes on
+Escape or backdrop click, and carries the correct `role='dialog'` +
+`aria-modal` wiring.
+
+## Usage
+
+```tsx
+import { useState } from 'react';
+import { Modal } from '@freecodecamp/uikit/overlays';
+
+function Confirm() {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <button onClick={() => setOpen(true)}>Delete account</button>
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+        title='Delete your account?'
+      >
+        <p>This cannot be undone.</p>
+        <Modal.Footer>
+          <button onClick={() => setOpen(false)}>Cancel</button>
+          <button className='btn btn--danger'>Delete</button>
+        </Modal.Footer>
+      </Modal>
+    </>
+  );
+}
+```
+
+## Props
+
+<PropTable
+  rows={[
+    {
+      name: 'open',
+      type: 'boolean',
+      description: 'Required. Controls visibility. Modal is fully controlled.'
+    },
+    {
+      name: 'onClose',
+      type: '() => void',
+      description: 'Fired on Escape, backdrop click, and close-button click.'
+    },
+    {
+      name: 'title',
+      type: 'ReactNode',
+      description:
+        'Heading rendered inside the modal and referenced by `aria-labelledby`.'
+    },
+    {
+      name: 'closeOnBackdrop',
+      type: 'boolean',
+      default: 'true',
+      description:
+        'Set to `false` for destructive flows where an accidental click must not dismiss.'
+    }
+  ]}
+/>
+
+`Modal.Footer` slots action buttons along the bottom of the dialog.
+
+## Keyboard
+
+| Key    | Action                                   |
+| ------ | ---------------------------------------- |
+| Tab    | Cycles focus inside the dialog (trapped) |
+| Escape | Calls `onClose`                          |
+| Enter  | Activates the focused action             |
+
+## Accessibility
+
+Modal renders `role='dialog'` with `aria-modal='true'`. When you provide
+`title`, it becomes the dialog's accessible name. Body scroll is locked
+while `open` is true. Return focus to the triggering element on close —
+that is the caller's job. Keep destructive flows one click deep: confirm
+delete, then act.
+
+## Tokens consumed
+
+<TokenChips
+  tokens={[
+    '--background-primary',
+    '--background-secondary',
+    '--foreground-primary',
+    '--foreground-muted',
+    '--cta-background'
+  ]}
+/>
+
+## Do & Don't
+
+<DoDont>
+  <Fragment slot='do'>
+    <ul>
+      <li>Give every modal a `title` — it is the screen-reader's landmark.</li>
+      <li>Return focus to the trigger when the modal closes.</li>
+      <li>Use `closeOnBackdrop={false}` for destructive confirmations.</li>
+    </ul>
+  </Fragment>
+  <Fragment slot='dont'>
+    <ul>
+      <li>Don't open a modal inside a modal.</li>
+      <li>Don't rely on Modal for transient feedback — use `<Toast>`.</li>
+      <li>Don't omit `onClose` — the user needs a keyboard exit.</li>
+    </ul>
+  </Fragment>
+</DoDont>
+
+## Related
+
+<RelatedComponents slugs={['dropdown', 'tooltip', 'command-palette']} />

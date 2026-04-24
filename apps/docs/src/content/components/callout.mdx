@@ -1,0 +1,97 @@
+---
+title: Callout
+eyebrow: <Callout />
+status: stable
+since: '1.0.0'
+category: data-display
+summary: A flagged prose block for tips, notes, warnings, and cautions — the Markdown admonition we reach for inside long-form docs.
+tokens:
+  - --background-secondary
+  - --foreground-primary
+  - --foreground-muted
+  - --foreground-info
+  - --foreground-warning
+  - --foreground-danger
+order: 11
+---
+
+import PropTable from '../../components/site/PropTable.astro';
+import TokenChips from '../../components/site/TokenChips.astro';
+import DoDont from '../../components/site/DoDont.astro';
+import RelatedComponents from '../../components/site/RelatedComponents.astro';
+
+Callouts are the static admonition block used inside prose. They nudge the
+reader without interrupting the reading order — unlike `<Alert>`, they do not
+live-announce.
+
+## Usage
+
+```tsx
+import { Callout } from '@freecodecamp/uikit/data-display';
+
+<Callout variant='tip'>
+  Prefer `<Tooltip>` for short hints; reserve callouts for paragraphs that
+  earn their visual weight.
+</Callout>;
+```
+
+## Props
+
+<PropTable
+  rows={[
+    {
+      name: 'variant',
+      type: "'tip' | 'note' | 'warning' | 'caution'",
+      default: "'tip'",
+      description:
+        'Visual tone and default label. Labels default to the variant name; override with `label`.'
+    },
+    {
+      name: 'label',
+      type: 'ReactNode',
+      description: 'Custom heading text. Overrides the default variant label.'
+    }
+  ]}
+/>
+
+## Accessibility
+
+Renders as `<aside>`. Treat the label as a proper sub-heading when you nest
+callouts inside article flow. Callouts are not live regions — if the state
+must be announced, use `<Alert>` instead.
+
+## Tokens consumed
+
+<TokenChips
+  tokens={[
+    '--background-secondary',
+    '--foreground-primary',
+    '--foreground-muted',
+    '--foreground-info',
+    '--foreground-warning',
+    '--foreground-danger'
+  ]}
+/>
+
+## Do & Don't
+
+<DoDont>
+  <Fragment slot='do'>
+    <ul>
+      <li>Use `tip` for encouragements and optimisations.</li>
+      <li>Use `warning` when the next step has a foot-gun.</li>
+      <li>Keep the label short — one word reads best.</li>
+    </ul>
+  </Fragment>
+  <Fragment slot='dont'>
+    <ul>
+      <li>Don't stack two callouts in a row — they compete for attention.</li>
+      <li>Don't use Callout to substitute for an Alert — they are silent.</li>
+      <li>Don't nest Callouts inside other Callouts.</li>
+    </ul>
+  </Fragment>
+</DoDont>
+
+## Related
+
+<RelatedComponents slugs={['alert', 'panel', 'badge']} />

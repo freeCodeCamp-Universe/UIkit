@@ -1,0 +1,99 @@
+---
+title: Card
+eyebrow: <Card />
+status: stable
+since: '1.0.0'
+category: data-display
+summary: A compound surface with optional header, body, and footer slots. Reach for Card when a block of content needs its own visual frame.
+tokens:
+  - --background-secondary
+  - --background-tertiary
+  - --foreground-primary
+  - --foreground-secondary
+  - --border-width-thin
+order: 1
+---
+
+import PropTable from '../../components/site/PropTable.astro';
+import TokenChips from '../../components/site/TokenChips.astro';
+import DoDont from '../../components/site/DoDont.astro';
+import RelatedComponents from '../../components/site/RelatedComponents.astro';
+
+Cards frame a self-contained chunk of content. They are compound: the
+top-level `<Card>` is an `<article>`, and `Card.Header`, `Card.Body`, and
+`Card.Footer` slot bands inside it.
+
+## Usage
+
+```tsx
+import { Card } from '@freecodecamp/uikit/data-display';
+
+<Card bordered>
+  <Card.Header>
+    <h3>Weekly streak</h3>
+  </Card.Header>
+  <Card.Body>7 days in a row.</Card.Body>
+  <Card.Footer>Keep going!</Card.Footer>
+</Card>;
+```
+
+## Props
+
+<PropTable
+  rows={[
+    {
+      name: 'bordered',
+      type: 'boolean',
+      default: 'false',
+      description:
+        'Adds a full outline instead of the default top-divider separator between sections.'
+    }
+  ]}
+/>
+
+`Card.Header`, `Card.Body`, and `Card.Footer` accept the same props as a
+native `<div>`.
+
+## Accessibility
+
+The root renders as `<article>`. Provide a heading inside `Card.Header`
+when the card appears in a list — assistive tech uses headings to navigate.
+For collections, wrap cards in a `<ul>` / `<li>` so the count is exposed.
+
+## Tokens consumed
+
+<TokenChips
+  tokens={[
+    '--background-secondary',
+    '--background-tertiary',
+    '--foreground-primary',
+    '--foreground-secondary',
+    '--border-width-thin'
+  ]}
+/>
+
+## Do & Don't
+
+<DoDont>
+  <Fragment slot='do'>
+    <ul>
+      <li>Give cards a heading when they appear in a grid.</li>
+      <li>Use `bordered` when the card sits on a busy background.</li>
+      <li>Keep the body terse — link out for long content.</li>
+    </ul>
+  </Fragment>
+  <Fragment slot='dont'>
+    <ul>
+      <li>
+        Don't wrap the entire card in an anchor — give it a focused action
+        instead.
+      </li>
+      <li>Don't nest Cards inside Cards.</li>
+      <li>Don't style Card with its own shadow — rely on the token scale.</li>
+    </ul>
+  </Fragment>
+</DoDont>
+
+## Related
+
+<RelatedComponents slugs={['panel', 'empty-state', 'description-list']} />

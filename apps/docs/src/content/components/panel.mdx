@@ -1,0 +1,93 @@
+---
+title: Panel
+eyebrow: <Panel />
+status: stable
+since: '1.0.0'
+category: data-display
+summary: A lightweight surface for grouping related controls or metadata — the same BEM surface Card uses, but without header/footer ceremony.
+tokens:
+  - --background-secondary
+  - --foreground-primary
+  - --foreground-info
+  - --foreground-danger
+  - --cta-background
+order: 2
+---
+
+import PropTable from '../../components/site/PropTable.astro';
+import TokenChips from '../../components/site/TokenChips.astro';
+import DoDont from '../../components/site/DoDont.astro';
+import RelatedComponents from '../../components/site/RelatedComponents.astro';
+
+Panels are the minimum surface for grouping controls inside a page. They
+offer the tinted background of a Card without the header/footer ceremony.
+
+## Usage
+
+```tsx
+import { Panel } from '@freecodecamp/uikit/data-display';
+
+<Panel title='Shortcuts' variant='info'>
+  Press <kbd>/</kbd> to open search from anywhere in the docs.
+</Panel>;
+```
+
+## Props
+
+<PropTable
+  rows={[
+    {
+      name: 'variant',
+      type: "'default' | 'primary' | 'danger' | 'info'",
+      default: "'default'",
+      description: 'Tonal colour that tints the background and heading.'
+    },
+    {
+      name: 'title',
+      type: 'ReactNode',
+      description:
+        'Optional heading rendered above the body. Omit for a plain tinted block.'
+    }
+  ]}
+/>
+
+## Accessibility
+
+Renders as a `<div>`. If the panel conveys region semantics, wrap it in
+a native landmark (`<section aria-labelledby>`) or add `role='region'`
+yourself. Panels default to no role because they are often decorative.
+
+## Tokens consumed
+
+<TokenChips
+  tokens={[
+    '--background-secondary',
+    '--foreground-primary',
+    '--foreground-info',
+    '--foreground-danger',
+    '--cta-background'
+  ]}
+/>
+
+## Do & Don't
+
+<DoDont>
+  <Fragment slot='do'>
+    <ul>
+      <li>Use Panel to group a cluster of related settings or controls.</li>
+      <li>Match the variant to the dominant signal inside the panel.</li>
+      <li>Keep panels single-column — use `<Card>` or a grid for compound layouts.</li>
+    </ul>
+  </Fragment>
+  <Fragment slot='dont'>
+    <ul>
+      <li>Don't stack more than two panels vertically without a divider — use `<Card>`.</li>
+      <li>Don't rely on panel colour alone to convey status.</li>
+      <li>Don't nest panels.</li>
+    </ul>
+  </Fragment>
+</DoDont>
+
+## Related
+
+<RelatedComponents slugs={['card', 'callout', 'alert']} />

@@ -1,0 +1,97 @@
+---
+title: Input
+eyebrow: <Input />
+status: stable
+since: '1.0.0'
+category: form
+summary: The baseline single-line text control. Forwards every native input prop, adds an `invalid` flag that syncs `aria-invalid`.
+a11yPattern: https://www.w3.org/WAI/ARIA/apg/patterns/textbox/
+tokens:
+  - --background-secondary
+  - --foreground-primary
+  - --foreground-secondary
+  - --foreground-danger
+  - --cta-background
+order: 1
+---
+
+import PropTable from '../../components/site/PropTable.astro';
+import TokenChips from '../../components/site/TokenChips.astro';
+import DoDont from '../../components/site/DoDont.astro';
+import RelatedComponents from '../../components/site/RelatedComponents.astro';
+
+`<Input>` is the baseline single-line text field. It forwards every native
+input attribute, forces `className` composition, and exposes an `invalid`
+boolean so callers do not have to hand-wire `aria-invalid`.
+
+## Usage
+
+```tsx
+import { Input } from '@freecodecamp/uikit/forms';
+
+<Input type='email' placeholder='you@example.com' invalid={hasError} />;
+```
+
+Pair with `<FormGroup>` + `<HelpBlock>` for a full label/input/help/error
+stack.
+
+## Props
+
+<PropTable
+  rows={[
+    {
+      name: 'invalid',
+      type: 'boolean',
+      default: 'false',
+      description:
+        'Sets `aria-invalid="true"` and triggers the danger-tinted border.'
+    },
+    {
+      name: '...rest',
+      type: 'InputHTMLAttributes<HTMLInputElement>',
+      description:
+        'Every native attribute is forwarded, including `type`, `value`, `onChange`, and `ref`.'
+    }
+  ]}
+/>
+
+## Accessibility
+
+Always associate an Input with a label via `<FormControl>` (or a wrapping
+`<label>`). `invalid` drives `aria-invalid="true"`, so pair it with an
+adjacent `<HelpBlock variant='error'>` that describes the problem.
+
+## Tokens consumed
+
+<TokenChips
+  tokens={[
+    '--background-secondary',
+    '--foreground-primary',
+    '--foreground-secondary',
+    '--foreground-danger',
+    '--cta-background'
+  ]}
+/>
+
+## Do & Don't
+
+<DoDont>
+  <Fragment slot='do'>
+    <ul>
+      <li>Provide a visible label via `<FormControl>` — never rely on placeholder only.</li>
+      <li>Set `type` to the most specific HTML type (e.g. `email`, `url`).</li>
+      <li>Surface errors inline with `<HelpBlock variant='error'>`.</li>
+    </ul>
+  </Fragment>
+  <Fragment slot='dont'>
+    <ul>
+      <li>Don't use Input as a disguised button.</li>
+      <li>Don't rely on `readonly` when you really want `disabled`.</li>
+      <li>Don't style the focus ring away — it is the keyboard user's only signal.</li>
+    </ul>
+  </Fragment>
+</DoDont>
+
+## Related
+
+<RelatedComponents slugs={['textarea', 'select', 'form-control']} />

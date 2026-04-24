@@ -1,0 +1,105 @@
+---
+title: Checkbox
+eyebrow: <Checkbox />
+status: stable
+since: '1.0.0'
+category: form
+summary: A native checkbox with an optional paired label. Owns the `type='checkbox'` attribute so consumers never have to set it.
+a11yPattern: https://www.w3.org/WAI/ARIA/apg/patterns/checkbox/
+tokens:
+  - --cta-background
+  - --cta-foreground
+  - --foreground-primary
+  - --background-secondary
+order: 2
+---
+
+import PropTable from '../../components/site/PropTable.astro';
+import TokenChips from '../../components/site/TokenChips.astro';
+import DoDont from '../../components/site/DoDont.astro';
+import RelatedComponents from '../../components/site/RelatedComponents.astro';
+
+`<Checkbox>` pairs a native `<input type='checkbox'>` with an optional
+inline label. When `label` is supplied the component renders a
+`<label>` wrapper; otherwise it renders the bare input so callers can
+associate their own label.
+
+## Usage
+
+```tsx
+import { Checkbox } from '@freecodecamp/uikit/forms';
+
+<Checkbox name='terms' label='I agree to the terms' defaultChecked />;
+```
+
+## Props
+
+<PropTable
+  rows={[
+    {
+      name: 'label',
+      type: 'ReactNode',
+      description:
+        'Optional label text. When provided, the component renders a wrapping `<label>` for a guaranteed a11y association.'
+    },
+    {
+      name: 'labelClassName',
+      type: 'string',
+      description: 'Class applied to the wrapping label, for layout tweaks.'
+    },
+    {
+      name: '...rest',
+      type: 'InputHTMLAttributes<HTMLInputElement>',
+      description:
+        'Every native attribute is forwarded. `type` is locked to `checkbox`.'
+    }
+  ]}
+/>
+
+## Keyboard
+
+| Key   | Action                          |
+| ----- | ------------------------------- |
+| Space | Toggles the checked state       |
+| Tab   | Moves focus to the next control |
+
+## Accessibility
+
+Whichever API you use, the input must have a label. The component's
+wrapping `<label>` is the path of least resistance — pass `label` and the
+association is guaranteed. For indeterminate state, set the DOM property
+via a `ref` (React does not expose it as an attribute).
+
+## Tokens consumed
+
+<TokenChips
+  tokens={[
+    '--cta-background',
+    '--cta-foreground',
+    '--foreground-primary',
+    '--background-secondary'
+  ]}
+/>
+
+## Do & Don't
+
+<DoDont>
+  <Fragment slot='do'>
+    <ul>
+      <li>Use Checkbox for independent on/off controls.</li>
+      <li>Group related boxes inside `<Fieldset>` with a `<legend>`.</li>
+      <li>Align labels on the right so the tap target grows horizontally.</li>
+    </ul>
+  </Fragment>
+  <Fragment slot='dont'>
+    <ul>
+      <li>Don't use Checkbox for mutually exclusive choices — use `<Radio>`.</li>
+      <li>Don't wrap an already-`label`-carrying Checkbox in another label.</li>
+      <li>Don't rely on colour alone to communicate the checked state.</li>
+    </ul>
+  </Fragment>
+</DoDont>
+
+## Related
+
+<RelatedComponents slugs={['switch', 'radio', 'form-control']} />

@@ -1,0 +1,106 @@
+---
+title: Switch
+eyebrow: <Switch />
+status: stable
+since: '1.0.0'
+category: form
+summary: A toggle for binary settings that take effect immediately. Behaves like a checkbox under the hood, styled as a pill.
+a11yPattern: https://www.w3.org/WAI/ARIA/apg/patterns/switch/
+tokens:
+  - --cta-background
+  - --cta-foreground
+  - --foreground-primary
+  - --foreground-secondary
+  - --background-secondary
+order: 3
+---
+
+import PropTable from '../../components/site/PropTable.astro';
+import TokenChips from '../../components/site/TokenChips.astro';
+import DoDont from '../../components/site/DoDont.astro';
+import RelatedComponents from '../../components/site/RelatedComponents.astro';
+
+`<Switch>` is the pill-shaped toggle for binary settings that apply
+immediately — dark mode, notifications, autoplay. The underlying input is
+a native checkbox, so it participates in HTML forms just like Checkbox.
+
+## Usage
+
+```tsx
+import { Switch } from '@freecodecamp/uikit/forms';
+
+<Switch name='emails' label='Email me weekly digests' defaultChecked />;
+```
+
+## Props
+
+<PropTable
+  rows={[
+    {
+      name: 'label',
+      type: 'ReactNode',
+      description:
+        'Inline label rendered on the left of the switch. The whole component becomes a single `<label>` so clicks toggle the control.'
+    },
+    {
+      name: 'labelClassName',
+      type: 'string',
+      description: 'Class applied to the wrapping label for layout tweaks.'
+    },
+    {
+      name: '...rest',
+      type: 'InputHTMLAttributes<HTMLInputElement>',
+      description:
+        'Every native attribute forwards. `type` is locked to `checkbox`.'
+    }
+  ]}
+/>
+
+## Keyboard
+
+| Key   | Action             |
+| ----- | ------------------ |
+| Space | Toggles the switch |
+| Tab   | Moves focus        |
+
+## Accessibility
+
+Switches announce as "switch, on" / "switch, off" in screen readers on
+platforms that map the WAI-ARIA `switch` pattern natively. Use Switch
+only when the change takes effect immediately — if the user has to hit
+"Save" afterwards, Checkbox is the right primitive.
+
+## Tokens consumed
+
+<TokenChips
+  tokens={[
+    '--cta-background',
+    '--cta-foreground',
+    '--foreground-primary',
+    '--foreground-secondary',
+    '--background-secondary'
+  ]}
+/>
+
+## Do & Don't
+
+<DoDont>
+  <Fragment slot='do'>
+    <ul>
+      <li>Use Switch for settings that apply without a save step.</li>
+      <li>Pair with an immediate, reversible action.</li>
+      <li>Keep the label on the left so the target grows to the full row.</li>
+    </ul>
+  </Fragment>
+  <Fragment slot='dont'>
+    <ul>
+      <li>Don't use Switch inside a form that needs an explicit submit.</li>
+      <li>Don't animate the thumb beyond the token-driven 120 ms.</li>
+      <li>Don't use Switch for a tri-state setting.</li>
+    </ul>
+  </Fragment>
+</DoDont>
+
+## Related
+
+<RelatedComponents slugs={['checkbox', 'toggle-button', 'radio']} />

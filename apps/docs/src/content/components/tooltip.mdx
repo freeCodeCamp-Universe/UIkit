@@ -1,0 +1,95 @@
+---
+title: Tooltip
+eyebrow: <Tooltip />
+status: stable
+since: '1.0.0'
+category: overlay
+summary: A keyboard-friendly hint that surfaces on hover or focus. Renders as a CSS-only bubble — no portal, no JS, no third-party runtime.
+a11yPattern: https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/
+tokens:
+  - --background-primary
+  - --background-secondary
+  - --foreground-primary
+  - --foreground-muted
+order: 2
+---
+
+import PropTable from '../../components/site/PropTable.astro';
+import TokenChips from '../../components/site/TokenChips.astro';
+import DoDont from '../../components/site/DoDont.astro';
+import RelatedComponents from '../../components/site/RelatedComponents.astro';
+
+`<Tooltip>` wraps any trigger with a short explanatory hint. The bubble
+renders inline next to the trigger so there is no portal or positioning
+script — keep the hint under a dozen words.
+
+## Usage
+
+```tsx
+import { Tooltip } from '@freecodecamp/uikit/overlays';
+
+<Tooltip content='Copy link'>
+  <button aria-label='Copy' className='btn btn--ghost'>
+    🔗
+  </button>
+</Tooltip>;
+```
+
+## Props
+
+<PropTable
+  rows={[
+    {
+      name: 'content',
+      type: 'ReactNode',
+      description:
+        'Required. The message rendered inside the `role="tooltip"` bubble.'
+    },
+    {
+      name: 'children',
+      type: 'ReactNode',
+      description: 'Required. The trigger — usually an icon button or link.'
+    }
+  ]}
+/>
+
+## Accessibility
+
+The bubble carries `role='tooltip'`; the trigger wrapper has `tabIndex={0}`
+so keyboard users can focus it and see the hint. Tooltips are not a
+substitute for a visible label: if the trigger has no text, give it an
+`aria-label`.
+
+## Tokens consumed
+
+<TokenChips
+  tokens={[
+    '--background-primary',
+    '--background-secondary',
+    '--foreground-primary',
+    '--foreground-muted'
+  ]}
+/>
+
+## Do & Don't
+
+<DoDont>
+  <Fragment slot='do'>
+    <ul>
+      <li>Keep tooltip copy under a dozen words.</li>
+      <li>Reserve tooltips for non-essential hints; essential labels stay visible.</li>
+      <li>Combine with `aria-label` on icon-only triggers.</li>
+    </ul>
+  </Fragment>
+  <Fragment slot='dont'>
+    <ul>
+      <li>Don't stuff interactive content inside the tooltip — use `<Dropdown>` or `<Modal>`.</li>
+      <li>Don't rely on a tooltip to convey required information.</li>
+      <li>Don't nest Tooltips.</li>
+    </ul>
+  </Fragment>
+</DoDont>
+
+## Related
+
+<RelatedComponents slugs={['callout', 'dropdown', 'modal']} />
