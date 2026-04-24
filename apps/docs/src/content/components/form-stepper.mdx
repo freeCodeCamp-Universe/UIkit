@@ -1,0 +1,125 @@
+---
+title: FormStepper
+eyebrow: <FormStepper />
+status: stable
+since: '1.0.0'
+category: form
+summary: Numbered multi-step wizard. Progress header + render-prop body. Caller owns the current step; completed steps are backward-navigable, upcoming steps are gated.
+a11yPattern: https://www.w3.org/WAI/ARIA/apg/patterns/
+tokens:
+  - --background-tertiary
+  - --background-quaternary
+  - --foreground-primary
+  - --foreground-secondary
+  - --success-color
+order: 64
+---
+
+import PropTable from '../../components/site/PropTable.astro';
+import TokenChips from '../../components/site/TokenChips.astro';
+import RelatedComponents from '../../components/site/RelatedComponents.astro';
+import DoDont from '../../components/site/DoDont.astro';
+
+Use FormStepper to chunk long forms into ≤ 5 focused screens with
+progress. Each step resolves to a render-prop body — the stepper does
+not own the form state, just the navigation contract.
+
+## Usage
+
+```tsx
+import { FormStepper } from '@freecodecamp/uikit/forms';
+
+const steps = [
+  { id: 'intro', label: 'Intro' },
+  { id: 'details', label: 'Details', description: 'Name, email' },
+  { id: 'confirm', label: 'Confirm' }
+];
+
+<FormStepper steps={steps} current={step} onStepChange={setStep}>
+  {current =>
+    current.id === 'intro' ? (
+      <IntroForm />
+    ) : current.id === 'details' ? (
+      <DetailsForm />
+    ) : (
+      <ConfirmScreen />
+    )
+  }
+</FormStepper>;
+```
+
+## Props
+
+<PropTable
+  rows={[
+    {
+      name: 'steps',
+      type: 'FormStepperStep[]',
+      default: '—',
+      description: 'Ordered step definitions: `{ id, label, description? }`.'
+    },
+    {
+      name: 'current',
+      type: 'string',
+      default: '—',
+      description:
+        'Id of the active step. Fallback: first step if id does not match.'
+    },
+    {
+      name: 'onStepChange',
+      type: '(id: string) => void',
+      default: '—',
+      description: 'Fires when a navigable step is clicked.'
+    },
+    {
+      name: 'children',
+      type: '(step: FormStepperStep) => ReactNode',
+      default: '—',
+      description: 'Render prop receiving the resolved current step.'
+    },
+    {
+      name: 'isStepAccessible',
+      type: '(step, state) => boolean',
+      default: 'state !== "upcoming"',
+      description:
+        'Override which steps are navigable. Use for "can only proceed if valid" flows.'
+    }
+  ]}
+/>
+
+## Accessibility
+
+The progress list renders as `<ol>` with `aria-label="Progress"`. The
+active step carries `aria-current="step"`. Upcoming steps set
+`disabled` on their button; assistive tech skips them in the tab ring.
+Pair each step body with its own heading so screen readers announce
+the transition.
+
+<DoDont
+  dos={[
+    'Keep step count at 3–5. Longer flows split into sub-stepers or save-and-resume.',
+    'Surface validation inline in the step body; block `onStepChange` via `isStepAccessible`.',
+    'Name steps by outcome ("Review & submit"), not generic ("Step 3").'
+  ]}
+  donts={[
+    'Use FormStepper for branching or optional steps — reach for a flowchart component.',
+    'Auto-advance between steps; the user controls progression.',
+    'Hide the progress header on mobile — collapse labels but keep the indices visible.'
+  ]}
+/>
+
+## Tokens consumed
+
+<TokenChips
+  tokens={[
+    '--background-tertiary',
+    '--background-quaternary',
+    '--foreground-primary',
+    '--foreground-secondary',
+    '--success-color'
+  ]}
+/>
+
+## Related
+
+<RelatedComponents slugs={['form-group', 'form-control', 'fieldset']} />

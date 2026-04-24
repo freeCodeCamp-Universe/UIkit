@@ -3,6 +3,8 @@ export { Fieldset } from './Fieldset';
 export type { FieldsetProps, FieldsetTone } from './Fieldset';
 export { FormControl } from './FormControl';
 export { FormGroup } from './FormGroup';
+export { FormStepper } from './FormStepper';
+export type { FormStepperProps, FormStepperStep } from './FormStepper';
 export { HelpBlock } from './HelpBlock';
 export { Input } from './Input';
 export { Radio, RadioGroup } from './Radio';
