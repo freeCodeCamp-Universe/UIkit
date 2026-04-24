@@ -9,7 +9,7 @@ export function AppHeader(): JSX.Element {
   const brand = (
     <a
       className='site-header__brand'
-      href='#top'
+      href='/'
       aria-label='freeCodeCamp UIKit home'
     >
       <img src='/brand/fcc-puck.svg' alt='' width={22} height={22} />
@@ -21,8 +21,8 @@ export function AppHeader(): JSX.Element {
   const primaryNav = (
     <nav className='site-header__nav' aria-label='Primary'>
       <a href='/guides'>Guides</a>
-      <a href='/#tokens'>Tokens</a>
-      <a href='/#button'>Components</a>
+      <a href='/foundations/colors'>Tokens</a>
+      <a href='/components'>Components</a>
       <a
         href='https://github.com/freeCodeCamp/ui'
         target='_blank'
