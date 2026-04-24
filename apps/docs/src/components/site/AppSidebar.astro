@@ -3,10 +3,23 @@
 // +<SidebarItem>. Active state is route-aware (derived from
 // `Astro.url.pathname`), so no client-side script is required. The
 // storybook scroll-spy that used to live here has moved to `/showcase`.
+//
+// At ≤900 px the sidebar becomes an off-canvas drawer; the toggle logic
+// lives in `AppHeader.astro`'s inline script (data-nav-toggle driving
+// `<body data-nav-open>`). The `id='app-sidebar'` matches
+// `aria-controls` on the hamburger.
 import { AppSidebar } from './AppSidebar.tsx';
 import { nav } from '../../data/nav.ts';
 
 const currentPath = Astro.url.pathname;
 ---
 
-<AppSidebar nav={nav} currentPath={currentPath} />
+<div class='app__sidebar' id='app-sidebar'>
+  <AppSidebar nav={nav} currentPath={currentPath} />
+</div>
+<button
+  class='app__backdrop'
+  type='button'
+  aria-hidden='true'
+  tabindex='-1'
+  data-nav-backdrop></button>

@@ -1286,48 +1286,12 @@ export function Pressed() {
   </div>
 
   <script>
+    // Scroll-spy moved to `scripts/showcase-spy.client.ts` for
+    // testability + single-source-of-truth with the sidebar wiring.
     import '../scripts/showcase.client.ts';
     import '../scripts/preview.client.ts';
     import '../scripts/terminal.client.ts';
-  </script>
-
-  <script is:inline>
-    (function () {
-      // Visual-regression opt-out: Playwright stitches full-page
-      // screenshots by scrolling, which drifts the active-state and
-      // pollutes goldens. The test harness sets window.__NO_SPY__ via
-      // `page.addInitScript` before this script runs.
-      if (window.__NO_SPY__) return;
-      const links = Array.from(
-        document.querySelectorAll('[data-sidebar-link]')
-      );
-      if (!links.length) return;
-      const byTarget = new Map(
-        links.map(a => [a.getAttribute('data-target'), a])
-      );
-      const sections = document.querySelectorAll('section[id]');
-      if (!sections.length) return;
-      const observer = new IntersectionObserver(
-        entries => {
-          entries.forEach(entry => {
-            if (!entry.isIntersecting) return;
-            const id = entry.target.getAttribute('id');
-            if (!id) return;
-            const match = byTarget.get(id);
-            if (!match) return;
-            links.forEach(a => {
-              const href = a.getAttribute('href') || '';
-              if (href.startsWith('/showcase#') || href.startsWith('/#')) {
-                a.removeAttribute('data-active');
-              }
-            });
-            match.setAttribute('data-active', 'true');
-          });
-        },
-        { rootMargin: '-30% 0px -60% 0px', threshold: 0 }
-      );
-      sections.forEach(s => observer.observe(s));
-    })();
+    import '../scripts/showcase-spy.client.ts';
   </script>
 </BaseLayout>
 

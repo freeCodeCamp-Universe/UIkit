@@ -36,6 +36,47 @@ export function AppHeader(): JSX.Element {
   const controls = (
     <>
       <button
+        className='site-header__hamburger'
+        type='button'
+        data-nav-toggle
+        aria-controls='app-sidebar'
+        aria-expanded='false'
+        aria-label='Open navigation'
+      >
+        <svg
+          width={20}
+          height={20}
+          viewBox='0 0 24 24'
+          fill='none'
+          stroke='currentColor'
+          strokeWidth={2}
+          strokeLinecap='round'
+          strokeLinejoin='round'
+          aria-hidden='true'
+          data-icon='hamburger'
+        >
+          <line x1={3} y1={6} x2={21} y2={6} />
+          <line x1={3} y1={12} x2={21} y2={12} />
+          <line x1={3} y1={18} x2={21} y2={18} />
+        </svg>
+        <svg
+          width={20}
+          height={20}
+          viewBox='0 0 24 24'
+          fill='none'
+          stroke='currentColor'
+          strokeWidth={2}
+          strokeLinecap='round'
+          strokeLinejoin='round'
+          aria-hidden='true'
+          data-icon='close'
+          style={{ display: 'none' }}
+        >
+          <line x1={6} y1={6} x2={18} y2={18} />
+          <line x1={6} y1={18} x2={18} y2={6} />
+        </svg>
+      </button>
+      <button
         className='site-search site-search--button'
         type='button'
         data-open-search

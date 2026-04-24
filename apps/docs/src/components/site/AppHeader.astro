@@ -50,5 +50,55 @@ import { AppHeader } from './AppHeader.tsx';
         }
       });
     }
+
+    // Mobile nav drawer wiring. Hamburger, backdrop, ESC, and
+    // closing-on-link-click all flip the same body attribute; CSS
+    // owns the slide animation. Defer binding until DOM is fully
+    // parsed — the sidebar appears later in the document.
+    const wireDrawer = () => {
+      const navBtn = document.querySelector('[data-nav-toggle]');
+      const backdrop = document.querySelector('[data-nav-backdrop]');
+      const sidebar = document.getElementById('app-sidebar');
+      if (navBtn && sidebar) {
+        const hamburgerIcon = navBtn.querySelector("[data-icon='hamburger']");
+        const closeIcon = navBtn.querySelector("[data-icon='close']");
+        const setOpen = open => {
+          document.body.toggleAttribute('data-nav-open', open);
+          navBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+          navBtn.setAttribute(
+            'aria-label',
+            open ? 'Close navigation' : 'Open navigation'
+          );
+          if (hamburgerIcon) hamburgerIcon.style.display = open ? 'none' : '';
+          if (closeIcon) closeIcon.style.display = open ? '' : 'none';
+        };
+        navBtn.addEventListener('click', () =>
+          setOpen(navBtn.getAttribute('aria-expanded') !== 'true')
+        );
+        backdrop?.addEventListener('click', () => setOpen(false));
+        document.addEventListener('keydown', e => {
+          if (
+            e.key === 'Escape' &&
+            document.body.hasAttribute('data-nav-open')
+          ) {
+            setOpen(false);
+            navBtn.focus();
+          }
+        });
+        // Clicking a nav link dismisses the drawer so the main surface
+        // gets focus after route change.
+        sidebar.addEventListener('click', e => {
+          const target = e.target;
+          if (target instanceof HTMLElement && target.closest('a[href]')) {
+            setOpen(false);
+          }
+        });
+      }
+    };
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', wireDrawer);
+    } else {
+      wireDrawer();
+    }
   })();
 </script>

@@ -163,9 +163,102 @@
   --sidebar-top: var(--header-height);
   padding: 20px 0 32px;
 }
+
+/* ---------- Mobile drawer ---------- */
+
+.app__sidebar {
+  display: contents;
+}
+.app__backdrop {
+  display: none;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.site-header__hamburger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  margin-right: 4px;
+  border: 1px solid var(--foreground-quaternary);
+  background: var(--background-secondary);
+  color: var(--foreground-primary);
+  cursor: pointer;
+}
+.site-header__hamburger:hover {
+  background: var(--background-tertiary);
+}
+.site-header__hamburger:focus-visible {
+  outline: 2px solid var(--focus-outline);
+  outline-offset: 2px;
+}
+
 @media (max-width: 900px) {
-  .sidebar {
+  .site-header__hamburger {
+    display: inline-flex;
+  }
+  .site-header__nav {
     display: none;
+  }
+  .site-search--button span {
+    display: none;
+  }
+  .app__sidebar {
+    display: block;
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    bottom: 0;
+    width: min(320px, 88vw);
+    background: var(--background-primary);
+    border-right: 1px solid var(--foreground-quaternary);
+    box-shadow: 4px 0 24px rgb(0 0 0 / 0.18);
+    transform: translateX(-100%);
+    transition:
+      transform 200ms ease-out,
+      visibility 200ms;
+    visibility: hidden;
+    overflow-y: auto;
+    z-index: 40;
+  }
+  body[data-nav-open] .app__sidebar {
+    transform: translateX(0);
+    visibility: visible;
+  }
+  .app__sidebar .sidebar {
+    position: static;
+    max-height: none;
+    border-right: 0;
+    display: flex;
+  }
+  .app__backdrop {
+    display: block;
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgb(0 0 0 / 0.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 200ms ease-out;
+    z-index: 35;
+  }
+  body[data-nav-open] .app__backdrop {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  body[data-nav-open] {
+    overflow: hidden;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .app__sidebar,
+  .app__backdrop {
+    transition: none;
   }
 }
 

@@ -1,4 +1,15 @@
-import React, { Children, isValidElement, useState } from 'react';
+import React, { Children, isValidElement } from 'react';
+import { Tabs as Ark } from '@ark-ui/react/tabs';
+
+/**
+ * <Tabs> is a thin facade over @ark-ui/react/tabs. The public API keeps
+ * the historical `<Tabs><Tab eventKey title>` compound shape so existing
+ * consumers don't have to rewire; internally we compose Ark.Root /
+ * Ark.List / Ark.Trigger / Ark.Content so we inherit its @zag-js state
+ * machine — full keyboard navigation (Arrow / Home / End), orientation
+ * awareness, and a `data-state="active|inactive"` attribute that the
+ * stylesheet can target without JavaScript.
+ */
 
 export interface TabProps extends Omit<
   React.HTMLAttributes<HTMLDivElement>,
@@ -17,7 +28,7 @@ Tab.displayName = 'Tab';
 
 export interface TabsProps extends Omit<
   React.HTMLAttributes<HTMLDivElement>,
-  'onChange' | 'onSelect'
+  'onChange' | 'onSelect' | 'defaultValue'
 > {
   activeKey?: string;
   defaultActiveKey?: string;
@@ -32,56 +43,45 @@ export function Tabs({
   className = '',
   children,
   ...rest
-}: TabsProps) {
+}: TabsProps): React.ReactElement {
   const tabs = Children.toArray(children).filter(
     (c): c is React.ReactElement<TabProps> =>
       isValidElement(c) && (c.type as React.ComponentType) === Tab
   );
-  const initial = defaultActiveKey ?? tabs[0]?.props.eventKey ?? '';
-  const [internal, setInternal] = useState(initial);
-  const isControlled = activeKey !== undefined;
-  const current = isControlled ? activeKey : internal;
-
-  const classes = ['tabs', className].filter(Boolean).join(' ');
-
-  const select = (key: string) => {
-    if (!isControlled) setInternal(key);
-    onSelect?.(key);
-  };
+  const fallback = tabs[0]?.props.eventKey ?? '';
+  const rootClass = ['tabs', className].filter(Boolean).join(' ');
 
   return (
-    <div className={classes} {...rest}>
-      <div role='tablist' className='tabs__list'>
-        {tabs.map(t => {
-          const selected = current === t.props.eventKey;
-          return (
-            <button
-              key={t.props.eventKey}
-              type='button'
-              role='tab'
-              className='tabs__tab'
-              aria-selected={selected}
-              tabIndex={selected ? 0 : -1}
-              onClick={() => select(t.props.eventKey)}
-            >
-              {t.props.title}
-            </button>
-          );
-        })}
-      </div>
-      {tabs.map(t => {
-        const selected = current === t.props.eventKey;
-        return (
-          <div
+    <Ark.Root
+      className={rootClass}
+      value={activeKey}
+      defaultValue={
+        activeKey === undefined ? (defaultActiveKey ?? fallback) : undefined
+      }
+      onValueChange={details => onSelect?.(details.value)}
+      {...rest}
+    >
+      <Ark.List className='tabs__list'>
+        {tabs.map(t => (
+          <Ark.Trigger
             key={t.props.eventKey}
-            role='tabpanel'
-            className='tabs__panel'
-            hidden={!selected}
+            value={t.props.eventKey}
+            className='tabs__tab'
           >
-            {t.props.children}
-          </div>
-        );
-      })}
-    </div>
+            {t.props.title}
+          </Ark.Trigger>
+        ))}
+      </Ark.List>
+      {tabs.map(t => (
+        <Ark.Content
+          key={t.props.eventKey}
+          value={t.props.eventKey}
+          className='tabs__panel'
+        >
+          {t.props.children}
+        </Ark.Content>
+      ))}
+    </Ark.Root>
   );
 }
+Tabs.displayName = 'Tabs';
