@@ -13,7 +13,8 @@ import {
   Toaster as ArkToaster,
   createToaster as arkCreateToaster,
   type CreateToasterProps,
-  type CreateToasterReturn
+  type CreateToasterReturn,
+  type ToastOptions
 } from '@ark-ui/react/toast';
 
 export type ToastVariant = 'info' | 'success' | 'warning' | 'danger';
@@ -92,12 +93,7 @@ export const createToaster = (props: CreateToasterProps): CreateToasterReturn =>
 export interface ToasterProps {
   toaster: CreateToasterReturn;
   /** Override the item renderer. Defaults to fCC <Toast> shell. */
-  children?: (options: {
-    id: string;
-    type?: string;
-    title?: React.ReactNode;
-    description?: React.ReactNode;
-  }) => React.ReactNode;
+  children?: (options: ToastOptions) => React.ReactNode;
   className?: string;
 }
 
@@ -112,12 +108,7 @@ export const Toaster = ({
   const classes = ['toaster', className].filter(Boolean).join(' ');
   const renderItem =
     children ??
-    ((options: {
-      id: string;
-      type?: string;
-      title?: React.ReactNode;
-      description?: React.ReactNode;
-    }) => {
+    ((options: ToastOptions) => {
       const variant: ToastVariant = isVariant(options.type)
         ? options.type
         : 'info';
