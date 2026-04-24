@@ -7,6 +7,8 @@ export type {
   DescriptionListLayout,
   DescriptionListItem
 } from './DescriptionList';
+export { EmptyState } from './EmptyState';
+export type { EmptyStateProps } from './EmptyState';
 export { Panel } from './Panel';
 export { Skeleton } from './Skeleton';
 export type { SkeletonProps, SkeletonVariant } from './Skeleton';

@@ -1,0 +1,85 @@
+---
+title: EmptyState
+eyebrow: <EmptyState />
+status: stable
+since: '1.0.0'
+category: data-display
+summary: Centered placeholder for empty lists, empty search results, and zero-state dashboards. Optional icon, title, description, and action slots.
+a11yPattern: https://www.w3.org/WAI/ARIA/apg/patterns/
+tokens:
+  - --foreground-primary
+  - --foreground-secondary
+order: 61
+---
+
+import PropTable from '../../components/site/PropTable.astro';
+import TokenChips from '../../components/site/TokenChips.astro';
+import RelatedComponents from '../../components/site/RelatedComponents.astro';
+import DoDont from '../../components/site/DoDont.astro';
+
+Use EmptyState when a list, table, or result set has nothing to show.
+Pair it with a single concrete action — the thing the user can do to
+resolve the emptiness (file a task, import a CSV, connect an account).
+Leave the action out for states that are informational only.
+
+## Props
+
+<PropTable
+  rows={[
+    {
+      name: 'icon',
+      type: 'ReactNode',
+      default: '—',
+      description: 'Rendered in an `aria-hidden` 48×48 box above the title.'
+    },
+    {
+      name: 'title',
+      type: 'ReactNode',
+      default: '—',
+      description:
+        'Short headline, rendered as `<h3>`. Keep it terse — "No matching results", not "Sorry, we could not find any matching results".'
+    },
+    {
+      name: 'description',
+      type: 'ReactNode',
+      default: '—',
+      description:
+        'One-sentence explanation. Renders in `.empty-state__description` at the secondary foreground.'
+    },
+    {
+      name: 'action',
+      type: 'ReactNode',
+      default: '—',
+      description:
+        'Primary action slot — usually a `<Button>`. Appears below the description with 8px top margin.'
+    }
+  ]}
+/>
+
+## Accessibility
+
+The root is a plain `<div>` — pass `role="status"` if the empty state
+replaces a freshly-loaded async region so assistive tech re-announces
+the state change. The icon wrapper carries `aria-hidden="true"` so its
+contents do not duplicate the title text.
+
+<DoDont
+  dos={[
+    'Name the thing that is missing ("No incidents in the last 7 days"), not the generic condition ("No data").',
+    'Offer one concrete action when the user can resolve it.',
+    'Swap the description to a friendlier tone if the empty state is a positive outcome (inbox zero).'
+  ]}
+  donts={[
+    'Stack multiple empty states in the same viewport — one per region.',
+    'Hide the empty state behind a toast — it belongs in the content region.',
+    'Use it for loading states (reach for Skeleton) or errors (reach for Alert).'
+  ]}
+/>
+
+## Tokens consumed
+
+<TokenChips tokens={['--foreground-primary', '--foreground-secondary']} />
+
+## Related
+
+<RelatedComponents slugs={['skeleton', 'alert', 'callout']} />
