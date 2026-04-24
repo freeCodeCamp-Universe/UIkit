@@ -1,0 +1,143 @@
+---
+title: CommandPalette
+eyebrow: <CommandPalette />
+status: stable
+since: '1.0.0'
+category: overlay
+summary: Keyboard-driven launcher. Search input + grouped filterable list + shortcut badges. Arrow keys navigate, Enter selects, Escape closes.
+a11yPattern: https://www.w3.org/WAI/ARIA/apg/patterns/combobox/
+tokens:
+  - --background-quaternary
+  - --background-tertiary
+  - --foreground-primary
+  - --foreground-secondary
+order: 63
+---
+
+import PropTable from '../../components/site/PropTable.astro';
+import TokenChips from '../../components/site/TokenChips.astro';
+import RelatedComponents from '../../components/site/RelatedComponents.astro';
+import DoDont from '../../components/site/DoDont.astro';
+
+Use CommandPalette as the keyboard-first entry point to every action
+in your app. It mirrors the Raycast / VS Code launcher pattern:
+open with `⌘K`, type a few characters, press Enter. Caller owns the
+`open` state and the `onSelect` routing.
+
+## Usage
+
+```tsx
+import { CommandPalette } from '@freecodecamp/uikit/overlays';
+
+const groups = [
+  {
+    label: 'Navigation',
+    items: [
+      { id: 'home', label: 'Go home', shortcut: 'g h' },
+      { id: 'settings', label: 'Open settings', shortcut: ', ,' }
+    ]
+  },
+  {
+    label: 'Actions',
+    items: [{ id: 'new', label: 'New task', icon: '+' }]
+  }
+];
+
+<CommandPalette
+  open={open}
+  onClose={() => setOpen(false)}
+  groups={groups}
+  onSelect={id => {
+    setOpen(false);
+    route(id);
+  }}
+/>;
+```
+
+## Props
+
+<PropTable
+  rows={[
+    {
+      name: 'open',
+      type: 'boolean',
+      default: 'false',
+      description: 'Controls visibility. Caller owns the state.'
+    },
+    {
+      name: 'onClose',
+      type: '() => void',
+      default: '—',
+      description:
+        'Fires on Escape, backdrop click, or after an onSelect handler chooses to close.'
+    },
+    {
+      name: 'onSelect',
+      type: '(id: string) => void',
+      default: '—',
+      description: 'Fires with the selected item id on Enter or click.'
+    },
+    {
+      name: 'groups',
+      type: 'CommandPaletteGroup[]',
+      default: '[]',
+      description:
+        'Array of `{ label, items }`. Items filter client-side against `label` + optional `keywords`.'
+    },
+    {
+      name: 'placeholder',
+      type: 'string',
+      default: "'Type a command…'",
+      description: 'Placeholder for the search input.'
+    },
+    {
+      name: 'emptyState',
+      type: 'ReactNode',
+      default: '—',
+      description:
+        'Rendered when filtering removes every item. Use <EmptyState> for a structured variant.'
+    },
+    {
+      name: 'value / onValueChange',
+      type: 'string / (next: string) => void',
+      default: '—',
+      description: 'Controlled search value. Omit both for uncontrolled.'
+    }
+  ]}
+/>
+
+## Accessibility
+
+Root is `role="dialog" aria-modal="true"`. The input advertises
+`aria-autocomplete="list"`; each item carries `role="option"` with
+`aria-selected` reflecting the keyboard cursor. Arrow Up/Down moves
+the cursor, Enter fires `onSelect`, Escape fires `onClose`. Clicking
+outside the palette closes it.
+
+<DoDont
+  dos={[
+    'Open on a discoverable shortcut (⌘K / Ctrl+K is the expected muscle memory).',
+    'Group items by workspace role ("Navigation", "Admin", "Search"). Keep group counts ≤ 4.',
+    'Let `onSelect` close the palette — single-select is the norm.'
+  ]}
+  donts={[
+    'Ship more than ~50 items — reach for inline search in the main region instead.',
+    'Nest a CommandPalette inside a Modal; the palette is already a dialog.',
+    'Fire network requests on every keystroke — filter the cached groups client-side.'
+  ]}
+/>
+
+## Tokens consumed
+
+<TokenChips
+  tokens={[
+    '--background-quaternary',
+    '--background-tertiary',
+    '--foreground-primary',
+    '--foreground-secondary'
+  ]}
+/>
+
+## Related
+
+<RelatedComponents slugs={['modal', 'combobox', 'empty-state']} />
