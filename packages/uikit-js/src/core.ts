@@ -8,6 +8,12 @@ import { combobox, type ComboboxInstance } from './adapters/combobox';
 import { dialog, type DialogInstance } from './adapters/dialog';
 import { listbox, type ListboxInstance } from './adapters/listbox';
 import { pagination, type PaginationInstance } from './adapters/pagination';
+import {
+  toaster,
+  toastTrigger,
+  type ToasterInstance,
+  type ToastOptions
+} from './adapters/toast';
 
 export type Adapter<TInstance = unknown> = (el: HTMLElement) => TInstance;
 
@@ -20,7 +26,9 @@ const registry: Registration[] = [
   { attribute: 'data-uikit-combobox', adapter: combobox as Adapter },
   { attribute: 'data-uikit-dialog', adapter: dialog as Adapter },
   { attribute: 'data-uikit-listbox', adapter: listbox as Adapter },
-  { attribute: 'data-uikit-pagination', adapter: pagination as Adapter }
+  { attribute: 'data-uikit-pagination', adapter: pagination as Adapter },
+  { attribute: 'data-uikit-toaster', adapter: toaster as Adapter },
+  { attribute: 'data-uikit-toast-trigger', adapter: toastTrigger as Adapter }
 ];
 
 function bootScope(scope: ParentNode): void {
@@ -56,10 +64,12 @@ if (typeof document !== 'undefined') {
   }
 }
 
-export { combobox, dialog, listbox, pagination };
+export { combobox, dialog, listbox, pagination, toaster, toastTrigger };
 export type {
   ComboboxInstance,
   DialogInstance,
   ListboxInstance,
-  PaginationInstance
+  PaginationInstance,
+  ToasterInstance,
+  ToastOptions
 };

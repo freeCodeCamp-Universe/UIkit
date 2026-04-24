@@ -46,6 +46,24 @@ toaster.create({
 });
 ```
 
+### Vanilla JS
+
+For non-React pages, mark the container and triggers with `data-uikit-*`
+hooks. The IIFE bundle wires them on load — no imports needed.
+
+```html
+<div data-uikit-toaster class="toaster"></div>
+
+<button
+  data-uikit-toast-trigger
+  data-toast-type="success"
+  data-toast-title="Saved"
+  data-toast-description="Profile updated"
+>
+  Save
+</button>
+```
+
 ## Props — `<Toast>`
 
 The presentational item. Use it directly for custom integrations; the
