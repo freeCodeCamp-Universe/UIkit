@@ -13,7 +13,7 @@ export async function getStaticPaths() {
 type Props = { entry: CollectionEntry<'foundations'> };
 const { entry } = Astro.props as Props;
 const { Content } = await render(entry);
-const { title, eyebrow, summary, description } = entry.data;
+const { title, eyebrow, summary, description, wide } = entry.data;
 ---
 
 <FoundationsLayout
@@ -21,6 +21,7 @@ const { title, eyebrow, summary, description } = entry.data;
   eyebrow={eyebrow}
   summary={summary}
   description={description}
+  wide={wide}
 >
   <Content />
 </FoundationsLayout>

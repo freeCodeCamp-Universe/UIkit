@@ -8,7 +8,8 @@ const foundations = defineCollection({
     eyebrow: z.string(),
     summary: z.string(),
     description: z.string().optional(),
-    order: z.number().int().positive()
+    order: z.number().int().positive(),
+    wide: z.boolean().optional()
   })
 });
 

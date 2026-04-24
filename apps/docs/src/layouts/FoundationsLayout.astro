@@ -8,9 +8,11 @@ export interface Props {
   eyebrow: string;
   summary?: string;
   description?: string;
+  wide?: boolean;
 }
 
-const { title, eyebrow, summary, description } = Astro.props;
+const { title, eyebrow, summary, description, wide } = Astro.props;
+const articleClass = wide ? 'foundations foundations--wide' : 'foundations';
 ---
 
 <BaseLayout
@@ -29,7 +31,7 @@ const { title, eyebrow, summary, description } = Astro.props;
             {summary && <p class='hero__lede'>{summary}</p>}
           </section>
 
-          <article class='foundations'>
+          <article class={articleClass}>
             <slot />
           </article>
 
@@ -53,6 +55,7 @@ const { title, eyebrow, summary, description } = Astro.props;
     gap: 32px;
     max-width: 72ch;
   }
+  .foundations--wide,
   .foundations.is-wide {
     max-width: none;
   }
