@@ -8,4 +8,6 @@ export type {
   DescriptionListItem
 } from './DescriptionList';
 export { Panel } from './Panel';
+export { Skeleton } from './Skeleton';
+export type { SkeletonProps, SkeletonVariant } from './Skeleton';
 export { Table } from './Table';

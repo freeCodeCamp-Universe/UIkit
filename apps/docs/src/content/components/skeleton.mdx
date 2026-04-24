@@ -1,0 +1,93 @@
+---
+title: Skeleton
+eyebrow: <Skeleton />
+status: stable
+since: '1.0.0'
+category: data-display
+summary: Loading placeholder with shimmer. Rect by default, circle for avatars, text for stacked line bars. Renders `<div role="status" aria-busy="true">`.
+a11yPattern: https://www.w3.org/WAI/ARIA/apg/patterns/
+tokens:
+  - --background-tertiary
+  - --background-quaternary
+order: 60
+---
+
+import PropTable from '../../components/site/PropTable.astro';
+import TokenChips from '../../components/site/TokenChips.astro';
+import RelatedComponents from '../../components/site/RelatedComponents.astro';
+import DoDont from '../../components/site/DoDont.astro';
+
+Use Skeleton to reserve layout space while real content loads. The
+shimmer animation hints "something is coming" without yanking focus
+the way a spinner does. Pass `label` for an `aria-live` announcement
+hidden behind `.sr-only`.
+
+## Props
+
+<PropTable
+  rows={[
+    {
+      name: 'variant',
+      type: "'rect' | 'circle' | 'text'",
+      default: "'rect'",
+      description:
+        'Visual shape. Rect fills width, circle targets avatars, text renders stacked line bars.'
+    },
+    {
+      name: 'width',
+      type: 'number | string',
+      default: '—',
+      description:
+        'Inline width. Numbers coerce to pixels; strings pass through.'
+    },
+    {
+      name: 'height',
+      type: 'number | string',
+      default: '—',
+      description:
+        'Inline height. Numbers coerce to pixels; strings pass through.'
+    },
+    {
+      name: 'lines',
+      type: 'number',
+      default: '—',
+      description:
+        'For variant="text": number of stacked line bars. The last bar is 65% width to mimic a paragraph break.'
+    },
+    {
+      name: 'label',
+      type: 'ReactNode',
+      default: '—',
+      description:
+        'Screen-reader announcement rendered in a visually-hidden span.'
+    }
+  ]}
+/>
+
+## Accessibility
+
+Skeleton emits `role="status"` + `aria-busy="true"` + `aria-live="polite"`
+so assistive tech hears a loading cue. Keep the `label` terse — announce
+what is loading, not how long it will take. Animation pauses under
+`prefers-reduced-motion: reduce`.
+
+<DoDont
+  dos={[
+    'Reserve the exact footprint of the content it is replacing.',
+    'Pair a Skeleton with an `aria-label` that names what is loading.',
+    'Swap in real content as soon as any fragment is ready — do not wait for the full payload.'
+  ]}
+  donts={[
+    'Stack six variants in the same viewport — one shape per region.',
+    'Use Skeleton for states that will never resolve (use EmptyState).',
+    'Animate the shimmer manually — honour the reduced-motion CSS rule.'
+  ]}
+/>
+
+## Tokens consumed
+
+<TokenChips tokens={['--background-tertiary', '--background-quaternary']} />
+
+## Related
+
+<RelatedComponents slugs={['empty-state', 'spacer']} />
