@@ -1,6 +1,7 @@
 import { strict as assert } from 'node:assert';
 import { test } from 'node:test';
 import { nav, flatNav } from './nav.ts';
+import { knownComponentSlugs } from './knownComponents.ts';
 
 test('nav sections are non-empty', () => {
   assert.ok(nav.length > 0);
@@ -58,5 +59,52 @@ test('Foundations section lists every pillar', () => {
   ]);
   for (const item of foundations.items) {
     assert.match(item.href, /^\/foundations\//);
+  }
+});
+
+test('nav includes every layered component section', () => {
+  const expected = [
+    'guides',
+    'foundations',
+    'primitives',
+    'actions',
+    'forms',
+    'navigation',
+    'overlays',
+    'feedback',
+    'data-display',
+    'layouts'
+  ];
+  const actual = nav.map(s => s.id);
+  for (const id of expected) {
+    assert.ok(actual.includes(id), `nav missing section ${id}`);
+  }
+});
+
+test('no nav item has an anchor-only href', () => {
+  for (const entry of flatNav) {
+    assert.ok(
+      !entry.href.startsWith('/#'),
+      `${entry.id} still uses anchor-only href ${entry.href}`
+    );
+  }
+});
+
+test('every cmp-* item points to /components/<slug> with a known slug', () => {
+  const componentEntries = flatNav.filter(i => i.id.startsWith('cmp-'));
+  assert.ok(
+    componentEntries.length >= 40,
+    `expected 40+ component entries, got ${componentEntries.length}`
+  );
+  for (const entry of componentEntries) {
+    assert.ok(
+      entry.href.startsWith('/components/'),
+      `${entry.id} href ${entry.href} must start with /components/`
+    );
+    const slug = entry.href.slice('/components/'.length);
+    assert.ok(
+      knownComponentSlugs.has(slug),
+      `${entry.id} points at unknown slug ${slug}`
+    );
   }
 });
