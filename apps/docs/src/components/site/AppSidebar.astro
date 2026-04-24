@@ -1,37 +1,14 @@
 ---
+// Docs sidebar — dogfoods @freecodecamp/uikit's <Sidebar>+<SidebarSection>
+// +<SidebarItem>. Markup comes from AppSidebar.tsx (SSR-only); the inline
+// script below toggles `data-active="true"` on the rendered SidebarItems
+// so uikit-css `.sidebar__item[data-active='true']` styles the current
+// page / scrolled-into-view section without needing client hydration.
+import { AppSidebar } from './AppSidebar.tsx';
 import { nav } from '../../data/nav.ts';
 ---
 
-<aside class='sidebar' aria-label='Component navigation'>
-  <div class='sidebar__intro'>
-    <p class='sidebar__intro-kicker'>freeCodeCamp UIKit</p>
-    <p class='sidebar__intro-title'>Component storybook</p>
-  </div>
-
-  {
-    nav.map(section => (
-      <nav class='sidebar__section' aria-label={section.label}>
-        <p class='sidebar__section-title'>{section.label}</p>
-        <ul class='sidebar__list'>
-          {section.items.map(item => (
-            <li>
-              <a
-                class='sidebar__link'
-                href={item.href}
-                data-sidebar-link
-                data-target={item.id}
-              >
-                {item.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
-    ))
-  }
-
-  <p class='sidebar__hint'>Press <kbd class='kbd'>/</kbd> to search</p>
-</aside>
+<AppSidebar nav={nav} />
 
 <script is:inline>
   (function () {
@@ -47,7 +24,7 @@ import { nav } from '../../data/nav.ts';
       const href = a.getAttribute('href') || '';
       const hrefPath = href.split('#')[0].replace(/\/$/, '') || '/';
       if (hrefPath === path && !href.includes('#')) {
-        a.classList.add('is-active');
+        a.setAttribute('data-active', 'true');
       }
     });
 
@@ -63,9 +40,9 @@ import { nav } from '../../data/nav.ts';
             if (!match) return;
             links.forEach(a => {
               const href = a.getAttribute('href') || '';
-              if (href.startsWith('/#')) a.classList.remove('is-active');
+              if (href.startsWith('/#')) a.removeAttribute('data-active');
             });
-            match.classList.add('is-active');
+            match.setAttribute('data-active', 'true');
           });
         },
         { rootMargin: '-30% 0px -60% 0px', threshold: 0 }
