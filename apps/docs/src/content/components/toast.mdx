@@ -1,0 +1,127 @@
+---
+title: Toast
+eyebrow: <Toast />
+status: stable
+since: '1.0.0'
+category: overlay
+summary: Transient notifications. `info`, `success`, `warning`, and `danger` variants. Shares a single <Toaster /> provider per app and fires via `toaster.create(...)`.
+a11yPattern: https://www.w3.org/WAI/ARIA/apg/patterns/alert/
+tokens:
+  - --background-quaternary
+  - --foreground-primary
+  - --foreground-secondary
+  - --highlight-color
+  - --success-color
+  - --warning-color
+  - --danger-color
+order: 62
+---
+
+import PropTable from '../../components/site/PropTable.astro';
+import TokenChips from '../../components/site/TokenChips.astro';
+import RelatedComponents from '../../components/site/RelatedComponents.astro';
+import DoDont from '../../components/site/DoDont.astro';
+
+Use Toast for feedback that is time-bound, does not demand a decision,
+and can safely disappear. For interruptions that block a flow, reach
+for `<Modal>`. Toasts are stack-aware: multiple overlap without
+flattening, and auto-dismiss after five seconds by default.
+
+## Usage
+
+```tsx
+import { Toaster, createToaster } from '@freecodecamp/uikit/overlays';
+
+// Create once at module scope — the store is a singleton.
+export const toaster = createToaster({ placement: 'top-end' });
+
+// Near the app root:
+<Toaster toaster={toaster} />;
+
+// Anywhere a handler wants to flash a toast:
+toaster.create({
+  type: 'success',
+  title: 'Saved',
+  description: 'Profile updated.'
+});
+```
+
+## Props — `<Toast>`
+
+The presentational item. Use it directly for custom integrations; the
+`<Toaster>` default renderer wires it up for you.
+
+<PropTable
+  rows={[
+    {
+      name: 'variant',
+      type: "'info' | 'success' | 'warning' | 'danger'",
+      default: "'info'",
+      description:
+        'Visual tone and ARIA politeness. Danger upgrades to `role="alert"` so errors announce immediately.'
+    },
+    {
+      name: 'title',
+      type: 'ReactNode',
+      default: '—',
+      description: 'Short headline rendered in `.toast__title`.'
+    },
+    {
+      name: 'description',
+      type: 'ReactNode',
+      default: '—',
+      description: 'Supporting copy rendered in `.toast__description`.'
+    },
+    {
+      name: 'dismissible',
+      type: 'boolean',
+      default: 'true',
+      description: 'Emit a close (`×`) button wired to `onDismiss`.'
+    },
+    {
+      name: 'onDismiss',
+      type: '() => void',
+      default: '—',
+      description: 'Click handler for the close button.'
+    }
+  ]}
+/>
+
+## Accessibility
+
+`info | success | warning` toasts render `role="status"` + `aria-live="polite"`
+so they are announced but do not interrupt. `danger` toasts upgrade to
+`role="alert"` so assistive tech interrupts for errors. Every toast owns
+a labelled close button — do not remove it unless the toast is strictly
+informational and short-lived.
+
+<DoDont
+  dos={[
+    'Dismiss in ≤ 5 seconds unless the user actively hovers (pauses auto-dismiss).',
+    'Pair a destructive toast with an Undo action so recovery stays one click away.',
+    'Surface a single stream — same placement, same spacing — across the app.'
+  ]}
+  donts={[
+    'Nest toasts inside modals or panels; the provider mounts near the document root.',
+    'Use a toast for errors that block the next action (use Alert or Modal).',
+    'Stack more than four at once — pick a lower `max`.'
+  ]}
+/>
+
+## Tokens consumed
+
+<TokenChips
+  tokens={[
+    '--background-quaternary',
+    '--foreground-primary',
+    '--foreground-secondary',
+    '--highlight-color',
+    '--success-color',
+    '--warning-color',
+    '--danger-color'
+  ]}
+/>
+
+## Related
+
+<RelatedComponents slugs={['alert', 'callout', 'modal']} />

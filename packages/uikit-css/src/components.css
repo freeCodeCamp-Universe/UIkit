@@ -1642,3 +1642,117 @@
   align-items: center;
   gap: 8px;
 }
+
+/* ---------- Toast / Toaster ---------- */
+
+.toaster {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 9000;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: min(360px, calc(100vw - 32px));
+  pointer-events: none;
+}
+.toaster > * {
+  pointer-events: auto;
+}
+.toast {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 14px;
+  background: var(--background-quaternary);
+  color: var(--foreground-primary);
+  border: var(--border-width-thin) solid var(--foreground-secondary);
+  border-left-width: 4px;
+  border-left-color: var(--highlight-color);
+  box-shadow:
+    0 1px 0 rgba(0, 0, 0, 0.25),
+    0 8px 24px rgba(0, 0, 0, 0.25);
+  transition:
+    transform 160ms ease-out,
+    opacity 160ms ease-out;
+}
+.toast[data-state='open'] {
+  animation: toast-enter 180ms ease-out;
+}
+.toast[data-state='closed'] {
+  animation: toast-exit 160ms ease-in forwards;
+}
+.toast--info {
+  border-left-color: var(--highlight-color);
+}
+.toast--success {
+  border-left-color: var(--success-color);
+}
+.toast--warning {
+  border-left-color: var(--warning-color);
+}
+.toast--danger {
+  border-left-color: var(--danger-color);
+}
+.toast__body {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.toast__title {
+  margin: 0;
+  font-weight: 600;
+  font-size: var(--fs-sm);
+  line-height: 1.3;
+}
+.toast__description {
+  margin: 0;
+  font-size: var(--fs-xs);
+  line-height: 1.45;
+  color: var(--foreground-secondary);
+}
+.toast__close {
+  flex: 0 0 auto;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  padding: 0 4px;
+  font-size: var(--fs-md);
+  line-height: 1;
+  color: var(--foreground-secondary);
+  cursor: pointer;
+}
+.toast__close:hover,
+.toast__close:focus-visible {
+  color: var(--foreground-primary);
+  outline: none;
+}
+
+@keyframes toast-enter {
+  from {
+    transform: translateY(-12px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes toast-exit {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-12px);
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .toast[data-state='open'],
+  .toast[data-state='closed'] {
+    animation: none;
+  }
+}
