@@ -1364,7 +1364,38 @@
   font-size: var(--fs-md);
   color: var(--foreground-primary);
   min-width: 220px;
-  height: 100%;
+  position: sticky;
+  top: var(--sidebar-top, 0);
+  align-self: start;
+  max-height: calc(100vh - var(--sidebar-top, 0px));
+  overflow-y: auto;
+}
+.sidebar__intro {
+  padding: 0 12px 12px;
+  border-bottom: var(--border-width-thin) solid var(--background-tertiary);
+  margin-bottom: 12px;
+}
+.sidebar__intro-kicker {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--foreground-secondary);
+  margin: 0 0 4px;
+}
+.sidebar__intro-title {
+  font-family: var(--font-sans);
+  font-size: var(--fs-md);
+  font-weight: var(--fw-bold);
+  color: var(--foreground-primary);
+  margin: 0;
+}
+.sidebar__hint {
+  padding: 12px 16px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--foreground-secondary);
+  line-height: 1.5;
 }
 .sidebar__section {
   display: flex;
