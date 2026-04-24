@@ -2,7 +2,10 @@ import React, { forwardRef } from 'react';
 
 export type PanelVariant = 'default' | 'primary' | 'danger' | 'info';
 
-export interface PanelProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface PanelProps extends Omit<
+  React.HTMLAttributes<HTMLDivElement>,
+  'title'
+> {
   variant?: PanelVariant;
   title?: React.ReactNode;
 }

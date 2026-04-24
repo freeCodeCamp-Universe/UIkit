@@ -1,6 +1,9 @@
 import React, { Children, isValidElement, useState } from 'react';
 
-export interface TabProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface TabProps extends Omit<
+  React.HTMLAttributes<HTMLDivElement>,
+  'title'
+> {
   eventKey: string;
   title: React.ReactNode;
   children?: React.ReactNode;
@@ -14,7 +17,7 @@ Tab.displayName = 'Tab';
 
 export interface TabsProps extends Omit<
   React.HTMLAttributes<HTMLDivElement>,
-  'onChange'
+  'onChange' | 'onSelect'
 > {
   activeKey?: string;
   defaultActiveKey?: string;

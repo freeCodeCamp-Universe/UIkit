@@ -9,7 +9,7 @@ import { Dialog } from '@ark-ui/react/dialog';
 
 export interface ModalProps extends Omit<
   React.HTMLAttributes<HTMLDivElement>,
-  'onChange'
+  'onChange' | 'title'
 > {
   open: boolean;
   onClose: () => void;
