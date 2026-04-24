@@ -6,7 +6,7 @@ import { Tooltip } from './Tooltip.tsx';
 
 test('Tooltip wraps children in .tip with role=tooltip bubble', () => {
   const html = renderToStaticMarkup(
-    createElement(Tooltip, { content: 'hint' }, 'anchor')
+    createElement(Tooltip, { content: 'hint', children: 'anchor' })
   );
   assert.match(html, /class="tip"/);
   assert.match(html, /role="tooltip"/);

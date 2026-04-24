@@ -26,6 +26,7 @@
     "src"
   ],
   "devDependencies": {
+    "@types/node": "^25.6.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "react": "^19",
