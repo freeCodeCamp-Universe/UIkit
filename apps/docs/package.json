@@ -2,7 +2,7 @@
   "name": "@freecodecamp/uikit-docs",
   "version": "0.1.0",
   "scripts": {
-    "test": "tsx --test --test-reporter=spec src/data/*.test.ts",
+    "test": "tsx --test --test-reporter=spec 'src/**/*.test.ts'",
     "predev": "node scripts/copy-sprite.mjs",
     "dev": "astro dev",
     "prebuild": "node scripts/copy-sprite.mjs",

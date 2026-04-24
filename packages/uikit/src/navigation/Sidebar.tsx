@@ -50,10 +50,10 @@ export const SidebarSection = forwardRef<HTMLElement, SidebarSectionProps>(
         .join(' ');
       return (
         <details
-          ref={ref as React.Ref<HTMLElement>}
+          ref={ref as unknown as React.Ref<HTMLDetailsElement>}
           className={classes}
           open={defaultOpen}
-          {...(rest as React.HTMLAttributes<HTMLElement>)}
+          {...(rest as React.HTMLAttributes<HTMLDetailsElement>)}
         >
           <summary className='sidebar__section__summary'>
             {label !== undefined && (

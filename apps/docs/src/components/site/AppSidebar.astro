@@ -1,56 +1,12 @@
 ---
 // Docs sidebar — dogfoods @freecodecamp/uikit's <Sidebar>+<SidebarSection>
-// +<SidebarItem>. Markup comes from AppSidebar.tsx (SSR-only); the inline
-// script below toggles `data-active="true"` on the rendered SidebarItems
-// so uikit-css `.sidebar__item[data-active='true']` styles the current
-// page / scrolled-into-view section without needing client hydration.
+// +<SidebarItem>. Active state is route-aware (derived from
+// `Astro.url.pathname`), so no client-side script is required. The
+// storybook scroll-spy that used to live here has moved to `/showcase`.
 import { AppSidebar } from './AppSidebar.tsx';
 import { nav } from '../../data/nav.ts';
+
+const currentPath = Astro.url.pathname;
 ---
 
-<AppSidebar nav={nav} />
-
-<script is:inline>
-  (function () {
-    const links = Array.from(document.querySelectorAll('[data-sidebar-link]'));
-    if (!links.length) return;
-    const byTarget = new Map(
-      links.map(a => [a.getAttribute('data-target'), a])
-    );
-    const path = window.location.pathname.replace(/\/$/, '') || '/';
-
-    // Highlight the current page for cross-page links (guides landing/sub-pages).
-    links.forEach(a => {
-      const href = a.getAttribute('href') || '';
-      const hrefPath = href.split('#')[0].replace(/\/$/, '') || '/';
-      if (hrefPath === path && !href.includes('#')) {
-        a.setAttribute('data-active', 'true');
-      }
-    });
-
-    // On the storybook page, also track the current section via scroll.
-    if (path === '/' || path === '') {
-      const observer = new IntersectionObserver(
-        entries => {
-          entries.forEach(entry => {
-            if (!entry.isIntersecting) return;
-            const id = entry.target.getAttribute('id');
-            if (!id) return;
-            const match = byTarget.get(id);
-            if (!match) return;
-            links.forEach(a => {
-              const href = a.getAttribute('href') || '';
-              if (href.startsWith('/#')) a.removeAttribute('data-active');
-            });
-            match.setAttribute('data-active', 'true');
-          });
-        },
-        { rootMargin: '-30% 0px -60% 0px', threshold: 0 }
-      );
-
-      document
-        .querySelectorAll('section[id]')
-        .forEach(s => observer.observe(s));
-    }
-  })();
-</script>
+<AppSidebar nav={nav} currentPath={currentPath} />
