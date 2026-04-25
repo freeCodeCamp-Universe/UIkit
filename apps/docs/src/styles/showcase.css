@@ -10,6 +10,27 @@
 
 /* ---------- Header ---------- */
 
+/* Wave 9 P4.3 (W9-B8.3) — breadcrumb sub-bar that paints under the
+   site header on every route except `/`. Uses uikit's <Breadcrumb>
+   primitive (mono font, '›' separator handled by component CSS). */
+.site-breadcrumb {
+  position: sticky;
+  top: var(--header-height);
+  z-index: calc(var(--z-site-header) - 1);
+  height: var(--breadcrumbs-height);
+  padding: 0 20px;
+  background: var(--gray-85);
+  border-bottom: 1px solid var(--border-soft);
+  display: flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--foreground-muted);
+}
+.site-breadcrumb .breadcrumb {
+  width: 100%;
+}
+
 .site-header {
   position: sticky;
   top: 0;
@@ -58,9 +79,22 @@
   color: var(--foreground-secondary);
   text-decoration: none;
   font-size: 15px;
+  /* Wave 9 P4.1 (W9-B8.1) — every primary link reserves a 2px
+     transparent border-bottom so the active-state underline does not
+     shift the link baseline. The active rule below paints it gold. */
+  border-bottom: 2px solid transparent;
+  padding-bottom: 4px;
 }
 .site-header__nav a:hover {
   color: var(--foreground-primary);
+}
+/* Wave 9 P4.1 (W9-B8.1) — design contract: active link = 700 weight,
+   primary fg, yellow-gold underline. Locked by header-active-link
+   behavioural spec. */
+.site-header__nav a[aria-current='page'] {
+  color: var(--foreground-primary);
+  border-bottom-color: var(--yellow-gold);
+  font-weight: 700;
 }
 
 .site-header__spacer {

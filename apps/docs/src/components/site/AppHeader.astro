@@ -7,12 +7,18 @@
 // Wave 9 P2.11 (W9-C3) — pass `Astro.url.pathname` so the header can
 // stamp `aria-current="page"` on the matching primary link. The
 // match policy lives in AppHeader.tsx and is locked by AppHeader.test.tsx.
+//
+// Wave 9 P4.3 (W9-B8.3) — render the breadcrumb sub-bar below the
+// header on every route except `/`. AppBreadcrumb returns null at
+// home, so the chrome stays compact there.
 import { AppHeader } from './AppHeader.tsx';
+import { AppBreadcrumb } from './AppBreadcrumb.tsx';
 
 const pathname = Astro.url.pathname;
 ---
 
 <AppHeader pathname={pathname} />
+<AppBreadcrumb pathname={pathname} />
 
 <script is:inline>
   (function () {

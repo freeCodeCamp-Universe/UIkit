@@ -179,6 +179,9 @@
   --dur-slow: 260ms;
 
   --header-height: 48px;
+  /* Wave 9 P4.4 (W9-B8.4) — breadcrumb sub-bar height. Design pegs
+     this at 32px (`comp-header` card → `.crumb`). */
+  --breadcrumbs-height: 32px;
   --sidebar-width: 288px;
   --content-max: 1040px;
 

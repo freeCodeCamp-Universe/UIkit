@@ -60,7 +60,6 @@ export function AppHeader({ pathname = '' }: AppHeaderProps): JSX.Element {
     >
       <img src='/brand/fcc-puck.svg' alt='' width={22} height={22} />
       <span>freeCodeCamp UIKit</span>
-      <em>v0.1.0</em>
     </a>
   );
 
