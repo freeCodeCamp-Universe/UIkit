@@ -42,6 +42,7 @@ export const knownComponentSlugs: ReadonlySet<string> = new Set<string>([
   'listbox',
   'combobox',
   'command-palette',
+  'breadcrumb',
   // Overlays
   'modal',
   'dropdown',

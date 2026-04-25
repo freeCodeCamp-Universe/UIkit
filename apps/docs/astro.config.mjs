@@ -6,6 +6,7 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import searchIndex from './integrations/search-index.ts';
 
 // Wave 6 · P0 — sibling-source dogfood. The docs site imports from
 // `@freecodecamp/uikit*` but resolves those specifiers to the raw TS
@@ -63,11 +64,14 @@ export default defineConfig({
     }),
     // Sitemap covers the Playground + Handbook but skips every /api/*
     // page. The API reference is reachable (robots allow) but stays
-    // out of search engines; Pagefind ignores it via
-    // `data-pagefind-ignore` in the `/api/<slug>` + `/api` templates.
+    // out of search engines.
     sitemap({
       filter: page => !page.includes('/api/') && !/\/api\/?$/.test(page)
-    })
+    }),
+    // Wave 8 P2 — static search index. Dev mounts middleware on
+    // `/search-index.json`; build writes `dist/search-index.json`.
+    // Replaces Pagefind (build-only, broken in dev).
+    searchIndex()
   ],
   vite: {
     resolve: {

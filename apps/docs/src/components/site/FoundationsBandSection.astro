@@ -1,0 +1,51 @@
+---
+// Wave 8 P3 (W8-1) — thin Astro shell around the FoundationsBand
+// React island. The island reads tokens from `:root` at runtime
+// and drives ONE MutationObserver for the entire band; the shell
+// adds nothing functional, only the mount + global styles for the
+// band layout (the swatches inherit the existing `.token-grid` /
+// `.swatch` styling already in `pages/index.astro`).
+import { FoundationsBand } from './FoundationsBand.tsx';
+---
+
+<FoundationsBand client:load />
+
+<style is:global>
+  .foundations-band {
+    margin: 64px 0;
+    padding: 0;
+  }
+  .foundations-band__head {
+    margin-bottom: 32px;
+  }
+  .foundations-band__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  @media (min-width: 920px) {
+    .foundations-band__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  .foundations-band__group-heading {
+    margin: 0 0 4px;
+    font-size: var(--fs-md);
+    font-weight: 600;
+  }
+  .foundations-band__group-blurb {
+    margin: 0 0 16px;
+    color: var(--foreground-muted);
+    font-size: var(--fs-sm);
+  }
+  .foundations-band__footer {
+    margin-top: 24px;
+  }
+  .foundations-band__footer a {
+    color: var(--foreground-primary);
+    border-bottom: 1px solid var(--foreground-quaternary);
+  }
+  .foundations-band__footer a:hover {
+    color: var(--cta-background);
+  }
+</style>

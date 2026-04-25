@@ -30,3 +30,5 @@ export type {
 export { Pagination, paginationRange } from './Pagination';
 export type { PaginationProps, PaginationEntry } from './Pagination';
 export { Tabs, Tab } from './Tabs';
+export { Breadcrumb } from './Breadcrumb';
+export type { BreadcrumbProps, BreadcrumbItemProps } from './Breadcrumb';

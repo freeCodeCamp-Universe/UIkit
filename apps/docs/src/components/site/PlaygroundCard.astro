@@ -1,11 +1,17 @@
 ---
-// Wave 6 / Wave 7 — PlaygroundCard. Single per-component surface on `/`:
-// eyebrow → big title → lead → grid-bordered preview → REACT|HTML|
-// TAILWIND tabs with copy menu → optional ANATOMY <details>. The
+// Wave 6 / Wave 7 / Wave 8 — PlaygroundCard. Single per-component
+// surface on `/`: eyebrow → big title → lead → grid-bordered preview →
+// REACT | HTML tabs with copy menu → optional ANATOMY <details>. The
 // data-attribute contract drives showcase.client.ts (tab switching,
 // copy-as menu, scroll-spy). Wave 7 P0 retired the legacy per-component
 // route; `source` is required so the View source link always renders.
+// Wave 8 P0 (W8-11) cut the per-card Tailwind tab + panel + copy-as
+// item; ~25 of 45 cards rendered placeholder copy. The
+// `@freecodecamp/uikit-tailwind` package + `/guides/tailwind` page
+// remain as the canonical Tailwind story.
 import { icons } from '@freecodecamp/uikit-icons';
+import propsManifest from '@freecodecamp/uikit/props.json';
+import { PropTable } from './PropTable.tsx';
 
 export interface Props {
   /** Anchor slug; must match a knownComponentSlug entry. */
@@ -56,8 +62,37 @@ const previewClass = [
 
 const sourceHref = `https://github.com/freeCodeCamp/ui/blob/main/packages/uikit/src/${source}`;
 
+type PropEntryProp = {
+  type: string;
+  required: boolean;
+  description: string;
+  defaultValue: string | null;
+};
+type PropEntry = {
+  displayName: string;
+  description: string;
+  props: Record<string, PropEntryProp>;
+  _extractionFailed?: boolean;
+};
+type PropsManifest = Record<string, PropEntry | undefined> & {
+  $schemaVersion?: string;
+};
+const manifest = propsManifest as PropsManifest;
+const propsEntry = manifest[slug];
+const hasPropTable = Boolean(
+  propsEntry &&
+  !propsEntry._extractionFailed &&
+  Object.keys(propsEntry.props).length > 0
+);
+const hasExtractionFallback = Boolean(propsEntry?._extractionFailed);
+
 const hasAnatomy = Boolean(
-  status || since || (tokens && tokens.length) || a11yPattern
+  status ||
+  since ||
+  (tokens && tokens.length) ||
+  a11yPattern ||
+  hasPropTable ||
+  hasExtractionFallback
 );
 ---
 
@@ -110,12 +145,6 @@ const hasAnatomy = Boolean(
         aria-selected='false'
         data-tab='html'>HTML</button
       >
-      <button
-        class='showcase__tab'
-        role='tab'
-        aria-selected='false'
-        data-tab='tailwind'>Tailwind</button
-      >
 
       <div class='showcase__menu' data-copy-menu>
         <button
@@ -152,11 +181,6 @@ const hasAnatomy = Boolean(
               >Copy HTML</button
             >
           </li>
-          <li role='none'>
-            <button role='menuitem' type='button' data-copy-as='tailwind'
-              >Copy Tailwind</button
-            >
-          </li>
         </ul>
       </div>
     </div>
@@ -167,15 +191,6 @@ const hasAnatomy = Boolean(
       </div>
       <div class='showcase__panel' role='tabpanel' data-panel='html'>
         <slot name='html'><slot name='vanilla' /></slot>
-      </div>
-      <div class='showcase__panel' role='tabpanel' data-panel='tailwind'>
-        <slot name='tailwind'>
-          <pre
-            class='placeholder'><code>{`// This component is BEM-first; the Tailwind tab is populated
-// per-showcase. Copy the HTML tab and swap its class list for
-// Tailwind utilities, or pull the preset from
-// @freecodecamp/uikit-tailwind.`}</code></pre>
-        </slot>
       </div>
     </div>
 
@@ -225,6 +240,14 @@ const hasAnatomy = Boolean(
                   ) : (
                     a11yPattern
                   )}
+                </dd>
+              </>
+            )}
+            {(hasPropTable || hasExtractionFallback) && propsEntry && (
+              <>
+                <dt>Props</dt>
+                <dd>
+                  <PropTable entry={propsEntry} />
                 </dd>
               </>
             )}

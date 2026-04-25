@@ -1,0 +1,108 @@
+---
+title: Breadcrumb
+eyebrow: <Breadcrumb />
+status: stable
+since: '1.0.0'
+category: navigation
+summary: Hierarchical trail of links with the current page marked via aria-current. Compound API plus a CSS pseudo-element separator so the visible slash never reaches the accessibility tree.
+a11yPattern: https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/
+tokens:
+  - --foreground-primary
+  - --foreground-secondary
+  - --foreground-muted
+  - --foreground-quaternary
+order: 32
+---
+
+import PropTable from '../../components/site/PropTable.astro';
+import TokenChips from '../../components/site/TokenChips.astro';
+import RelatedComponents from '../../components/site/RelatedComponents.astro';
+
+Breadcrumb renders the path-to-here trail above page content. The
+component is a labelled `<nav>` wrapping an ordered list; each item
+lands as either a link or — for the active leaf — a non-link span
+with `aria-current="page"`. The visible separator is a CSS
+pseudo-element that screen readers ignore, so the announced
+sequence stays "Home, Components, Breadcrumb" rather than the
+literal "Home / Components / Breadcrumb" mush.
+
+`href` is scheme-allowlisted (`https?:`, `/`, `#`, `mailto:`,
+`tel:`); anything else falls through to a non-link span with a
+`console.warn`. Mitigates an XSS surface where untrusted user input
+could otherwise reach an `<a href>`.
+
+## Props
+
+<PropTable
+  rows={[
+    {
+      name: 'children',
+      type: 'ReactNode',
+      default: '—',
+      description: 'A list of `<Breadcrumb.Item>` elements.'
+    },
+    {
+      name: 'aria-label',
+      type: 'string',
+      default: "'Breadcrumb'",
+      description: 'Accessible name for the wrapping nav landmark.'
+    },
+    {
+      name: 'className',
+      type: 'string',
+      default: '—',
+      description: 'Additional class composed onto the root `nav`.'
+    }
+  ]}
+/>
+
+### `Breadcrumb.Item`
+
+<PropTable
+  rows={[
+    {
+      name: 'children',
+      type: 'ReactNode',
+      default: '—',
+      description:
+        'Label content rendered inside the link or current-page span.'
+    },
+    {
+      name: 'href',
+      type: 'string',
+      default: '—',
+      description:
+        'Destination URL. Schemes outside the allowlist render as a non-link span and emit a console warning.'
+    },
+    {
+      name: 'active',
+      type: 'boolean',
+      default: 'false',
+      description:
+        'Marks this item as the current page. Renders `<span aria-current="page">` instead of `<a>`.'
+    }
+  ]}
+/>
+
+## Accessibility
+
+Renders as `<nav aria-label="Breadcrumb"><ol><li>…</li></ol></nav>`.
+The active item drops the `<a>` and emits a span with
+`aria-current="page"`. The decorative separator is a CSS
+`::after` pseudo-element on every non-last item — invisible to
+assistive tech, no extra DOM noise.
+
+## Tokens consumed
+
+<TokenChips
+  tokens={[
+    '--foreground-primary',
+    '--foreground-secondary',
+    '--foreground-muted',
+    '--foreground-quaternary'
+  ]}
+/>
+
+## Related
+
+<RelatedComponents slugs={['navbar', 'sidebar', 'pagination']} />

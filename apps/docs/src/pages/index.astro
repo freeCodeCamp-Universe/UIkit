@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import AppHeader from '../components/site/AppHeader.astro';
 import AppSidebar from '../components/site/AppSidebar.astro';
-import { TokenSwatch } from '../components/site/TokenSwatch.tsx';
+import FoundationsBandSection from '../components/site/FoundationsBandSection.astro';
 import { nav } from '../data/nav';
 
 // Wave 6 — single source of truth for `/`. Every visible component
@@ -20,23 +20,10 @@ const componentForSlug = (slug: string) => {
   return mod.default;
 };
 
-// Wave 7 P1 — token-swatch truth. Names only; resolved values come
-// from `getComputedStyle(:root)` at runtime via the `<TokenSwatch>`
-// island. Wave 6 hand-typed three lying hexes; this is the fix.
-const tokensPaletteNames: readonly string[] = [
-  '--background-primary',
-  '--background-secondary',
-  '--background-tertiary',
-  '--background-quaternary',
-  '--foreground-primary',
-  '--foreground-secondary',
-  '--cta-background',
-  '--highlight-color',
-  '--success-color',
-  '--warning-color',
-  '--danger-color',
-  '--purple-color'
-];
+// Wave 8 P3 — palette swatches moved into <FoundationsBand>. The
+// per-cell <TokenSwatch client:load> loop became 12 islands × 12
+// MutationObservers; FoundationsBand collapses that to one island
+// + one observer. The handbook still uses TokenSwatch standalone.
 
 // Type scale: just the demo content. Sizes/line-heights live in CSS
 // custom properties (`--fs-*`); the meta line reads them at runtime
@@ -234,25 +221,17 @@ const spacing = [0, 4, 8, 12, 16, 24, 32, 48, 64];
           <!-- ============================================================ -->
           <!-- TOKENS -->
           <!-- ============================================================ -->
+          <FoundationsBandSection />
+
           <section class='section' id='tokens'>
-            <p class='section__eyebrow'>01 · design tokens</p>
-            <h2 class='section__title'>Tokens</h2>
+            <p class='section__eyebrow'>02 · type & spacing</p>
+            <h2 class='section__title'>Type scale & spacing</h2>
             <p class='section__lede'>
-              The whole kit reads from a small CSS custom-property layer. Swap a
-              palette class on <code>&lt;html&gt;</code> and the entire surface changes
-              — no component edits, no JavaScript.
+              The body type ladder, monospaced display sizes, and the eight-step
+              spacing grid every layout reaches for.
             </p>
 
-            <h3 style='font-size:var(--fs-lg);margin:24px 0 12px;'>Palette</h3>
-            <div class='token-grid'>
-              {
-                tokensPaletteNames.map(name => (
-                  <TokenSwatch client:load name={name} />
-                ))
-              }
-            </div>
-
-            <h3 style='font-size:var(--fs-lg);margin:40px 0 12px;'>
+            <h3 style='font-size:var(--fs-lg);margin:24px 0 12px;'>
               Type scale
             </h3>
             <div>

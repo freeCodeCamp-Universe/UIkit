@@ -36,11 +36,12 @@ test('showcase/ directory has no orphans not in knownComponentSlugs', () => {
   }
 });
 
-test('exactly 45 showcase files (one per component)', () => {
+test('exactly 46 showcase files (one per component)', () => {
+  // Wave 8 P4 — Breadcrumb (W8-5) shipped, 45 → 46.
   assert.equal(
     showcaseFiles.length,
-    45,
-    `expected 45 showcase files, got ${showcaseFiles.length}`
+    46,
+    `expected 46 showcase files, got ${showcaseFiles.length}`
   );
 });
 

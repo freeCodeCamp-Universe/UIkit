@@ -1,14 +1,18 @@
-// Wave 7 P1 — token-swatch truth. Renders a CSS custom-property name
-// alongside its RUNTIME-RESOLVED value, not a hand-typed hex. Wave 6
-// shipped three lying swatches (display values had drifted from the
-// declared token values by months of CSS edits). This island reads
-// `getComputedStyle(:root)` on mount and re-reads when the palette
-// class on `<html>` changes, so swatches always reflect what the kit
-// actually paints.
+// Wave 7 P1 / Wave 8 P3 — token-swatch truth.
 //
-// Hydration: `client:load` because the read must run as soon as the
-// stylesheet parses to avoid the empty-string flash. SSR renders a
-// loading dash (`—`); client takes over within 100ms typical.
+// Renders a CSS custom-property name alongside its RUNTIME-RESOLVED
+// value, not a hand-typed hex. Wave 6 shipped three lying swatches
+// (display values had drifted from the declared token values by
+// months of CSS edits). This island reads `getComputedStyle(:root)`
+// on mount and re-reads when the palette class on `<html>` changes,
+// so swatches always reflect what the kit actually paints.
+//
+// Wave 8 P3 added a `value` prop. When provided, the cell becomes
+// CONTROLLED and skips its self-mount observer — the parent (e.g.
+// `FoundationsBand`) drives the palette-swap re-read with one
+// observer. When `value` is undefined, the cell falls back to the
+// Wave-7 self-mount behavior so existing standalone usage on
+// `/handbook` keeps working without a parent-component refactor.
 import { useEffect, useState, useRef } from 'react';
 
 export interface TokenSwatchProps {
@@ -18,6 +22,11 @@ export interface TokenSwatchProps {
   label?: string;
   /** Defaults to `:root`. Override when reading from a scoped element. */
   scope?: string;
+  /** Controlled mode — pass the resolved value from a parent that
+   *  observes palette swaps once for many cells (Wave 8 P3
+   *  FoundationsBand pattern). When provided, the cell skips its
+   *  internal MutationObserver. */
+  value?: string;
 }
 
 const PLACEHOLDER = '—';
@@ -35,29 +44,32 @@ function resolve(name: string, scope: string): string {
 export function TokenSwatch({
   name,
   label,
-  scope = ':root'
+  scope = ':root',
+  value
 }: TokenSwatchProps): JSX.Element {
-  const [value, setValue] = useState<string>('');
+  const isControlled = value !== undefined;
+  const [internal, setInternal] = useState<string>('');
   const observer = useRef<MutationObserver | null>(null);
 
   useEffect(() => {
-    setValue(resolve(name, scope));
+    if (isControlled) return;
+    setInternal(resolve(name, scope));
 
     // Re-read whenever the palette class on <html> flips. The light
     // and dark palettes redeclare the same custom-property names with
     // different values; the swatch must follow.
     if (typeof MutationObserver === 'undefined') return;
     observer.current = new MutationObserver(() => {
-      setValue(resolve(name, scope));
+      setInternal(resolve(name, scope));
     });
     observer.current.observe(document.documentElement, {
       attributes: true,
       attributeFilter: ['class', 'data-palette']
     });
     return () => observer.current?.disconnect();
-  }, [name, scope]);
+  }, [name, scope, isControlled]);
 
-  const display = value || PLACEHOLDER;
+  const display = isControlled ? value || PLACEHOLDER : internal || PLACEHOLDER;
   // Chip uses the custom-property directly so the hue stays in lock
   // step with the resolved value, even before the effect fires.
   return (

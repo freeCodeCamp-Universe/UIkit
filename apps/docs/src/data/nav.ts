@@ -76,7 +76,8 @@ export const nav: readonly NavSection[] = [
       c('pagination', 'Pagination'),
       c('listbox', 'Listbox'),
       c('combobox', 'Combobox'),
-      c('command-palette', 'Command palette')
+      c('command-palette', 'Command palette'),
+      c('breadcrumb', 'Breadcrumb')
     ]
   },
   {

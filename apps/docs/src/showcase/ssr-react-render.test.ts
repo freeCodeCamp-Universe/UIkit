@@ -45,6 +45,7 @@ const EXPECTED: Record<string, ReadonlyArray<string>> = {
   'auth-layout': ['AuthLayout'],
   avatar: ['Avatar'],
   badge: ['Badge'],
+  breadcrumb: ['Breadcrumb'],
   button: ['Button'],
   callout: ['Callout'],
   card: ['Card'],
@@ -83,11 +84,12 @@ const files = readdirSync(here)
 
 const subjects = files.filter(slug => !STATEFUL.has(slug));
 
-test('Wave 7 P6 — 34 SSR-only showcases identified', () => {
+test('Wave 7 P6 + Wave 8 P4 — 35 SSR-only showcases identified', () => {
+  // Wave 8 P4 — breadcrumb shipped, 34 → 35.
   assert.equal(
     subjects.length,
-    34,
-    `expected 34 SSR-only showcases, got ${subjects.length}`
+    35,
+    `expected 35 SSR-only showcases, got ${subjects.length}`
   );
 });
 

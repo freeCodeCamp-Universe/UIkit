@@ -1,0 +1,52 @@
+---
+import PlaygroundCard from '../components/site/PlaygroundCard.astro';
+import { Code } from 'astro/components';
+import { Breadcrumb } from '@freecodecamp/uikit';
+---
+
+<PlaygroundCard
+  id='breadcrumb'
+  slug='Breadcrumb'
+  title='Breadcrumb'
+  description='Hierarchical trail with the current page marked via aria-current.'
+  source='navigation/Breadcrumb.tsx'
+  status='stable'
+  since='1.0.0'
+  a11yPattern='https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/'
+>
+  <Fragment slot='preview'>
+    <Breadcrumb>
+      <Breadcrumb.Item href='/'>Docs</Breadcrumb.Item>
+      <Breadcrumb.Item href='/#navigation'>Navigation</Breadcrumb.Item>
+      <Breadcrumb.Item active>Breadcrumb</Breadcrumb.Item>
+    </Breadcrumb>
+  </Fragment>
+  <Code
+    slot='react'
+    lang='tsx'
+    code={`import { Breadcrumb } from '@freecodecamp/uikit';
+
+<Breadcrumb>
+  <Breadcrumb.Item href="/">Docs</Breadcrumb.Item>
+  <Breadcrumb.Item href="/#navigation">Navigation</Breadcrumb.Item>
+  <Breadcrumb.Item active>Breadcrumb</Breadcrumb.Item>
+</Breadcrumb>`}
+  />
+  <Code
+    slot='html'
+    lang='html'
+    code={`<nav aria-label="Breadcrumb" class="breadcrumb">
+  <ol class="breadcrumb__list">
+    <li class="breadcrumb__item">
+      <a class="breadcrumb__link" href="/">Docs</a>
+    </li>
+    <li class="breadcrumb__item">
+      <a class="breadcrumb__link" href="/#navigation">Navigation</a>
+    </li>
+    <li class="breadcrumb__item">
+      <span class="breadcrumb__current" aria-current="page">Breadcrumb</span>
+    </li>
+  </ol>
+</nav>`}
+  />
+</PlaygroundCard>

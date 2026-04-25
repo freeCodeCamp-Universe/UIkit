@@ -2,13 +2,13 @@
   "name": "@freecodecamp/uikit-docs",
   "version": "0.1.0",
   "scripts": {
-    "test": "tsx --test --test-reporter=spec 'src/**/*.test.ts'",
+    "test": "tsx --test --test-reporter=spec 'src/**/*.test.ts' 'src/**/*.test.tsx' 'integrations/**/*.test.ts'",
     "test:visual": "playwright test",
     "test:visual:update": "playwright test --update-snapshots",
-    "predev": "node scripts/copy-sprite.mjs && node scripts/build-asset-kit.mjs",
+    "predev": "node scripts/copy-sprite.mjs && node scripts/build-asset-kit.mjs && node scripts/ensure-uikit-built.mjs",
     "dev": "astro dev",
-    "prebuild": "node scripts/copy-sprite.mjs && node scripts/build-asset-kit.mjs",
-    "build": "astro build && pagefind --site dist --output-subdir _pagefind",
+    "prebuild": "node scripts/copy-sprite.mjs && node scripts/build-asset-kit.mjs && node scripts/ensure-uikit-built.mjs",
+    "build": "astro build",
     "preview": "astro preview",
     "lint": "astro check && eslint .",
     "typecheck": "astro check"
@@ -35,6 +35,7 @@
     "@freecodecamp/uikit-icons": "workspace:^",
     "@freecodecamp/uikit-js": "workspace:^",
     "astro": "^6.1.9",
+    "fuse.js": "^7.3.0",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
     "sharp": "^0.34.5"
@@ -44,7 +45,6 @@
     "@playwright/test": "^1.59.1",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "pagefind": "^1.5.2",
     "rehype-autolink-headings": "^7.1.0",
     "rehype-slug": "^6.0.0"
   }

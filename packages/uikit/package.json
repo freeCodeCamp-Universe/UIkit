@@ -2,9 +2,9 @@
   "name": "@freecodecamp/uikit",
   "version": "0.1.0",
   "scripts": {
-    "test": "tsx --test --test-reporter=spec 'src/**/*.test.ts'",
+    "test": "tsx --test --test-reporter=spec 'src/**/*.test.ts' 'scripts/**/*.test.mjs'",
     "test:watch": "tsx --test --watch --test-reporter=spec 'src/**/*.test.ts'",
-    "build": "tsup",
+    "build": "tsup && node scripts/gen-props.mjs",
     "dev": "tsx --test --watch --test-reporter=spec 'src/**/*.test.ts'",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit"
@@ -65,7 +65,9 @@
       "import": "./dist/layouts.js",
       "require": "./dist/layouts.cjs",
       "types": "./dist/layouts.d.ts"
-    }
+    },
+    "./props.json": "./dist/props.json",
+    "./package.json": "./package.json"
   },
   "devDependencies": {
     "@ark-ui/react": "^5.36.2",
@@ -73,6 +75,7 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "react": "^19.2.5",
+    "react-docgen-typescript": "^2.4.0",
     "react-dom": "^19.2.5",
     "tsup": "^8.5.1",
     "tsx": "^4.21.0"

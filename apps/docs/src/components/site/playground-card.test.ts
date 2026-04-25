@@ -40,15 +40,21 @@ test('PlaygroundCard preserves the showcase.client.ts data-attribute contract', 
   }
 });
 
-test('PlaygroundCard exposes preview, react, html, tailwind slots', () => {
+test('PlaygroundCard exposes preview, react, html slots only', () => {
+  // Wave 8 P0 (W8-11) — tailwind slot deleted with the per-card tab.
   const src = readFileSync(cardPath, 'utf8');
-  for (const name of ['preview', 'react', 'html', 'tailwind']) {
+  for (const name of ['preview', 'react', 'html']) {
     assert.match(
       src,
       new RegExp(`<slot\\s+name=['"]${name}['"]`),
       `PlaygroundCard.astro must expose <slot name="${name}">`
     );
   }
+  assert.doesNotMatch(
+    src,
+    /<slot\s+name=['"]tailwind['"]/,
+    'tailwind slot must be removed (Wave 8 P0)'
+  );
 });
 
 test('PlaygroundCard accepts the Wave 6 metadata props', () => {
