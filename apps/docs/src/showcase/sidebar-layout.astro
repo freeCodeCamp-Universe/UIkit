@@ -9,7 +9,6 @@ import { SidebarLayout } from '@freecodecamp/uikit';
   slug='SidebarLayout'
   title='Sidebar layout'
   previewStacked
-  previewPlain
   description='Header + left rail + main — the curriculum chrome shape.'
   source='layouts/SidebarLayout.tsx'
   status='stable'
@@ -18,10 +17,12 @@ import { SidebarLayout } from '@freecodecamp/uikit';
   <Fragment slot='preview'>
     <SidebarLayout
       style={{
+        width: '100%',
         maxWidth: '680px',
         margin: '0 auto',
         border: '1px solid var(--border-strong)',
-        height: '240px'
+        height: '320px',
+        minHeight: '0'
       }}
     >
       <header

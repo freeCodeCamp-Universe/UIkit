@@ -9,7 +9,6 @@ import { StackedLayout } from '@freecodecamp/uikit';
   slug='StackedLayout'
   title='Stacked layout'
   previewStacked
-  previewPlain
   description='Header + main + footer — the marketing/news chrome shape.'
   source='layouts/StackedLayout.tsx'
   status='stable'
@@ -18,10 +17,12 @@ import { StackedLayout } from '@freecodecamp/uikit';
   <Fragment slot='preview'>
     <StackedLayout
       style={{
+        width: '100%',
         maxWidth: '680px',
         margin: '0 auto',
         border: '1px solid var(--border-strong)',
-        height: '240px',
+        height: '320px',
+        minHeight: '0',
         display: 'flex',
         flexDirection: 'column'
       }}

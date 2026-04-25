@@ -9,7 +9,6 @@ import { AuthLayout, FormGroup, Input, Button } from '@freecodecamp/uikit';
   slug='AuthLayout'
   title='Auth layout'
   previewStacked
-  previewPlain
   description='Centered card on a tile-pattern backdrop — sign-in, sign-up, password reset.'
   source='layouts/AuthLayout.tsx'
   status='stable'
@@ -21,9 +20,12 @@ import { AuthLayout, FormGroup, Input, Button } from '@freecodecamp/uikit';
       footer='Forgot your password?'
       pattern
       style={{
+        width: '100%',
         maxWidth: '680px',
         margin: '0 auto',
-        border: '1px solid var(--border-strong)'
+        border: '1px solid var(--border-strong)',
+        height: '360px',
+        minHeight: '0'
       }}
     >
       <FormGroup>
