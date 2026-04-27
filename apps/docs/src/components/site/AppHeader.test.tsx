@@ -75,5 +75,5 @@ test('search control dogfoods Button styling with compact visible text', () => {
   expect(search[0]).toMatch(/aria-label="Open search"/);
   expect(search[0]).toMatch(/aria-hidden="true"[^>]*>\/</);
   expect(search[0]).not.toMatch(/\bsite-search\b/);
-  expect(search[0]).not.toMatch(/Search components, guides, foundations/);
+  expect(search[0]).not.toMatch(/Search components, handbook, foundations/);
 });

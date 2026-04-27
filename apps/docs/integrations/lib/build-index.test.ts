@@ -7,7 +7,7 @@ import { buildIndex, parseFrontmatter } from './build-index.ts';
 
 function makeFixture() {
   const root = mkdtempSync(resolve(tmpdir(), 'search-idx-'));
-  for (const c of ['foundations', 'components', 'guides']) {
+  for (const c of ['foundations', 'components']) {
     mkdirSync(resolve(root, c), { recursive: true });
   }
   writeFileSync(
@@ -50,18 +50,6 @@ summary: Tabular display with sort + selection.
 # Data table
 `
   );
-  writeFileSync(
-    resolve(root, 'guides', 'install.mdx'),
-    `---
-title: Install
-eyebrow: 01 · install
-summary: Add the packages and pull in tokens.
-order: 1
----
-
-Body.
-`
-  );
   return root;
 }
 
@@ -82,11 +70,11 @@ test('parseFrontmatter returns {} when no frontmatter block', () => {
   assert.deepEqual(parseFrontmatter('body only, no frontmatter'), {});
 });
 
-test('buildIndex emits one entry per MDX across all three collections', () => {
+test('buildIndex emits one entry per MDX across both collections', () => {
   const root = makeFixture();
   try {
     const idx = buildIndex(root);
-    assert.equal(idx.length, 4, `expected 4 entries, got ${idx.length}`);
+    assert.equal(idx.length, 3, `expected 3 entries, got ${idx.length}`);
   } finally {
     rmSync(root, { recursive: true, force: true });
   }
@@ -99,9 +87,8 @@ test('buildIndex routes each collection to the right href', () => {
     const byTitle: Record<string, string> = {};
     for (const e of idx) byTitle[e.title] = e.href;
     assert.equal(byTitle['Palette'], '/handbook#palette');
-    assert.equal(byTitle['Button'], '/#button');
-    assert.equal(byTitle['Data table'], '/#data-table');
-    assert.equal(byTitle['Install'], '/guides/install');
+    assert.equal(byTitle['Button'], '/playground#button');
+    assert.equal(byTitle['Data table'], '/playground#data-table');
   } finally {
     rmSync(root, { recursive: true, force: true });
   }

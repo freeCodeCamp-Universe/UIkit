@@ -1,12 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-const ROUTES: readonly string[] = [
-  '/',
-  '/handbook',
-  '/guides/install',
-  '/guides/cdn',
-  '/guides/copy-paste'
-];
+const ROUTES: readonly string[] = ['/', '/playground', '/handbook'];
 
 for (const path of ROUTES) {
   test(`${path} passes baseline a11y checks`, async ({ page }) => {

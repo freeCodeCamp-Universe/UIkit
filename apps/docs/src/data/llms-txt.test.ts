@@ -11,8 +11,7 @@ const ENDPOINTS = [
   'src/pages/llms.txt.ts',
   'src/pages/llms-full.txt.ts',
   'src/pages/handbook.md.ts',
-  'src/pages/components/[slug].md.ts',
-  'src/pages/guides/[slug].md.ts'
+  'src/pages/components/[slug].md.ts'
 ] as const;
 
 for (const path of ENDPOINTS) {
@@ -36,10 +35,7 @@ test('every agent endpoint sends text/plain', () => {
 });
 
 test('the dynamic .md endpoints export getStaticPaths', () => {
-  for (const path of [
-    'src/pages/components/[slug].md.ts',
-    'src/pages/guides/[slug].md.ts'
-  ]) {
+  for (const path of ['src/pages/components/[slug].md.ts']) {
     const src = readFileSync(resolve(appRoot, path), 'utf8');
     assert.match(
       src,

@@ -27,13 +27,13 @@ const FIXTURE: IndexEntry[] = [
     title: 'Button',
     summary: 'The workhorse — 3px square border.',
     tags: ['button', 'components', 'primitive'],
-    href: '/#button'
+    href: '/playground#button'
   },
   {
     title: 'Dropdown',
     summary: 'Click to open a menu.',
     tags: ['dropdown', 'components', 'overlay'],
-    href: '/#dropdown'
+    href: '/playground#dropdown'
   },
   {
     title: 'Iconography',
@@ -45,19 +45,19 @@ const FIXTURE: IndexEntry[] = [
     title: 'Modal',
     summary: 'Blocking dialog.',
     tags: ['modal', 'components', 'overlay'],
-    href: '/#modal'
+    href: '/playground#modal'
   },
   {
     title: 'Tooltip',
     summary: 'Hover-triggered hint.',
     tags: ['tooltip', 'components', 'overlay'],
-    href: '/#tooltip'
+    href: '/playground#tooltip'
   },
   {
     title: 'Toast',
     summary: 'Transient notification.',
     tags: ['toast', 'components', 'overlay'],
-    href: '/#toast'
+    href: '/playground#toast'
   },
   {
     title: 'Palette',
@@ -66,22 +66,22 @@ const FIXTURE: IndexEntry[] = [
     href: '/handbook#palette'
   },
   {
-    title: 'Install guide',
+    title: 'Install',
     summary: 'Add the packages and pull in tokens.',
-    tags: ['install', 'guides'],
-    href: '/guides/install'
+    tags: ['install', 'handbook'],
+    href: '/handbook#install'
   },
   {
     title: 'Card',
     summary: 'Flat bordered container.',
     tags: ['card', 'components', 'data-display'],
-    href: '/#card'
+    href: '/playground#card'
   },
   {
     title: 'Tabs',
     summary: 'Tabbed panel switcher.',
     tags: ['tabs', 'components', 'navigation'],
-    href: '/#tabs'
+    href: '/playground#tabs'
   }
 ];
 

@@ -25,6 +25,8 @@ const foundationSections = await Promise.all(
 const implementationLinks = [
   { id: 'install', label: 'Install' },
   { id: 'cdn', label: 'CDN' },
+  { id: 'tailwind', label: 'Tailwind' },
+  { id: 'recipes', label: 'Recipes' },
   { id: 'contributing', label: 'Contributing' }
 ] as const;
 
@@ -131,6 +133,148 @@ const handbookSections = [
               <code>https://cdn.freecodecamp.org/uikit/v1.0.0/</code>. The
               un-versioned URL always serves <code>latest</code>.
             </p>
+          </section>
+
+          <section class='section handbook-section' id='tailwind'>
+            <p class='section__eyebrow'>Tailwind</p>
+            <h2 class='section__title'>Use with Tailwind</h2>
+            <p class='section__lede'>
+              The Tailwind preset is a thin layer that translates every UIKit
+              token into a Tailwind utility prefix. <code
+                >bg-cta-background</code
+              > reads the same CSS custom property the BEM classes do, so palette
+              switches stay synchronized across both surfaces.
+            </p>
+            <Panel title='1 · Install'>
+              <pre><code>{`pnpm add tailwindcss @freecodecamp/uikit-tailwind @freecodecamp/uikit-css`}</code></pre>
+            </Panel>
+            <Panel title='2 · Wire it up'>
+              <pre><code>{`// tailwind.config.js
+import fcc from '@freecodecamp/uikit-tailwind';
+
+export default {
+  presets: [fcc],
+  content: ['./src/**/*.{ts,tsx,astro,html}'],
+  theme: { extend: {} }
+};`}</code></pre>
+              <pre><code>{`/* src/index.css */
+@import 'tailwindcss';
+@import '@freecodecamp/uikit-css';`}</code></pre>
+            </Panel>
+            <Panel title='3 · Pick a pattern'>
+              <p>
+                Don't double-import utility surfaces. Pick one of these two
+                patterns:
+              </p>
+              <ol class='guide-list handbook-steps'>
+                <li>
+                  <strong>Tailwind utility-first</strong> — import
+                  <code>tailwindcss</code> only; let the preset surface the tokens.
+                  Skip <code>uikit-css</code> entirely.
+                </li>
+                <li>
+                  <strong>BEM-first + Tailwind escape hatch</strong> — import both,
+                  but order <code>uikit-css</code> before
+                  <code>tailwindcss</code> so utility classes win the cascade.
+                </li>
+              </ol>
+              <p>
+                The shipped docs site uses (2): BEM ships as the canonical
+                surface in the playground, and the preset is the way to drop
+                into Tailwind for project-specific work.
+              </p>
+            </Panel>
+            <Panel title='Palette switching'>
+              <p>
+                The preset reads CSS custom properties at runtime, so swapping
+                <code>{`<html class="dark-palette">`}</code> for
+                <code>light-palette</code> instantly recolors every
+                <code>bg-*</code>, <code>text-*</code>, and
+                <code>border-*</code> utility. No build step.
+              </p>
+            </Panel>
+          </section>
+
+          <section class='section handbook-section' id='recipes'>
+            <p class='section__eyebrow'>Recipes</p>
+            <h2 class='section__title'>Compose components</h2>
+            <p class='section__lede'>
+              The playground shows each component in isolation. These recipes
+              collect the patterns that compose two or more.
+            </p>
+            <Panel title='Form composition'>
+              <pre><code>{`import { FormGroup, Input, HelpBlock, Button } from '@freecodecamp/uikit';
+
+export function NewsletterForm() {
+  return (
+    <form onSubmit={onSubmit}>
+      <FormGroup>
+        <label htmlFor='email'>Email address</label>
+        <Input id='email' type='email' required />
+        <HelpBlock>One curriculum update per week.</HelpBlock>
+      </FormGroup>
+      <Button type='submit' variant='cta'>Subscribe</Button>
+    </form>
+  );
+}`}</code></pre>
+            </Panel>
+            <Panel title='Modal from a button'>
+              <pre><code>{`import { useState } from 'react';
+import { Modal, Button } from '@freecodecamp/uikit';
+
+export function ResetCta() {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button variant='danger' onClick={() => setOpen(true)}>
+        Reset progress
+      </Button>
+      <Modal open={open} onClose={() => setOpen(false)} title='Reset progress?'>
+        <Modal.Body>You will lose 17 of 32 steps.</Modal.Body>
+        <Modal.Footer>
+          <Button onClick={() => setOpen(false)}>Cancel</Button>
+          <Button variant='danger' onClick={confirmReset}>Confirm</Button>
+        </Modal.Footer>
+      </Modal>
+    </>
+  );
+}`}</code></pre>
+            </Panel>
+            <Panel title='Toast on action'>
+              <pre><code>{`import { useToast, Button } from '@freecodecamp/uikit';
+
+export function SaveButton() {
+  const toast = useToast();
+  return (
+    <Button
+      onClick={() => {
+        save();
+        toast.create({
+          title: 'Saved',
+          description: 'Your progress is synced.',
+          variant: 'success'
+        });
+      }}
+    >
+      Save
+    </Button>
+  );
+}`}</code></pre>
+            </Panel>
+            <Panel title='Sidebar layout with navbar'>
+              <pre><code>{`import { SidebarLayout, Navbar, Sidebar } from '@freecodecamp/uikit';
+
+export function Shell({ children }) {
+  return (
+    <SidebarLayout
+      header={<Navbar start={<Brand />} end={<UserMenu />} />}
+      aside={<Sidebar sections={navSections} />}
+    >
+      {children}
+    </SidebarLayout>
+  );
+}`}</code></pre>
+            </Panel>
           </section>
 
           <section class='section handbook-section' id='contributing'>

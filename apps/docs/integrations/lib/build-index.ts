@@ -1,4 +1,4 @@
-// Pure builder for the static search index. Walks `src/content/{foundations,components,guides}/**/*.mdx`
+// Pure builder for the static search index. Walks `src/content/{foundations,components}/**/*.mdx`
 // and emits `IndexEntry[]`. Astro integration in `search-index.ts` wires it into dev + build hooks.
 import { readdirSync, readFileSync, existsSync } from 'node:fs';
 import { resolve } from 'node:path';
@@ -10,7 +10,7 @@ export interface IndexEntry {
   href: string;
 }
 
-type Collection = 'foundations' | 'components' | 'guides';
+type Collection = 'foundations' | 'components';
 
 interface Frontmatter {
   title?: string;
@@ -51,9 +51,7 @@ function deriveHref(collection: Collection, slug: string): string {
     case 'foundations':
       return `/handbook#${slug}`;
     case 'components':
-      return `/#${slug}`;
-    case 'guides':
-      return `/guides/${slug}`;
+      return `/playground#${slug}`;
   }
 }
 
@@ -71,7 +69,7 @@ function listMdxFiles(dir: string): string[] {
 /** `contentRoot` = parent of the three collection folders (typically `apps/docs/src/content`). */
 export function buildIndex(contentRoot: string): IndexEntry[] {
   const out: IndexEntry[] = [];
-  const collections: Collection[] = ['foundations', 'components', 'guides'];
+  const collections: Collection[] = ['foundations', 'components'];
   for (const collection of collections) {
     const dir = resolve(contentRoot, collection);
     for (const file of listMdxFiles(dir)) {

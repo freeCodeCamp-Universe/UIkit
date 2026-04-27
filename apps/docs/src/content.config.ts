@@ -36,14 +36,4 @@ const components = defineCollection({
   })
 });
 
-const guides = defineCollection({
-  loader: glob({ pattern: '**/*.mdx', base: './src/content/guides' }),
-  schema: z.object({
-    title: z.string(),
-    eyebrow: z.string(),
-    summary: z.string(),
-    order: z.number().int().nonnegative()
-  })
-});
-
-export const collections = { foundations, components, guides };
+export const collections = { foundations, components };

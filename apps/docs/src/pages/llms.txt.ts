@@ -4,13 +4,8 @@ import { getCollection } from 'astro:content';
 const SITE = 'https://design.freecodecamp.org';
 
 export const GET: APIRoute = async () => {
-  const [components, guides] = await Promise.all([
-    getCollection('components'),
-    getCollection('guides')
-  ]);
-
+  const components = await getCollection('components');
   components.sort((a, b) => a.id.localeCompare(b.id));
-  guides.sort((a, b) => a.data.order - b.data.order);
 
   const lines: string[] = [];
   lines.push('# freeCodeCamp UIKit');
@@ -23,12 +18,12 @@ export const GET: APIRoute = async () => {
 
   lines.push('## Surfaces');
   lines.push('');
-  lines.push(`- [Playground](${SITE}/) — every component, paired code.`);
+  lines.push(`- [Landing](${SITE}/) — overview + quickstart.`);
   lines.push(
-    `- [Handbook](${SITE}/handbook) — design philosophy, tokens, brand.`
+    `- [Playground](${SITE}/playground) — every component, paired code.`
   );
   lines.push(
-    `- [Guides](${SITE}/guides) — install matrix, Tailwind, CDN, recipes.`
+    `- [Handbook](${SITE}/handbook) — design philosophy, tokens, brand, install, CDN, Tailwind, recipes, contributing.`
   );
   lines.push('');
 
@@ -37,15 +32,6 @@ export const GET: APIRoute = async () => {
   for (const c of components) {
     lines.push(
       `- [${c.data.title}](${SITE}/components/${c.id}.md) — ${c.data.summary}`
-    );
-  }
-  lines.push('');
-
-  lines.push('## Guides');
-  lines.push('');
-  for (const g of guides) {
-    lines.push(
-      `- [${g.data.title}](${SITE}/guides/${g.id}.md) — ${g.data.summary}`
     );
   }
   lines.push('');

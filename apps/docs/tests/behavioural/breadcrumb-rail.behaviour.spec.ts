@@ -22,16 +22,15 @@ test.describe('@behavioural breadcrumb-rail', () => {
     );
   });
 
-  test('/guides/install renders 3 segments ending in Install (current)', async ({
+  test('/playground renders Home + Playground with the leaf as current', async ({
     page
   }) => {
-    await page.goto('/guides/install', { waitUntil: 'networkidle' });
+    await page.goto('/playground', { waitUntil: 'networkidle' });
     const items = page.locator('.site-breadcrumb .breadcrumb__item');
-    await expect(items).toHaveCount(3);
+    await expect(items).toHaveCount(2);
     await expect(items.nth(0)).toContainText('Home');
-    await expect(items.nth(1)).toContainText('Guides');
-    await expect(items.nth(2).locator('[aria-current="page"]')).toContainText(
-      'Install'
+    await expect(items.nth(1).locator('[aria-current="page"]')).toContainText(
+      'Playground'
     );
   });
 });

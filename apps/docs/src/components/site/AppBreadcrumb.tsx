@@ -11,8 +11,7 @@ export interface BreadcrumbCrumb {
 
 const SECTION_LABELS: Record<string, string> = {
   handbook: 'Handbook',
-  guides: 'Guides',
-  components: 'Components'
+  playground: 'Playground'
 };
 
 /** Title-case a slug like `copy-paste` → `Copy paste`. */
@@ -35,9 +34,7 @@ export function crumbsForPath(pathname: string): BreadcrumbCrumb[] | null {
     if (isLeaf) {
       crumbs.push({ label });
     } else {
-      // `/guides/install` is the section entry in primary nav; other sections link to cumulative.
-      const href = seg === 'guides' ? '/guides/install' : cumulative;
-      crumbs.push({ href, label });
+      crumbs.push({ href: cumulative, label });
     }
   });
   return crumbs;

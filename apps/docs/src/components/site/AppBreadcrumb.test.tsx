@@ -21,17 +21,16 @@ test('crumbsForPath maps nested handbook routes to a 3-segment chain', () => {
   ]);
 });
 
-test('crumbsForPath maps `/guides/install` to Home + Guides + Install', () => {
-  const crumbs = crumbsForPath('/guides/install');
+test('crumbsForPath maps `/playground` to Home + Playground leaf', () => {
+  const crumbs = crumbsForPath('/playground');
   expect(crumbs).toEqual([
     { href: '/', label: 'Home' },
-    { href: '/guides/install', label: 'Guides' },
-    { label: 'Install' }
+    { label: 'Playground' }
   ]);
 });
 
 test('crumbsForPath humanises kebab slugs (copy-paste → Copy paste)', () => {
-  const crumbs = crumbsForPath('/guides/copy-paste');
+  const crumbs = crumbsForPath('/handbook/copy-paste');
   expect(crumbs?.at(-1)).toEqual({ label: 'Copy paste' });
 });
 

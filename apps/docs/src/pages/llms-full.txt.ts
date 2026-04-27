@@ -5,43 +5,25 @@ import { stripMdx } from '../lib/strip-mdx';
 const SITE = 'https://design.freecodecamp.org';
 
 export const GET: APIRoute = async () => {
-  const [components, guides] = await Promise.all([
-    getCollection('components'),
-    getCollection('guides')
-  ]);
-
+  const components = await getCollection('components');
   components.sort((a, b) => a.id.localeCompare(b.id));
-  guides.sort((a, b) => a.data.order - b.data.order);
 
   const lines: string[] = [];
   lines.push('# freeCodeCamp UIKit — full dump');
   lines.push('');
   lines.push(`Source: ${SITE}/llms.txt`);
   lines.push('');
-  lines.push('This file concatenates every component and guide page into one.');
+  lines.push('This file concatenates every component page into one.');
   lines.push('Each section is delimited by a level-1 heading.');
   lines.push('');
   lines.push('---');
   lines.push('');
 
-  lines.push('# Guides');
-  lines.push('');
-  for (const g of guides) {
-    lines.push(`## ${g.data.title}`);
-    lines.push(`URL: ${SITE}/guides/${g.id}`);
-    lines.push(`Summary: ${g.data.summary}`);
-    lines.push('');
-    lines.push(stripMdx(g.body ?? ''));
-    lines.push('');
-    lines.push('---');
-    lines.push('');
-  }
-
   lines.push('# Components');
   lines.push('');
   for (const c of components) {
     lines.push(`## ${c.data.title}`);
-    lines.push(`URL: ${SITE}/#${c.id}`);
+    lines.push(`URL: ${SITE}/playground#${c.id}`);
     lines.push(`Status: ${c.data.status}`);
     if (c.data.since) lines.push(`Since: ${c.data.since}`);
     if (c.data.tokens?.length)
