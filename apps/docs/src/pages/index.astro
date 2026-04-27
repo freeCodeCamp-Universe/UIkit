@@ -9,8 +9,8 @@ import AppHeader from '../components/site/AppHeader.astro';
 >
   <div class='app' id='top'>
     <AppHeader />
-    <div class='app__body'>
-      <main class='content content--landing' tabindex='-1'>
+    <div class='app__body app__body--single'>
+      <main class='content sidebar-layout__main' tabindex='-1'>
         <div class='content__inner'>
           <!-- ============================================================ -->
           <!-- HERO -->
@@ -190,13 +190,6 @@ import AppHeader from '../components/site/AppHeader.astro';
     100% {
       opacity: 0;
     }
-  }
-
-  /* Landing page renders without sidebar — center the column. */
-  .content--landing {
-    margin-inline: auto;
-    max-width: 96ch;
-    padding-inline: clamp(20px, 5vw, 48px);
   }
 
   .surfaces {
