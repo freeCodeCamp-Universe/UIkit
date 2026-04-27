@@ -184,7 +184,8 @@ It calls four reusable workflows:
   - `pnpm --filter @freecodecamp/uikit-docs test:visual`
   - uploads Playwright failure artifacts
 
-The shared setup action installs pnpm 10, Node 22, and dependencies with
+The shared setup action installs Node 22, lets `pnpm/action-setup` read the
+exact pnpm version from root `packageManager`, and installs dependencies with
 `pnpm install --frozen-lockfile`.
 
 ## GitHub Actions release

@@ -174,8 +174,9 @@ Use `pnpm format` only when you intend to rewrite files.
 - `re-visual.yml`: installs Playwright Chromium, runs `pnpm build`, then
   `pnpm --filter @freecodecamp/uikit-docs test:visual`
 
-The shared setup action installs pnpm 10, Node 22, and workspace dependencies
-with `pnpm install --frozen-lockfile`.
+The shared setup action installs Node 22, lets `pnpm/action-setup` read the
+exact pnpm version from root `packageManager`, and installs workspace
+dependencies with `pnpm install --frozen-lockfile`.
 
 ## Release workflow
 

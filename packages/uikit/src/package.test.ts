@@ -12,7 +12,11 @@ const pkg = JSON.parse(readFileSync(pkgPath, 'utf8')) as {
   types?: string;
   exports?: Record<
     string,
-    { import?: string; require?: string; types?: string } | string
+    | {
+        import?: { types?: string; default?: string };
+        require?: { types?: string; default?: string };
+      }
+    | string
   >;
   sideEffects?: boolean;
   files?: string[];
@@ -43,25 +47,38 @@ test('package.json exports map ships each layer', () => {
       entry && typeof entry === 'object',
       `exports["${sub}"] must be a conditional object`
     );
+    assert.ok(
+      entry.import && typeof entry.import === 'object',
+      `exports["${sub}"].import must define nested conditions`
+    );
+    assert.ok(
+      entry.require && typeof entry.require === 'object',
+      `exports["${sub}"].require must define nested conditions`
+    );
     assert.match(
-      entry.import ?? '',
+      entry.import.default ?? '',
       /^\.\/dist\/.+\.js$/,
-      `exports["${sub}"].import must point at a .js under dist`
+      `exports["${sub}"].import.default must point at a .js under dist`
     );
     assert.match(
-      entry.require ?? '',
+      entry.require.default ?? '',
       /^\.\/dist\/.+\.cjs$/,
-      `exports["${sub}"].require must point at a .cjs under dist`
+      `exports["${sub}"].require.default must point at a .cjs under dist`
     );
     assert.match(
-      entry.types ?? '',
+      entry.import.types ?? '',
       /^\.\/dist\/.+\.d\.ts$/,
-      `exports["${sub}"].types must point at a .d.ts under dist`
+      `exports["${sub}"].import.types must point at a .d.ts under dist`
+    );
+    assert.match(
+      entry.require.types ?? '',
+      /^\.\/dist\/.+\.d\.cts$/,
+      `exports["${sub}"].require.types must point at a .d.cts under dist`
     );
   }
 });
 
-test('package.json keeps sideEffects:false and dist+src files', () => {
+test('package.json keeps sideEffects:false and publish allowlist', () => {
   assert.equal(pkg.sideEffects, false);
-  assert.deepEqual(pkg.files, ['dist', 'src']);
+  assert.deepEqual(pkg.files, ['dist', 'README.md', 'CHANGELOG.md']);
 });
