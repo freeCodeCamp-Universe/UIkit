@@ -1,0 +1,14 @@
+# Cloudflare Pages cache headers. Hashed asset paths get long-lived
+# immutable caching; the index HTML stays default (revalidating).
+
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/brand/*
+  Cache-Control: public, max-age=86400
+
+/uikit/*
+  Cache-Control: public, max-age=86400
