@@ -1,0 +1,25 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "endOfLine": "lf",
+  "semi": true,
+  "singleQuote": true,
+  "jsxSingleQuote": true,
+  "tabWidth": 2,
+  "trailingComma": "none",
+  "arrowParens": "avoid",
+  "printWidth": 80,
+  "sortPackageJson": false,
+  "ignorePatterns": [
+    "**/node_modules",
+    "**/dist",
+    "**/dist-cdn",
+    "**/.astro",
+    "**/__coverage__",
+    "**/.turbo",
+    ".scratchpad/",
+    ".claude/",
+    "pnpm-lock.yaml",
+    "pre-commit",
+    ".prettierignore"
+  ]
+}
