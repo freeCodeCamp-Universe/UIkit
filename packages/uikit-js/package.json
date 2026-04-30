@@ -49,6 +49,9 @@
     "./iife": "./dist/uikit.global.js",
     "./package.json": "./package.json"
   },
+  "engines": {
+    "node": ">=22"
+  },
   "dependencies": {
     "@zag-js/combobox": "^1.40.0",
     "@zag-js/dialog": "^1.40.0",

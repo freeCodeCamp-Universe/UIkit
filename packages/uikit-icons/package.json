@@ -77,5 +77,8 @@
     },
     "./sprite.svg": "./dist/sprite.svg",
     "./package.json": "./package.json"
+  },
+  "engines": {
+    "node": ">=22"
   }
 }

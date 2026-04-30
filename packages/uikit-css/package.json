@@ -47,5 +47,8 @@
     "./fonts/*": "./src/fonts/*",
     "./brand/*": "./src/brand/*",
     "./package.json": "./package.json"
+  },
+  "engines": {
+    "node": ">=22"
   }
 }

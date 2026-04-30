@@ -29,6 +29,7 @@
     "changeset": "changeset",
     "release:check": "pnpm build:pkgs && pnpm verify:cdn && pnpm release:lint-packages && pnpm release:npm:dry-run",
     "release:lint-packages": "publint run packages/uikit --strict && publint run packages/uikit-css --strict && publint run packages/uikit-js --strict && publint run packages/uikit-icons --strict && publint run packages/uikit-tailwind --strict",
+    "check:node-versions": "node scripts/check-node-versions.mjs",
     "release:npm:dry-run": "pnpm -r --filter './packages/*' publish --access public --dry-run",
     "release": "pnpm build:pkgs && changeset publish"
   },
@@ -68,6 +69,6 @@
   "private": true,
   "packageManager": "pnpm@10.33.2",
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   }
 }

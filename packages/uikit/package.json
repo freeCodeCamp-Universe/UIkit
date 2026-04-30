@@ -116,6 +116,9 @@
     "./props.json": "./dist/props.json",
     "./package.json": "./package.json"
   },
+  "engines": {
+    "node": ">=22"
+  },
   "devDependencies": {
     "@ark-ui/react": "^5.36.2",
     "@types/node": "^25.6.0",
