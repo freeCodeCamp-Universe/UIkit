@@ -1,6 +1,6 @@
 {
   "name": "@freecodecamp/uikit",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "scripts": {
     "test": "vitest run",
     "test:watch": "vitest",

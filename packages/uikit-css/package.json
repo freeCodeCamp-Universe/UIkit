@@ -1,6 +1,6 @@
 {
   "name": "@freecodecamp/uikit-css",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "scripts": {
     "test": "echo '[packages/uikit-css] no tests yet' && exit 0",
     "build": "echo '[uikit-css] ships source — no build' && exit 0",
