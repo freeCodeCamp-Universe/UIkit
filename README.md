@@ -4,7 +4,7 @@
 
 [![Discord](https://img.shields.io/discord/692816967895220344?logo=discord&label=Discord&color=5865F2)](https://discord.gg/PRyKn3Vbay)
 [![License: BSD-3-Clause](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](./LICENSE.md)
-[![Node](https://img.shields.io/badge/node-%3E%3D20-brightgreen)](./.nvmrc)
+[![Node](https://img.shields.io/badge/node-%3E%3D22-brightgreen)](./.nvmrc)
 [![pnpm](https://img.shields.io/badge/pnpm-10-orange)](./package.json)
 
 Design system, React component library, vanilla-JS adapter, and CDN bundle that power the freeCodeCamp.org platform. Built CSS-first with design tokens, accessibility-tested against the WAI-ARIA Authoring Practices, and ships in three flavours: import as a React package, drop in via a `<script>` tag, or extend with the Tailwind preset.
@@ -41,9 +41,15 @@ Use BEM class names anywhere:
 
 Full walkthrough: [Handbook → CDN](https://design.freecodecamp.org/handbook#cdn).
 
-### React — npm install (Day-2)
+### React — npm install
 
-The npm packages are wired and ready, but the v1.0 GA release will publish them in a follow-up. Today's MVP is the CDN bundle.
+Install the package and the matching CSS:
+
+```bash
+pnpm add @freecodecamp/uikit @freecodecamp/uikit-css
+```
+
+The first npm release lands at `0.1.0` across every public package. See [docs/adr/0003-pre-publish-version-reset.md](./docs/adr/0003-pre-publish-version-reset.md) for the rationale.
 
 ```tsx
 import '@freecodecamp/uikit-css';
@@ -76,9 +82,9 @@ For the full component-by-component reference and how UIKit compares to Catalyst
 
 ## Deployment
 
-- **Docs site** → Cloudflare Pages, project `fcc-design`. Pushes to `main` trigger `.github/workflows/deploy-docs.yml`. Build output: `apps/docs/dist/`. Required repo secrets: `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`.
-- **CDN bundle** → opened as a PR against `freeCodeCamp/cdn` by `.github/workflows/release.yml` (manual workflow_dispatch). Live at <https://cdn.freecodecamp.org/uikit/>.
-- **npm packages** → not published today. Day-2 plan: enable `pnpm release` (Changesets + `changeset publish`) once the API surface is signed off.
+- **Docs site** → Netlify (`design.freecodecamp.org`). Pushes to `main` trigger `.github/workflows/deploy-docs.yml`. Build output: `apps/docs/dist/`.
+- **CDN bundle** → opened as a PR against `freeCodeCamp/cdn` by `.github/workflows/release.yml` (manual `workflow_dispatch`). Live at <https://cdn.freecodecamp.org/uikit/>.
+- **npm packages** → published via `pnpm release` (Changesets + `changeset publish`). First release: all public packages at `0.1.0`.
 
 ## Reporting bugs
 

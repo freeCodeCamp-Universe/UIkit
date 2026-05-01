@@ -26,10 +26,14 @@ pnpm build
 pnpm test
 ```
 
-`pnpm install` also installs Husky's git hooks. The `pre-commit` hook runs `lint-staged`, which formats staged files with Prettier + ESLint before the commit lands.
+`pnpm install` also installs Husky's git hooks. The `pre-commit` hook runs `lint-staged`, which routes staged files through `oxlint --fix` + `oxfmt --write` for js/ts/json, and `prettier --write` for `.astro`/`.md`/`.mdx`/`.yaml` files.
 
-Requires Node `>=20` (CI runs on Node 22) and pnpm 10. The `.nvmrc`,
-`engines`, and root `packageManager` fields pin the versions.
+Requires Node `>=22` (CI matrix runs `[22.x, 24.x]`) and pnpm 10. The `.nvmrc`
+holds the recommended local version (Active LTS), `engines.node` declares the
+floor, and `packageManager` pins pnpm. The `pnpm check:node-versions` script
+verifies these stay in sync.
+
+See [`docs/tooling.md`](./docs/tooling.md) for the full toolchain inventory.
 
 ## Day-to-day workflow
 
@@ -42,16 +46,20 @@ Requires Node `>=20` (CI runs on Node 22) and pnpm 10. The `.nvmrc`,
 ## Linting and formatting
 
 ```bash
-pnpm format        # prettier --write + eslint --fix
-pnpm format:check  # prettier --check + eslint
-pnpm lint          # turbo run lint
+pnpm format        # oxfmt --write . && prettier --write "**/*.{astro,md,mdx,yaml,yml}"
+pnpm format:check  # oxfmt --check . && prettier --check "**/*.{astro,md,mdx,yaml,yml}"
+pnpm lint          # turbo run lint  (oxlint per package + astro check in apps/docs)
+pnpm lint:fix      # oxlint --fix
 pnpm typecheck     # turbo run typecheck
 ```
 
 Configs:
 
-- `prettier.config.js` — Prettier rules (single quotes, no trailing commas, `prettier-plugin-astro` for `.astro`).
-- `eslint.config.js` — ESLint flat config (`eslint-plugin-astro` + `typescript-eslint`).
+- `.oxlintrc.json` — oxlint rule overrides (no-unused-vars `^_` exception, typescript no-empty-object-type allowing single-extends).
+- `.oxfmtrc.json` — oxfmt config (single quotes, semi, no trailing commas, 2-space tab).
+- `prettier.config.js` + `prettier-plugin-astro` — Prettier fallback for `.astro`/`.md`/`.mdx`/`.yaml`.
+
+Why two formatters: oxfmt 0.47 does not yet handle `.astro` or `.md`. Track upstream support; remove Prettier when both land. Decision recorded in [`docs/adr/0002-oxc-suite-adoption.md`](./docs/adr/0002-oxc-suite-adoption.md).
 
 ## Tests
 
