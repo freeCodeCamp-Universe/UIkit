@@ -9,9 +9,14 @@
  * `apps/docs/wrangler.jsonc`. The build step copies `public/*` to
  * `dist/*` verbatim, so the public-folder assertions are sufficient.
  */
-import { readFileSync } from 'node:fs';
+import { mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
+import {
+  findMissingArtefacts,
+  REQUIRED_PAGES_ARTEFACTS
+} from '../../scripts/verify-dist-pages-artefacts.mjs';
 
 // __dirname here = apps/docs/src/_meta. Walk up to apps/docs.
 const DOCS_ROOT = join(__dirname, '..', '..');
@@ -282,5 +287,53 @@ describe('public/robots.txt — crawler directives', () => {
     expect(raw).toMatch(
       /^Sitemap:\s*https:\/\/design\.freecodecamp\.org\/sitemap-index\.xml\s*$/m
     );
+  });
+});
+
+describe('verify-dist-pages-artefacts.mjs — post-build gate', () => {
+  it('declares the canonical Cloudflare Pages artefact list', () => {
+    // Order is documentation-only, but presence locks the contract.
+    expect([...REQUIRED_PAGES_ARTEFACTS].sort()).toEqual([
+      '_headers',
+      '_redirects',
+      'favicon.svg',
+      'robots.txt',
+      'sitemap-0.xml',
+      'sitemap-index.xml'
+    ]);
+  });
+
+  it('reports every artefact as missing when the dist dir is empty', () => {
+    const tmp = mkdtempSync(join(tmpdir(), 'fcc-pages-empty-'));
+    expect(findMissingArtefacts(tmp)).toEqual([...REQUIRED_PAGES_ARTEFACTS]);
+  });
+
+  it('reports zero missing when every artefact exists', () => {
+    const tmp = mkdtempSync(join(tmpdir(), 'fcc-pages-full-'));
+    for (const name of REQUIRED_PAGES_ARTEFACTS) {
+      writeFileSync(join(tmp, name), '');
+    }
+    expect(findMissingArtefacts(tmp)).toEqual([]);
+  });
+
+  it('reports the gap when a single artefact is absent', () => {
+    const tmp = mkdtempSync(join(tmpdir(), 'fcc-pages-gap-'));
+    for (const name of REQUIRED_PAGES_ARTEFACTS) {
+      if (name === '_headers') continue;
+      writeFileSync(join(tmp, name), '');
+    }
+    expect(findMissingArtefacts(tmp)).toEqual(['_headers']);
+  });
+
+  it('agrees that every artefact already lives under apps/docs/public/ at source', () => {
+    // This is the source-of-truth half of the contract: build copies
+    // public/ verbatim. If anything goes missing here, the post-build
+    // CLI gate also fails.
+    const sourceMissing = findMissingArtefacts(PUBLIC_ROOT).filter(
+      // Sitemap files are emitted by `@astrojs/sitemap` at build time, not
+      // tracked in `public/`; skip them in the source-of-truth check.
+      name => !name.startsWith('sitemap')
+    );
+    expect(sourceMissing).toEqual([]);
   });
 });

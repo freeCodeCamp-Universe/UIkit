@@ -12,7 +12,7 @@
     "predev": "node scripts/copy-sprite.mjs && node scripts/build-asset-kit.mjs && node scripts/ensure-uikit-built.mjs",
     "dev": "astro dev",
     "prebuild": "node scripts/copy-sprite.mjs && node scripts/build-asset-kit.mjs && node scripts/ensure-uikit-built.mjs",
-    "build": "astro build",
+    "build": "astro build && node scripts/verify-dist-pages-artefacts.mjs",
     "preview": "astro preview",
     "lint": "astro check && oxlint",
     "typecheck": "astro check"
