@@ -1,0 +1,7 @@
+# freeCodeCamp UIKit docs site — crawler directives.
+# Spec: https://www.rfc-editor.org/rfc/rfc9309
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://design.freecodecamp.org/sitemap-index.xml

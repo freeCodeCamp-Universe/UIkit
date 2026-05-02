@@ -269,3 +269,18 @@ describe('public/_redirects — Cloudflare Pages redirects', () => {
     ).toEqual([]);
   });
 });
+
+describe('public/robots.txt — crawler directives', () => {
+  const raw = readFileSync(join(PUBLIC_ROOT, 'robots.txt'), 'utf8');
+
+  it('declares a wildcard User-agent rule', () => {
+    expect(raw).toMatch(/^User-agent:\s*\*\s*$/m);
+  });
+
+  it('points crawlers at the absolute sitemap URL', () => {
+    // Sitemap directive must be absolute per https://www.rfc-editor.org/rfc/rfc9309#name-sitemap
+    expect(raw).toMatch(
+      /^Sitemap:\s*https:\/\/design\.freecodecamp\.org\/sitemap-index\.xml\s*$/m
+    );
+  });
+});
