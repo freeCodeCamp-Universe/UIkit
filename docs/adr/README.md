@@ -14,6 +14,7 @@ Format follows [MADR](https://adr.github.io/madr/) (lightly trimmed).
 | 0004 | [Canonical repository URL casing](./0004-canonical-repository-url.md)     | Accepted | 2026-05-01 |
 | 0005 | [Tailwind v4 as the only supported peer](./0005-tailwind-v4-only-peer.md) | Accepted | 2026-05-01 |
 | 0006 | [Husky v9 pre-commit layout](./0006-husky-v9-pre-commit.md)               | Accepted | 2026-05-01 |
+| 0007 | [Cloudflare Pages docs deploy](./0007-cloudflare-pages-docs-deploy.md)    | Accepted | 2026-05-02 |
 
 ## Rules
 
