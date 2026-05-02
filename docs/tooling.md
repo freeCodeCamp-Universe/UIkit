@@ -179,6 +179,53 @@ commit as the `package.json`/`.nvmrc`/CI changes.
 | `uikit-cdn`      | `node scripts/build.mjs`    | `vitest` + `verify`     | `lightningcss ^1.32.0`                                         |
 | `apps/docs`      | `astro build`               | `vitest` + `playwright` | `astro ^6.1.9`, `@astrojs/{mdx,react} ^5.0.4`, `react ^19.2.5` |
 
+## Workspace tasks
+
+`turbo.json` declares the task graph; per-package scripts are wired
+through it.
+
+### Root scripts
+
+| Script                     | Effect                                                                                    |
+| -------------------------- | ----------------------------------------------------------------------------------------- |
+| `build`                    | `turbo run build` — every workspace.                                                      |
+| `build:pkgs`               | Build packages, skip docs.                                                                |
+| `build:docs`               | Build docs app + required deps only.                                                      |
+| `dev` / `dev:docs`         | Astro docs dev server (default local entry).                                              |
+| `dev:vanilla`              | `tsup --watch` for `@freecodecamp/uikit-js`.                                              |
+| `build:cdn` / `verify:cdn` | CDN bundle build + integrity check on `dist-cdn/uikit`.                                   |
+| `preview`                  | Preview the built docs app.                                                               |
+| `test`                     | All workspace unit tests.                                                                 |
+| `test:coverage`            | Coverage tasks (v8 reporter).                                                             |
+| `test:playwright[:update]` | Docs Playwright run / snapshot refresh.                                                   |
+| `lint` / `lint:fix`        | `oxlint` (per-package via Turbo) / `oxlint --fix`.                                        |
+| `typecheck`                | `tsc` + `astro check` per package.                                                        |
+| `format` / `format:check`  | oxfmt for js/ts/json + prettier for `.astro`/`.md`/`.mdx`/`.yaml`.                        |
+| `check:node-versions`      | Assert Node + `@types/node` floor consistency across the repo.                            |
+| `changeset`                | Create release intent.                                                                    |
+| `release:check`            | `build:pkgs` → `verify:cdn` → `publint --strict` → `pnpm publish --dry-run` (5 packages). |
+| `release`                  | Local npm publish path. CDN release uses GitHub Actions.                                  |
+
+### Turbo task graph
+
+| Task                            | Depends on | Outputs / cache behavior                                            |
+| ------------------------------- | ---------- | ------------------------------------------------------------------- |
+| `build`                         | `^build`   | `dist/**`, `dist-cdn/**`, `.astro/**` (excluding `.astro/cache/**`) |
+| `dev`                           | none       | persistent, uncached                                                |
+| `preview`                       | `build`    | persistent, uncached                                                |
+| `test`                          | `^build`   | no outputs                                                          |
+| `test:coverage`                 | `^build`   | `coverage/**`                                                       |
+| `test:watch`                    | none       | persistent, uncached                                                |
+| `test:playwright[:update]`      | `build`    | uncached                                                            |
+| `test:visual[:update]`          | `build`    | uncached                                                            |
+| `lint`                          | none       | no outputs                                                          |
+| `typecheck`                     | `^build`   | no outputs                                                          |
+| `verify`                        | `build`    | no outputs                                                          |
+| `@freecodecamp/uikit-css#build` | none       | no outputs; CSS ships source                                        |
+
+For narrative day-to-day workflow (Setup, common command sequences,
+when to refresh visual snapshots), see [`CONTRIBUTING.md`](../CONTRIBUTING.md).
+
 ## CI / CD
 
 GitHub Actions live in `.github/workflows/`:
