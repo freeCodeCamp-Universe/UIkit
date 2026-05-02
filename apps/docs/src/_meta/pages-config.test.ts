@@ -240,3 +240,32 @@ describe('public/_headers — Cloudflare Pages headers', () => {
     });
   });
 });
+
+describe('public/_redirects — Cloudflare Pages redirects', () => {
+  const path = join(PUBLIC_ROOT, '_redirects');
+
+  it('file exists (CF Pages parses it during deploy)', () => {
+    expect(() => readFileSync(path, 'utf8')).not.toThrow();
+  });
+
+  it('every non-comment, non-blank line matches `[source] [destination] [code?]`', () => {
+    // Spec: https://developers.cloudflare.com/pages/configuration/redirects/
+    const raw = readFileSync(path, 'utf8');
+    const ruleLine = /^\S+\s+\S+(?:\s+\d{3})?\s*$/;
+    const offenders: Array<{ line: number; text: string }> = [];
+    raw.split('\n').forEach((rawLine, idx) => {
+      const line = rawLine.replace(/\r$/, '');
+      const trimmed = line.trim();
+      if (trimmed === '' || trimmed.startsWith('#')) return;
+      if (!ruleLine.test(line)) {
+        offenders.push({ line: idx + 1, text: line });
+      }
+    });
+    expect(
+      offenders,
+      `malformed _redirects rule(s):\n${offenders
+        .map(o => `  L${o.line}: ${o.text}`)
+        .join('\n')}`
+    ).toEqual([]);
+  });
+});
