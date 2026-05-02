@@ -1,14 +1,39 @@
-# Cloudflare Pages cache headers. Hashed asset paths get long-lived
-# immutable caching; the index HTML stays default (revalidating).
+# Cloudflare Pages headers for the freeCodeCamp UIKit docs site.
+#
+# Block ordering does not matter — Cloudflare merges all matching rules
+# for an incoming request, so specific paths inherit the `/*` globals.
+#
+# Security policy: Content-Security-Policy ships in **Report-Only** mode
+# for the first deploy window. Promote to enforce-mode in a separate
+# follow-up commit only after observing zero violation reports for
+# >= 7 days. See `docs/runbooks/deploy-docs.md` and ADR-0007.
 
+# Security globals — applied to every static-asset response.
+/*
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: accelerometer=(), camera=(), geolocation=(), gyroscope=(), microphone=(), payment=(), usb=(), interest-cohort=()
+  Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; manifest-src 'self'; worker-src 'self'
+
+# Hashed asset paths emitted by Astro — long-lived immutable.
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable
 
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 
+# Brand zip + sprite rebuilt on predev/prebuild — short cache.
 /brand/*
   Cache-Control: public, max-age=86400
 
 /uikit/*
   Cache-Control: public, max-age=86400
+
+# Keep `*.pages.dev` preview URLs out of search engines.
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex
+
+https://:version.:project.pages.dev/*
+  X-Robots-Tag: noindex
