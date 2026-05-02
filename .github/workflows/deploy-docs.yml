@@ -1,22 +1,24 @@
 name: Deploy docs
 
 on:
-  # push:
-  #   branches: [main]
-  #   paths:
-  #     - 'apps/docs/**'
-  #     - 'packages/**'
-  #     - 'pnpm-lock.yaml'
-  #     - '.github/workflows/deploy-docs.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'apps/docs/**'
+      - 'packages/**'
+      - 'pnpm-lock.yaml'
+      - '.github/workflows/deploy-docs.yml'
   workflow_dispatch:
 
 permissions:
   contents: read
   deployments: write
 
+# Production deploys must finish; never cancel a half-uploaded artefact.
+# Concurrent triggers queue rather than overwrite.
 concurrency:
-  group: deploy-docs-${{ github.ref }}
-  cancel-in-progress: true
+  group: deploy-docs-production
+  cancel-in-progress: false
 
 jobs:
   deploy:
@@ -39,5 +41,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          wranglerVersion: '4'
           workingDirectory: apps/docs
           command: pages deploy dist --project-name=fcc-design --branch=main
