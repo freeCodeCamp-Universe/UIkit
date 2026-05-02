@@ -6,7 +6,8 @@ for (const slug of SLUGS) {
   test(`scrolling to #${slug} marks the sidebar entry active`, async ({
     page
   }) => {
-    await page.goto('/', { waitUntil: 'networkidle' });
+    // Showcases live at `/playground/` after the IA split (commit f1038b2).
+    await page.goto('/playground/', { waitUntil: 'networkidle' });
     await page.evaluate(async () => {
       if ('fonts' in document) await document.fonts.ready;
     });
