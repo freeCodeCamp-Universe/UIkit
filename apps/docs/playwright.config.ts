@@ -11,8 +11,12 @@ import { defineConfig, devices } from '@playwright/test';
  */
 export default defineConfig({
   testDir: './tests',
+  // Goldens diverge pixel-for-pixel between macOS Chromium and Linux
+  // Chromium even at the same version. Encode `{platform}` so both
+  // sets coexist; CI Ubuntu compares against `*-linux.png`, local
+  // macOS dev against `*-darwin.png`.
   snapshotPathTemplate:
-    '{testDir}/__snapshots__/{testFilePath}/{arg}-{projectName}{ext}',
+    '{testDir}/__snapshots__/{testFilePath}/{arg}-{projectName}-{platform}{ext}',
   outputDir: './test-results',
   fullyParallel: true,
   forbidOnly: Boolean(process.env.CI),

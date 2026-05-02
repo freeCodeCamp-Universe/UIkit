@@ -290,6 +290,22 @@ describe('public/robots.txt — crawler directives', () => {
   });
 });
 
+describe('playwright.config.ts — snapshot path template', () => {
+  it('encodes `{platform}` so macOS + Linux goldens coexist', () => {
+    // Goldens diverge pixel-for-pixel between macOS + Linux Chromium
+    // even at the same version. CI Ubuntu compares `*-linux.png`,
+    // local macOS compares `*-darwin.png`. See ADR-0007 + the PH4
+    // closeout note for the rationale.
+    const config = readFileSync(
+      join(DOCS_ROOT, 'playwright.config.ts'),
+      'utf8'
+    );
+    expect(config).toMatch(
+      /snapshotPathTemplate:\s*\n?\s*['"][^'"]*\{projectName\}-\{platform\}\{ext\}['"]/
+    );
+  });
+});
+
 describe('verify-dist-pages-artefacts.mjs — post-build gate', () => {
   it('declares the canonical Cloudflare Pages artefact list', () => {
     // Order is documentation-only, but presence locks the contract.
