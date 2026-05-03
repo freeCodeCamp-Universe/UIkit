@@ -1,6 +1,6 @@
 # 0007 — Cloudflare Pages for the docs site (direct upload)
 
-- Status: Accepted
+- Status: Superseded by [0008](./0008-cloudflare-pages-git-integration.md)
 - Date: 2026-05-02
 - Deciders: UIKit core maintainers
 
