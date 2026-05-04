@@ -10,20 +10,32 @@ jobs:
   visual:
     name: Playwright visual regression
     runs-on: ubuntu-latest
+    # Run inside the official Playwright image so Chromium + every system
+    # font + cairo / pango / freetype version exactly matches the Linux
+    # rebaseline environment. Without this, bare-Ubuntu sub-pixel
+    # rendering drifts ±1 px from the goldens. Bump in lockstep with the
+    # `@playwright/test` version pinned in `apps/docs/package.json`.
+    container:
+      image: mcr.microsoft.com/playwright:v1.59.1-noble
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
-      - name: Setup Node.js + pnpm
-        uses: ./.github/actions/setup-node-pnpm
+      # Git refuses to operate on directories whose UID does not match
+      # the running user. The Playwright image runs as root, so workspace
+      # paths get flagged as "dubious ownership" until we mark them safe.
+      - name: Mark git workspace safe
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
-      - name: Cache Playwright browsers
-        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+      - name: Install pnpm
+        uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
         with:
-          path: ~/.cache/ms-playwright
-          key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          run_install: false
 
-      - name: Install Playwright Chromium
-        run: pnpm --filter @freecodecamp/uikit-docs exec playwright install chromium --with-deps
+      - name: Install workspace deps
+        run: pnpm install --frozen-lockfile
+
+      # Image already ships Chromium + every system dep; skip the
+      # `playwright install --with-deps` step. Saves ~30 s per run.
 
       - name: Build packages (docs needs uikit + uikit-css + uikit-js + uikit-icons dists)
         run: pnpm build
