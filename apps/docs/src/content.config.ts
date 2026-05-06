@@ -3,7 +3,6 @@ import { z } from 'astro/zod';
 import { glob } from 'astro/loaders';
 
 const foundations = defineCollection({
-  loader: glob({ pattern: '**/*.mdx', base: './src/content/foundations' }),
   schema: z.object({
     title: z.string(),
     eyebrow: z.string(),

@@ -1,6 +1,4 @@
 import type { JSX } from 'react';
-// Single React island for the foundations band on `/`. Owns one MutationObserver on the `<html>`
-// palette class and pushes resolved values into `<TokenSwatch value={...}>` cells (no per-cell observers).
 import { useEffect, useState } from 'react';
 import { TokenSwatch } from './TokenSwatch.tsx';
 

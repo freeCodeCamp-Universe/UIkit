@@ -2,8 +2,6 @@
 dist/
 # CDN-ready bundle
 dist-cdn/
-# Transient CDN-build artefact (`packages/uikit-cdn/scripts/build.mjs` writes
-# this then unlinks; mid-build crashes leave it behind).
 packages/uikit-css/src/_cdn-entry.css
 # generated types
 .astro/

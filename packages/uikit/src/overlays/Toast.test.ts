@@ -44,8 +44,6 @@ test('Toast non-dismissible omits close trigger', () => {
 test('Toaster renders a positioned region with aria-label', () => {
   const toaster = createToaster({ placement: 'top-end', overlap: true });
   const html = renderToStaticMarkup(createElement(Toaster, { toaster }));
-  // Ark's Toaster emits an ol/ul-like region with aria-label that our
-  // className forwards onto. We assert the fCC wrapper class lands.
   assert.match(html, /class="[^"]*toaster[^"]*"/);
 });
 

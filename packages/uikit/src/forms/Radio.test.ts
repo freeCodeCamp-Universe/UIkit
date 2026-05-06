@@ -104,8 +104,6 @@ test('RadioGroup defaultValue does not leak as a DOM attribute', () => {
       createElement(Radio, { label: 'Dark', value: 'dark' })
     )
   );
-  // `defaultValue` is a prop, not a DOM attribute on the radiogroup
-  // div. Before the fix it leaked through `...rest` onto the div.
   assert.doesNotMatch(html, /defaultvalue=/i);
 });
 

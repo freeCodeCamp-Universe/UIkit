@@ -1,9 +1,3 @@
-// Core runtime — scans the DOM for [data-uikit-*] hooks and attaches
-// the matching adapter. Auto-boots on DOMContentLoaded (or immediately
-// if already past that phase) and keeps up with later DOM mutations
-// via a single MutationObserver. Designed as a ~3 KB IIFE so vanilla
-// consumers can drop one <script> tag and stop thinking about setup.
-
 import { combobox, type ComboboxInstance } from './adapters/combobox';
 import { dialog, type DialogInstance } from './adapters/dialog';
 import { listbox, type ListboxInstance } from './adapters/listbox';

@@ -9,7 +9,6 @@ const cssPath = resolve(here, '../styles/showcase.css');
 
 test('showcase.css uses tokens, not hex literals, for chrome colours', () => {
   const src = readFileSync(cssPath, 'utf8');
-  // Strip block comments so legitimate notes can mention hex codes.
   const stripped = src.replace(/\/\*[\s\S]*?\*\//g, '');
   const offenders: { line: number; literal: string }[] = [];
   stripped.split('\n').forEach((line, i) => {

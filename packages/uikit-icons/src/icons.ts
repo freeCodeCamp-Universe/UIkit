@@ -1,11 +1,3 @@
-// Inline icon bodies (just the inside of the <svg> element). SVG sources
-// live in src/svg/ and are the authoritative artefact for the sprite
-// build; this file mirrors them so runtime consumers do not need fs
-// access. Keep them in sync — parity.test.ts enforces the invariant.
-//
-// Upstream: lucide-static@0.469.0 (ISC). Body transforms: strip outer
-// <svg> wrapper and upstream license comment, collapse whitespace.
-
 export const icons = {
   'arrow-down': '<path d="M12 5v14" /><path d="m19 12-7 7-7-7" />',
   'arrow-left': '<path d="m12 19-7-7 7-7" /><path d="M19 12H5" />',
@@ -98,8 +90,6 @@ export const icons = {
 
 export type IconName = keyof typeof icons;
 
-// Shared <svg> attributes for every rendered icon. Matches Lucide source
-// so the React output is byte-identical to the sprite viewBox.
 export const svgAttrs = {
   xmlns: 'http://www.w3.org/2000/svg',
   viewBox: '0 0 24 24',

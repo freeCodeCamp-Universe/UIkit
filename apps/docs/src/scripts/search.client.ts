@@ -1,7 +1,3 @@
-// Search wiring for Search.astro: lazy-imports fuse.js on first focus, fetches `/search-index.json`,
-// renders into `<ul data-search-results>`.
-// Security: all output uses textContent (never innerHTML); href is scheme-allowlisted.
-// Debug: `?fuse_debug=1` URL flag logs scores; gated on `import.meta.env.DEV`.
 import type Fuse from 'fuse.js';
 import type { IFuseOptions } from 'fuse.js';
 

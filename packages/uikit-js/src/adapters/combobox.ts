@@ -1,22 +1,3 @@
-// Combobox adapter — wires [data-uikit-combobox] roots to input-driven
-// filtering, option navigation, and selection.
-//
-// Placeholder note: the long-term design substitutes @zag-js/combobox
-// so the React (Ark UI) layer and this vanilla layer stay bit-for-bit
-// identical. For the Phase 2D first ship we hand-roll a small adapter
-// that speaks the same contract the React component emits (role=combobox
-// on the input, aria-controls → listbox id, aria-autocomplete="list",
-// aria-expanded, role="option"/aria-selected on items).
-//
-// DOM contract:
-//   [data-uikit-combobox]                      → root <div>
-//     [data-part="input"][role="combobox"]     → text input
-//     [data-part="listbox"][role="listbox"]    → options container
-//       [data-part="item"][data-value="<v>"]   → selectable <li>
-//         [aria-disabled="true"]               → skipped by selection + focus
-//   Root fires `uikit:combobox-change` with detail.value on select and
-//   `uikit:combobox-input` with detail.inputValue on typing.
-
 export interface ComboboxInstance {
   getValue(): string | null;
   setValue(next: string | null): void;

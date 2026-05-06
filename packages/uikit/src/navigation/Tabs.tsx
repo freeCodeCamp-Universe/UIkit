@@ -1,16 +1,6 @@
 import React, { Children, isValidElement } from 'react';
 import { Tabs as Ark } from '@ark-ui/react/tabs';
 
-/**
- * <Tabs> is a thin facade over @ark-ui/react/tabs. The public API keeps
- * the historical `<Tabs><Tab eventKey title>` compound shape so existing
- * consumers don't have to rewire; internally we compose Ark.Root /
- * Ark.List / Ark.Trigger / Ark.Content so we inherit its @zag-js state
- * machine — full keyboard navigation (Arrow / Home / End), orientation
- * awareness, and a `data-state="active|inactive"` attribute that the
- * stylesheet can target without JavaScript.
- */
-
 export interface TabProps extends Omit<
   React.HTMLAttributes<HTMLDivElement>,
   'title'

@@ -1,5 +1,3 @@
-// Docs sidebar on uikit primitives. `currentHash` threads `Astro.url.hash` for hash-anchor active state;
-// `showcase-spy.client.ts` keeps it in sync on scroll. Sections ship expanded (sidebar = shallow jump-list).
 import type { JSX } from 'react';
 import {
   Sidebar,
@@ -30,7 +28,6 @@ export function AppSidebar({
       {nav.map(section => (
         <SidebarSection key={section.id} label={section.label}>
           {section.items.map(item => {
-            // Anchor hrefs get `data-sidebar-link` + `data-target` for scroll-spy. Route hrefs use SSR active only.
             const hashIdx = item.href.indexOf('#');
             const target = hashIdx === -1 ? null : item.href.slice(hashIdx + 1);
             const spyProps = target

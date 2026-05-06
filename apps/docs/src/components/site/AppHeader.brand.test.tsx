@@ -10,8 +10,6 @@ test('brand block renders no inline version chip (single-line)', () => {
   );
   expect(brand, 'brand anchor must render').not.toBeNull();
   if (!brand) return;
-  // No <em> tag inside the brand block — the chrome should not
-  // carry the version string.
   expect(brand[0]).not.toMatch(/<em[\s>]/i);
   // Wordmark text still present.
   expect(brand[0]).toMatch(/freeCodeCamp UIKit/);

@@ -1,5 +1,3 @@
-// Pure builder for the static search index. Walks `src/content/{foundations,components}/**/*.mdx`
-// and emits `IndexEntry[]`. Astro integration in `search-index.ts` wires it into dev + build hooks.
 import { readdirSync, readFileSync, existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 

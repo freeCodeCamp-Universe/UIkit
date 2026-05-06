@@ -1,12 +1,3 @@
-// DataTable — medium-scope tabular display.
-//
-// Props are intentionally narrow: columns + rows + controlled
-// sort/selection, plus explicit loading + emptyState slots. Column
-// accessors accept a string key or a function so callers can render
-// derived fields without reshaping their data.
-//
-// Out of scope (Wave 4 candidates): column pinning, column resize,
-// virtualised rows, row expansion, multi-column sort.
 import React from 'react';
 
 export type DataTableAlign = 'left' | 'right' | 'center';

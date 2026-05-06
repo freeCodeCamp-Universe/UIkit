@@ -1,6 +1,3 @@
-// Static search-index integration: dev middleware on `/search-index.json` (rebuilds per request);
-// prod writes `dist/search-index.json` from the same `buildIndex()` builder. Replaces Pagefind.
-// Dev hook MUST be `astro:server:setup` (not `astro:config:setup`) — content collections aren't loaded yet there.
 import type { AstroIntegration } from 'astro';
 import { writeFile, mkdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';

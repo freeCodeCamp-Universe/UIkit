@@ -15,9 +15,6 @@ test.describe('@behavioural combobox', () => {
     await page.goto('/playground#combobox', { waitUntil: 'networkidle' });
     const card = page.locator('section#combobox .showcase__preview');
     const input = card.locator('input[role="combobox"]');
-    // The island uses `client:visible` — focus the input first to
-    // ensure the React island has hydrated before we type. Once
-    // focused, we know the keydown/onChange wiring is live.
     await input.focus();
     await input.fill('java');
     const options = card.locator('[role="option"]');
@@ -32,10 +29,4 @@ test.describe('@behavioural combobox', () => {
     await options.nth(2).click();
     await expect(options.nth(2)).toHaveAttribute('aria-selected', 'true');
   });
-
-  // The empty-message branch is locked by the L1 unit test
-  // (`packages/uikit/src/navigation/Combobox.dom.test.tsx` →
-  // "empty state renders when there are no items + no loading + no
-  // error"). Reproducing it here is fragile because the demo's
-  // `client:visible` hydration timing differs across viewports.
 });

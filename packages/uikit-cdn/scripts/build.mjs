@@ -1,25 +1,4 @@
 #!/usr/bin/env node
-/**
- * Build CDN-ready assets into dist-cdn/uikit/.
- *
- * Layout:
- *   dist-cdn/uikit/
- *     styles.min.css            tokens + components combined, minified
- *     tokens.min.css
- *     components.min.css
- *     fonts/                    copied verbatim from public/fonts/
- *     brand/                    copied verbatim from public/brand/ (if present)
- *     manifest.json             sha256 + byte size per file
- *     latest/                   full mirror of the current release
- *     <major>/                  latest release in that major line
- *     <major>.<minor>/          latest release in that minor line
- *     <pkg.version>/            full mirror pinned to package.json version
- *
- * All `url('/fonts/...')` refs are rewritten to `url('./fonts/...')` so the
- * browser resolves font requests relative to the stylesheet URL
- * (e.g. https://cdn.freecodecamp.org/uikit/styles.min.css → .../uikit/fonts/...).
- */
-
 import { promises as fs } from 'node:fs';
 import { createHash } from 'node:crypto';
 import path from 'node:path';
@@ -106,9 +85,6 @@ async function copyDirIfExists(src, dest) {
 
 async function hashFile(filePath) {
   const buf = await fs.readFile(filePath);
-  // sha256 (hex) stays for backwards-compatible content addressing; sha384
-  // ships as a W3C-shaped integrity string (`sha384-<base64>`) so consumers
-  // can paste it straight into <link integrity="...">.
   const sha384B64 = createHash('sha384').update(buf).digest('base64');
   return {
     sha256: createHash('sha256').update(buf).digest('hex'),
@@ -166,9 +142,6 @@ async function writeBundle(destDir) {
   await copyDirIfExists(fontsSrc, path.join(destDir, 'fonts'));
   await copyDirIfExists(brandSrc, path.join(destDir, 'brand'));
 
-  // Pull the vanilla-JS IIFE bundle and the icon sprite into the same tree
-  // so consumers grab both from `cdn.freecodecamp.org/uikit/*`. Fail loud
-  // if the upstream dists are missing — the bundle must not ship partial.
   if (
     !(await copyFileIfExists(
       uikitJsGlobal,

@@ -18,8 +18,6 @@ test.describe('@behavioural close-button', () => {
     await page.goto('/playground#close-button', { waitUntil: 'networkidle' });
     const card = page.locator('section#close-button .showcase__preview');
     const btn = card.locator('button[aria-label="Dismiss"]');
-    // The showcase intentionally omits onClick — the click should
-    // not raise, and the button should stay in the DOM.
     await btn.click();
     await expect(btn).toBeVisible();
   });

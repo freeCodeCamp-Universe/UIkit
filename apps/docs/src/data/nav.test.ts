@@ -91,9 +91,6 @@ test('every cmp-* item points to /playground#<slug> with a known slug', () => {
 });
 
 test('non-component nav entries still use absolute, non-anchor hrefs', () => {
-  // Anchor hrefs (`/playground#…`) are reserved for component playground
-  // links. Everything else (handbook, foundations) gets a real route so
-  // search engines can index it.
   for (const entry of flatNav) {
     if (entry.id.startsWith('cmp-')) continue;
     assert.ok(

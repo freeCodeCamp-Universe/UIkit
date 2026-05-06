@@ -26,9 +26,6 @@ test('TokenSwatch resolves values via getComputedStyle, not hardcoded hex', () =
     /getPropertyValue\(/,
     'TokenSwatch must extract via getPropertyValue()'
   );
-  // No three-or-six-digit hex literal anywhere except a placeholder
-  // inside string copy. Source-level guard so a future regression
-  // can't quietly re-introduce a hardcoded swatch.
   const hexLiterals = src.match(/#[0-9a-fA-F]{3,8}\b/g) ?? [];
   assert.deepEqual(
     hexLiterals,

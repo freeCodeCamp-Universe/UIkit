@@ -21,10 +21,6 @@ export interface SidebarSectionProps extends React.HTMLAttributes<HTMLElement> {
    * fold/unfold. Default: false (emits the original `<section>`).
    */
   collapsible?: boolean;
-  /**
-   * Initial open state when `collapsible` is true. Ignored otherwise.
-   * Default: true.
-   */
   defaultOpen?: boolean;
 }
 
@@ -145,11 +141,6 @@ export interface IsActiveHrefOptions {
   exact?: boolean;
 }
 
-/**
- * Compare a current path against a nav href, with trailing-slash normalisation.
- * - Default (`exact`): `true` only if paths match after normalisation.
- * - `{ exact: false }`: also `true` when `path` is a descendant of `href`.
- */
 export function isActiveHref(
   path: string,
   href: string,
@@ -164,24 +155,6 @@ export function isActiveHref(
   return p.startsWith(h + '/');
 }
 
-/**
- * Hash-aware variant for nav entries that target an in-page anchor
- * (`/#button`, `/handbook#palette`). Required when a single route hosts
- * multiple addressable sections — e.g. the docs `/` Playground listing
- * 45 components as `/#<slug>` anchors.
- *
- * Match rules:
- * - If `href` contains no `#`, defer to {@link isActiveHref}.
- * - If `href` contains a `#`, split into `[path, hash]` and require the
- *   current `path` to match `path` AND the current `hash` to match
- *   `'#' + hash` exactly. An empty `currentHash` never matches a hash
- *   target — so the page-load default of `/` never lights up `/#button`.
- *
- * @param currentPath - `window.location.pathname` (or `Astro.url.pathname`).
- * @param currentHash - `window.location.hash` including the leading `#`,
- *                      or `''` when no fragment.
- * @param href        - The nav item's href.
- */
 export function isActiveHrefWithHash(
   currentPath: string,
   currentHash: string,

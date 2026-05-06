@@ -10,19 +10,11 @@ jobs:
   visual:
     name: Playwright visual regression
     runs-on: ubuntu-latest
-    # Run inside the official Playwright image so Chromium + every system
-    # font + cairo / pango / freetype version exactly matches the Linux
-    # rebaseline environment. Without this, bare-Ubuntu sub-pixel
-    # rendering drifts ±1 px from the goldens. Bump in lockstep with the
-    # `@playwright/test` version pinned in `apps/docs/package.json`.
     container:
       image: mcr.microsoft.com/playwright:v1.59.1-noble
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
-      # Git refuses to operate on directories whose UID does not match
-      # the running user. The Playwright image runs as root, so workspace
-      # paths get flagged as "dubious ownership" until we mark them safe.
       - name: Mark git workspace safe
         run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
@@ -33,9 +25,6 @@ jobs:
 
       - name: Install workspace deps
         run: pnpm install --frozen-lockfile
-
-      # Image already ships Chromium + every system dep; skip the
-      # `playwright install --with-deps` step. Saves ~30 s per run.
 
       - name: Build packages (docs needs uikit + uikit-css + uikit-js + uikit-icons dists)
         run: pnpm build

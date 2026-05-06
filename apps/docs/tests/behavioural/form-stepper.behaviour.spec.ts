@@ -38,8 +38,6 @@ test.describe('@behavioural form-stepper', () => {
     // Account is complete, Profile is current → both navigable.
     await expect(buttons.nth(0)).toBeEnabled();
     await expect(buttons.nth(1)).toBeEnabled();
-    // The progress list owns the aria-label so screen readers
-    // announce the surface as a flow, not a generic ordered list.
     await expect(card.locator(PROGRESS)).toHaveAttribute(
       'aria-label',
       'Onboarding progress'

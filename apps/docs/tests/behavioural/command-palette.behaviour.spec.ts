@@ -14,8 +14,6 @@ test.describe('@behavioural command-palette', () => {
     await card.locator(TRIGGER).click();
     const dialog = card.locator(DIALOG);
     await expect(dialog).toBeVisible();
-    // autoFocus on the input — the search field must own the focus
-    // ring once the dialog mounts so keystrokes filter the list.
     await expect(dialog.locator('input.command-palette__search')).toBeFocused();
   });
 

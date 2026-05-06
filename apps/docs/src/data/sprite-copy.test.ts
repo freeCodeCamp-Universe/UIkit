@@ -1,8 +1,3 @@
-// CI gate: end-to-end smoke for the copy-sprite mechanism.
-// dogfood.test.ts only pins the _invariants_ (script present, hooks wired).
-// This test executes copy-sprite.mjs and confirms the two files actually
-// land in public/uikit/ at non-zero size. Catches silent failures where
-// predev runs but emits nothing (e.g. upstream dist renamed).
 import { test } from 'vitest';
 import assert from 'node:assert/strict';
 import { existsSync, statSync } from 'node:fs';

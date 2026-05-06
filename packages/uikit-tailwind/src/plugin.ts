@@ -1,5 +1,3 @@
-// Tailwind plugin adding fCC-specific utilities and palette variants.
-// Consumers enable it via { plugins: [fccPlugin] } in tailwind.config.
 import type { Config } from 'tailwindcss';
 import plugin from 'tailwindcss/plugin';
 import type { PluginCreator } from 'tailwindcss/plugin';
@@ -17,8 +15,6 @@ const fccPlugin: FccPlugin = plugin(({ addUtilities, addVariant }) => {
     }
   });
 
-  // Palette-scoped variants — mirror the .dark-palette / .light-palette
-  // hooks on <html> (see packages/uikit-css/src/tokens.css).
   addVariant('fcc-dark', '&:is(.dark-palette *)');
   addVariant('fcc-light', '&:is(.light-palette *)');
 });

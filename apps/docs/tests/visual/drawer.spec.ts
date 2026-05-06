@@ -1,13 +1,5 @@
 import { test, expect } from '@playwright/test';
 
-/**
- * Mobile drawer: the sidebar becomes off-canvas at ≤900 px and is
- * revealed via the hamburger in the header. This spec covers only the
- * mobile project (the hamburger is hidden on wider viewports).
- *
- * The golden locks in the drawer's open-state visual + backdrop so a
- * regression in the toggle wiring or the off-canvas CSS surfaces on CI.
- */
 test.beforeEach(async ({ page }) => {
   await page.addInitScript(() => {
     (window as unknown as { __NO_SPY__: boolean }).__NO_SPY__ = true;
@@ -37,8 +29,6 @@ test('mobile drawer opens when hamburger is clicked', async ({
   await expect(hamburger).toHaveAttribute('aria-expanded', 'true');
   await expect(page.locator('body')).toHaveAttribute('data-nav-open', '');
 
-  // Wait for the transform transition we just disabled to settle
-  // deterministically — a single paint tick is enough.
   await page.waitForFunction(() => {
     const el = document.getElementById('app-sidebar');
     return el !== null && getComputedStyle(el).visibility === 'visible';

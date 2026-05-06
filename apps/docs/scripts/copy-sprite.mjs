@@ -1,20 +1,4 @@
 #!/usr/bin/env node
-/**
- * Copy workspace dogfood assets into apps/docs/public/uikit/ so Astro
- * serves them verbatim at `/uikit/<file>` in both dev and build:
- *
- *   packages/uikit-icons/dist/sprite.svg    -> public/uikit/sprite.svg
- *   packages/uikit-js/dist/uikit.global.js  -> public/uikit/uikit.global.js
- *
- * We load the IIFE via a plain <script src> (not an Astro-hoisted import)
- * because Astro tree-shakes side-effect-only module imports in layouts,
- * which kills DOMContentLoaded wiring for the Tier 4 adapters.
- *
- * Runs via predev + prebuild hooks. Dev-tolerant: if an upstream dist
- * hasn't been built yet (fresh clone, no turbo build), emit a warning
- * and skip that asset — the dev server still boots.
- */
-
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';

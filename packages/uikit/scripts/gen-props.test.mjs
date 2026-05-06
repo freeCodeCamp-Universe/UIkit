@@ -34,15 +34,9 @@ export const Greet = (props: GreetProps) => <p>hello {props.name}</p>;
 Greet.displayName = 'Greet';
 `
   );
-  // Generic-shaped file react-docgen-typescript cannot extract from
-  // (no React component, just a generic helper). Triggers the
-  // stub-envelope fallback: empty parser output + GENERIC_RE hit.
   writeFileSync(
     resolve(src, 'Bag.tsx'),
     `// Generic helper that looks like a component to the regex but
-// is not a React component, so react-docgen-typescript returns
-// empty parsed output and the generator must emit the stub
-// envelope with _extractionFailed: true.
 export const Bag = <T,>(items: readonly T[]): readonly T[] => items;
 `
   );

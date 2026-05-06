@@ -49,9 +49,6 @@ test('EmptyState composes user className', () => {
 });
 
 test('EmptyState forwards extra props (role, data-*)', () => {
-  // `data-testid` is a valid React DOM attribute but isn't surfaced on the
-  // strict `HTMLAttributes` map; cast through unknown so the createElement
-  // overload accepts the bag verbatim.
   const html = renderToStaticMarkup(
     createElement(EmptyState, {
       role: 'status',

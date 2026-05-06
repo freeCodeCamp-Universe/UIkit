@@ -1,6 +1,3 @@
-// Scroll-spy for `/` and `/handbook`. Maps each `<section[id]>` to a sidebar link's
-// `data-active`. Bails when `window.__NO_SPY__` is set (Playwright full-page captures).
-
 declare global {
   interface Window {
     __NO_SPY__?: boolean;
@@ -30,7 +27,6 @@ function init(): void {
   function clearActive(): void {
     links.forEach(a => {
       const href = a.getAttribute('href') ?? '';
-      // Spy-managed: `/showcase#foo`, `/#foo`, `#foo`. Route links keep their SSR `data-active`.
       if (
         href.startsWith('/showcase#') ||
         href.startsWith('/#') ||
@@ -50,7 +46,6 @@ function init(): void {
     }
   }
 
-  // Skip DOM writes when nothing changed — avoids paint churn + AT chatter on micro-scroll.
   let lastActiveId: string | null = null;
 
   const setActive = (id: string): void => {

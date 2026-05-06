@@ -22,11 +22,6 @@ const STATEFUL = new Set([
   'tooltip'
 ]);
 
-// slug → expected primary uikit component name(s) that MUST appear
-// in the preview slot. A showcase may render more than one component
-// (e.g. a Card containing a Button); the expectation captures the
-// component the file is *named after*, plus any companions whose
-// presence is required to make the example intelligible.
 const EXPECTED: Record<string, ReadonlyArray<string>> = {
   alert: ['Alert'],
   'auth-layout': ['AuthLayout'],
@@ -115,8 +110,6 @@ for (const slug of subjects) {
     );
     const preview = previewMatch[1]!;
     for (const component of expected) {
-      // Accept either `<Name ...>` or the `<NameCmp ...>` alias used to
-      // dodge Astro's filename → auto-export name collision (ts(2440)).
       const jsxRegex = new RegExp(`<${component}(Cmp)?(\\s|>|/)`);
       assert.match(
         preview,

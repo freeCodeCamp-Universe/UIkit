@@ -95,8 +95,6 @@ test('multi-select: root advertises aria-multiselectable=true', () => {
 });
 
 test('without onValueChange the click handler is a no-op', () => {
-  // Sanity — guard against an exception if a consumer omits the
-  // callback (the component still renders for read-only display).
   const { container } = render(<Listbox items={ITEMS} value='a' />);
   const options = container.querySelectorAll('[role="option"]');
   expect(() => fireEvent.click(options[1]!)).not.toThrow();

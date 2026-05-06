@@ -10,11 +10,6 @@ export interface UseAsyncComboboxItemsOptions<T extends ComboboxItem> {
   fetcher: (query: string, signal: AbortSignal) => Promise<T[]>;
   /** Debounce window in ms before the fetcher runs. Default: 180. */
   debounceMs?: number;
-  /**
-   * Whether to fetch immediately when the query is empty. Default
-   * `true` — surfaces a "starter set" on focus. Set `false` to keep
-   * the list empty until the user types.
-   */
   fetchEmpty?: boolean;
   /** Initial query value. Default: "". */
   initialQuery?: string;
@@ -28,20 +23,6 @@ export interface UseAsyncComboboxItemsReturn<T extends ComboboxItem> {
   setQuery: (next: string) => void;
 }
 
-/**
- * Debounced async source for <Combobox>. Cancels in-flight requests
- * when the query changes so the latest-submitted request always wins.
- *
- * Usage:
- *   const src = useAsyncComboboxItems({ fetcher: searchPackages });
- *   <Combobox
- *     items={src.items}
- *     loading={src.loading}
- *     error={src.error}
- *     inputValue={src.query}
- *     onInputValueChange={src.setQuery}
- *   />
- */
 export function useAsyncComboboxItems<T extends ComboboxItem>(
   options: UseAsyncComboboxItemsOptions<T>
 ): UseAsyncComboboxItemsReturn<T> {
@@ -57,8 +38,6 @@ export function useAsyncComboboxItems<T extends ComboboxItem>(
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Track the most recent fetcher and the current controller so
-  // unmount + query-change paths can cancel cleanly.
   const fetcherRef = useRef(fetcher);
   fetcherRef.current = fetcher;
   const activeControllerRef = useRef<AbortController | null>(null);

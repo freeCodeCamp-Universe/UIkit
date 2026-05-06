@@ -125,7 +125,6 @@ test('manifest entries carry a W3C SRI sha384 string alongside sha256', async ()
       /^sha384-[A-Za-z0-9+/]+=*$/,
       `${rel}: sha384 must be a W3C SRI 'sha384-<base64>' string`
     );
-    // Sanity: decode length corresponds to SHA-384 (48 bytes → 64 base64 chars + padding).
     const b64 = (meta.sha384 ?? '').slice('sha384-'.length);
     assert.equal(
       Buffer.from(b64, 'base64').byteLength,

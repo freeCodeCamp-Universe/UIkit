@@ -1,18 +1,9 @@
-/* ============================================================
-   Showcase site layout — single-page storybook
-   ============================================================ */
-
 .app {
   min-height: 100vh;
   display: grid;
   grid-template-rows: var(--header-height) 1fr;
 }
 
-/* ---------- Header ---------- */
-
-/* Wave 9 P4.3 (W9-B8.3) — breadcrumb sub-bar that paints under the
-   site header on every route except `/`. Uses uikit's <Breadcrumb>
-   primitive (mono font, '›' separator handled by component CSS). */
 .site-breadcrumb {
   position: sticky;
   top: var(--header-height);
@@ -79,18 +70,12 @@
   color: var(--foreground-secondary);
   text-decoration: none;
   font-size: 15px;
-  /* Wave 9 P4.1 (W9-B8.1) — every primary link reserves a 2px
-     transparent border-bottom so the active-state underline does not
-     shift the link baseline. The active rule below paints it gold. */
   border-bottom: 2px solid transparent;
   padding-bottom: 4px;
 }
 .site-header__nav a:hover {
   color: var(--foreground-primary);
 }
-/* Wave 9 P4.1 (W9-B8.1) — design contract: active link = 700 weight,
-   primary fg, yellow-gold underline. Locked by header-active-link
-   behavioural spec. */
 .site-header__nav a[aria-current='page'] {
   color: var(--foreground-primary);
   border-bottom-color: var(--yellow-gold);
@@ -101,19 +86,11 @@
   flex: 1;
 }
 
-/* ---------- Body grid ---------- */
-
 .app__body {
   display: grid;
   grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
   min-height: 0;
 }
-/* Wave 7 P9 hot-fix — `/guides/*` and other prose routes don't render
-   the AppSidebar component. The 2-column grid would still allocate
-   288px for an empty sidebar column, leaving `<main>` in column 1
-   (288px wide) and the content squashed to ~30 chars/line. The
-   `--single` modifier collapses to 1fr so prose routes use the full
-   width minus AppHeader chrome. */
 .app__body--single {
   grid-template-columns: minmax(0, 1fr);
 }
@@ -123,19 +100,10 @@
   }
 }
 
-/* ---------- Sidebar (docs chrome) ---------- */
-/* Container styling + collapsible/active rules live in @freecodecamp/uikit-css
- * (`.sidebar`, `.sidebar__intro`, `.sidebar__hint`, `.sidebar__item`,
- * `.sidebar__section--collapsible`). This block only carries docs-site
- * overrides: setting the sticky offset to match the header + breadcrumb bars
- * and hiding the rail on mobile. */
-
 .sidebar {
   --sidebar-top: calc(var(--header-height) + var(--breadcrumbs-height));
   padding: 20px 0 32px;
 }
-
-/* ---------- Mobile drawer ---------- */
 
 .app__sidebar {
   display: contents;
@@ -230,8 +198,6 @@
   }
 }
 
-/* ---------- Main content ---------- */
-
 .content {
   min-width: 0;
   padding: 48px 48px 96px;
@@ -251,8 +217,6 @@
   max-width: var(--content-max);
   margin: 0 auto;
 }
-
-/* ---------- Hero ---------- */
 
 .hero {
   padding: 32px 0 56px;
@@ -358,8 +322,6 @@
   margin: 0;
 }
 
-/* ---------- Section heading ---------- */
-
 .section {
   margin: 0 0 64px;
   scroll-margin-top: calc(var(--header-height) + 24px);
@@ -404,8 +366,6 @@
   margin: 0;
   font-size: var(--fs-xl);
 }
-
-/* ---------- Showcase block ---------- */
 
 .showcase {
   border: 1px solid var(--border-strong);
@@ -586,9 +546,6 @@
 .showcase__code {
   margin: 0;
   padding: 0;
-  /* Wave 9 P7.1 — `--editor-background` is the fcc-themed pair to
-     Shiki's github-dark `#24292e`. Slight tint shift is intentional —
-     the fcc editor surface tracks our palette under a light flip. */
   background: var(--editor-background);
 }
 .showcase__code pre {
@@ -604,8 +561,6 @@
   display: block;
 }
 
-/* ---------- Props table ---------- */
-
 .props {
   margin: 16px 0 0;
 }
@@ -617,8 +572,6 @@
   color: var(--foreground-muted);
   margin: 0 0 8px;
 }
-
-/* ---------- Token galleries ---------- */
 
 .token-grid {
   display: grid;
@@ -686,8 +639,6 @@
   height: 10px;
   background: var(--cta-background);
 }
-
-/* ---------- Misc ---------- */
 
 .kbd {
   display: inline-block;

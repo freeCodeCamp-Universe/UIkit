@@ -1,9 +1,3 @@
-/* ============================================================
-   freeCodeCamp Design System — Tokens
-   "Command-line Chic": dark-first, flat, square, high-contrast.
-   Canonical: colors_and_type.css from the freeCodeCamp Design System.
-   ============================================================ */
-
 @font-face {
   font-family: 'Lato';
   src: url('/fonts/Lato-Light.woff') format('woff');
@@ -134,8 +128,6 @@
   --fs-xl: 32px;
   --fs-2xl: 42px;
   --fs-3xl: 56px;
-  /* Fluid display size — used by `.heading--display` and the
-     hero/page title at the top of `/` and `/handbook`. */
   --fs-display: clamp(2.5rem, 5vw, 3.75rem);
 
   --lh-tight: 1.2;
@@ -179,8 +171,6 @@
   --dur-slow: 260ms;
 
   --header-height: 48px;
-  /* Wave 9 P4.4 (W9-B8.4) — breadcrumb sub-bar height. Design pegs
-     this at 32px (`comp-header` card → `.crumb`). */
   --breadcrumbs-height: 32px;
   --sidebar-width: 288px;
   --content-max: 1040px;

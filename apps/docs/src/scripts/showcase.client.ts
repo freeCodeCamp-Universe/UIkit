@@ -48,8 +48,6 @@ function wireCopyMenu(block: Block): void {
     list.hidden = !open;
   };
 
-  // Primary click copies the currently visible tab's snippet; a
-  // long-press / keyboard gesture opens the menu for explicit choice.
   trigger.addEventListener('click', async e => {
     if ((e as MouseEvent).detail === 0) {
       // Keyboard activation — open menu instead of copying blindly.

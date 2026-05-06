@@ -1,5 +1,3 @@
-// Site breadcrumb sub-bar: 32px mono rail under the header on every non-home route.
-// Leaf href is omitted so uikit `<Breadcrumb.Item>` flips it to `aria-current="page"`.
 import type { JSX } from 'react';
 import { Breadcrumb } from '@freecodecamp/uikit/navigation';
 

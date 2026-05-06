@@ -13,9 +13,6 @@ test.describe('@behavioural switch', () => {
   test('click flips the underlying checkbox state', async ({ page }) => {
     await page.goto('/playground#switch', { waitUntil: 'networkidle' });
     const card = page.locator('section#switch .showcase__preview');
-    // The native <input> is visually hidden — switches paint the
-    // track + thumb skin via the wrapping <label>, so clicks are
-    // dispatched on the label and propagate to the input.
     const labels = card.locator('label.switch');
     const inputs = card.locator('input[type="checkbox"]');
     await labels.nth(1).click();

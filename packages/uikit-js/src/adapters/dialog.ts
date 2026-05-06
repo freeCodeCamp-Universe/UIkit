@@ -1,22 +1,3 @@
-// Dialog adapter — wires [data-uikit-dialog] roots to open/close state.
-//
-// Placeholder note: the long-term design embeds the same Zag state
-// machine the React layer uses through Ark UI, so open/close
-// behaviour matches bit-for-bit between layers. For the Phase 2A
-// scaffold we ship a small hand-rolled adapter that already speaks
-// the same DOM contract Ark emits (data-state="open|closed",
-// aria-hidden, escape-to-close, backdrop click). When Wave 2
-// Tier 4 brings Zag to Combobox/Listbox the dialog machine
-// substitutes in without touching the DOM contract consumers
-// depend on.
-//
-// DOM contract:
-//   [data-uikit-dialog]                  → root
-//     [data-uikit-dialog-backdrop]       → click closes (if present)
-//     [data-uikit-dialog-content]        → primary pane
-//       [data-uikit-dialog-close]        → click closes
-//   [data-uikit-dialog-trigger="<id>"]   → click opens the matching root
-
 export interface DialogInstance {
   open(): void;
   close(): void;

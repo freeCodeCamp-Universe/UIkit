@@ -53,9 +53,6 @@ test('AppSidebar marks the current item with data-active="true"', () => {
 });
 
 test('bare path on `/` no longer marks every cmp-* item active', () => {
-  // Regression guard. Pre-P2 the sidebar lit up nothing, OR with the
-  // pre-Wave-6 fixture it lit up everything. Page-load default is
-  // pathname=/ + no hash; no item should carry data-active.
   const html = renderToStaticMarkup(
     createElement(AppSidebar, {
       nav: FIXTURE,

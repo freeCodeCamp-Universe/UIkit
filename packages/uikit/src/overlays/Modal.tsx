@@ -1,9 +1,3 @@
-// Modal — Ark UI powered dialog with the freeCodeCamp "modal" class hooks.
-// Public API (`open`, `onClose`, `title`, `closeOnBackdrop`) is
-// preserved verbatim so consumers migrating from the hand-rolled
-// implementation do not see a breaking change. Ark handles focus
-// trap, a11y, escape-to-close, and the data-state attribute that
-// components.css keys its enter/exit animations off of.
 import React from 'react';
 import { Dialog } from '@ark-ui/react/dialog';
 
@@ -57,9 +51,6 @@ const ModalRoot = ({
 };
 ModalRoot.displayName = 'Modal';
 
-// Namespaced subcomponents remain thin wrappers around the underlying
-// semantic elements so existing usage of <Modal.Body>, <Modal.Footer>,
-// <Modal.Header> keeps working alongside the new Ark-driven shell.
 const ModalHeader = ({
   className = '',
   children,

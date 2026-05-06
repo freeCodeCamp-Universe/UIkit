@@ -116,18 +116,12 @@ test('broad noise: "the" returns ≤ 5 results', () => {
 });
 
 test('minMatchCharLength gate: a single character returns zero hits', () => {
-  // Fuse honors minMatchCharLength as a per-token floor; queries
-  // shorter than 2 chars yield nothing.
   const fuse = makeFuse();
   const hits = fuse.search('x');
   assert.equal(hits.length, 0, 'minMatchCharLength must filter 1-char queries');
 });
 
 test('title weight outranks summary on the same query token', () => {
-  // "Card" hits the title of the Card record AND the summary of
-  // "The workhorse — 3px square border" only as a near-miss. The
-  // Card record (title hit, weight 0.6) must rank above any
-  // summary-only hit (weight 0.3).
   const fuse = makeFuse();
   const hits = fuse.search('Card');
   assert.ok(hits.length > 0, 'expected at least one hit for "Card"');
@@ -135,14 +129,9 @@ test('title weight outranks summary on the same query token', () => {
 });
 
 test('locked options match the client wire', () => {
-  // Brittle-on-purpose: if the client config diverges from this
-  // test, surface it here. Mirrors the inline config in
-  // src/scripts/search.client.ts.
   assert.equal(OPTIONS.threshold, 0.3);
   assert.equal(OPTIONS.minMatchCharLength, 2);
   assert.equal(OPTIONS.ignoreLocation, true);
-  // Narrow `keys` (typed as readonly?-array of FuseOptionKey) to the literal
-  // shape we always use: `{ name, weight }`.
   const keys = (OPTIONS.keys ?? []) as readonly {
     name: string;
     weight: number;

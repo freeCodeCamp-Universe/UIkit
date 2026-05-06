@@ -6,8 +6,6 @@ import { Textarea } from './Textarea';
 afterEach(cleanup);
 
 test('autoResize sets style.height on initial mount via the effect hook', () => {
-  // jsdom returns scrollHeight = 0 unless we stub it. Stub the
-  // prototype's getter so `el.scrollHeight` returns a known value.
   const original = Object.getOwnPropertyDescriptor(
     HTMLElement.prototype,
     'scrollHeight'

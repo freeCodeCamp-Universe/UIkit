@@ -1,13 +1,3 @@
-/**
- * Authoritative slug list for every component surfaced in the nav.
- *
- * Keeps `nav.test.ts` independent of Astro's `getCollection` (unavailable
- * in `node:test`) while still letting us assert that every nav entry
- * points to a slug we expect. Keep in sync with:
- *   - `apps/docs/src/data/nav.ts`
- *   - `apps/docs/src/content/components/*.mdx` (plus the intentional
- *     storybook-only exceptions: `table`, `image`).
- */
 export const knownComponentSlugs: ReadonlySet<string> = new Set<string>([
   // Primitives
   'text',

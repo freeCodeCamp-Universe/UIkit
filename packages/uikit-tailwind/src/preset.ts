@@ -1,8 +1,3 @@
-// Tailwind preset mirroring freeCodeCamp UIKit design tokens.
-// Every entry maps to a CSS custom property declared in
-// @freecodecamp/uikit-css/tokens.css — the preset is a typed alias
-// layer, not a parallel source of truth. Import this preset and
-// tokens.css together to get identical visual output.
 import type { Config } from 'tailwindcss';
 
 const fontSans: string[] = [

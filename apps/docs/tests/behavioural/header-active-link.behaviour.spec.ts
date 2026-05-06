@@ -38,8 +38,6 @@ test.describe('@behavioural header-active-link', () => {
     const color = await inactive.evaluate(
       node => getComputedStyle(node).borderBottomColor
     );
-    // Transparent border: `rgba(0, 0, 0, 0)`. Chromium normalises
-    // `transparent` keyword to that string.
     expect(color).toBe('rgba(0, 0, 0, 0)');
   });
 });

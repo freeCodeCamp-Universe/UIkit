@@ -1,6 +1,3 @@
-// Preset parity test: every --foreground-*, --background-*, and semantic
-// CSS custom property declared in tokens.css must have a Tailwind mapping
-// in the preset. Prevents silent drift when new tokens land.
 import { test } from 'vitest';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
@@ -12,8 +9,6 @@ const here = dirname(fileURLToPath(import.meta.url));
 const tokensPath = resolve(here, '../../uikit-css/src/tokens.css');
 const css = readFileSync(tokensPath, 'utf8');
 
-// Extract declared custom properties from tokens.css. Match `--name:` at
-// line start (ignoring whitespace) so we pick up every declaration.
 function extractProps(source: string): Set<string> {
   const re = /(?:^|\s)(--[a-z0-9-]+)\s*:/gi;
   const found = new Set<string>();

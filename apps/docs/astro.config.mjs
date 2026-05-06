@@ -8,8 +8,6 @@ import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import searchIndex from './integrations/search-index.ts';
 
-// Resolve `@freecodecamp/uikit*` to raw TS source under packages/<name>/src/.
-// Mirrors the path map in `apps/docs/tsconfig.json`.
 /** @param {string} rel */
 const pkgUrl = rel =>
   fileURLToPath(new URL(`../../packages/${rel}`, import.meta.url));
@@ -27,7 +25,6 @@ export default defineConfig({
     mdx({
       rehypePlugins: [
         rehypeSlug,
-        // `behavior: 'append'` adds `#` after the heading. `'wrap'` underlines whole heading.
         [
           rehypeAutolinkHeadings,
           {

@@ -4,9 +4,6 @@ import { useState, type JSX } from 'react';
 import { CommandPalette } from './CommandPalette';
 
 beforeAll(() => {
-  // jsdom does not implement scrollIntoView; CommandPalette calls it
-  // every time activeIndex changes. Stub the prototype so the effect
-  // is a no-op under test.
   if (!Element.prototype.scrollIntoView) {
     Element.prototype.scrollIntoView = function () {};
   }

@@ -12,9 +12,6 @@ test('Modal renders closed-state shell when open=false', () => {
       title: 'Hi'
     })
   );
-  // Ark keeps the dialog element in the tree with hidden + data-state
-  // so CSS can drive exit transitions. Verify those a11y-safe signals
-  // are present rather than asserting the node is gone.
   assert.match(html, /data-state="closed"/);
   assert.match(html, /hidden=""/);
 });

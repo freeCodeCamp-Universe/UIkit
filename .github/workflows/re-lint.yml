@@ -14,8 +14,6 @@ jobs:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
       - name: actionlint
-        # Catch workflow-drift before merge. Image-pin to v1.7.12 (matches the
-        # version maintainers run locally via Homebrew).
         uses: docker://rhysd/actionlint:1.7.12
         with:
           args: -color

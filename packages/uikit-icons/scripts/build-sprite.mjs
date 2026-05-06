@@ -1,6 +1,3 @@
-// Concatenates the src/svg/* files into a single sprite at
-// dist/sprite.svg. Each file becomes a <symbol id="fcc-icon-<name>">
-// the consumer can reference with <svg><use href="#fcc-icon-copy" /></svg>.
 import { readFileSync, writeFileSync, mkdirSync, readdirSync } from 'node:fs';
 import { dirname, resolve, basename, extname } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -16,9 +13,6 @@ const files = readdirSync(svgDir)
   .filter(f => f.endsWith('.svg'))
   .sort();
 
-// Strip outer <svg> element per file and re-wrap each body in <symbol>.
-// Keep the 0 0 24 24 viewBox so stroke widths stay honest when icons
-// render at arbitrary sizes.
 const symbols = files.map(file => {
   const name = basename(file, extname(file));
   const raw = readFileSync(resolve(svgDir, file), 'utf8');

@@ -44,8 +44,6 @@ test('uikit-css/tokens.css declares --breadcrumbs-height', () => {
 
 test('docs styles never inline `height: NNpx` for site-header', () => {
   for (const { file, src } of readAllCss(stylesDir)) {
-    // Within `.site-header { ... }` blocks (not the breadcrumb), no
-    // bare-px height literal — must be `var(--header-height)`.
     const blocks = src.match(/\.site-header\s*\{[^}]*\}/g) ?? [];
     for (const block of blocks) {
       assert.ok(
@@ -60,8 +58,6 @@ test('site-breadcrumb height resolves to var(--breadcrumbs-height) without liter
   for (const { file, src } of readAllCss(stylesDir)) {
     const blocks = src.match(/\.site-breadcrumb\s*\{[^}]*\}/g) ?? [];
     for (const block of blocks) {
-      // Forbid `var(--breadcrumbs-height, 32px)` style fallbacks —
-      // once the token is real, the fallback is dead weight.
       assert.ok(
         !/var\(--breadcrumbs-height\s*,\s*\d+px\)/.test(block),
         `${file}: drop the literal fallback once \`--breadcrumbs-height\` is pinned in tokens.css`

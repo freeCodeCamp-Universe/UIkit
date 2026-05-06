@@ -6,8 +6,6 @@ const render = (pathname: string): string =>
   renderToStaticMarkup(<AppHeader pathname={pathname} />);
 
 const ariaCurrentForHref = (html: string, href: string): string | null => {
-  // Locate the anchor with the given href (escaped) and capture
-  // its `aria-current` attribute if present.
   const escaped = href.replace(/\//g, '\\/');
   const re = new RegExp(
     `<a[^>]*href="${escaped}"[^>]*\\baria-current="([^"]+)"`,

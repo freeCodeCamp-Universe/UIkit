@@ -125,9 +125,6 @@ test('buildIndex output is JSON-serialisable and stable', () => {
 });
 
 test('buildIndex pulls real apps/docs content with ≥ 60 entries', () => {
-  // Smoke test against the actual content tree to catch shape-drift
-  // (e.g. someone renames a collection folder). Skipped if the dir
-  // isn't present (CI sandbox edge case).
   const apps = resolve(
     process.cwd().includes('integrations') ? '../../src/content' : 'src/content'
   );

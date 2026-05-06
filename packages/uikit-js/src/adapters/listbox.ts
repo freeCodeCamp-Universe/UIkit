@@ -1,22 +1,3 @@
-// Listbox adapter — wires [data-uikit-listbox] roots to selection,
-// keyboard navigation, and type-ahead.
-//
-// Placeholder note: the long-term design substitutes @zag-js/listbox
-// so the React (Ark UI) layer and this vanilla layer emit bit-for-bit
-// identical DOM. For the Phase 2D first ship we hand-roll a small
-// adapter that already speaks the same contract the React component
-// emits (role="listbox", role="option", aria-selected, data-value,
-// aria-multiselectable, aria-disabled).
-//
-// DOM contract:
-//   [data-uikit-listbox]                        → root <ul>
-//     [data-uikit-listbox-mode="multiple"]      → multi-select
-//     [data-uikit-listbox-value="a,b"]          → initial selection (CSV)
-//     [data-part="option"][data-value="<v>"]    → selectable <li>
-//       [aria-disabled="true"]                  → skipped by selection + focus
-//   Root fires `uikit:listbox-change` with detail.value — string for
-//   single mode, string[] for multi.
-
 export interface ListboxInstance {
   getValue(): string | string[] | null;
   setValue(next: string | string[] | null): void;

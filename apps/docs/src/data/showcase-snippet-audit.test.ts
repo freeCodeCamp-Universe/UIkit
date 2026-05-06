@@ -93,7 +93,6 @@ function readProps(
       }
       for (const heritage of node.heritageClauses ?? []) {
         for (const type of heritage.types) {
-          // Full text needed — `extends Omit<React.InputHTMLAttributes<…>>` hides the marker in type args.
           const text = type.getText();
           if (
             text.includes('HTMLAttributes') ||

@@ -14,9 +14,6 @@ test('no showcase passes `defaultOpen` (anatomy stays collapsed)', () => {
   const offenders: string[] = [];
   for (const file of showcaseFiles) {
     const src = readFileSync(file, 'utf8');
-    // Match `defaultOpen` either bare (`defaultOpen` as a flag) or
-    // explicitly `defaultOpen={true}`. Negative-match the safe
-    // `defaultOpen={false}` form just in case.
     if (/\bdefaultOpen\b(?!\s*=\s*\{false\})/.test(src)) {
       offenders.push(file.replace(`${here}/`, ''));
     }

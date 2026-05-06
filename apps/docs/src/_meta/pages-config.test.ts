@@ -1,15 +1,3 @@
-/**
- * Cloudflare Pages config meta-gates.
- *
- * Locks the contract between `apps/docs/public/{_headers,_redirects,robots.txt}`,
- * the post-build artefact verifier, and the Playwright snapshot template.
- * The build step copies `public/*` to `dist/*` verbatim, so the
- * public-folder assertions cover what CF Pages reads at deploy time.
- *
- * Deploy mode: Cloudflare Pages **Git integration** (ADR-0008,
- * supersedes ADR-0007). The CF GitHub App owns auth + build; no
- * `wrangler.jsonc` lives in the repo.
- */
 import { mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -23,14 +11,6 @@ import {
 const DOCS_ROOT = join(__dirname, '..', '..');
 const PUBLIC_ROOT = join(DOCS_ROOT, 'public');
 
-/**
- * Parse a Cloudflare Pages `_headers` file into `{ pattern: { name: value } }`.
- * Spec: https://developers.cloudflare.com/pages/configuration/headers/
- *
- * - First non-indented, non-comment line in a block is the URL pattern.
- * - Subsequent indented lines are `Name: value` pairs.
- * - Blank line ends a block. `#` starts a comment line.
- */
 function parseHeadersFile(
   input: string
 ): Record<string, Record<string, string>> {

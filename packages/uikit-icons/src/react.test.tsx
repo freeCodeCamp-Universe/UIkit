@@ -1,6 +1,3 @@
-// Render <Icon> via react-dom/server and assert the SSR output carries
-// the Lucide viewBox, the right data-icon attribute, and the expected
-// a11y defaults.
 import { test } from 'vitest';
 import assert from 'node:assert/strict';
 import { renderToStaticMarkup } from 'react-dom/server';

@@ -8,9 +8,6 @@ const here = dirname(fileURLToPath(import.meta.url));
 const docsSrc = resolve(here, '..');
 const showcaseCssPath = resolve(docsSrc, 'styles/showcase.css');
 
-// Every full-page surface dogfoods the UIKit sidebar-layout main class.
-// The `/` landing collapses the body grid via `.app__body--single` instead
-// of dropping the sidebar wrapper.
 const files = [
   'layouts/ProseLayout.astro',
   'pages/handbook.astro',

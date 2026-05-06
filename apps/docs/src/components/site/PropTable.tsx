@@ -1,4 +1,3 @@
-// SSR `<table>` from a `props.json` entry. Generic components (`_extractionFailed: true`) get a fallback note.
 import React from 'react';
 
 export interface PropEntryProp {

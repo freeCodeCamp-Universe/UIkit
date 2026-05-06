@@ -1,8 +1,3 @@
-<!--
-Replace placeholders. Drop any section that does not apply.
-For the full contributor flow, see CONTRIBUTING.md.
--->
-
 ## Summary
 
 What changes? Why?

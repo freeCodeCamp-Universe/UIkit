@@ -64,10 +64,6 @@ test('foundations orders are unique positive integers', () => {
 });
 
 test('at least 3 entries cover Voice / Logo / Iconography', () => {
-  // Spec resume cue L316. The handbook is the brand guideline; these
-  // three topics are the minimum coverage for the brand layer (voice
-  // + logo + icon system). At least one file each must surface the
-  // term in title, body, or both.
   const TARGETS = ['Voice', 'Logo', 'Iconography'];
   const matched = new Set<string>();
   for (const file of files) {
@@ -84,8 +80,6 @@ test('at least 3 entries cover Voice / Logo / Iconography', () => {
 });
 
 test('a brand-guidelines entry exists (logo usage / wordmark)', () => {
-  // P7 acceptance row "brand": logo usage (clearspace, sizing,
-  // do/don'ts), wordmark vs symbol, partner co-branding.
   const found = files.some(file => {
     const src = readFileSync(resolve(foundationsDir, file), 'utf8');
     return /\b(Logo|Wordmark|Brand)\b/i.test(src);

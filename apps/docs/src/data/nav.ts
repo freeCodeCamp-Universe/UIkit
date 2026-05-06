@@ -20,7 +20,6 @@ const c = (slug: string, label: string): NavItem => ({
   href: `/playground#${slug}`
 });
 
-// Components live at anchors on the playground (`/playground#<slug>`); deep-link redirects in public/_redirects.
 export const nav: readonly NavSection[] = [
   {
     id: 'primitives',

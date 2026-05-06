@@ -50,11 +50,6 @@ for (const slug of SLUGS) {
     });
     const card = page.locator(`section#${slug}`);
     await card.scrollIntoViewIfNeeded();
-    // Stateful islands (combobox, modal) need a hydration tick before
-    // the snapshot is stable. networkidle covers most; double-RAF
-    // gives the React island reconciler one full paint cycle before
-    // we capture — fixes flakiness on the modal + combobox tabs
-    // where the trigger button alone reaches the snapshot too fast.
     await page.evaluate(
       () =>
         new Promise(resolve =>
@@ -64,10 +59,6 @@ for (const slug of SLUGS) {
         )
     );
     await expect(card).toHaveScreenshot(`playground-card-${slug}.png`, {
-      // Threshold raises the per-pixel YIQ tolerance so anti-aliasing
-      // jitter on individual glyphs no longer counts as a "different
-      // pixel". Real layout/structural shifts paint whole blocks
-      // beyond YIQ 0.4 and still trip the cap.
       threshold: 0.4,
       maxDiffPixelRatio: 0.15,
       maxDiffPixels: 20000

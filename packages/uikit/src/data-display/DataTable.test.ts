@@ -11,9 +11,6 @@ interface User {
   status: string;
 }
 
-// DataTable is generic over `<TRow>` but `createElement` can't infer the
-// type parameter from the props bag alone. Cast to a concrete `User`-row
-// component so the column accessor types resolve correctly.
 const TypedDataTable = DataTable as ComponentType<DataTableProps<User>>;
 
 const ROWS: User[] = [

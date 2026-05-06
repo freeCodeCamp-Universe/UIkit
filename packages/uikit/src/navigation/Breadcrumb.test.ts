@@ -109,11 +109,7 @@ test('Breadcrumb passes safe schemes through to the href', () => {
 });
 
 test('Breadcrumb separator class is applied to all but the last item', () => {
-  // The CSS pseudo-element does the visible separator; the
-  // structural test asserts the BEM hooks land on the right items.
   const html = renderTrail();
-  // Three items present — pseudo-element styling lives in CSS;
-  // here we just confirm we don't double up on `__current`.
   const currents = html.match(/breadcrumb__current/g) ?? [];
   assert.equal(currents.length, 1, 'only one current item');
 });

@@ -1,8 +1,3 @@
-// Terminal typewriter for the landing hero. Types a short script
-// character-by-character with a rAF-driven clock so the effect feels
-// native to the page (no library, no setInterval drift). Respects
-// prefers-reduced-motion by painting the whole script at once.
-
 const lines: string[] = [
   'camp@fcc:~$ pnpm add @freecodecamp/uikit',
   '+ @freecodecamp/uikit 0.1.0',

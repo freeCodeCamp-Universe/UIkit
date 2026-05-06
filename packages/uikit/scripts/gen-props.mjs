@@ -1,7 +1,4 @@
 #!/usr/bin/env node
-// Extract React component prop signatures via react-docgen-typescript → dist/props.json.
-// Generic components (styleguidist#203) get a stub envelope with `_extractionFailed: true`.
-// Must run AFTER tsup (`clean: true` wipes dist/). CLI: --root <dir> for test harness.
 import { readdirSync, readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -68,7 +65,6 @@ const parser = docgen.withCustomConfig(tsconfigPath, {
   savePropValueAsString: true,
   shouldExtractLiteralValuesFromEnum: true,
   shouldRemoveUndefinedFromOptional: true,
-  // Drop node_modules-sourced props (HTMLAttributes spread) — would inline ~200 props per component.
   propFilter: prop => {
     if (prop.parent == null) return true;
     return !prop.parent.fileName.includes('node_modules');

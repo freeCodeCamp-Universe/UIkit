@@ -1,18 +1,4 @@
 #!/usr/bin/env node
-// Meta-gate: assert Node version is consistent across engines, .nvmrc,
-// composite action default, and CI matrix.
-//
-// Invariants enforced (PH1 SPEC §V7, §V10):
-//   - root package.json#engines.node floor === FLOOR
-//   - every public packages/*/package.json#engines.node === ROOT
-//   - .nvmrc parses to ACTIVE_LTS
-//   - .github/actions/setup-node-pnpm/action.yml default === FLOOR
-//   - .github/workflows/re-test.yml matrix contains FLOOR + ACTIVE_LTS
-//   - every @types/node devDep major === FLOOR
-//
-// Run via: node scripts/check-node-versions.mjs
-// Exit 0 = aligned; exit 1 = drift.
-
 import { readFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 

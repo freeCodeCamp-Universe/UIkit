@@ -1,7 +1,4 @@
 import type { JSX } from 'react';
-// Renders a CSS custom-property name with its runtime-resolved value (not a hand-typed hex).
-// Uncontrolled: self-mounts a MutationObserver on `<html>` and re-reads on palette swap.
-// Controlled (`value` prop): skips the observer; parent drives the re-read for many cells at once.
 import { useEffect, useState, useRef } from 'react';
 
 export interface TokenSwatchProps {
@@ -53,7 +50,6 @@ export function TokenSwatch({
   }, [name, scope, isControlled]);
 
   const display = isControlled ? value || PLACEHOLDER : internal || PLACEHOLDER;
-  // Chip uses var() directly so it paints correctly before the effect resolves the displayed text.
   return (
     <div className='swatch'>
       <div

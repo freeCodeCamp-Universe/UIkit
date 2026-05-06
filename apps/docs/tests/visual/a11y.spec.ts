@@ -9,26 +9,15 @@ for (const path of ROUTES) {
       if ('fonts' in document) await document.fonts.ready;
     });
 
-    // At least one h1. HTML5 allows multiple per-section h1s, and the
-    // landing page legitimately renders `<Heading level={1}>` demo
-    // instances inside its showcase. Lighthouse a11y allows any
-    // count >= 1; we lock the same bar.
     const h1Count = await page.locator('h1').count();
     expect(
       h1Count,
       `${path} must have at least one <h1>`
     ).toBeGreaterThanOrEqual(1);
 
-    // Every image has an alt attribute (even empty="" is allowed for
-    // decorative; missing attribute is the failure).
     const imgsMissingAlt = await page.locator('img:not([alt])').count();
     expect(imgsMissingAlt, `${path} has <img> elements without alt=""`).toBe(0);
 
-    // Every focusable button has an accessible name (text content,
-    // aria-label, aria-labelledby, or title). aria-hidden buttons are
-    // intentionally absent from the a11y tree (e.g. backdrop click
-    // catchers); skip them. CSS `:has-text` does not accept regex,
-    // so iterate.
     const buttons = page.locator(
       'button:not([aria-hidden="true"]):not([tabindex="-1"])'
     );

@@ -22,13 +22,6 @@ test.describe('@behavioural data-table', () => {
     await page.goto('/playground#data-table', { waitUntil: 'networkidle' });
     const card = page.locator('section#data-table .showcase__preview');
     const certHeader = card.locator('th').filter({ hasText: 'Cert' });
-    // The demo does not wire `onSortChange`, so DataTable does not
-    // emit the `<button class="data-table__sort-btn">` (the click
-    // would no-op anyway). The interactive sort cycle is locked at
-    // the L1 unit level — see DataTable.dom.test.tsx →
-    // "clicking a sortable header cycles asc → desc → null". Here
-    // we just lock the header advertising itself as sortable via
-    // `aria-sort` so screen readers can announce the surface.
     await expect(certHeader).toHaveAttribute('aria-sort', 'none');
   });
 

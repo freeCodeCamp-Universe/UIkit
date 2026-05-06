@@ -2,12 +2,6 @@ import React, { forwardRef } from 'react';
 
 export type PaginationEntry = number | 'ellipsis';
 
-/**
- * Compute a compact page list with ellipsis markers. Mirrors the Zag
- * pagination machine output so the vanilla adapter can render the same
- * DOM when Wave 2 Tier 4's Zag-parity review substitutes the machine
- * into this component.
- */
 export function paginationRange(
   page: number,
   pageCount: number,

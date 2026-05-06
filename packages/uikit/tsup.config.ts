@@ -1,11 +1,5 @@
 import { defineConfig } from 'tsup';
 
-// @freecodecamp/uikit — React component bundle.
-// Emits one entry per layer so consumers can deep-import
-// (`@freecodecamp/uikit/primitives`) or pull from the root barrel.
-// Peers (react, react-dom, @ark-ui/react) stay external — never
-// bundle copies of the consumer's own React tree.
-
 export default defineConfig({
   entry: {
     index: 'src/index.ts',

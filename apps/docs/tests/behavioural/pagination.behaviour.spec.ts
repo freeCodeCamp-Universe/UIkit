@@ -7,10 +7,6 @@ test.describe('@behavioural pagination', () => {
     await expect(card).toBeVisible();
     const current = card.locator('button[aria-current="page"]');
     await expect(current).toHaveText('3');
-    // `paginationRange(3, 12, 1)` returns `[1, 2, 3, 4, 'ellipsis', 12]`
-    // — page button "4" is always visible from page 3. The button's
-    // accessible name is `aria-label="Page 4"`; we click via the
-    // structural `data-part="page"` + visible-text contract.
     await card.locator('button[data-part="page"]', { hasText: /^4$/ }).click();
     await expect(card.locator('button[aria-current="page"]')).toHaveText('4');
   });

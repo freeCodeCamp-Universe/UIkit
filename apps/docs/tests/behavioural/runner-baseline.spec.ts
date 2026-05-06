@@ -4,9 +4,6 @@ test.describe('@behavioural baseline', () => {
   test('docs playground serves the canonical chrome', async ({ page }) => {
     // Showcases live at `/playground/` after the IA split (commit f1038b2).
     await page.goto('/playground/', { waitUntil: 'networkidle' });
-    // First card on the playground is `button` — used as the chrome
-    // golden everywhere else in the audit. If this assertion fails,
-    // the whole behavioural tier is suspect.
     const buttonCard = page.locator('section#button');
     await expect(buttonCard).toBeVisible();
     await expect(buttonCard.locator('.showcase__head-title')).toContainText(

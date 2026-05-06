@@ -1,15 +1,4 @@
 #!/usr/bin/env node
-/**
- * Verify dist-cdn/uikit/ is well-formed.
- *
- *   - No absolute `/fonts/` urls in any .min.css.
- *   - Every `./fonts/...` reference resolves to a real file.
- *   - manifest.json sha256 hashes match recomputed file hashes.
- *   - The alias subtrees mirror the top-level bundle.
- *
- * Exits non-zero on any failure.
- */
-
 import { promises as fs } from 'node:fs';
 import { createHash } from 'node:crypto';
 import path from 'node:path';

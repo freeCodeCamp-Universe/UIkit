@@ -1,11 +1,3 @@
-// CommandPalette — keyboard-driven launcher with grouped, filterable items.
-//
-// SSR-friendly: renders the full markup when `open` is true so screenshot
-// tests + static docs work. Client-side `useEffect` adds the keyboard
-// wiring (arrow nav + enter + escape) and backdrop-click close. Uses
-// `role="dialog"` + `aria-modal="true"` + portal-free positioning so we
-// avoid the Ark Dialog portal SSR gap; callers that need focus trap can
-// wrap us in `<Modal>` instead.
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 
 export interface CommandPaletteItem {
@@ -92,8 +84,6 @@ export const CommandPalette = ({
   const [activeIndex, setActiveIndex] = useState(0);
   const activeRef = useRef<HTMLLIElement | null>(null);
 
-  // Reset the active index whenever the filtered list changes so we
-  // never point past the end of the visible items.
   useEffect(() => {
     setActiveIndex(0);
   }, [flat.length]);
@@ -137,8 +127,6 @@ export const CommandPalette = ({
   const classes = ['command-palette', className].filter(Boolean).join(' ');
   const hasMatches = filtered.length > 0;
 
-  // Stable index across groups so the keyboard cursor spans all visible
-  // items. Track with a closure-local counter as we iterate the groups.
   let cursor = -1;
   return (
     <div

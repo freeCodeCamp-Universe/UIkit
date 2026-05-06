@@ -1,12 +1,3 @@
-// Toast — Ark UI powered transient notifications wired to fCC class hooks.
-//
-// Three surfaces:
-//   <Toast>        — pure presentational item, for snapshot tests, SSR,
-//                    and custom integrations (vanilla adapter, Storybook).
-//   createToaster  — factory returning an Ark/Zag toast store. Call
-//                    toaster.create({type, title, description}) anywhere.
-//   <Toaster>      — mounts once near the root. Owns the Ark render-prop
-//                    shell; emits <Toast variant={type}...> for each item.
 import React, { forwardRef } from 'react';
 import {
   Toast as ArkToast,
@@ -48,8 +39,6 @@ export const Toast = forwardRef<HTMLDivElement, ToastProps>(
     const classes = ['toast', `toast--${variant}`, className]
       .filter(Boolean)
       .join(' ');
-    // `danger` toasts surface errors — assistive tech should interrupt,
-    // so we upgrade to role=alert. Other variants stay polite via status.
     const role = variant === 'danger' ? 'alert' : 'status';
     return (
       <div ref={ref} role={role} className={classes} {...rest}>
@@ -76,9 +65,6 @@ export const Toast = forwardRef<HTMLDivElement, ToastProps>(
 );
 Toast.displayName = 'Toast';
 
-// Re-export Ark factory with the fCC-idiomatic name so callers do not
-// reach past the package boundary. Defaults: top-end placement, 5s auto
-// dismiss, stack overlap on.
 export type { CreateToasterProps, CreateToasterReturn };
 
 export const createToaster = (props: CreateToasterProps): CreateToasterReturn =>
@@ -97,9 +83,6 @@ export interface ToasterProps {
   className?: string;
 }
 
-// Render-prop shell that mounts Ark's <Toast.Toaster>. Each item maps
-// into a <Toast.Root> with our <Toast> body inside so keyboard + swipe
-// + auto-dismiss stay Ark-driven while the pixels stay on our tokens.
 export const Toaster = ({
   toaster,
   children,

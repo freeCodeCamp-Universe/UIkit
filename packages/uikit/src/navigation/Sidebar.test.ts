@@ -173,8 +173,6 @@ test('isActiveHrefWithHash requires the hash to match exactly', () => {
 });
 
 test('isActiveHrefWithHash treats bare `#frag` href as same-route fragment', () => {
-  // `href='#button'` (no leading path) should activate when on any
-  // path with the matching hash. This pattern is rare but ergonomic.
   assert.equal(isActiveHrefWithHash('/', '#button', '#button'), true);
   assert.equal(isActiveHrefWithHash('/handbook', '#button', '#button'), true);
 });

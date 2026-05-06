@@ -9,9 +9,6 @@ const appRoot = resolve(here, '..', '..');
 const repoRoot = resolve(appRoot, '..', '..');
 
 function grep(pattern: string, root: string): string {
-  // -I skips binary; --exclude='*.test.*' skips test files (they may
-  // legitimately reference the retired symbols when asserting their
-  // absence — including this file's own assertions).
   try {
     return execSync(
       `grep -rEI ${JSON.stringify(pattern)} ${JSON.stringify(root)} --include='*.astro' --include='*.ts' --include='*.tsx' --include='*.mdx' --include='*.md' --include='*.css' --exclude='*.test.ts' --exclude='*.test.tsx'`,
@@ -28,12 +25,6 @@ function grep(pattern: string, root: string): string {
 const SRC = resolve(appRoot, 'src');
 
 test('no `/api/<slug>` references in apps/docs/src', () => {
-  // Permitted survivors:
-  //  - this test file (`api-purge.test.ts`) describes the retirement.
-  //  - any `.md.ts` agent endpoint that itself rewrites links is fine
-  //    so long as it does NOT emit `/api/` paths.
-  // Disallowed: any source file under apps/docs/src that still
-  // contains a literal `/api/<word>` href.
   const matches = grep('/api/[a-z]', SRC)
     .split('\n')
     .filter(line => line.length > 0)

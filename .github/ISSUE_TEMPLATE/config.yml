@@ -1,8 +1,3 @@
-# Force users through the contact_links flow. The freeCodeCamp.org
-# community handles bug-reporting through the contributor platform +
-# forum; security disclosures follow SECURITY.md privately. Add
-# bug_report.yml / feature_request.yml later only if signal-to-noise
-# demands it (see docs/v1.1-backlog.md, repo-going-public follow-ups).
 blank_issues_enabled: false
 
 contact_links:

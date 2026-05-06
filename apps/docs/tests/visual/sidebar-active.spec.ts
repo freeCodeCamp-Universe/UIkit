@@ -11,9 +11,6 @@ for (const slug of SLUGS) {
     await page.evaluate(async () => {
       if ('fonts' in document) await document.fonts.ready;
     });
-    // Land at the section. The spy enhancer reads scroll position +
-    // hash on hashchange + scroll, so navigating via `location.hash`
-    // is enough to trigger the active-state flip.
     await page.evaluate(s => {
       const el = document.getElementById(s);
       el?.scrollIntoView({ behavior: 'auto', block: 'start' });

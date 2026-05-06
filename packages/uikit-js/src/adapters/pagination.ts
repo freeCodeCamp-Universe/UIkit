@@ -1,23 +1,3 @@
-// Pagination adapter — wires [data-uikit-pagination] roots to page
-// switching with keyboard navigation.
-//
-// Placeholder note: the long-term design substitutes the
-// @zag-js/pagination state machine so behaviour matches the React
-// layer bit-for-bit. For the Phase 2D first ship we hand-roll a small
-// adapter that already speaks the same DOM contract the React
-// component emits (data-part="prev|page|next|ellipsis", aria-current,
-// aria-label="pagination"). The Wave 2 Zag-parity review can drop the
-// machine in without touching consumer markup.
-//
-// DOM contract:
-//   [data-uikit-pagination]                 → root <nav>
-//     [data-part="prev"]                    → previous-page <button>
-//     [data-part="page"][data-page="<n>"]   → numeric page <button>
-//     [data-part="next"]                    → next-page <button>
-//     [data-part="ellipsis"]                → non-interactive filler <li>
-//   Root emits a `uikit:pagination-change` CustomEvent when the user
-//   picks a new page — detail: { page, previous }.
-
 export interface PaginationInstance {
   getPage(): number;
   setPage(next: number): void;

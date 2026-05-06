@@ -1,6 +1,3 @@
-// React <Icon> wrapper. Defaults to aria-hidden so icons inside buttons
-// with accompanying text do not duplicate the label; pass `label` to
-// promote the icon to role="img" with an accessible name.
 import type { SVGAttributes } from 'react';
 import { icons, svgAttrs, type IconName } from './icons';
 

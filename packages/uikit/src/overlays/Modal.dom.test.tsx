@@ -10,8 +10,6 @@ test('open=true mounts a Dialog with role=dialog + aria-modal', () => {
       <Modal.Body>body</Modal.Body>
     </Modal>
   );
-  // Ark renders Dialog.Content into the same React tree (no portal
-  // wrapper here), so the dialog node is in `container`.
   const dialog = container.querySelector('[role="dialog"][aria-modal="true"]');
   expect(dialog).not.toBeNull();
 });

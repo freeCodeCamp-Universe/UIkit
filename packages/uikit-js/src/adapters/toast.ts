@@ -1,28 +1,3 @@
-// Toast adapter — declarative vanilla notifications.
-//
-// Mirrors the DOM contract Ark UI + Zag emit on the React side so a
-// future swap to `@zag-js/toast` stays non-breaking. For the Phase
-// 3B1 scaffold we ship a tiny hand-rolled stack with auto-dismiss,
-// pause-on-hover, keyboard close, and fCC class hooks.
-//
-// DOM contract:
-//   [data-uikit-toaster]                               → container
-//   [data-uikit-toast-trigger]                         → click opens toast
-//     data-toast-type="info|success|warning|danger"
-//     data-toast-title="…"
-//     data-toast-description="…"
-//     data-toast-duration="5000"                       → optional (ms)
-//     data-toast-dismissible="false"                   → optional
-//
-// Each emitted toast:
-//   <div class="toast toast--<type>" role="status|alert" data-state="open">
-//     <div class="toast__body">
-//       <p class="toast__title">…</p>
-//       <p class="toast__description">…</p>
-//     </div>
-//     <button class="toast__close" aria-label="Dismiss">×</button>
-//   </div>
-
 export interface ToasterInstance {
   push(options: ToastOptions): () => void;
   destroy(): void;
@@ -107,8 +82,6 @@ export function toaster(container: HTMLElement): ToasterInstance {
       timer = undefined;
     };
 
-    // Pause the dismissal timer while the pointer is over the toast —
-    // the stack should never pull the rug out during a read/hover.
     el.addEventListener('pointerenter', cancel);
     el.addEventListener('pointerleave', schedule);
     schedule();

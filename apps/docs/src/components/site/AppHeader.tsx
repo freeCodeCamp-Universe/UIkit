@@ -1,5 +1,3 @@
-// SSR-only docs header on uikit Navbar. Sibling inline script in AppHeader.astro wires
-// theme-swap + search-open via `data-theme-swap` / `data-open-search`.
 import type { JSX } from 'react';
 import { Navbar } from '@freecodecamp/uikit/navigation';
 

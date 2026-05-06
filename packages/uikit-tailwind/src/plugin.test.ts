@@ -1,5 +1,3 @@
-// Behavioural contract for the fCC Tailwind plugin.
-// Exercises the plugin handler so coverage hits the inner callback.
 import { test } from 'vitest';
 import assert from 'node:assert/strict';
 import fccPlugin from './plugin';

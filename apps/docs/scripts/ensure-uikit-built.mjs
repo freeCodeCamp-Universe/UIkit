@@ -1,5 +1,3 @@
-// Auto-build guard: docs imports `@freecodecamp/uikit/props.json` at build time;
-// run `pnpm -F @freecodecamp/uikit build` on a fresh clone where dist/ doesn't exist yet.
 import { existsSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';

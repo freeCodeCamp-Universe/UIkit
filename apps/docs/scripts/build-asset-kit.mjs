@@ -1,10 +1,3 @@
-// Pack the brand marks into a single `public/brand/asset-kit.zip` so
-// `/handbook#brand` can offer a single-click kit download. Wired into
-// both `predev` and `prebuild` so the zip is always fresh.
-//
-// The zip itself is gitignored — the `zip` CLI writes timestamps +
-// compression-flag bytes that drift per run, which would otherwise
-// churn `git status`.
 import { execFileSync } from 'node:child_process';
 import { existsSync, unlinkSync } from 'node:fs';
 import path from 'node:path';

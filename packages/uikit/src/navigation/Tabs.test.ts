@@ -4,23 +4,6 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { createElement } from 'react';
 import { Tabs, Tab } from './Tabs.tsx';
 
-/**
- * Behavioural contract for <Tabs>:
- *   - ARIA tablist + role="tab" triggers + role="tabpanel" panels
- *   - aria-selected on the active trigger
- *   - ark/zag marks selection with `data-selected=""` on the active
- *     trigger (absent on inactive). The stylesheet targets that.
- *   - Content panels expose `data-state="open"` on the active panel and
- *     `data-state="closed"` on inactive ones (ark renders inactive
- *     panels with `hidden`, preserving our "inactive panels hidden"
- *     invariant).
- *   - controlled activeKey overrides defaultActiveKey
- *
- * Keyboard navigation (Arrow / Home / End) is driven by the @zag-js
- * machine and is exercised by Playwright goldens once components ship
- * with interactive stories. SSR tests assert shape only.
- */
-
 // Extract individual attributes from an anchor/button tag by tag pattern.
 function extractTagByRole(html: string, role: string): string[] {
   const re = new RegExp(`<[^>]*role="${role}"[^>]*>`, 'g');
