@@ -26,6 +26,9 @@ jobs:
       - name: Install workspace deps
         run: pnpm install --frozen-lockfile
 
+      - name: Install zip
+        run: apt-get update && apt-get install -y zip
+
       - name: Build packages (docs needs uikit + uikit-css + uikit-js + uikit-icons dists)
         run: pnpm build
 

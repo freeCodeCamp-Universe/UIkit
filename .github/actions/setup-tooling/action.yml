@@ -31,4 +31,5 @@ runs:
       run: pnpm install --frozen-lockfile
 
     - name: Install zip
+      shell: bash
       run: sudo apt-get update && sudo apt-get install -y zip
