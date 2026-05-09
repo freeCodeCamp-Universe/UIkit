@@ -20,8 +20,7 @@ jobs:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
       - name: Setup Node.js + pnpm
-        uses: ./.github/actions/setup-node-pnpm
-
+        uses: ./.github/actions/setup-tooling
       - name: Build all packages
         run: pnpm build
 

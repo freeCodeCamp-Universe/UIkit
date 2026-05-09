@@ -243,7 +243,7 @@ GitHub Actions live in `.github/workflows/`:
   [`docs/adr/0008-cloudflare-pages-git-integration.md`](./adr/0008-cloudflare-pages-git-integration.md)
   and [`docs/runbooks/deploy-docs.md`](./runbooks/deploy-docs.md).
 
-Composite action `.github/actions/setup-node-pnpm/action.yml` installs pnpm
+Composite action `.github/actions/setup-tooling/action.yml` installs pnpm
 and Node, with `node-version` defaulting to `22` (the floor).
 
 ## Husky + lint-staged

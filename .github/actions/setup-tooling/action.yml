@@ -1,4 +1,4 @@
-name: Setup Node.js + pnpm
+name: Setup Tooling
 description: Install pnpm, set up Node.js with pnpm cache, install workspace deps.
 
 inputs:
@@ -29,3 +29,6 @@ runs:
       if: ${{ inputs.install == 'true' }}
       shell: bash
       run: pnpm install --frozen-lockfile
+
+    - name: Install zip
+      run: sudo apt-get update && sudo apt-get install -y zip
