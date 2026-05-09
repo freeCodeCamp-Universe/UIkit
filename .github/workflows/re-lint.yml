@@ -19,7 +19,7 @@ jobs:
           args: -color
 
       - name: Setup Node.js + pnpm
-        uses: ./.github/actions/setup-node-pnpm
+        uses: ./.github/actions/setup-tooling
 
       - name: Format check
         run: pnpm format:check
