@@ -17,6 +17,7 @@ const STATEFUL = new Set([
   'radio',
   'switch',
   'tabs',
+  'tile-matcher',
   'toast',
   'toggle-button',
   'tooltip'
