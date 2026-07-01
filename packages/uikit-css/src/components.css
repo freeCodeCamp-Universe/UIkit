@@ -2784,7 +2784,9 @@
   transform: none;
   transition: none;
 }
-.tile-matcher--no-flip .tile-matcher__tile[data-state='up'] .tile-matcher__inner,
+.tile-matcher--no-flip
+  .tile-matcher__tile[data-state='up']
+  .tile-matcher__inner,
 .tile-matcher--no-flip
   .tile-matcher__tile[data-state='matched']
   .tile-matcher__inner {
@@ -2793,11 +2795,17 @@
 .tile-matcher--no-flip .tile-matcher__face--front {
   transform: none;
 }
-.tile-matcher--no-flip .tile-matcher__tile[data-state='down'] .tile-matcher__face--front,
-.tile-matcher--open .tile-matcher__tile[data-state='down'] .tile-matcher__face--front {
+.tile-matcher--no-flip
+  .tile-matcher__tile[data-state='down']
+  .tile-matcher__face--front,
+.tile-matcher--open
+  .tile-matcher__tile[data-state='down']
+  .tile-matcher__face--front {
   opacity: 0;
 }
-.tile-matcher--no-flip .tile-matcher__tile[data-state='down'] .tile-matcher__face--back {
+.tile-matcher--no-flip
+  .tile-matcher__tile[data-state='down']
+  .tile-matcher__face--back {
   opacity: 1;
 }
 /* Faces-shown mode: front always visible; back only masks the down state. */
@@ -2807,7 +2815,9 @@
 .tile-matcher--open .tile-matcher__face--front {
   transform: none;
 }
-.tile-matcher--open .tile-matcher__tile[data-state='down'] .tile-matcher__face--back {
+.tile-matcher--open
+  .tile-matcher__tile[data-state='down']
+  .tile-matcher__face--back {
   opacity: 0;
 }
 .tile-matcher__sr-status {
