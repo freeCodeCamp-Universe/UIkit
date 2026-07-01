@@ -29,7 +29,8 @@ const LAYER_SUBPATHS = [
   './overlays',
   './navigation',
   './data-display',
-  './layouts'
+  './layouts',
+  './games'
 ] as const;
 
 test('package.json declares main/module/types at dist root', () => {

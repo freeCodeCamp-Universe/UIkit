@@ -113,6 +113,16 @@
         "default": "./dist/layouts.cjs"
       }
     },
+    "./games": {
+      "import": {
+        "types": "./dist/games.d.ts",
+        "default": "./dist/games.js"
+      },
+      "require": {
+        "types": "./dist/games.d.cts",
+        "default": "./dist/games.cjs"
+      }
+    },
     "./props.json": "./dist/props.json",
     "./package.json": "./package.json"
   },

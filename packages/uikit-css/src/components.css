@@ -2690,3 +2690,139 @@
   color: var(--foreground-primary);
   font-weight: 600;
 }
+
+/* Tile Matcher — interactive memory / matching game */
+.tile-matcher {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+.tile-matcher__grid {
+  display: grid;
+  grid-template-columns: repeat(var(--tm-cols, auto-fit), minmax(96px, 1fr));
+  gap: var(--space-3);
+}
+.tile-matcher__tile {
+  position: relative;
+  aspect-ratio: 1;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  perspective: 800px;
+  cursor: pointer;
+}
+.tile-matcher__tile:disabled {
+  cursor: default;
+}
+.tile-matcher__tile:focus-visible {
+  outline: var(--focus-outline-width) solid var(--focus-outline-color);
+  outline-offset: 2px;
+}
+.tile-matcher__inner {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.tile-matcher__tile[data-state='up'] .tile-matcher__inner,
+.tile-matcher__tile[data-state='matched'] .tile-matcher__inner {
+  transform: rotateY(180deg);
+}
+.tile-matcher__face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--space-3);
+  border: var(--border-width-default) solid var(--foreground-quaternary);
+  backface-visibility: hidden;
+  font-size: var(--fs-md);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-snug);
+  overflow: hidden;
+}
+.tile-matcher__face--back {
+  background: var(--background-tertiary);
+  color: var(--foreground-secondary);
+}
+.tile-matcher__face--front {
+  background: var(--background-secondary);
+  color: var(--foreground-primary);
+  transform: rotateY(180deg);
+}
+.tile-matcher__cover {
+  width: 40%;
+  height: 40%;
+  border: var(--border-width-thick) solid var(--foreground-quaternary);
+  border-radius: 50%;
+}
+.tile-matcher__tile:hover:not(:disabled) .tile-matcher__face--back {
+  border-color: var(--highlight-color);
+  color: var(--foreground-primary);
+}
+.tile-matcher__tile[data-state='up'] .tile-matcher__face--front {
+  border-color: var(--highlight-color);
+  background: var(--highlight-background);
+}
+.tile-matcher__tile[data-state='matched'] .tile-matcher__face--front {
+  border-color: var(--success-color);
+  background: var(--success-background);
+  color: var(--success-color);
+}
+.tile-matcher__face--front img,
+.tile-matcher__face--front svg {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+/* No-flip mode: swap faces instantly, no 3D rotation. */
+.tile-matcher--no-flip .tile-matcher__inner {
+  transform: none;
+  transition: none;
+}
+.tile-matcher--no-flip .tile-matcher__tile[data-state='up'] .tile-matcher__inner,
+.tile-matcher--no-flip
+  .tile-matcher__tile[data-state='matched']
+  .tile-matcher__inner {
+  transform: none;
+}
+.tile-matcher--no-flip .tile-matcher__face--front {
+  transform: none;
+}
+.tile-matcher--no-flip .tile-matcher__tile[data-state='down'] .tile-matcher__face--front,
+.tile-matcher--open .tile-matcher__tile[data-state='down'] .tile-matcher__face--front {
+  opacity: 0;
+}
+.tile-matcher--no-flip .tile-matcher__tile[data-state='down'] .tile-matcher__face--back {
+  opacity: 1;
+}
+/* Faces-shown mode: front always visible; back only masks the down state. */
+.tile-matcher--open .tile-matcher__inner {
+  transform: none;
+}
+.tile-matcher--open .tile-matcher__face--front {
+  transform: none;
+}
+.tile-matcher--open .tile-matcher__tile[data-state='down'] .tile-matcher__face--back {
+  opacity: 0;
+}
+.tile-matcher__sr-status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .tile-matcher__inner {
+    transition: none;
+  }
+}

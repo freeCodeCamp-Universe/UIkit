@@ -1,0 +1,162 @@
+---
+title: Tile matcher
+eyebrow: <TileMatcher />
+status: beta
+since: '0.2.0'
+category: game
+summary: Data-driven memory / matching game for interactive curricula. Builds a deck from pairs, flips tiles to reveal, and fires callbacks on match and completion.
+tokens:
+  - --dur-base
+  - --ease-out
+  - --success-color
+  - --success-background
+  - --highlight-color
+  - --highlight-background
+order: 1
+---
+
+import PropTable from '../../components/site/PropTable.astro';
+import TokenChips from '../../components/site/TokenChips.astro';
+import DoDont from '../../components/site/DoDont.astro';
+import RelatedComponents from '../../components/site/RelatedComponents.astro';
+import PlaygroundLink from '../../components/site/PlaygroundLink.astro';
+
+A concentration-style game for reinforcement drills. Supply a list of `pairs`;
+the deck size is `2 × pairs.length`. Give a pair **one** face for a classic
+identical match, or **two** faces for a related match (term ↔ definition,
+image ↔ label). Faces accept any node — text, an `<img>`, `<Image>`, or an icon.
+
+<PlaygroundLink
+  code={`import { TileMatcher } from '@freecodecamp/uikit/games';
+
+export function App() {
+  const pairs = [
+    { id: 'html', faces: ['HTML', 'Structure'] },
+    { id: 'css', faces: ['CSS', 'Style'] },
+    { id: 'js', faces: ['JS', 'Behavior'] }
+  ];
+  return (
+    <div style={{ padding: 24, maxWidth: 420 }}>
+      <TileMatcher
+        pairs={pairs}
+        columns={3}
+        onMatch={(id) => console.log('matched', id)}
+        onComplete={({ moves }) => console.log('done in', moves, 'moves')}
+      />
+    </div>
+  );
+}
+`}
+/>
+
+## Props
+
+<PropTable
+  rows={[
+    {
+      name: 'pairs',
+      type: 'TileMatcherPair[]',
+      default: '—',
+      description:
+        'Deck definition. Each pair has an `id` and `faces` (one node → duplicated, two nodes → related). Match = equal pair `id`.'
+    },
+    {
+      name: 'columns',
+      type: 'number',
+      default: 'auto-fit',
+      description: 'Fixed grid columns. Omit for a responsive grid.'
+    },
+    {
+      name: 'animateFlip',
+      type: 'boolean',
+      default: 'true',
+      description: 'Flip animation on reveal. `false` swaps faces instantly.'
+    },
+    {
+      name: 'faceDown',
+      type: 'boolean',
+      default: 'true',
+      description:
+        'Start tiles face-down (memory). `false` shows every face for a pure matching drill.'
+    },
+    {
+      name: 'mismatchDelay',
+      type: 'number',
+      default: '900',
+      description:
+        'Milliseconds a mismatched pair stays up before flipping back.'
+    },
+    {
+      name: 'shuffle / seed',
+      type: 'boolean / number',
+      default: 'true / —',
+      description:
+        'Shuffle the deck. Pass `seed` for a deterministic order (tests, snapshots).'
+    },
+    {
+      name: 'onMatch',
+      type: '(pairId, [tileA, tileB]) => void',
+      default: '—',
+      description: 'Fires when a pair is matched.'
+    },
+    {
+      name: 'onComplete',
+      type: '({ moves, matches }) => void',
+      default: '—',
+      description: 'Fires once every pair is matched.'
+    }
+  ]}
+/>
+
+## Keyboard
+
+| Key           | Action                     |
+| ------------- | -------------------------- |
+| Tab           | Moves focus between tiles. |
+| Space / Enter | Flips the focused tile.    |
+
+## Accessibility
+
+Each tile is a native `<button>` with an `aria-label` that reads "Hidden tile"
+while face-down and the face content once revealed. Matched tiles are
+`disabled` and drop out of the tab order. A visually-hidden `aria-live`
+region announces matches and board completion. The flip animation is
+suppressed under `prefers-reduced-motion`.
+
+## Tokens consumed
+
+<TokenChips
+  tokens={[
+    '--dur-base',
+    '--ease-out',
+    '--success-color',
+    '--success-background',
+    '--highlight-color',
+    '--highlight-background'
+  ]}
+/>
+
+## Do & Don't
+
+<DoDont>
+  <Fragment slot='do'>
+    <ul>
+      <li>Memoize `pairs` so the deck does not reshuffle on every render.</li>
+      <li>Use two distinct faces for concept drills (term ↔ definition).</li>
+      <li>Pass a `seed` when you need a reproducible board.</li>
+    </ul>
+  </Fragment>
+  <Fragment slot='dont'>
+    <ul>
+      <li>Don't pack too many pairs into a narrow column count.</li>
+      <li>
+        Don't rely on colour alone — matched state also changes the border.
+      </li>
+      <li>Don't omit accessible labels on image-only faces.</li>
+    </ul>
+  </Fragment>
+</DoDont>
+
+## Related
+
+<RelatedComponents slugs={['card', 'toggle-button', 'badge']} />

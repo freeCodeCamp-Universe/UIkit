@@ -27,7 +27,8 @@ const components = defineCollection({
       'overlay',
       'navigation',
       'data-display',
-      'layout'
+      'layout',
+      'game'
     ]),
     summary: z.string(),
     a11yPattern: z.url().optional(),
