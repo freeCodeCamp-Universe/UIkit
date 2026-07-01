@@ -71,9 +71,9 @@ console.log('.nvmrc');
 }
 
 // 4. composite action default
-console.log('setup-node-pnpm action default');
+console.log('setup-tooling action default');
 {
-  const yml = readText('.github/actions/setup-node-pnpm/action.yml');
+  const yml = readText('.github/actions/setup-tooling/action.yml');
   const m = yml.match(/node-version:[\s\S]*?default:\s*'(\d+)'/);
   if (!m) {
     fail(`action.yml: cannot parse node-version default`);
