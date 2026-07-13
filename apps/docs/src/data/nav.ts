@@ -114,6 +114,11 @@ export const nav: readonly NavSection[] = [
       c('stacked-layout', 'Stacked layout'),
       c('auth-layout', 'Auth layout')
     ]
+  },
+  {
+    id: 'games',
+    label: 'Games',
+    items: [c('tile-matcher', 'Tile matcher')]
   }
 ];
 

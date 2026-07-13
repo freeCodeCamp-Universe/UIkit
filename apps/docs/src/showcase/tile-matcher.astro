@@ -1,0 +1,53 @@
+---
+import PlaygroundCard from '../components/site/PlaygroundCard.astro';
+import { Code } from 'astro/components';
+import { TileMatcherDemo } from './_islands/TileMatcherDemo';
+---
+
+<PlaygroundCard
+  id='tile-matcher'
+  slug='TileMatcher'
+  title='Tile matcher'
+  description='Data-driven memory / matching game for interactive curricula. Flip to reveal, match pairs, fire callbacks.'
+  source='games/TileMatcher.tsx'
+  status='beta'
+  since='0.2.0'
+  tokens={['--dur-base', '--ease-out', '--success-color', '--highlight-color']}
+>
+  <Fragment slot='preview'>
+    <TileMatcherDemo client:visible />
+  </Fragment>
+  <Code
+    slot='react'
+    lang='tsx'
+    code={`import { TileMatcher } from '@freecodecamp/uikit/games';
+
+const pairs = [
+  { id: 'html', faces: ['HTML', 'Structure'] },
+  { id: 'css', faces: ['CSS', 'Style'] },
+  { id: 'js', faces: ['JS', 'Behavior'] }
+];
+
+export function Drill() {
+  return (
+    <TileMatcher
+      pairs={pairs}
+      columns={3}
+      onMatch={(id) => console.log('matched', id)}
+      onComplete={({ moves }) => console.log('done in', moves, 'moves')}
+    />
+  );
+}`}
+  />
+  <Code
+    slot='html'
+    lang='html'
+    code={`<!-- TileMatcher is a stateful React component.
+     Use the React package for curriculum embeds. -->
+<div class="tile-matcher">
+  <div class="tile-matcher__grid">
+    <button class="tile-matcher__tile" data-state="down">…</button>
+  </div>
+</div>`}
+  />
+</PlaygroundCard>

@@ -52,5 +52,7 @@ export const knownComponentSlugs: ReadonlySet<string> = new Set<string>([
   // Layouts
   'sidebar-layout',
   'stacked-layout',
-  'auth-layout'
+  'auth-layout',
+  // Games
+  'tile-matcher'
 ]);

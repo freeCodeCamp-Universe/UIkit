@@ -8,7 +8,8 @@ export default defineConfig({
     overlays: 'src/overlays/index.ts',
     navigation: 'src/navigation/index.ts',
     'data-display': 'src/data-display/index.ts',
-    layouts: 'src/layouts/index.ts'
+    layouts: 'src/layouts/index.ts',
+    games: 'src/games/index.ts'
   },
   format: ['esm', 'cjs'],
   dts: true,

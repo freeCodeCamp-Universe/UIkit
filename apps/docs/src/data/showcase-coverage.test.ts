@@ -30,11 +30,11 @@ test('showcase/ directory has no orphans not in knownComponentSlugs', () => {
   }
 });
 
-test('exactly 46 showcase files (one per component)', () => {
+test('exactly 47 showcase files (one per component)', () => {
   assert.equal(
     showcaseFiles.length,
-    46,
-    `expected 46 showcase files, got ${showcaseFiles.length}`
+    47,
+    `expected 47 showcase files, got ${showcaseFiles.length}`
   );
 });
 
