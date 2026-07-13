@@ -1,0 +1,163 @@
+---
+title: Hotspots
+eyebrow: <Hotspots />
+status: beta
+since: '0.2.0'
+category: game
+summary: Clickable regions overlaid on a background image, diagram, or SVG. Quiz mode compares the pick to a target and surfaces feedback plus a hint after repeated misses.
+tokens:
+  - --highlight-color
+  - --success-color
+  - --danger-color
+  - --dur-fast
+  - --ease-out
+order: 2
+---
+
+import PropTable from '../../components/site/PropTable.astro';
+import TokenChips from '../../components/site/TokenChips.astro';
+import DoDont from '../../components/site/DoDont.astro';
+import RelatedComponents from '../../components/site/RelatedComponents.astro';
+import PlaygroundLink from '../../components/site/PlaygroundLink.astro';
+
+Overlay clickable regions on any background — an image `src`, a component, or an
+inline `<svg>`. Hotspot geometry is expressed against a `width` × `height`
+coordinate space, so shapes stay aligned as the widget scales. Use the exported
+shape primitives (`CircleHotspot`, `RectHotspot`, `EllipseHotspot`,
+`PolygonHotspot`) or supply any custom SVG node. Give a `targetId` for a
+"find the region" quiz, or omit it for free selection.
+
+<PlaygroundLink
+  code={`import { Hotspots, CircleHotspot, EllipseHotspot } from '@freecodecamp/uikit/games';
+
+export function App() {
+  const hotspots = [
+    { id: 'head', label: 'Head', shape: <CircleHotspot cx={55} cy={55} r={24} /> },
+    { id: 'body', label: 'Body', shape: <EllipseHotspot cx={110} cy={80} rx={55} ry={30} /> }
+  ];
+  return (
+    <div style={{ padding: 24, maxWidth: 360 }}>
+      <Hotspots
+        background='/bird.png'
+        backgroundAlt='A songbird'
+        width={200}
+        height={140}
+        hotspots={hotspots}
+        targetId='head'
+        prompt='Click the head'
+        onCorrect={(id) => console.log('correct', id)}
+      />
+    </div>
+  );
+}
+`}
+/>
+
+## Props
+
+<PropTable
+  rows={[
+    {
+      name: 'background',
+      type: 'string | ReactNode',
+      default: '—',
+      description:
+        'A string is rendered as an `<img>` (`backgroundAlt` supplies alt text). Any node — component or `<svg>` — is rendered as-is behind the overlay.'
+    },
+    {
+      name: 'width / height',
+      type: 'number',
+      default: '—',
+      description:
+        'The coordinate space hotspot shapes are drawn against. Also sets the stage aspect ratio.'
+    },
+    {
+      name: 'hotspots',
+      type: 'HotspotItem[]',
+      default: '—',
+      description:
+        'Each has an `id`, `label`, and a `shape` node. `disabled` skips a region.'
+    },
+    {
+      name: 'targetId',
+      type: 'string',
+      default: '—',
+      description: 'Quiz mode: the correct hotspot. Omit for free selection.'
+    },
+    {
+      name: 'prompt',
+      type: 'ReactNode',
+      default: '—',
+      description: 'Instruction shown above the stage.'
+    },
+    {
+      name: 'hintAfter',
+      type: 'number',
+      default: '3',
+      description:
+        'Reveal a hint naming the target after this many wrong picks.'
+    },
+    {
+      name: 'onSelect / onCorrect / onIncorrect',
+      type: '(id: string) => void',
+      default: '—',
+      description:
+        '`onSelect` fires on every pick. `onCorrect` / `onIncorrect` fire in quiz mode.'
+    }
+  ]}
+/>
+
+## Keyboard
+
+| Key           | Action                        |
+| ------------- | ----------------------------- |
+| Tab           | Moves focus between hotspots. |
+| Space / Enter | Selects the focused hotspot.  |
+
+## Accessibility
+
+Each hotspot is a `role="button"` with `tabindex="0"`, an `aria-label`, and
+`aria-pressed` reflecting selection. A visually-hidden `aria-live` region
+announces each pick and the result. When `background` is a string, the `<img>`
+carries `backgroundAlt`. State colour is paired with a stroke change so it
+does not rely on colour alone. The shape transition is suppressed under
+`prefers-reduced-motion`.
+
+## Tokens consumed
+
+<TokenChips
+  tokens={[
+    '--highlight-color',
+    '--success-color',
+    '--danger-color',
+    '--dur-fast',
+    '--ease-out'
+  ]}
+/>
+
+## Do & Don't
+
+<DoDont>
+  <Fragment slot='do'>
+    <ul>
+      <li>Match `width` / `height` to the background's aspect ratio.</li>
+      <li>Give every hotspot a clear, unique `label`.</li>
+      <li>Use the shape primitives so state colours apply automatically.</li>
+    </ul>
+  </Fragment>
+  <Fragment slot='dont'>
+    <ul>
+      <li>Don't overlap hotspots so tightly that picks are ambiguous.</li>
+      <li>
+        Don't hardcode fill on custom shapes — let the component drive state.
+      </li>
+      <li>
+        Don't omit `backgroundAlt` when the background is an informative image.
+      </li>
+    </ul>
+  </Fragment>
+</DoDont>
+
+## Related
+
+<RelatedComponents slugs={['tile-matcher', 'image', 'card']} />
