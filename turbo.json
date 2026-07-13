@@ -57,6 +57,10 @@
     "@freecodecamp/uikit-css#build": {
       "dependsOn": [],
       "outputs": []
+    },
+    "@freecodecamp/uikit-cdn#build": {
+      "dependsOn": ["^build"],
+      "outputs": ["../../dist-cdn/**"]
     }
   }
 }
