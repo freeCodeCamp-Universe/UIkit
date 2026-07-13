@@ -118,7 +118,7 @@ export const nav: readonly NavSection[] = [
   {
     id: 'games',
     label: 'Games',
-    items: [c('tile-matcher', 'Tile matcher')]
+    items: [c('tile-matcher', 'Tile matcher'), c('hotspots', 'Hotspots')]
   }
 ];
 

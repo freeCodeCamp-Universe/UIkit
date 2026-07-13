@@ -1,0 +1,85 @@
+---
+import PlaygroundCard from '../components/site/PlaygroundCard.astro';
+import { Code } from 'astro/components';
+import { HotspotsDemo } from './_islands/HotspotsDemo';
+---
+
+<PlaygroundCard
+  id='hotspots'
+  slug='Hotspots'
+  title='Hotspots'
+  description='Clickable regions overlaid on a background image or diagram. Quiz mode with target, feedback, and hints.'
+  source='games/Hotspots.tsx'
+  status='beta'
+  since='0.2.0'
+  tokens={[
+    '--highlight-color',
+    '--success-color',
+    '--danger-color',
+    '--dur-fast'
+  ]}
+>
+  <Fragment slot='preview'>
+    <HotspotsDemo client:visible />
+  </Fragment>
+  <Code
+    slot='react'
+    lang='tsx'
+    code={`import { Hotspots, RectHotspot, CircleHotspot, EllipseHotspot } from '@freecodecamp/uikit/games';
+
+const Diagram = (): JSX.Element => (
+  <img src='/favicon.svg' alt='freecodecamp logo' />
+);
+
+const HOTSPOTS: HotspotItem[] = [
+  {
+    id: 'bracket-left',
+    label: 'Opening Paren',
+    shape: <RectHotspot x={33} y={25} width={29} height={92} />
+  },
+  {
+    id: 'fire',
+    label: 'Fire',
+    shape: <EllipseHotspot cx={100} cy={75} rx={30} ry={45} />
+  },
+  {
+    id: 'bracket-right',
+    label: 'Closing Paren',
+    shape: <RectHotspot x={138} y={25} width={29} height={92} />
+  }
+];
+
+export function HotspotsDemo(): JSX.Element {
+  return (
+    <div style={{ width: '100%', maxWidth: 360, margin: '0 auto' }}>
+      <Hotspots
+        background={<Diagram />}
+        width={200}
+        height={140}
+        hotspots={HOTSPOTS}
+        targetId='fire'
+        prompt='Click the fire'
+        onCorrect={id => console.log('correct', id)}
+      />
+    </div>
+  );
+}
+`}
+  />
+  <Code
+    slot='html'
+    lang='html'
+    code={`<!-- Hotspots is a stateful React component.
+     Use the React package for curriculum embeds. -->
+<div class="hotspots">
+  <div class="hotspots__stage">
+    <div class="hotspots__background"><img src="/bird.png" alt="A songbird" /></div>
+    <svg class="hotspots__overlay" viewBox="0 0 200 140" preserveAspectRatio="none">
+      <g class="hotspots__hotspot" role="button" aria-label="Head">
+        <circle class="hotspots__shape" cx="55" cy="55" r="24" />
+      </g>
+    </svg>
+  </div>
+</div>`}
+  />
+</PlaygroundCard>

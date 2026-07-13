@@ -11,6 +11,7 @@ const STATEFUL = new Set([
   'command-palette',
   'dropdown',
   'form-stepper',
+  'hotspots',
   'listbox',
   'modal',
   'pagination',
