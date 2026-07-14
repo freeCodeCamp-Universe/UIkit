@@ -21,25 +21,9 @@
   },
   "homepage": "https://design.freecodecamp.org",
   "description": "Tokens + component CSS + fonts for the freeCodeCamp UIKit",
-  "keywords": [
-    "freecodecamp",
-    "uikit",
-    "design-system",
-    "css",
-    "tokens",
-    "fonts"
-  ],
   "sideEffects": [
     "**/*.css"
   ],
-  "files": [
-    "src",
-    "README.md",
-    "CHANGELOG.md"
-  ],
-  "publishConfig": {
-    "access": "public"
-  },
   "style": "./src/index.css",
   "exports": {
     ".": "./src/index.css",
@@ -48,12 +32,15 @@
     "./components.css": "./src/components.css",
     "./fonts/*": "./src/fonts/*",
     "./brand/*": "./src/brand/*",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./base.css": "./src/base.css",
+    "./html/*": "./src/html/*"
   },
   "engines": {
     "node": ">=22"
   },
   "devDependencies": {
     "vitest": "4.1.5"
-  }
+  },
+  "private": true
 }

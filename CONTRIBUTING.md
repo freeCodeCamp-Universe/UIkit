@@ -39,7 +39,6 @@ See [`docs/tooling.md`](./docs/tooling.md) for the full toolchain inventory.
 
 - Branch from `main`.
 - Make your change.
-- Add a changeset for any change that affects a published package: `pnpm changeset` (interactive).
 - Run `pnpm lint`, `pnpm test`, and `pnpm build` before opening a PR.
 - Refresh Playwright goldens in the same commit when a visual change lands: `pnpm test:visual:update`.
 
@@ -76,8 +75,9 @@ pnpm test:visual:update  # refresh goldens after intentional UI change
 - `Release` is manual. Trigger from GitHub Actions with `workflow_dispatch` and pick the ref to release.
 - The release workflow builds the CDN bundle, then opens a PR on `freeCodeCamp/cdn` that updates `build/uikit/`.
 - Cross-repo push uses the `CDN_PUSH_TOKEN` secret (fine-grained PAT scoped to `freeCodeCamp/cdn`). The default `GITHUB_TOKEN` is never used outside this repo.
-- npm publish is not currently automated. Run `pnpm release:check`, then
-  `pnpm release` locally with an org-scoped npm token.
+- There is no npm publishing — UIKit is a copy-source registry (see
+  [ADR-0009](./docs/adr/0009-copy-source-registry-distribution.md));
+  registry pages ship with every docs deploy.
 - Docs site deploys to Cloudflare Pages (project `fcc-design`,
   `design.freecodecamp.org`) via the Cloudflare GitHub App + Git
   integration. Pushes to `main` deploy production; every PR
@@ -92,13 +92,12 @@ pnpm test:visual:update  # refresh goldens after intentional UI change
 
 ## Release checklist
 
-1. Run `pnpm changeset` for each PR that ships user-visible change.
-2. When ready to release, run `pnpm changeset version` on `main` to consume queued changesets, bump versions, and update per-package `CHANGELOG.md`.
-3. Commit the version bump as a single commit.
-4. Run `pnpm release:check` from a clean checkout.
-5. Run `pnpm release` to publish npm packages.
-6. Run the `Release` workflow with `ref: main` to publish the CDN bundle.
-7. Review and merge the PR it opens on `freeCodeCamp/cdn`.
+Registry + docs deploy automatically on merge to `main`. To cut a CDN release:
+
+1. Confirm `packages/uikit/package.json` has the intended `x.y.z` version.
+2. Run `pnpm build && pnpm verify:cdn` from a clean checkout.
+3. Run the `Release` workflow with `ref: main` to publish the CDN bundle.
+4. Review and merge the PR it opens on `freeCodeCamp/cdn`.
 
 ## More docs
 

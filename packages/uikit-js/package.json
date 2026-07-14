@@ -23,23 +23,7 @@
   },
   "homepage": "https://design.freecodecamp.org",
   "description": "Vanilla JS runtime for freeCodeCamp UIKit — wires data-uikit-* attributes to Zag state machines",
-  "keywords": [
-    "freecodecamp",
-    "uikit",
-    "design-system",
-    "vanilla-js",
-    "cdn",
-    "accessibility"
-  ],
   "sideEffects": false,
-  "files": [
-    "dist",
-    "README.md",
-    "CHANGELOG.md"
-  ],
-  "publishConfig": {
-    "access": "public"
-  },
   "main": "./dist/uikit.js",
   "module": "./dist/uikit.js",
   "types": "./dist/uikit.d.ts",
@@ -65,5 +49,6 @@
     "jsdom": "29.1.0",
     "tsup": "^8.5.1",
     "vitest": "4.1.5"
-  }
+  },
+  "private": true
 }

@@ -5,7 +5,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
-    "build": "tsup",
+    "build": "echo '[uikit-tailwind] ships source - no build' && exit 0",
     "lint": "oxlint",
     "typecheck": "tsc --noEmit"
   },
@@ -22,26 +22,9 @@
   },
   "homepage": "https://design.freecodecamp.org",
   "description": "Tailwind preset + plugin mirroring freeCodeCamp UIKit tokens",
-  "keywords": [
-    "freecodecamp",
-    "uikit",
-    "design-system",
-    "tailwindcss",
-    "preset",
-    "plugin"
-  ],
-  "files": [
-    "dist",
-    "README.md",
-    "CHANGELOG.md"
-  ],
-  "publishConfig": {
-    "access": "public"
-  },
   "devDependencies": {
     "@types/node": "^22.19.17",
     "tailwindcss": "^4.2.4",
-    "tsup": "^8.5.1",
     "tsx": "^4.21.0",
     "typescript": "^6.0.3"
   },
@@ -49,42 +32,11 @@
     "tailwindcss": "^4.0.0"
   },
   "exports": {
-    ".": {
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      },
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      }
-    },
-    "./preset": {
-      "import": {
-        "types": "./dist/preset.d.ts",
-        "default": "./dist/preset.js"
-      },
-      "require": {
-        "types": "./dist/preset.d.cts",
-        "default": "./dist/preset.cjs"
-      }
-    },
-    "./plugin": {
-      "import": {
-        "types": "./dist/plugin.d.ts",
-        "default": "./dist/plugin.js"
-      },
-      "require": {
-        "types": "./dist/plugin.d.cts",
-        "default": "./dist/plugin.cjs"
-      }
-    },
+    ".": "./src/index.ts",
     "./package.json": "./package.json"
   },
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
   "engines": {
     "node": ">=22"
-  }
+  },
+  "private": true
 }

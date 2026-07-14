@@ -5,7 +5,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
-    "build": "tsup && node scripts/gen-props.mjs",
+    "build": "node scripts/gen-props.mjs",
     "lint": "oxlint",
     "typecheck": "tsc --noEmit"
   },
@@ -22,107 +22,16 @@
   },
   "homepage": "https://design.freecodecamp.org",
   "description": "React components for freeCodeCamp's Command-line Chic design system",
-  "keywords": [
-    "freecodecamp",
-    "uikit",
-    "design-system",
-    "react",
-    "components",
-    "accessibility"
-  ],
   "sideEffects": false,
-  "files": [
-    "dist",
-    "README.md",
-    "CHANGELOG.md"
-  ],
-  "publishConfig": {
-    "access": "public"
-  },
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
   "exports": {
-    ".": {
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      },
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      }
-    },
-    "./primitives": {
-      "import": {
-        "types": "./dist/primitives.d.ts",
-        "default": "./dist/primitives.js"
-      },
-      "require": {
-        "types": "./dist/primitives.d.cts",
-        "default": "./dist/primitives.cjs"
-      }
-    },
-    "./forms": {
-      "import": {
-        "types": "./dist/forms.d.ts",
-        "default": "./dist/forms.js"
-      },
-      "require": {
-        "types": "./dist/forms.d.cts",
-        "default": "./dist/forms.cjs"
-      }
-    },
-    "./overlays": {
-      "import": {
-        "types": "./dist/overlays.d.ts",
-        "default": "./dist/overlays.js"
-      },
-      "require": {
-        "types": "./dist/overlays.d.cts",
-        "default": "./dist/overlays.cjs"
-      }
-    },
-    "./navigation": {
-      "import": {
-        "types": "./dist/navigation.d.ts",
-        "default": "./dist/navigation.js"
-      },
-      "require": {
-        "types": "./dist/navigation.d.cts",
-        "default": "./dist/navigation.cjs"
-      }
-    },
-    "./data-display": {
-      "import": {
-        "types": "./dist/data-display.d.ts",
-        "default": "./dist/data-display.js"
-      },
-      "require": {
-        "types": "./dist/data-display.d.cts",
-        "default": "./dist/data-display.cjs"
-      }
-    },
-    "./layouts": {
-      "import": {
-        "types": "./dist/layouts.d.ts",
-        "default": "./dist/layouts.js"
-      },
-      "require": {
-        "types": "./dist/layouts.d.cts",
-        "default": "./dist/layouts.cjs"
-      }
-    },
-    "./games": {
-      "import": {
-        "types": "./dist/games.d.ts",
-        "default": "./dist/games.js"
-      },
-      "require": {
-        "types": "./dist/games.d.cts",
-        "default": "./dist/games.cjs"
-      }
-    },
+    ".": "./src/index.ts",
+    "./primitives": "./src/primitives/index.ts",
+    "./forms": "./src/forms/index.ts",
+    "./overlays": "./src/overlays/index.ts",
+    "./navigation": "./src/navigation/index.ts",
+    "./data-display": "./src/data-display/index.ts",
+    "./layouts": "./src/layouts/index.ts",
+    "./games": "./src/games/index.ts",
     "./props.json": "./dist/props.json",
     "./package.json": "./package.json"
   },
@@ -137,12 +46,12 @@
     "react": "^19.2.5",
     "react-docgen-typescript": "^2.4.0",
     "react-dom": "^19.2.5",
-    "tsup": "^8.5.1",
     "tsx": "^4.21.0"
   },
   "peerDependencies": {
     "@ark-ui/react": "^5.0.0",
     "react": ">=18 <20",
     "react-dom": ">=18 <20"
-  }
+  },
+  "private": true
 }

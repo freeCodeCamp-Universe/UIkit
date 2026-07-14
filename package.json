@@ -27,15 +27,9 @@
     "typecheck": "turbo run typecheck",
     "format": "oxfmt --write . && prettier --write \"**/*.{astro,md,mdx,yaml,yml}\"",
     "format:check": "oxfmt --check . && prettier --check \"**/*.{astro,md,mdx,yaml,yml}\"",
-    "changeset": "changeset",
-    "release:check": "pnpm build:pkgs && pnpm verify:cdn && pnpm release:lint-packages && pnpm release:npm:dry-run",
-    "release:lint-packages": "publint run packages/uikit --strict && publint run packages/uikit-css --strict && publint run packages/uikit-js --strict && publint run packages/uikit-icons --strict && publint run packages/uikit-tailwind --strict",
-    "check:node-versions": "node scripts/check-node-versions.mjs",
-    "release:npm:dry-run": "pnpm -r --filter './packages/*' publish --access public --dry-run",
-    "release": "pnpm build:pkgs && changeset publish"
+    "check:node-versions": "node scripts/check-node-versions.mjs"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.31.0",
     "@testing-library/dom": "10.4.1",
     "@testing-library/jest-dom": "6.9.1",
     "@testing-library/react": "16.3.2",
@@ -48,7 +42,6 @@
     "oxlint": "^1.62.0",
     "prettier": "3.8.3",
     "prettier-plugin-astro": "0.14.1",
-    "publint": "^0.3.18",
     "tsx": "^4.21.0",
     "turbo": "^2.9.6",
     "typescript": "^6.0.3",
