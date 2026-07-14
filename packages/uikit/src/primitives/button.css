@@ -1,0 +1,123 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-sans);
+  font-size: var(--fs-md);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-base);
+  padding: 6px 14px;
+  border: var(--border-width-thick) solid var(--foreground-secondary);
+  background: var(--background-quaternary);
+  color: var(--foreground-secondary);
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 120ms,
+    color 120ms,
+    border-color 120ms;
+  position: relative;
+}
+.btn:hover {
+  background: var(--foreground-primary);
+  color: var(--background-primary);
+}
+.btn:active::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gray-90);
+  opacity: 0.2;
+}
+.btn:disabled,
+.btn[aria-disabled='true'] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn--cta {
+  background: var(--cta-background);
+  color: var(--cta-foreground);
+  border-color: var(--cta-background);
+}
+.btn--cta:hover {
+  background: var(--cta-background);
+  color: var(--cta-foreground);
+  filter: brightness(1.08);
+}
+
+.btn--danger {
+  border-color: var(--danger-color);
+  background: var(--danger-background);
+  color: var(--danger-color);
+}
+.btn--danger:hover {
+  background: var(--danger-color);
+  color: var(--danger-background);
+}
+
+.btn--info {
+  border-color: var(--highlight-color);
+  background: var(--highlight-background);
+  color: var(--highlight-color);
+}
+.btn--info:hover {
+  background: var(--highlight-color);
+  color: var(--highlight-background);
+}
+
+.btn--ghost {
+  border-color: transparent;
+  background: transparent;
+  color: var(--foreground-secondary);
+}
+.btn--ghost:hover {
+  background: var(--background-tertiary);
+  color: var(--foreground-primary);
+}
+
+.btn--link {
+  border-color: transparent;
+  background: transparent;
+  color: var(--highlight-color);
+  text-decoration: underline;
+  padding: 2px 4px;
+}
+.btn--link:hover {
+  background: transparent;
+  color: var(--foreground-primary);
+}
+
+.btn--sm {
+  padding: 4px 10px;
+  font-size: var(--fs-sm);
+  border-width: var(--border-width-default);
+}
+.btn--lg {
+  padding: 10px 18px;
+  font-size: var(--fs-lg);
+}
+.btn--block {
+  display: flex;
+  width: 100%;
+}
+
+.btn[aria-busy='true'] {
+  cursor: progress;
+}
+.btn__spinner {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: fcc-spin 800ms linear infinite;
+  vertical-align: -0.125em;
+}
+@keyframes fcc-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

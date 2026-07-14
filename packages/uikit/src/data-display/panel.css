@@ -1,0 +1,38 @@
+.panel {
+  border: 1px solid var(--background-quaternary);
+  background: var(--background-primary);
+  margin: 0 0 24px;
+}
+.panel__heading {
+  padding: 10px 16px;
+  background: var(--background-secondary);
+  border-bottom: 1px solid var(--background-quaternary);
+  font-weight: 700;
+  margin: 0;
+}
+.panel__body {
+  padding: 16px;
+  margin: 0;
+}
+.panel--primary {
+  border-color: var(--foreground-primary);
+}
+.panel--primary .panel__heading {
+  color: var(--foreground-primary);
+  background: transparent;
+  border-bottom-color: var(--foreground-primary);
+}
+.panel--danger {
+  border-color: var(--danger-color);
+}
+.panel--danger .panel__heading {
+  background: var(--danger-color);
+  color: var(--danger-background);
+}
+.panel--info {
+  border-color: var(--highlight-color);
+}
+.panel--info .panel__heading {
+  background: var(--highlight-color);
+  color: var(--highlight-background);
+}

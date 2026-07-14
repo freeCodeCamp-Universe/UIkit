@@ -1,0 +1,20 @@
+.check {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-family: var(--font-sans);
+  font-size: var(--fs-md);
+  color: var(--foreground-primary);
+  cursor: pointer;
+}
+.check input[type='checkbox'] {
+  width: 18px;
+  height: 18px;
+  margin-top: 3px;
+  accent-color: var(--cta-background);
+  cursor: inherit;
+}
+.check:has(input:disabled) {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

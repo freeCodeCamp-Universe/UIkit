@@ -1,0 +1,26 @@
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-md);
+}
+.table th,
+.table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--background-tertiary);
+  text-align: left;
+}
+.table th {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--foreground-muted);
+  font-weight: 700;
+}
+.table--striped tbody tr:nth-child(odd) {
+  background: var(--background-secondary);
+}
+.table--condensed th,
+.table--condensed td {
+  padding: 6px 10px;
+}
