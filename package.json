@@ -27,7 +27,8 @@
     "typecheck": "turbo run typecheck",
     "format": "oxfmt --write . && prettier --write \"**/*.{astro,md,mdx,yaml,yml}\"",
     "format:check": "oxfmt --check . && prettier --check \"**/*.{astro,md,mdx,yaml,yml}\"",
-    "check:node-versions": "node scripts/check-node-versions.mjs"
+    "check:node-versions": "node scripts/check-node-versions.mjs",
+    "verify:registry": "pnpm build:docs && node apps/docs/scripts/verify-dist-pages-artefacts.mjs"
   },
   "devDependencies": {
     "@testing-library/dom": "10.4.1",
