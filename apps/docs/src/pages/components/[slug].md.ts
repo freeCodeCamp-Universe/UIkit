@@ -1,8 +1,7 @@
 import type { APIRoute, GetStaticPaths } from 'astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { stripMdx } from '../../lib/strip-mdx';
-
-const SITE = 'https://design.freecodecamp.org';
+import { renderComponentPage } from '../../lib/registry-md';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const components = await getCollection('components');
@@ -15,24 +14,19 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const GET: APIRoute = async ({ props }) => {
   const { entry } = props as { entry: CollectionEntry<'components'> };
 
-  const lines: string[] = [];
-  lines.push(`# ${entry.data.title}`);
-  lines.push('');
-  lines.push(`> ${entry.data.summary}`);
-  lines.push('');
-  lines.push(`- Playground: ${SITE}/#${entry.id}`);
-  lines.push(`- Status: ${entry.data.status}`);
-  if (entry.data.since) lines.push(`- Since: ${entry.data.since}`);
-  if (entry.data.tokens?.length)
-    lines.push(`- Tokens: ${entry.data.tokens.join(', ')}`);
-  if (entry.data.a11yPattern)
-    lines.push(`- A11y pattern: ${entry.data.a11yPattern}`);
-  lines.push('');
-  lines.push('---');
-  lines.push('');
-  lines.push(stripMdx(entry.body ?? ''));
+  const page = renderComponentPage({
+    slug: entry.id,
+    title: entry.data.title,
+    summary: entry.data.summary,
+    status: entry.data.status,
+    since: entry.data.since,
+    category: entry.data.category,
+    tokens: entry.data.tokens,
+    a11yPattern: entry.data.a11yPattern,
+    prose: stripMdx(entry.body ?? '')
+  });
 
-  return new Response(lines.join('\n'), {
+  return new Response(page, {
     headers: { 'Content-Type': 'text/plain; charset=utf-8' }
   });
 };

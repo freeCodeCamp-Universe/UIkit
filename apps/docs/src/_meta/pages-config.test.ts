@@ -4,6 +4,7 @@ import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import {
   findMissingArtefacts,
+  REQUIRED_GENERATED_ARTEFACTS,
   REQUIRED_PAGES_ARTEFACTS
 } from '../../scripts/verify-dist-pages-artefacts.mjs';
 
@@ -212,6 +213,18 @@ describe('verify-dist-pages-artefacts.mjs — post-build gate', () => {
       'robots.txt',
       'sitemap-0.xml',
       'sitemap-index.xml'
+    ]);
+  });
+
+  it('declares the build-generated registry artefact list', () => {
+    // These come from prerendered endpoints, not public/, so they live in
+    // their own list — the public/ source-of-truth check must skip them.
+    expect([...REQUIRED_GENERATED_ARTEFACTS].sort()).toEqual([
+      'llms-full.txt',
+      'llms.txt',
+      'registry/index.json',
+      'registry/starter.md',
+      'registry/theme.md'
     ]);
   });
 
