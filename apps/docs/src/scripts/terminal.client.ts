@@ -1,7 +1,7 @@
 const lines: string[] = [
-  'camp@fcc:~$ pnpm add @freecodecamp/uikit',
-  '+ @freecodecamp/uikit 0.1.0',
-  '+ @freecodecamp/uikit-css 0.1.0',
+  'camp@fcc:~$ curl design.freecodecamp.org/components/button.md',
+  '→ install steps + full source (Button.tsx, button.css)',
+  'camp@fcc:~$ cp Button.tsx button.css src/ui/button/',
   'camp@fcc:~$ open playground',
   '→ opening https://design.freecodecamp.org/playground'
 ];
