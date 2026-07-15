@@ -25,7 +25,8 @@ import { HotspotsDemo } from './_islands/HotspotsDemo';
   <Code
     slot='react'
     lang='tsx'
-    code={`import { Hotspots, RectHotspot, CircleHotspot, EllipseHotspot } from '@freecodecamp/uikit/games';
+    code={`import { Hotspots } from './ui/hotspots/Hotspots';
+import { RectHotspot, CircleHotspot, EllipseHotspot } from './ui/hotspot-shapes/HotspotShapes';
 
 const Diagram = (): JSX.Element => (
   <img src='/favicon.svg' alt='freecodecamp logo' />

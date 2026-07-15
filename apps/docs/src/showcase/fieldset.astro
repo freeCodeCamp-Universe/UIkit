@@ -33,7 +33,8 @@ import {
   <Code
     slot='react'
     lang='tsx'
-    code={`import { Fieldset, RadioGroup, Radio } from '@freecodecamp/uikit';
+    code={`import { Fieldset } from './ui/fieldset/Fieldset';
+import { RadioGroup, Radio } from './ui/radio/Radio';
 
 <Fieldset legend="Notification cadence">
   <RadioGroup name="cadence" defaultValue="weekly">

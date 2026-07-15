@@ -21,7 +21,8 @@ import { ModalDemo } from './_islands/ModalDemo';
   <Code
     slot='react'
     lang='tsx'
-    code={`import { Modal, Button } from '@freecodecamp/uikit';
+    code={`import { Modal } from './ui/modal/Modal';
+import { Button } from './ui/button/Button';
 
 <Modal open={open} onClose={close} title="Reset progress?">
   <Modal.Body>

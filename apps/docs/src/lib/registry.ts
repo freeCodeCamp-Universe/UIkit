@@ -504,16 +504,9 @@ function showcaseSnippet(slug: string, slot: 'react' | 'html'): string | null {
   return m ? m[1] : null;
 }
 
-/** Showcase React snippet with imports rewritten to the copied location. */
+/** Showcase React snippet — authored with copied-source imports (./ui/...). */
 export function reactSnippet(slug: string): string | null {
-  const snippet = showcaseSnippet(slug, 'react');
-  if (!snippet) return null;
-  return snippet
-    .replace(/'@freecodecamp\/uikit-icons\/react'/g, "'../ui/icons/Icon'")
-    .replace(
-      /'@freecodecamp\/uikit(\/[a-z-]+)?'/g,
-      `'../ui/${slug}/${pascal(slug)}'`
-    );
+  return showcaseSnippet(slug, 'react');
 }
 
 export function htmlSnippet(slug: string): string | null {

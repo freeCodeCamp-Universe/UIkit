@@ -27,8 +27,8 @@ stays pure and lets the caller wire URL state, persistence, etc.
 ## Usage
 
 ```tsx
-import { DataTable, EmptyState } from '@freecodecamp/uikit/data-display';
-
+import { DataTable } from './ui/data-table/DataTable';
+import { EmptyState } from './ui/empty-state/EmptyState';
 const columns = [
   { id: 'name', header: 'Name', accessor: 'name', sortable: true },
   { id: 'email', header: 'Email', accessor: row => row.email },

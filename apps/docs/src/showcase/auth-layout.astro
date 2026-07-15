@@ -47,7 +47,9 @@ import {
   <Code
     slot='react'
     lang='tsx'
-    code={`import { AuthLayout, Input, Button } from '@freecodecamp/uikit';
+    code={`import { AuthLayout } from './ui/auth-layout/AuthLayout';
+import { Input } from './ui/input/Input';
+import { Button } from './ui/button/Button';
 
 <AuthLayout brand="freeCodeCamp" footer={<Link href="/forgot">Forgot your password?</Link>}>
   <Input label="Email" type="email" />
