@@ -1,13 +1,9 @@
 name: Release
 
+# Release the ref selected in the workflow_dispatch UI. Every job (test,
+# build, version read) runs against that same commit.
 on:
   workflow_dispatch:
-    inputs:
-      ref:
-        description: Git ref of UIkit to release
-        required: true
-        default: main
-        type: string
 
 permissions:
   contents: read
@@ -42,10 +38,9 @@ jobs:
     needs: [build]
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout UIkit at ${{ inputs.ref }}
+      - name: Checkout UIkit
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
-          ref: ${{ inputs.ref }}
           path: uikit
 
       - name: Download CDN bundle artefact
@@ -57,7 +52,9 @@ jobs:
       - name: Read UIkit version
         id: version
         working-directory: uikit
-        run: echo "value=$(node -p 'require(\"./packages/uikit/package.json\").version')" >> "$GITHUB_OUTPUT"
+        run: |
+          version="$(node -p "require('./packages/uikit/package.json').version")"
+          echo "value=$version" >> "$GITHUB_OUTPUT"
 
       - name: Validate version is semver x.y.z
         env:
@@ -104,7 +101,7 @@ jobs:
           title: 'chore(uikit): publish v${{ steps.version.outputs.value }}'
           body: |
             Automated publish of `fcc-uikit` v${{ steps.version.outputs.value }}
-            from `freeCodeCamp/UIkit@${{ inputs.ref }}`.
+            from `${{ github.repository }}@${{ github.ref_name }}` (${{ github.sha }}).
 
             Updates `build/uikit/` with the rolling bundle plus the versioned
             aliases (`latest/`, `<major>/`, `<major>.<minor>/`, `<version>/`).
@@ -115,7 +112,7 @@ jobs:
         env:
           VERSION: ${{ steps.version.outputs.value }}
           REPUBLISHED: ${{ steps.republish_check.outputs.republished }}
-          REF: ${{ inputs.ref }}
+          REF: ${{ github.ref_name }}
         run: |
           {
             echo "## Release dispatched"

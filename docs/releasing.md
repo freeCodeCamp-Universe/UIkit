@@ -1,7 +1,7 @@
 # Releasing UIKit
 
-This runbook covers npm package releases, the CDN release path, and the future
-OIDC migration path for UIKit.
+This runbook covers the CDN release path. There are no npm releases; the
+copy-source registry ships automatically with every docs deploy.
 
 ## What ships
 
@@ -157,9 +157,9 @@ exact pnpm version from root `packageManager`, and installs dependencies with
 
 `.github/workflows/release.yml` is manual and uses `workflow_dispatch`.
 
-Input:
-
-- `ref`: the UIkit git ref to release
+There are no inputs: the branch or tag selected in the dispatch UI is the ref
+being released. Every job (lint, test, build, version read) runs against that
+same commit, so the published bundle and its version alias always agree.
 
 Release job order:
 
@@ -171,7 +171,7 @@ Release job order:
 
 `publish-cdn` performs these steps:
 
-1. Checks out this repo at the selected `ref` into `uikit/`.
+1. Checks out this repo at the dispatched ref into `uikit/`.
 2. Downloads the `dist-cdn` artifact into `uikit/dist-cdn/`.
 3. Reads `packages/uikit/package.json` version.
 4. Fails unless the version is full `x.y.z` semver.
@@ -212,7 +212,7 @@ The default `GITHUB_TOKEN` is not used for cross-repo writes.
 2. Run `pnpm build`.
 3. Run `pnpm verify:cdn`.
 4. Push or merge the release ref.
-5. Dispatch `Release` with `ref` set to that ref.
+5. Dispatch `Release` from that branch or tag in the Actions UI.
 6. Review the Actions summary.
 7. Review and merge the generated PR in `freeCodeCamp/cdn`.
 8. Confirm `freeCodeCamp/cdn/build/uikit/` contains root, `latest`, major,
