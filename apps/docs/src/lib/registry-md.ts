@@ -48,7 +48,7 @@ export function dropEmptySections(md: string): string {
   while (prev !== out) {
     prev = out;
     out = out.replace(/^#{2,6} [^\n]*\n+(?=#{1,6} )/gm, '');
-    out = out.replace(/\n#{2,6} [^\n]*\n*$/, '\n');
+    out = out.replace(/(^|\n)#{2,6} [^\n]*\n*$/, '$1');
   }
   return out.trim();
 }
