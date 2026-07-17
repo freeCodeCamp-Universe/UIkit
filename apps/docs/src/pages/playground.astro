@@ -91,10 +91,12 @@ const spacing = [0, 4, 8, 12, 16, 24, 32, 48, 64];
               free to use.
             </p>
             <p class='hero__hint'>
-              <code>pnpm add @freecodecamp/uikit @freecodecamp/uikit-css</code>
+              <code>design.freecodecamp.org/llms.txt</code>
             </p>
             <p>
-              — full setup in the <a class='fcc-link' href='/handbook#install'
+              Components ship as source — copy them into your project (or point
+              your coding agent at the link above) and make them yours. Full
+              setup in the <a class='fcc-link' href='/handbook#install'
                 >install guide</a
               >.
             </p>
@@ -127,10 +129,11 @@ const spacing = [0, 4, 8, 12, 16, 24, 32, 48, 64];
                 <p class='surfaces__kicker'>01 · React</p>
                 <h3 class='surfaces__title'>&lt;Button variant="cta" /&gt;</h3>
                 <p class='surfaces__lede'>
-                  Tree-shakeable ESM, Ark UI under the hood, React 18+ peer.
+                  Copy-source React + TypeScript. Ark UI under the hood, React
+                  18+ peer. You own the code.
                 </p>
                 <pre
-                  class='surfaces__code'><code>{'pnpm add @freecodecamp/uikit\nimport { Button } from \'@freecodecamp/uikit\';'}</code></pre>
+                  class='surfaces__code'><code>{'design.freecodecamp.org/components/button.md\nimport { Button } from \'./ui/button/Button\';'}</code></pre>
               </li>
               <li class='surfaces__card'>
                 <p class='surfaces__kicker'>02 · HTML</p>
@@ -151,7 +154,7 @@ const spacing = [0, 4, 8, 12, 16, 24, 32, 48, 64];
                   fcc-light.
                 </p>
                 <pre
-                  class='surfaces__code'><code>{'// tailwind.config.js\nimport fcc from \'@freecodecamp/uikit-tailwind\';\nexport default { presets: [fcc] };'}</code></pre>
+                  class='surfaces__code'><code>{'// copy preset.ts + plugin.ts from\n// design.freecodecamp.org/registry/tailwind.md\nexport default { presets: [fcc] };'}</code></pre>
               </li>
             </ul>
           </section>

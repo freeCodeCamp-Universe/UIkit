@@ -25,24 +25,15 @@ The top-level bundle contains:
 
 Do not rearrange this tree when syncing to the CDN repo.
 
-## Public npm packages
+## No npm packages
 
-These packages publish to npm:
+Every workspace is `private: true`. Distribution surfaces are:
 
-- `@freecodecamp/uikit`
-- `@freecodecamp/uikit-css`
-- `@freecodecamp/uikit-js`
-- `@freecodecamp/uikit-icons`
-- `@freecodecamp/uikit-tailwind`
+- the copy-source registry on design.freecodecamp.org (deployed with docs)
+- the CDN bundle in `freeCodeCamp/cdn` (this runbook)
 
-These workspaces are private and must not publish to npm:
-
-- `@freecodecamp/uikit-docs`
-- `@freecodecamp/uikit-cdn`
-
-The public packages all set `publishConfig.access` to `public`. This matters
-because scoped packages default to private visibility unless publish access is
-explicitly public.
+`packages/uikit/package.json` keeps a semver `version` field because the
+CDN build and release workflow read it for version aliases.
 
 ## Version aliases
 
@@ -71,16 +62,6 @@ the CDN PR.
 
 ## Build and verify locally
 
-Run the full package release gate:
-
-```bash
-pnpm release:check
-```
-
-That script builds publishable package outputs, verifies the CDN tree, runs
-`publint` package-shape checks, and runs a recursive npm publish dry-run for
-all packages under `packages/*`.
-
 Build only package outputs without the docs app:
 
 ```bash
@@ -104,22 +85,6 @@ The package-level equivalents are:
 ```bash
 pnpm --filter @freecodecamp/uikit-cdn build
 pnpm --filter @freecodecamp/uikit-cdn verify
-```
-
-Dry-run npm package tarballs only:
-
-```bash
-pnpm release:npm:dry-run
-```
-
-Run that command from a clean checkout before publishing. For local inspection
-while you still have uncommitted edits, append `--no-git-checks` manually
-instead of changing the script.
-
-Lint package export maps and packed metadata only:
-
-```bash
-pnpm release:lint-packages
 ```
 
 ## CDN build internals
@@ -240,118 +205,6 @@ That token must be able to:
 - open the publish PR
 
 The default `GITHUB_TOKEN` is not used for cross-repo writes.
-
-## npm publishing
-
-The CDN release flow does not publish npm packages. npm package releases use
-Changesets.
-
-Release control files:
-
-- `.changeset/config.json` sets Changesets to public access, `main` as the
-  base branch, patch updates for internal dependency ranges, and no automatic
-  Changesets commits.
-- Public package `package.json` files set `publishConfig.access` to `public`.
-- Private workspaces stay private through their package metadata and the
-  Changesets private-package config.
-
-For normal package releases:
-
-1. Add a changeset for every package-visible change:
-
-   ```bash
-   pnpm changeset
-   ```
-
-2. When ready, consume changesets on `main`:
-
-   ```bash
-   pnpm changeset version
-   ```
-
-3. Review package versions and generated changelogs.
-4. Commit the version bump as one release commit.
-5. Run the release gate:
-
-   ```bash
-   pnpm release:check
-   ```
-
-6. Publish with an org-scoped npm token:
-
-   ```bash
-   pnpm release
-   ```
-
-The root `pnpm release` script runs `pnpm build:pkgs && changeset publish`.
-Changesets checks npm first and publishes local package versions that are not
-already on the registry.
-
-### First manual npm release
-
-The first release is still manual and token-based.
-
-1. Confirm the public package versions are intended. At this point they are
-   `1.0.0`.
-2. Confirm the package names do not already exist publicly:
-
-   ```bash
-   npm view @freecodecamp/uikit version
-   npm view @freecodecamp/uikit-css version
-   npm view @freecodecamp/uikit-js version
-   npm view @freecodecamp/uikit-icons version
-   npm view @freecodecamp/uikit-tailwind version
-   ```
-
-   `E404` is expected before the first publish.
-
-3. Authenticate as an npm user with publish rights for the `@freecodecamp`
-   scope. npm requires 2FA for publishing or a granular token that can bypass
-   2FA.
-4. From a clean checkout on the release commit, run:
-
-   ```bash
-   pnpm release:check
-   pnpm release
-   ```
-
-5. Confirm each package page exists on npm and shows public visibility.
-
-If one package publishes and a later package fails, fix the failure, keep the
-already-published versions unchanged, and rerun `pnpm release`. Changesets will
-skip versions already present on npm.
-
-## OIDC migration
-
-After the first manual release, move npm publishing to trusted publishing.
-Do not disable token publishing until the OIDC workflow has successfully
-published at least one release.
-
-npm's trusted publisher requirements to carry into the workflow:
-
-- GitHub-hosted runners.
-- Node `22.14.0` or newer.
-- npm CLI `11.5.1` or newer.
-- `permissions.id-token: write`.
-- `actions/setup-node` configured with
-  `registry-url: https://registry.npmjs.org`.
-- Each npm package configured on npmjs.com with the GitHub organization,
-  repository, workflow filename, and optional environment name.
-
-Important caveat: this repo currently publishes through `changeset publish`,
-and the installed Changesets CLI detects pnpm and delegates package publishing
-to `pnpm publish`. Validate current pnpm/Changesets trusted-publishing support
-before switching the release job to OIDC. If pnpm is not accepted by npm trusted
-publishing at that point, publish through an npm-CLI path in the OIDC workflow
-instead of assuming the tokenless path works.
-
-Once OIDC has published successfully:
-
-1. Restrict npm publishing access to require 2FA and disallow traditional
-   publish tokens.
-2. Revoke any no-longer-needed npm automation tokens.
-3. Keep a protected GitHub environment for npm publishing if release approval is
-   required.
 
 ## Quick CDN checklist
 

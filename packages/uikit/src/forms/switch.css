@@ -1,0 +1,43 @@
+.switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+.switch input {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+.switch__track {
+  position: relative;
+  width: 40px;
+  height: 20px;
+  background: var(--background-quaternary);
+  transition: background-color 120ms;
+}
+.switch__thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  background: var(--foreground-primary);
+  transition: left 120ms;
+}
+.switch input:checked + .switch__track {
+  background: var(--cta-background);
+}
+.switch input:checked + .switch__track .switch__thumb {
+  left: 22px;
+  background: var(--cta-foreground);
+}
+.switch input:disabled + .switch__track {
+  opacity: 0.5;
+}
+.switch__label {
+  font-size: var(--fs-md);
+  color: var(--foreground-primary);
+}

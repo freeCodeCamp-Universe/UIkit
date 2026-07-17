@@ -17,7 +17,6 @@ Closes #<id> (or `n/a`).
 
 ## Pre-flight checklist
 
-- [ ] `pnpm changeset` added (skip for `chore` / `docs` / `test` / `ci`-only PRs)
 - [ ] `pnpm test`, `pnpm typecheck`, `pnpm lint`, `pnpm format:check` clean locally
 - [ ] Visual goldens refreshed if UI changed (`pnpm test:visual:update` on macOS;
       Linux goldens regenerated via the Playwright Docker image — see

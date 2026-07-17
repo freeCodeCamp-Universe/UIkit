@@ -1,0 +1,23 @@
+.divider {
+  border: 0;
+  border-top: 1px solid var(--background-tertiary);
+  margin: 1rem 0;
+  width: 100%;
+  height: 0;
+}
+.divider--vertical {
+  border-top: 0;
+  border-left: 1px solid var(--background-tertiary);
+  height: 100%;
+  width: 0;
+  margin: 0 1rem;
+  display: inline-block;
+  align-self: stretch;
+}
+.divider--dashed {
+  border-top-style: dashed;
+}
+.divider--vertical.divider--dashed {
+  border-left-style: dashed;
+  border-top-style: solid;
+}

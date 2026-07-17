@@ -1,0 +1,29 @@
+.tabs {
+}
+.tabs__list {
+  display: flex;
+  border-bottom: 1px solid var(--foreground-quaternary);
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.tabs__tab {
+  flex: 1;
+  padding: 8px 14px;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font: 400 var(--fs-md)/1 var(--font-sans);
+  color: var(--foreground-secondary);
+}
+.tabs__tab:hover {
+  background: var(--background-tertiary);
+}
+.tabs__tab[aria-selected='true'] {
+  font-weight: 700;
+  background: var(--foreground-quaternary);
+  color: var(--background-secondary);
+}
+.tabs__panel {
+  padding: 18px 2px;
+}

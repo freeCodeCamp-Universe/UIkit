@@ -29,7 +29,7 @@ and the Astro documentation site.
 ### Workspace layout
 
 `pnpm-workspace.yaml` includes `apps/*` (private apps; today `apps/docs`)
-and `packages/*` (publishable packages + internal package tooling).
+and `packages/*` (registry source workspaces + internal package tooling).
 Important root files: `package.json` (root scripts + dev tools + pnpm
 version + lint-staged), `turbo.json` (task graph), `tsconfig.base.json`
 (strict TS defaults), `.oxlintrc.json`, `.oxfmtrc.json`,
@@ -117,7 +117,6 @@ All five public packages share `engines.node = ">=22"`.
 | Husky                                   | `9.1.7`                                                                  | Git hooks (`prepare = is-ci \|\| husky`)          |
 | lint-staged                             | `16.4.0`                                                                 | Run formatters on staged files                    |
 | Changesets                              | `^2.31.0`                                                                | Versioning + changelog automation                 |
-| publint                                 | `^0.3.18`                                                                | Strict pkg lint pre-publish                       |
 | tsx                                     | `^4.21.0`                                                                | TypeScript script runner                          |
 | Renovate                                | `github>freeCodeCamp/renovate-config` + custom rules                     | Dep updates                                       |
 
@@ -186,25 +185,22 @@ through it.
 
 ### Root scripts
 
-| Script                     | Effect                                                                                    |
-| -------------------------- | ----------------------------------------------------------------------------------------- |
-| `build`                    | `turbo run build` — every workspace.                                                      |
-| `build:pkgs`               | Build packages, skip docs.                                                                |
-| `build:docs`               | Build docs app + required deps only.                                                      |
-| `dev` / `dev:docs`         | Astro docs dev server (default local entry).                                              |
-| `dev:vanilla`              | `tsup --watch` for `@freecodecamp/uikit-js`.                                              |
-| `build:cdn` / `verify:cdn` | CDN bundle build + integrity check on `dist-cdn/uikit`.                                   |
-| `preview`                  | Preview the built docs app.                                                               |
-| `test`                     | All workspace unit tests.                                                                 |
-| `test:coverage`            | Coverage tasks (v8 reporter).                                                             |
-| `test:playwright[:update]` | Docs Playwright run / snapshot refresh.                                                   |
-| `lint` / `lint:fix`        | `oxlint` (per-package via Turbo) / `oxlint --fix`.                                        |
-| `typecheck`                | `tsc` + `astro check` per package.                                                        |
-| `format` / `format:check`  | oxfmt for js/ts/json + prettier for `.astro`/`.md`/`.mdx`/`.yaml`.                        |
-| `check:node-versions`      | Assert Node + `@types/node` floor consistency across the repo.                            |
-| `changeset`                | Create release intent.                                                                    |
-| `release:check`            | `build:pkgs` → `verify:cdn` → `publint --strict` → `pnpm publish --dry-run` (5 packages). |
-| `release`                  | Local npm publish path. CDN release uses GitHub Actions.                                  |
+| Script                     | Effect                                                             |
+| -------------------------- | ------------------------------------------------------------------ |
+| `build`                    | `turbo run build` — every workspace.                               |
+| `build:pkgs`               | Build packages, skip docs.                                         |
+| `build:docs`               | Build docs app + required deps only.                               |
+| `dev` / `dev:docs`         | Astro docs dev server (default local entry).                       |
+| `dev:vanilla`              | `tsup --watch` for `@freecodecamp/uikit-js`.                       |
+| `build:cdn` / `verify:cdn` | CDN bundle build + integrity check on `dist-cdn/uikit`.            |
+| `preview`                  | Preview the built docs app.                                        |
+| `test`                     | All workspace unit tests.                                          |
+| `test:coverage`            | Coverage tasks (v8 reporter).                                      |
+| `test:playwright[:update]` | Docs Playwright run / snapshot refresh.                            |
+| `lint` / `lint:fix`        | `oxlint` (per-package via Turbo) / `oxlint --fix`.                 |
+| `typecheck`                | `tsc` + `astro check` per package.                                 |
+| `format` / `format:check`  | oxfmt for js/ts/json + prettier for `.astro`/`.md`/`.mdx`/`.yaml`. |
+| `check:node-versions`      | Assert Node + `@types/node` floor consistency across the repo.     |
 
 ### Turbo task graph
 

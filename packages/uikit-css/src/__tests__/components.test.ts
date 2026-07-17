@@ -1,10 +1,38 @@
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 import { describe, it, expect } from 'vitest';
 
 const here = dirname(fileURLToPath(import.meta.url));
-const components = readFileSync(resolve(here, '../components.css'), 'utf8');
+const aggregatorPath = resolve(here, '../components.css');
+const aggregator = readFileSync(aggregatorPath, 'utf8');
+
+const importPaths = [...aggregator.matchAll(/@import\s+'([^']+)';/g)].map(
+  m => m[1]
+);
+// components.css is an @import aggregator; flatten it for content assertions.
+const components = importPaths
+  .map(p => readFileSync(resolve(dirname(aggregatorPath), p), 'utf8'))
+  .join('\n');
+
+describe('components.css aggregator', () => {
+  it('only contains @imports, all of which resolve on disk', () => {
+    expect(importPaths.length).toBeGreaterThanOrEqual(50);
+    for (const p of importPaths) {
+      expect(existsSync(resolve(dirname(aggregatorPath), p))).toBe(true);
+    }
+    const withoutImportsAndComments = aggregator
+      .replace(/\/\*[\s\S]*?\*\//g, '')
+      .replace(/@import\s+'[^']+';/g, '')
+      .trim();
+    expect(withoutImportsAndComments).toBe('');
+  });
+
+  it('imports each file exactly once, base.css first', () => {
+    expect(new Set(importPaths).size).toBe(importPaths.length);
+    expect(importPaths[0]).toBe('./base.css');
+  });
+});
 
 describe('components.css', () => {
   it('declares the canonical button selector', () => {

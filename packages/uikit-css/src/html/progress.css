@@ -1,0 +1,19 @@
+.progress {
+  height: 4px;
+  background: var(--background-tertiary);
+  position: relative;
+}
+.progress__bar {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: var(--cta-background);
+}
+.progress__bar--purple {
+  background: var(--purple-color);
+}
+.progress__bar--success {
+  background: var(--success-color);
+}
+.progress__bar--danger {
+  background: var(--danger-color);
+}

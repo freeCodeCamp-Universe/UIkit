@@ -1,0 +1,35 @@
+.toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans);
+  font-size: var(--fs-md);
+  padding: 6px 18px;
+  border: var(--border-width-thick) solid var(--border-strong);
+  box-shadow: inset 0 1px 0 var(--surface-elevation-2);
+  background: var(--background-tertiary);
+  color: var(--foreground-secondary);
+  cursor: pointer;
+  transition:
+    background-color 120ms,
+    color 120ms,
+    border-color 120ms;
+}
+.toggle-btn[aria-pressed='true'] {
+  background: var(--foreground-primary);
+  color: var(--background-primary);
+  border-color: var(--foreground-primary);
+}
+.toggle-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.toggle-btn--sm {
+  padding: 4px 14px;
+  font-size: var(--fs-sm);
+}
+.toggle-btn--lg {
+  padding: 10px 22px;
+  font-size: var(--fs-lg);
+}

@@ -1,0 +1,16 @@
+.fcc-link {
+  color: var(--highlight-color);
+  text-decoration: underline;
+  text-underline-offset: 0.1em;
+}
+.fcc-link:hover {
+  color: var(--foreground-primary);
+}
+.fcc-link--block {
+  display: block;
+  padding: 8px 10px;
+  text-decoration: none;
+}
+.fcc-link--block:hover {
+  background: var(--background-tertiary);
+}

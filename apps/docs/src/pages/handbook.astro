@@ -92,22 +92,57 @@ const handbookSections = [
 
           <section class='section handbook-section' id='install'>
             <p class='section__eyebrow'>Install</p>
-            <h2 class='section__title'>Install the kit</h2>
+            <h2 class='section__title'>Copy the source, own the code</h2>
             <p class='section__lede'>
-              Ship UIKit however you like — two patterns, identical output.
+              UIKit is a copy-source registry, shadcn-style: components are
+              copied into your project and tailored there — nothing installs
+              from npm. Every page under
+              <code>/components/&lt;slug&gt;.md</code> carries install steps, props,
+              and the full source.
             </p>
-            <Panel title='1 · Add the packages'>
-              <pre><code>pnpm add @freecodecamp/uikit @freecodecamp/uikit-css</code></pre>
+            <Panel title='1 · Install the theme (once)'>
+              <p>
+                Copy <code>tokens.css</code> + <code>base.css</code> from
+                <a class='fcc-link' href='/registry/theme.md'
+                  >/registry/theme.md</a
+                > into <code>src/ui/theme/</code>, then import them — tokens
+                first. Fonts are listed in the
+                <a class='fcc-link' href='/registry/starter.md'>starter guide</a
+                >.
+              </p>
+              <pre><code>{`@import './ui/theme/tokens.css';
+@import './ui/theme/base.css';`}</code></pre>
             </Panel>
-            <Panel title='2 · Import the stylesheets'>
-              <p>Tokens first, components second.</p>
-              <pre><code>{`@import '@freecodecamp/uikit-css/tokens.css';
-@import '@freecodecamp/uikit-css/components.css';`}</code></pre>
+            <Panel title='2 · Copy a component'>
+              <p>
+                Grab the files from the component page (or the raw URLs it
+                lists) and import its CSS once, globally.
+              </p>
+              <pre><code>{`# design.freecodecamp.org/components/button.md
+src/ui/button/Button.tsx
+src/ui/button/button.css`}</code></pre>
             </Panel>
-            <Panel title='3 · Use the components'>
-              <pre><code>{`import { Button } from '@freecodecamp/uikit';
+            <Panel title='3 · Use it — it is your code now'>
+              <pre><code>{`import { Button } from './ui/button/Button';
 
 <Button variant="cta">Start curriculum</Button>`}</code></pre>
+              <p>
+                Tailor the component freely. Recolour by editing token values in
+                your copied <code>tokens.css</code> — keep the token names, and never
+                hard-code colors in component CSS.
+              </p>
+            </Panel>
+            <Panel title='For coding agents'>
+              <p>
+                Point agents at <a class='fcc-link' href='/llms.txt'
+                  >/llms.txt</a
+                > (index), <a class='fcc-link' href='/registry/index.json'
+                  >/registry/index.json</a
+                > (machine-readable manifest), or
+                <a class='fcc-link' href='/registry/starter.md'
+                  >/registry/starter.md</a
+                > (bootstrap guide with a ready-made AGENTS.md snippet).
+              </p>
             </Panel>
           </section>
 
@@ -146,11 +181,18 @@ const handbookSections = [
               switches stay synchronized across both surfaces.
             </p>
             <Panel title='1 · Install'>
-              <pre><code>{`pnpm add tailwindcss @freecodecamp/uikit-tailwind @freecodecamp/uikit-css`}</code></pre>
+              <p>
+                Install Tailwind, then copy <code>preset.ts</code> +
+                <code>plugin.ts</code> from
+                <a class='fcc-link' href='/registry/tailwind.md'
+                  >/registry/tailwind.md</a
+                > into <code>src/ui/tailwind/</code>.
+              </p>
+              <pre><code>{`pnpm add tailwindcss`}</code></pre>
             </Panel>
             <Panel title='2 · Wire it up'>
               <pre><code>{`// tailwind.config.js
-import fcc from '@freecodecamp/uikit-tailwind';
+import fcc from './src/ui/tailwind/preset';
 
 export default {
   presets: [fcc],
@@ -159,7 +201,7 @@ export default {
 };`}</code></pre>
               <pre><code>{`/* src/index.css */
 @import 'tailwindcss';
-@import '@freecodecamp/uikit-css';`}</code></pre>
+@import './ui/theme/tokens.css';`}</code></pre>
             </Panel>
             <Panel title='3 · Pick a pattern'>
               <p>
@@ -169,12 +211,12 @@ export default {
               <ol class='guide-list handbook-steps'>
                 <li>
                   <strong>Tailwind utility-first</strong> — import
-                  <code>tailwindcss</code> only; let the preset surface the tokens.
-                  Skip <code>uikit-css</code> entirely.
+                  <code>tailwindcss</code> + the copied tokens only; let the preset
+                  surface the tokens. Skip the component CSS entirely.
                 </li>
                 <li>
                   <strong>BEM-first + Tailwind escape hatch</strong> — import both,
-                  but order <code>uikit-css</code> before
+                  but order the copied component CSS before
                   <code>tailwindcss</code> so utility classes win the cascade.
                 </li>
               </ol>
@@ -203,7 +245,10 @@ export default {
               collect the patterns that compose two or more.
             </p>
             <Panel title='Form composition'>
-              <pre><code>{`import { FormGroup, Input, HelpBlock, Button } from '@freecodecamp/uikit';
+              <pre><code>{`import { FormGroup } from './ui/form-group/FormGroup';
+import { Input } from './ui/input/Input';
+import { HelpBlock } from './ui/help-block/HelpBlock';
+import { Button } from './ui/button/Button';
 
 export function NewsletterForm() {
   return (
@@ -220,7 +265,8 @@ export function NewsletterForm() {
             </Panel>
             <Panel title='Modal from a button'>
               <pre><code>{`import { useState } from 'react';
-import { Modal, Button } from '@freecodecamp/uikit';
+import { Modal } from './ui/modal/Modal';
+import { Button } from './ui/button/Button';
 
 export function ResetCta() {
   const [open, setOpen] = useState(false);
@@ -241,7 +287,8 @@ export function ResetCta() {
 }`}</code></pre>
             </Panel>
             <Panel title='Toast on action'>
-              <pre><code>{`import { useToast, Button } from '@freecodecamp/uikit';
+              <pre><code>{`import { useToast } from './ui/toast/Toast';
+import { Button } from './ui/button/Button';
 
 export function SaveButton() {
   const toast = useToast();
@@ -262,7 +309,9 @@ export function SaveButton() {
 }`}</code></pre>
             </Panel>
             <Panel title='Sidebar layout with navbar'>
-              <pre><code>{`import { SidebarLayout, Navbar, Sidebar } from '@freecodecamp/uikit';
+              <pre><code>{`import { SidebarLayout } from './ui/sidebar-layout/SidebarLayout';
+import { Navbar } from './ui/navbar/Navbar';
+import { Sidebar } from './ui/sidebar/Sidebar';
 
 export function Shell({ children }) {
   return (

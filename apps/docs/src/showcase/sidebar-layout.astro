@@ -63,7 +63,9 @@ import { SidebarLayout as SidebarLayoutCmp } from '@freecodecamp/uikit';
   <Code
     slot='react'
     lang='tsx'
-    code={`import { SidebarLayout, Sidebar, Navbar } from '@freecodecamp/uikit';
+    code={`import { SidebarLayout } from './ui/sidebar-layout/SidebarLayout';
+import { Sidebar } from './ui/sidebar/Sidebar';
+import { Navbar } from './ui/navbar/Navbar';
 
 <SidebarLayout
   header={<Navbar … />}

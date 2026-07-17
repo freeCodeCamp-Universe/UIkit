@@ -1,19 +1,21 @@
 # Packages
 
-This repo has one private app and six package workspaces. The root package is
-private and exists to run pnpm and Turbo workflows across all workspaces.
+This repo has one private app and six package workspaces — all private.
+Workspaces are the source of truth for the copy-source registry served at
+design.freecodecamp.org (see ADR-0009); nothing publishes to npm. The root
+package exists to run pnpm and Turbo workflows across all workspaces.
 
 ## Workspace summary
 
-| Workspace                 | Private | Purpose                                                            |
-| ------------------------- | ------- | ------------------------------------------------------------------ |
-| `apps/docs`               | yes     | Astro documentation site and component playground.                 |
-| `packages/uikit`          | no      | React component library.                                           |
-| `packages/uikit-css`      | no      | CSS custom properties, BEM component CSS, fonts, and brand assets. |
-| `packages/uikit-js`       | no      | Vanilla JavaScript runtime for `data-uikit-*` DOM hooks.           |
-| `packages/uikit-icons`    | no      | Curated icon body map, React icon wrapper, and SVG sprite.         |
-| `packages/uikit-tailwind` | no      | Tailwind preset and plugin that expose UIKit tokens.               |
-| `packages/uikit-cdn`      | yes     | Internal CDN bundle builder and verifier.                          |
+| Workspace                 | Purpose                                                              |
+| ------------------------- | -------------------------------------------------------------------- |
+| `apps/docs`               | Astro docs site, component playground, and the copy-source registry. |
+| `packages/uikit`          | React component library (source served by the registry).             |
+| `packages/uikit-css`      | CSS custom properties, base helpers, fonts, and brand assets.        |
+| `packages/uikit-js`       | Vanilla JavaScript runtime for `data-uikit-*` DOM hooks.             |
+| `packages/uikit-icons`    | Curated icon body map, React icon wrapper, and SVG sprite.           |
+| `packages/uikit-tailwind` | Tailwind preset and plugin that expose UIKit tokens.                 |
+| `packages/uikit-cdn`      | Internal CDN bundle builder and verifier.                            |
 
 ## Root package
 
@@ -25,27 +27,20 @@ Root `package.json` owns workspace-level scripts and shared dev tools:
 - linting: oxlint (`.oxlintrc.json`)
 - formatting: oxfmt for js/ts/json (`.oxfmtrc.json`); Prettier for `.astro`/`.md`/`.mdx`/`.yaml` (see [`adr/0002-oxc-suite-adoption.md`](./adr/0002-oxc-suite-adoption.md))
 - testing: Vitest, Testing Library, Playwright through the docs package
-- releases: Changesets plus the manual GitHub Actions release workflow
+- releases: the manual GitHub Actions CDN release workflow (docs + registry deploy automatically via Cloudflare Pages)
 
 The root package should not contain product source. It coordinates packages.
 
-## npm package standards
+## Workspace standards
 
-Every public package should keep:
+Every workspace keeps:
 
-- `description`, `keywords`, `license`, `author`, `repository`, `bugs`, and
-  `homepage`
-- `publishConfig.access: public`
+- `private: true` — distribution is copy-source + CDN, never npm
+- `description`, `license`, `author`, `repository`, `bugs`, and `homepage`
 - a package-local `README.md`
-- a package-local `CHANGELOG.md`
-- an explicit `files` allowlist
-- an `exports` map for supported entry points
-
-Compiled TypeScript packages publish `dist`, README, and changelog files. The
-CSS package publishes `src` because its public exports are the source CSS,
-fonts, and brand files.
-
-The private docs and CDN workspaces must stay `private: true`.
+- an `exports` map pointing at TypeScript/CSS source (plus the few built
+  artefacts other workspaces consume: `uikit/props.json`,
+  `uikit-icons/sprite.svg`, `uikit-js` dist for the CDN bundle)
 
 ## `@freecodecamp/uikit`
 
@@ -62,7 +57,6 @@ Key files:
   - `src/overlays/index.ts`
   - `src/data-display/index.ts`
   - `src/layouts/index.ts`
-- build config: `packages/uikit/tsup.config.ts`
 - props generator: `packages/uikit/scripts/gen-props.mjs`
 
 Exports:
@@ -92,11 +86,8 @@ Peer dependencies:
 
 Scripts:
 
-- `pnpm --filter @freecodecamp/uikit build` runs `tsup` and generates
-  `props.json`.
-- `test`, `test:watch`, and `test:coverage` run Vitest.
-- `lint` runs oxlint.
-- `typecheck` runs `tsc --noEmit`.
+- `pnpm --filter @freecodecamp/uikit build` generates `dist/props.json`
+  via `scripts/gen-props.mjs` (react-docgen-typescript).
 
 Tests live beside components. DOM interaction tests use `.dom.test.tsx`.
 Meta tests under `src/_meta` enforce coverage and API invariants.
@@ -220,7 +211,7 @@ accessible image name.
 
 Scripts:
 
-- `build` runs `tsup` and `build-sprite.mjs`.
+- `build` runs `build-sprite.mjs` (sprite only — the React wrapper and icon map ship as source).
 - `test`, `test:watch`, and `test:coverage` run Vitest.
 - `lint` runs oxlint.
 - `typecheck` runs `tsc --noEmit`.
@@ -234,7 +225,6 @@ Key files:
 - public entry: `packages/uikit-tailwind/src/index.ts`
 - preset: `packages/uikit-tailwind/src/preset.ts`
 - plugin: `packages/uikit-tailwind/src/plugin.ts`
-- build config: `packages/uikit-tailwind/tsup.config.ts`
 
 Exports:
 
@@ -259,7 +249,7 @@ Dependency notes:
 
 Scripts:
 
-- `build` runs `tsup`.
+- no build — ships source; the registry page serves preset.ts + plugin.ts.
 - `test`, `test:watch`, and `test:coverage` run Vitest.
 - `lint` runs oxlint.
 - `typecheck` runs `tsc --noEmit`.

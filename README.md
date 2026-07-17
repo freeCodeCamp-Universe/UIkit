@@ -7,18 +7,22 @@
 [![Node](https://img.shields.io/badge/node-%3E%3D22-brightgreen)](./.nvmrc)
 [![pnpm](https://img.shields.io/badge/pnpm-10-orange)](./package.json)
 
-Design system, React component library, vanilla-JS adapter, and CDN bundle that power the freeCodeCamp.org platform. Built CSS-first with design tokens, accessibility-tested against the WAI-ARIA Authoring Practices, and ships in three flavours: import as a React package, drop in via a `<script>` tag, or extend with the Tailwind preset.
+Design system, React component library, vanilla-JS adapter, and CDN bundle that power the freeCodeCamp.org platform. Built CSS-first with design tokens and accessibility-tested against the WAI-ARIA Authoring Practices.
+
+UIKit is distributed as a **copy-source registry** (shadcn-style): components are copied from [design.freecodecamp.org](https://design.freecodecamp.org) into your project's source and tailored there — nothing installs from npm. It is built to be equally usable by humans and LLM coding agents: point an agent at [design.freecodecamp.org/llms.txt](https://design.freecodecamp.org/llms.txt) and it can discover, copy, and adapt any component.
 
 ## Packages
 
-| Package                                                     | Description                                                           |
-| ----------------------------------------------------------- | --------------------------------------------------------------------- |
-| [`@freecodecamp/uikit`](./packages/uikit)                   | React component library — 47 components across 8 tiers                |
-| [`@freecodecamp/uikit-css`](./packages/uikit-css)           | Design tokens, component CSS, fonts, brand assets                     |
-| [`@freecodecamp/uikit-js`](./packages/uikit-js)             | Vanilla JS runtime — wires `data-uikit-*` attrs to Zag state machines |
-| [`@freecodecamp/uikit-icons`](./packages/uikit-icons)       | Curated Lucide icon subset, React + sprite                            |
-| [`@freecodecamp/uikit-tailwind`](./packages/uikit-tailwind) | Tailwind preset + plugin mirroring UIKit tokens                       |
-| `@freecodecamp/uikit-cdn` _(internal)_                      | Builds the CDN bundle for `freeCodeCamp/cdn`                          |
+All workspaces are private — they are the source of truth the registry serves, not npm packages.
+
+| Workspace                                              | Description                                                           |
+| ------------------------------------------------------ | --------------------------------------------------------------------- |
+| [`packages/uikit`](./packages/uikit)                   | React component library — 47 components across 8 tiers                |
+| [`packages/uikit-css`](./packages/uikit-css)           | Design tokens, base helpers, fonts, brand assets                      |
+| [`packages/uikit-js`](./packages/uikit-js)             | Vanilla JS runtime — wires `data-uikit-*` attrs to Zag state machines |
+| [`packages/uikit-icons`](./packages/uikit-icons)       | Curated Lucide icon subset, React + sprite                            |
+| [`packages/uikit-tailwind`](./packages/uikit-tailwind) | Tailwind preset + plugin mirroring UIKit tokens                       |
+| `packages/uikit-cdn` _(internal)_                      | Builds the CDN bundle for `freeCodeCamp/cdn`                          |
 
 ## Quick start
 
@@ -41,19 +45,18 @@ Use BEM class names anywhere:
 
 Full walkthrough: [Handbook → CDN](https://design.freecodecamp.org/handbook#cdn).
 
-### React — npm install
+### React — copy the source
 
-Install the package and the matching CSS:
+1. Install the theme once: copy `tokens.css` + `base.css` from [/registry/theme.md](https://design.freecodecamp.org/registry/theme.md) and import them globally (fonts: see the [starter guide](https://design.freecodecamp.org/registry/starter.md)).
+2. Copy a component from its page — e.g. [/components/button.md](https://design.freecodecamp.org/components/button.md) — into `src/ui/<slug>/`, and import its CSS once.
+3. It is your code now: tailor it freely, recolour by editing token values.
 
-```bash
-pnpm add @freecodecamp/uikit @freecodecamp/uikit-css
-```
-
-The first npm release lands at `0.1.0` across every public package. See [docs/adr/0003-pre-publish-version-reset.md](./docs/adr/0003-pre-publish-version-reset.md) for the rationale.
+For agents: [/llms.txt](https://design.freecodecamp.org/llms.txt) (index) · [/registry/index.json](https://design.freecodecamp.org/registry/index.json) (machine-readable manifest) · [/registry/starter.md](https://design.freecodecamp.org/registry/starter.md) (bootstrap + AGENTS.md snippet). See [docs/adr/0009-copy-source-registry-distribution.md](./docs/adr/0009-copy-source-registry-distribution.md) for the rationale.
 
 ```tsx
-import '@freecodecamp/uikit-css';
-import { Button, Badge } from '@freecodecamp/uikit';
+import './ui/theme/tokens.css';
+import { Button } from './ui/button/Button';
+import { Badge } from './ui/badge/Badge';
 
 export default function Example() {
   return (
@@ -84,7 +87,7 @@ For the full component-by-component reference and how UIKit compares to Catalyst
 
 - **Docs site** → Cloudflare Pages with Git integration (`design.freecodecamp.org`, project `fcc-design`). Pushes to `main` deploy production; every PR (including forks) gets a preview at `https://<branch>.fcc-design.pages.dev`. Build output: `apps/docs/dist/`. See [docs/adr/0008-cloudflare-pages-git-integration.md](./docs/adr/0008-cloudflare-pages-git-integration.md) and [docs/runbooks/deploy-docs.md](./docs/runbooks/deploy-docs.md).
 - **CDN bundle** → opened as a PR against `freeCodeCamp/cdn` by `.github/workflows/release.yml` (manual `workflow_dispatch`). Live at <https://cdn.freecodecamp.org/uikit/>.
-- **npm packages** → published via `pnpm release` (Changesets + `changeset publish`). First release: all public packages at `0.1.0`.
+- **Registry** → the docs site is the registry: component markdown pages, raw source endpoints and `registry/index.json` are generated at docs build time and ship with every docs deploy.
 
 ## Reporting bugs
 

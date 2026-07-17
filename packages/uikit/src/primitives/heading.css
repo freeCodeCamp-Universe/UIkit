@@ -1,0 +1,29 @@
+.heading {
+  font-family: var(--font-sans, 'Lato', system-ui, sans-serif);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--foreground-primary);
+  margin: 0 0 0.75rem;
+  letter-spacing: -0.01em;
+}
+.heading--display {
+  font-size: var(--fs-display);
+  line-height: var(--lh-tight, 1.05);
+}
+.heading--xl {
+  font-size: var(--fs-2xl);
+  line-height: var(--lh-tight);
+}
+.heading--lg {
+  font-size: var(--fs-xl);
+  line-height: var(--lh-tight);
+}
+.heading--md {
+  font-size: var(--fs-lg);
+  line-height: var(--lh-snug);
+}
+.heading--sm {
+  font-size: var(--fs-md);
+  letter-spacing: 0;
+  line-height: var(--lh-base);
+}

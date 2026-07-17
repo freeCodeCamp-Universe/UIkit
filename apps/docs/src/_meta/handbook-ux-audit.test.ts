@@ -7,9 +7,9 @@ import { fileURLToPath } from 'node:url';
 const here = dirname(fileURLToPath(import.meta.url));
 const docsSrc = resolve(here, '..');
 const repoRoot = resolve(here, '../../../..');
-const uikitCssPath = resolve(repoRoot, 'packages/uikit-css/src/components.css');
 const tokensCssPath = resolve(repoRoot, 'packages/uikit-css/src/tokens.css');
 const showcaseCssPath = resolve(docsSrc, 'styles/showcase.css');
+const siteFoundationsCssPath = resolve(docsSrc, 'styles/site-foundations.css');
 
 const readDocs = (path: string): string =>
   readFileSync(resolve(docsSrc, path), 'utf8');
@@ -35,8 +35,8 @@ test('handbook visual adapters do not carry bespoke CSS outside UIKit CSS', () =
   }
 });
 
-test('UIKit CSS owns the handbook specimen and guidance classes', () => {
-  const src = readFileSync(uikitCssPath, 'utf8');
+test('site-foundations.css owns the handbook specimen and guidance classes', () => {
+  const src = readFileSync(siteFoundationsCssPath, 'utf8');
 
   for (const selector of [
     '.type-specimens',

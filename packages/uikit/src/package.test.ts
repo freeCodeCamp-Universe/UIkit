@@ -1,25 +1,19 @@
 import { strict as assert } from 'node:assert';
 import { test } from 'vitest';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
 const here = dirname(fileURLToPath(import.meta.url));
-const pkgPath = join(here, '..', 'package.json');
-const pkg = JSON.parse(readFileSync(pkgPath, 'utf8')) as {
-  main?: string;
-  module?: string;
-  types?: string;
-  exports?: Record<
-    string,
-    | {
-        import?: { types?: string; default?: string };
-        require?: { types?: string; default?: string };
-      }
-    | string
-  >;
-  sideEffects?: boolean;
+const pkgRoot = join(here, '..');
+const pkg = JSON.parse(readFileSync(join(pkgRoot, 'package.json'), 'utf8')) as {
+  private?: boolean;
+  version?: string;
+  publishConfig?: unknown;
   files?: string[];
+  sideEffects?: boolean;
+  scripts?: Record<string, string>;
+  exports?: Record<string, string>;
 };
 
 const LAYER_SUBPATHS = [
@@ -33,53 +27,37 @@ const LAYER_SUBPATHS = [
   './games'
 ] as const;
 
-test('package.json declares main/module/types at dist root', () => {
-  assert.equal(pkg.main, './dist/index.cjs');
-  assert.equal(pkg.module, './dist/index.js');
-  assert.equal(pkg.types, './dist/index.d.ts');
+test('package is private — distribution is copy-source, not npm', () => {
+  assert.equal(pkg.private, true);
+  assert.equal(pkg.publishConfig, undefined);
+  assert.equal(pkg.files, undefined);
 });
 
-test('package.json exports map ships each layer', () => {
+test('package.json keeps a semver version (release.yml CDN pathing reads it)', () => {
+  assert.match(pkg.version ?? '', /^\d+\.\d+\.\d+$/);
+});
+
+test('exports map ships each layer as TypeScript source', () => {
   const exports = pkg.exports;
   assert.ok(exports, 'exports map must be defined');
   for (const sub of LAYER_SUBPATHS) {
     const entry = exports[sub];
     assert.ok(
-      entry && typeof entry === 'object',
-      `exports["${sub}"] must be a conditional object`
+      typeof entry === 'string' && /^\.\/src\/.*index\.ts$/.test(entry),
+      `exports["${sub}"] must point at a src index.ts (got ${String(entry)})`
     );
     assert.ok(
-      entry.import && typeof entry.import === 'object',
-      `exports["${sub}"].import must define nested conditions`
-    );
-    assert.ok(
-      entry.require && typeof entry.require === 'object',
-      `exports["${sub}"].require must define nested conditions`
-    );
-    assert.match(
-      entry.import.default ?? '',
-      /^\.\/dist\/.+\.js$/,
-      `exports["${sub}"].import.default must point at a .js under dist`
-    );
-    assert.match(
-      entry.require.default ?? '',
-      /^\.\/dist\/.+\.cjs$/,
-      `exports["${sub}"].require.default must point at a .cjs under dist`
-    );
-    assert.match(
-      entry.import.types ?? '',
-      /^\.\/dist\/.+\.d\.ts$/,
-      `exports["${sub}"].import.types must point at a .d.ts under dist`
-    );
-    assert.match(
-      entry.require.types ?? '',
-      /^\.\/dist\/.+\.d\.cts$/,
-      `exports["${sub}"].require.types must point at a .d.cts under dist`
+      existsSync(join(pkgRoot, entry)),
+      `exports["${sub}"] target ${entry} must exist`
     );
   }
 });
 
-test('package.json keeps sideEffects:false and publish allowlist', () => {
+test('props.json stays exported for the docs/registry pipeline', () => {
+  assert.equal(pkg.exports?.['./props.json'], './dist/props.json');
+  assert.match(pkg.scripts?.build ?? '', /gen-props\.mjs/);
+});
+
+test('keeps sideEffects:false', () => {
   assert.equal(pkg.sideEffects, false);
-  assert.deepEqual(pkg.files, ['dist', 'README.md', 'CHANGELOG.md']);
 });

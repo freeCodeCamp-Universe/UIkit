@@ -1,18 +1,28 @@
 ---
 // Opens a pre-seeded StackBlitz playground for a given code snippet.
-// We compose a URL against `stackblitz.com/run` which accepts a
-// payload describing files + dependencies. The anchor is SSR-safe
-// (no JavaScript needed on the page itself) — clicking navigates to
-// StackBlitz which does the heavy lifting.
+// UIKit is copy-source (no npm packages), so instead of declaring
+// dependencies we inline the ACTUAL registry source into the project:
+// the snippet's `./ui/<slug>/...` imports are resolved through the
+// registry manifest and each file (plus the theme and any registry
+// dependencies) is embedded verbatim — the same files a consumer
+// would copy from /components/<slug>.md.
 //
 // Keeping the integration link-based (instead of embedding an iframe)
 // avoids pulling the 600 kB Sandpack bundle into every component
 // page while still giving readers a "run this" affordance.
+import {
+  componentSource,
+  componentItem,
+  nonComponentItems,
+  readRegistryFile,
+  type RegistryItem
+} from '../../lib/registry';
 
 export interface Props {
-  /** TSX source that mounts under `<App />`. Must be self-contained. */
+  /** TSX source that mounts under `<App />`. Must be self-contained and
+   *  import components from their copied location: `./ui/<slug>/<File>`. */
   code: string;
-  /** Optional extra dependencies. `@freecodecamp/uikit` is always added. */
+  /** Optional extra npm dependencies. */
   dependencies?: Record<string, string>;
   /** Button label. Default: "Open in playground". */
   label?: string;
@@ -20,25 +30,72 @@ export interface Props {
 
 const { code, dependencies = {}, label = 'Open in playground' } = Astro.props;
 
-const deps: Record<string, string> = {
+// Resolve every `./ui/<slug>/...` import in the snippet to a registry item,
+// then walk registryDependencies so shared hooks/shapes ride along.
+const libItems = new Map(nonComponentItems().map(item => [item.name, item]));
+function itemFor(slug: string): RegistryItem | null {
+  if (libItems.has(slug)) return libItems.get(slug)!;
+  if (!componentSource(slug)) return null;
+  return componentItem(slug, { title: slug, summary: '', category: '' });
+}
+
+const wanted = new Set<string>(['theme']);
+for (const m of code.matchAll(/from\s+'\.\/ui\/([a-z-]+)\//g)) wanted.add(m[1]);
+
+const resolved = new Map<string, RegistryItem>();
+const queue = [...wanted];
+while (queue.length) {
+  const slug = queue.pop()!;
+  if (resolved.has(slug)) continue;
+  const item = itemFor(slug);
+  if (!item) throw new Error(`PlaygroundLink: unknown registry item "${slug}"`);
+  resolved.set(slug, item);
+  queue.push(...item.registryDependencies);
+}
+
+const files: Record<string, string> = {};
+const cssImports: string[] = [];
+const npmDeps: Record<string, string> = {
   react: '^19.0.0',
   'react-dom': '^19.0.0',
-  '@freecodecamp/uikit': 'latest',
-  '@freecodecamp/uikit-css': 'latest',
   ...dependencies
+};
+for (const item of resolved.values()) {
+  for (const file of item.files) {
+    // Same suggested target the registry pages advertise (src/ui/<slug>/...).
+    files[`src/${file.target.replace(/^src\//, '')}`] = readRegistryFile(file);
+    if (file.lang === 'css') {
+      cssImports.push(`./${file.target.replace(/^src\//, '')}`);
+    }
+  }
+  for (const dep of item.npmDependencies) {
+    const at = dep.lastIndexOf('@');
+    if (at > 0) npmDeps[dep.slice(0, at)] ??= dep.slice(at + 1);
+  }
+}
+// tokens → base → component css, same order the install guides mandate.
+const cssRank = (p: string) =>
+  p.endsWith('/tokens.css') ? 0 : p.includes('/theme/') ? 1 : 2;
+cssImports.sort((a, b) => cssRank(a) - cssRank(b) || a.localeCompare(b));
+
+const devDeps = {
+  vite: '^7.0.0',
+  '@vitejs/plugin-react': '^5.0.0',
+  typescript: '^5.9.0'
 };
 
 const projectPayload = {
   title: 'fCC UIKit playground',
   template: 'node',
-  dependencies: deps,
+  dependencies: npmDeps,
   files: {
     'package.json': JSON.stringify(
       {
         name: 'fcc-uikit-playground',
         version: '0.0.0',
         type: 'module',
-        dependencies: deps,
+        dependencies: npmDeps,
+        devDependencies: devDeps,
         scripts: {
           dev: 'vite',
           build: 'vite build'
@@ -47,6 +104,11 @@ const projectPayload = {
       null,
       2
     ),
+    'vite.config.ts': `import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+
+export default defineConfig({ plugins: [react()] });
+`,
     'index.html': `<!doctype html>
 <html>
   <head><meta charset="utf-8" /><title>fCC UIKit playground</title></head>
@@ -54,20 +116,18 @@ const projectPayload = {
 </html>`,
     'src/main.tsx': `import React from 'react';
 import { createRoot } from 'react-dom/client';
-import '@freecodecamp/uikit-css/components.css';
-import '@freecodecamp/uikit-css/tokens.css';
+${cssImports.map(p => `import '${p}';`).join('\n')}
 import { App } from './App';
 
 createRoot(document.getElementById('root')!).render(<App />);
 `,
-    'src/App.tsx': code
+    'src/App.tsx': code,
+    ...files
   }
 };
 
-// StackBlitz `fork` endpoint accepts a form-POST via a link that we
-// construct client-side. For SSR simplicity we emit a form the user
-// can submit — one click opens the playground in a new tab.
-const payload = JSON.stringify(projectPayload);
+// StackBlitz `run` endpoint accepts a form-POST. For SSR simplicity we emit
+// a form the user can submit — one click opens the playground in a new tab.
 ---
 
 <form
@@ -108,12 +168,6 @@ const payload = JSON.stringify(projectPayload);
     </svg>
     {label}
   </button>
-  <!--
-    `payload` retained for debug parity with the downstream service;
-    not emitted as a field because the individual inputs above already
-    carry every key StackBlitz needs.
-  -->
-  <input type='hidden' value={payload} style='display:none' />
 </form>
 
 <style>

@@ -1,0 +1,26 @@
+.text {
+  font-family: var(--font-sans, 'Lato', system-ui, sans-serif);
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--foreground-primary);
+  margin: 0 0 0.5rem;
+}
+.text--xs {
+  font-size: 0.75rem;
+}
+.text--sm {
+  font-size: 0.875rem;
+}
+.text--lg {
+  font-size: 1.125rem;
+}
+.text--bold {
+  font-weight: 700;
+}
+.text--secondary {
+  color: var(--foreground-secondary);
+}
+.text--muted {
+  color: var(--foreground-secondary);
+  opacity: 0.7;
+}
