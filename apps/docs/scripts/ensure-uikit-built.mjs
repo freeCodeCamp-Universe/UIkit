@@ -17,7 +17,7 @@ const propsPath = resolve(
 
 if (!existsSync(propsPath)) {
   process.stderr.write(
-    `[apps/docs] ${propsPath} missing — auto-running \`pnpm -F @freecodecamp/uikit build\`.\n`
+    `[apps/docs] ${propsPath} missing - auto-running \`pnpm -F @freecodecamp/uikit build\`.\n`
   );
   execSync('pnpm -F @freecodecamp/uikit build', { stdio: 'inherit' });
 }

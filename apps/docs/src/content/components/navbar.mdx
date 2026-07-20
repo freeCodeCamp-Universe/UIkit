@@ -21,7 +21,7 @@ import TokenChips from '../../components/site/TokenChips.astro';
 import DoDont from '../../components/site/DoDont.astro';
 import RelatedComponents from '../../components/site/RelatedComponents.astro';
 
-Navbar is the top-of-page chrome — a semantic `<header role="banner">`
+Navbar is the top-of-page chrome - a semantic `<header role="banner">`
 with three optional slots: `start` (brand + primary nav), `center`
 (supporting nav, breadcrumb, search), and `end` (actions, user menu).
 At widths ≤ 768 px the center slot wraps to a new row so the start and
@@ -34,19 +34,19 @@ end rails stay on one line.
     {
       name: 'start',
       type: 'ReactNode',
-      default: '—',
+      default: '-',
       description: 'Left rail. Typically the brand lockup and primary links.'
     },
     {
       name: 'center',
       type: 'ReactNode',
-      default: '—',
+      default: '-',
       description: 'Middle band. Search, breadcrumbs, or supporting nav.'
     },
     {
       name: 'end',
       type: 'ReactNode',
-      default: '—',
+      default: '-',
       description: 'Right rail. Actions, auth controls, user menu.'
     }
   ]}
@@ -57,7 +57,7 @@ end rails stay on one line.
 Renders a `<header role="banner">`. Pair contained navigation lists
 with `<nav aria-label="…">` so screen reader users can distinguish
 primary navigation from secondary. Use real `<button>` or `<a>`
-elements for every interactive child — no `role="button"` on divs.
+elements for every interactive child - no `role="button"` on divs.
 
 ## Tokens consumed
 
@@ -82,7 +82,7 @@ elements for every interactive child — no `role="button"` on divs.
         screens.
       </li>
       <li>
-        Use `end` for global actions — search, sign-in, user menu, theme toggle.
+        Use `end` for global actions - search, sign-in, user menu, theme toggle.
       </li>
       <li>
         Pair with SidebarLayout for apps that need a persistent side rail under
@@ -93,11 +93,11 @@ elements for every interactive child — no `role="button"` on divs.
   <Fragment slot='dont'>
     <ul>
       <li>
-        Don't stuff every nav link in `center` — the wrap band gets crowded fast
+        Don't stuff every nav link in `center` - the wrap band gets crowded fast
         on mobile.
       </li>
       <li>
-        Don't mix unrelated actions into `end` — keep it focused on global
+        Don't mix unrelated actions into `end` - keep it focused on global
         actions only.
       </li>
       <li>

@@ -11,20 +11,21 @@ Last refreshed: 2026-05-02.
 
 freeCodeCamp UIKit is a pnpm/Turbo monorepo. It ships a React component
 package, source CSS tokens and BEM classes, a vanilla JavaScript runtime,
-an icon package, a Tailwind integration, an internal CDN bundle builder,
-and the Astro documentation site.
+an icon package, a Tailwind integration, and the Astro documentation site
+(which also builds the rolling, unversioned CDN bundle - see
+[ADR-0010](./adr/0010-cdn-bundle-ships-with-docs-deploy.md)).
 
 ### What ships
 
-| Surface                  | Package or app                 | Main source                   | Output                                                            |
-| ------------------------ | ------------------------------ | ----------------------------- | ----------------------------------------------------------------- |
-| React components         | `@freecodecamp/uikit`          | `packages/uikit/src`          | ESM, CJS, declarations, and `props.json` in `packages/uikit/dist` |
-| Tokens and component CSS | `@freecodecamp/uikit-css`      | `packages/uikit-css/src`      | Source CSS, fonts, and brand assets shipped directly              |
-| Vanilla runtime          | `@freecodecamp/uikit-js`       | `packages/uikit-js/src`       | ESM module and IIFE bundle in `packages/uikit-js/dist`            |
-| Icons                    | `@freecodecamp/uikit-icons`    | `packages/uikit-icons/src`    | Icon map, React wrapper, declarations, and `sprite.svg` in `dist` |
-| Tailwind integration     | `@freecodecamp/uikit-tailwind` | `packages/uikit-tailwind/src` | Preset and plugin ESM/CJS entries in `dist`                       |
-| CDN bundle               | `@freecodecamp/uikit-cdn`      | `packages/uikit-cdn/scripts`  | `dist-cdn/uikit` bundle with version aliases and manifest         |
-| Public docs site         | `@freecodecamp/uikit-docs`     | `apps/docs/src`               | Static Astro site in `apps/docs/dist`                             |
+| Surface                  | Package or app                 | Main source                              | Output                                                            |
+| ------------------------ | ------------------------------ | ---------------------------------------- | ----------------------------------------------------------------- |
+| React components         | `@freecodecamp/uikit`          | `packages/uikit/src`                     | ESM, CJS, declarations, and `props.json` in `packages/uikit/dist` |
+| Tokens and component CSS | `@freecodecamp/uikit-css`      | `packages/uikit-css/src`                 | Source CSS, fonts, and brand assets shipped directly              |
+| Vanilla runtime          | `@freecodecamp/uikit-js`       | `packages/uikit-js/src`                  | ESM module and IIFE bundle in `packages/uikit-js/dist`            |
+| Icons                    | `@freecodecamp/uikit-icons`    | `packages/uikit-icons/src`               | Icon map, React wrapper, declarations, and `sprite.svg` in `dist` |
+| Tailwind integration     | `@freecodecamp/uikit-tailwind` | `packages/uikit-tailwind/src`            | Preset and plugin ESM/CJS entries in `dist`                       |
+| CDN bundle (rolling)     | `@freecodecamp/uikit-docs`     | `apps/docs/scripts/build-cdn-bundle.mjs` | `apps/docs/public/cdn`, no version aliases                        |
+| Public docs site         | `@freecodecamp/uikit-docs`     | `apps/docs/src`                          | Static Astro site in `apps/docs/dist`                             |
 
 ### Workspace layout
 
@@ -33,16 +34,16 @@ and `packages/*` (registry source workspaces + internal package tooling).
 Important root files: `package.json` (root scripts + dev tools + pnpm
 version + lint-staged), `turbo.json` (task graph), `tsconfig.base.json`
 (strict TS defaults), `.oxlintrc.json`, `.oxfmtrc.json`,
-`prettier.config.js` (Astro/MD fallback — see ADR-0002),
-`.github/workflows/*` (CI + reusable jobs + manual CDN release).
+`prettier.config.js` (Astro/MD fallback - see ADR-0002),
+`.github/workflows/*` (CI + reusable jobs; no release workflow).
 
 Generated output is intentionally separate from source:
 
 - `packages/*/dist` from `tsup` builds.
 - `packages/uikit/dist/props.json` from `scripts/gen-props.mjs`.
-- `dist-cdn/uikit` from the CDN build.
 - `apps/docs/.astro` and `apps/docs/dist` from Astro.
 - `apps/docs/public/uikit/*` from docs predev/prebuild asset copying.
+- `apps/docs/public/cdn/*` from docs predev/prebuild CDN bundle build.
 - coverage and Playwright artifacts under package/app `coverage/` and
   `apps/docs/test-results/`.
 
@@ -57,12 +58,11 @@ Generated output is intentionally separate from source:
 4. `@freecodecamp/uikit-icons` compiles package entries and builds
    `dist/sprite.svg`.
 5. `@freecodecamp/uikit-tailwind` compiles the Tailwind preset + plugin.
-6. `@freecodecamp/uikit-cdn` bundles CSS with Lightning CSS, copies
-   fonts, brand assets, the vanilla IIFE, and the icon sprite, then
-   mirrors them under `latest`, major, minor, and exact-version
-   aliases.
-7. `apps/docs` imports workspace package source during dev/build through
-   Vite aliases, copies dogfood assets into `public/uikit`, and builds
+6. `apps/docs` imports workspace package source during dev/build through
+   Vite aliases, copies dogfood assets into `public/uikit`, builds the
+   rolling CDN bundle into `public/cdn` (`scripts/build-cdn-bundle.mjs`
+   bundles CSS with Lightning CSS, copies fonts, brand assets, the
+   vanilla IIFE, and the icon sprite - no version aliases), and builds
    the Astro site.
 
 `turbo run build` drives this graph. The `build` task depends on upstream
@@ -86,15 +86,14 @@ tokens, the vanilla runtime, icons, and CDN-style assets.
 
 ## Workspace inventory
 
-| Path                      | Name                           | Public? | Version | Role                                                        |
-| ------------------------- | ------------------------------ | ------- | ------- | ----------------------------------------------------------- |
-| `packages/uikit`          | `@freecodecamp/uikit`          | npm     | 0.1.0   | React components (Command-line Chic)                        |
-| `packages/uikit-css`      | `@freecodecamp/uikit-css`      | npm     | 0.1.0   | Tokens + component CSS + fonts (source-only ship)           |
-| `packages/uikit-icons`    | `@freecodecamp/uikit-icons`    | npm     | 0.1.0   | Curated Lucide subset + SVG sprite                          |
-| `packages/uikit-js`       | `@freecodecamp/uikit-js`       | npm     | 0.1.0   | Vanilla `data-uikit-*` runtime via Zag machines             |
-| `packages/uikit-tailwind` | `@freecodecamp/uikit-tailwind` | npm     | 0.1.0   | Tailwind v4 preset + plugin mirroring tokens                |
-| `packages/uikit-cdn`      | `@freecodecamp/uikit-cdn`      | private | 0.1.0   | Builds `dist-cdn/` for the `freeCodeCamp/cdn` deploy        |
-| `apps/docs`               | `@freecodecamp/uikit-docs`     | private | 0.1.0   | Astro docs site (live at `https://design.freecodecamp.org`) |
+| Path                      | Name                           | Public? | Version | Role                                                                     |
+| ------------------------- | ------------------------------ | ------- | ------- | ------------------------------------------------------------------------ |
+| `packages/uikit`          | `@freecodecamp/uikit`          | npm     | 0.1.0   | React components (Command-line Chic)                                     |
+| `packages/uikit-css`      | `@freecodecamp/uikit-css`      | npm     | 0.1.0   | Tokens + component CSS + fonts (source-only ship)                        |
+| `packages/uikit-icons`    | `@freecodecamp/uikit-icons`    | npm     | 0.1.0   | Curated Lucide subset + SVG sprite                                       |
+| `packages/uikit-js`       | `@freecodecamp/uikit-js`       | npm     | 0.1.0   | Vanilla `data-uikit-*` runtime via Zag machines                          |
+| `packages/uikit-tailwind` | `@freecodecamp/uikit-tailwind` | npm     | 0.1.0   | Tailwind v4 preset + plugin mirroring tokens                             |
+| `apps/docs`               | `@freecodecamp/uikit-docs`     | private | 0.1.0   | Astro docs site + CDN bundle (live at `https://design.freecodecamp.org`) |
 
 All five public packages share `engines.node = ">=22"`.
 
@@ -149,7 +148,7 @@ deliberately disabled to preserve current rule semantics; revisit in v1.1.
 | Node.js      | 22 Maintenance LTS, **24 Active LTS**, 26 Current | Floor = lowest active or maintenance LTS. Currently `>=22`. Bump floor when previous LTS hits EOL. |
 | TypeScript   | 6.x                                               | Stay on current major; pin via `^`.                                                                |
 | pnpm         | 10.x                                              | Track current major; pin via `packageManager`.                                                     |
-| Tailwind CSS | 4.x peer pin (`^4.0.0`)                           | v3 deliberately dropped — Config types diverge between majors.                                     |
+| Tailwind CSS | 4.x peer pin (`^4.0.0`)                           | v3 deliberately dropped - Config types diverge between majors.                                     |
 | React        | 19 stable; peer `>=18 <20`                        | Hold peer at last-known-stable; widen after eval per release.                                      |
 | Astro        | 6.x (`^6.1.9` in `apps/docs`)                     | Hold majors for human review (Renovate `automerge: false`).                                        |
 
@@ -168,15 +167,14 @@ commit as the `package.json`/`.nvmrc`/CI changes.
 
 ## Build + test surface (per package)
 
-| Package          | Builder                     | Test                    | Notable runtime deps                                           |
-| ---------------- | --------------------------- | ----------------------- | -------------------------------------------------------------- |
-| `uikit`          | `tsup` + `gen-props.mjs`    | `vitest` (jsdom)        | peer `@ark-ui/react ^5.0.0`, `react >=18 <20`                  |
-| `uikit-css`      | none — ships source         | `vitest` (node)         | —                                                              |
-| `uikit-icons`    | `tsup` + `build-sprite.mjs` | `vitest`                | peer `react >=18 <20`                                          |
-| `uikit-js`       | `tsup`                      | `vitest` (jsdom)        | `@zag-js/{combobox,dialog,listbox,pagination,tabs} ^1.40.0`    |
-| `uikit-tailwind` | `tsup`                      | `vitest`                | peer `tailwindcss ^4.0.0`                                      |
-| `uikit-cdn`      | `node scripts/build.mjs`    | `vitest` + `verify`     | `lightningcss ^1.32.0`                                         |
-| `apps/docs`      | `astro build`               | `vitest` + `playwright` | `astro ^6.1.9`, `@astrojs/{mdx,react} ^5.0.4`, `react ^19.2.5` |
+| Package          | Builder                     | Test                    | Notable runtime deps                                                                                |
+| ---------------- | --------------------------- | ----------------------- | --------------------------------------------------------------------------------------------------- |
+| `uikit`          | `tsup` + `gen-props.mjs`    | `vitest` (jsdom)        | peer `@ark-ui/react ^5.0.0`, `react >=18 <20`                                                       |
+| `uikit-css`      | none - ships source         | `vitest` (node)         | -                                                                                                   |
+| `uikit-icons`    | `tsup` + `build-sprite.mjs` | `vitest`                | peer `react >=18 <20`                                                                               |
+| `uikit-js`       | `tsup`                      | `vitest` (jsdom)        | `@zag-js/{combobox,dialog,listbox,pagination,tabs} ^1.40.0`                                         |
+| `uikit-tailwind` | `tsup`                      | `vitest`                | peer `tailwindcss ^4.0.0`                                                                           |
+| `apps/docs`      | `astro build`               | `vitest` + `playwright` | `astro ^6.1.9`, `@astrojs/{mdx,react} ^5.0.4`, `react ^19.2.5`, `lightningcss ^1.32.0` (CDN bundle) |
 
 ## Workspace tasks
 
@@ -187,12 +185,11 @@ through it.
 
 | Script                     | Effect                                                             |
 | -------------------------- | ------------------------------------------------------------------ |
-| `build`                    | `turbo run build` — every workspace.                               |
+| `build`                    | `turbo run build` - every workspace.                               |
 | `build:pkgs`               | Build packages, skip docs.                                         |
 | `build:docs`               | Build docs app + required deps only.                               |
 | `dev` / `dev:docs`         | Astro docs dev server (default local entry).                       |
 | `dev:vanilla`              | `tsup --watch` for `@freecodecamp/uikit-js`.                       |
-| `build:cdn` / `verify:cdn` | CDN bundle build + integrity check on `dist-cdn/uikit`.            |
 | `preview`                  | Preview the built docs app.                                        |
 | `test`                     | All workspace unit tests.                                          |
 | `test:coverage`            | Coverage tasks (v8 reporter).                                      |
@@ -204,20 +201,20 @@ through it.
 
 ### Turbo task graph
 
-| Task                            | Depends on | Outputs / cache behavior                                            |
-| ------------------------------- | ---------- | ------------------------------------------------------------------- |
-| `build`                         | `^build`   | `dist/**`, `dist-cdn/**`, `.astro/**` (excluding `.astro/cache/**`) |
-| `dev`                           | none       | persistent, uncached                                                |
-| `preview`                       | `build`    | persistent, uncached                                                |
-| `test`                          | `^build`   | no outputs                                                          |
-| `test:coverage`                 | `^build`   | `coverage/**`                                                       |
-| `test:watch`                    | none       | persistent, uncached                                                |
-| `test:playwright[:update]`      | `build`    | uncached                                                            |
-| `test:visual[:update]`          | `build`    | uncached                                                            |
-| `lint`                          | none       | no outputs                                                          |
-| `typecheck`                     | `^build`   | no outputs                                                          |
-| `verify`                        | `build`    | no outputs                                                          |
-| `@freecodecamp/uikit-css#build` | none       | no outputs; CSS ships source                                        |
+| Task                            | Depends on | Outputs / cache behavior                             |
+| ------------------------------- | ---------- | ---------------------------------------------------- |
+| `build`                         | `^build`   | `dist/**`, `.astro/**` (excluding `.astro/cache/**`) |
+| `dev`                           | none       | persistent, uncached                                 |
+| `preview`                       | `build`    | persistent, uncached                                 |
+| `test`                          | `^build`   | no outputs                                           |
+| `test:coverage`                 | `^build`   | `coverage/**`                                        |
+| `test:watch`                    | none       | persistent, uncached                                 |
+| `test:playwright[:update]`      | `build`    | uncached                                             |
+| `test:visual[:update]`          | `build`    | uncached                                             |
+| `lint`                          | none       | no outputs                                           |
+| `typecheck`                     | `^build`   | no outputs                                           |
+| `verify`                        | `build`    | no outputs                                           |
+| `@freecodecamp/uikit-css#build` | none       | no outputs; CSS ships source                         |
 
 For narrative day-to-day workflow (Setup, common command sequences,
 when to refresh visual snapshots), see [`CONTRIBUTING.md`](../CONTRIBUTING.md).
@@ -226,18 +223,21 @@ when to refresh visual snapshots), see [`CONTRIBUTING.md`](../CONTRIBUTING.md).
 
 GitHub Actions live in `.github/workflows/`:
 
-- `ci.yml` — push + pull request to `main`. Calls reusable workflows in dependency order.
-- `re-lint.yml` — `pnpm format:check` (oxfmt + prettier-astro/md) and `pnpm typecheck` (`tsc` + `astro check`).
-- `re-test.yml` — Node matrix `[22.x, 24.x]`, `pnpm test:coverage`. Uploads coverage on Node 24.x only.
-- `re-build.yml` — `pnpm build` and `pnpm --filter @freecodecamp/uikit-cdn run verify`.
-- `re-visual.yml` — Playwright Chromium visual regression for `apps/docs`.
-- `release.yml` — npm publish + opens PR on `freeCodeCamp/cdn` for the CDN bundle. Republish guard checks if version already lives there.
-  Docs deploy is handled by Cloudflare Pages with Git integration
-  (`fcc-design` project, `design.freecodecamp.org`). The CF GitHub App
-  watches the repo and runs the build on CF infra; no deploy
-  workflow lives under `.github/workflows/`. See
-  [`docs/adr/0008-cloudflare-pages-git-integration.md`](./adr/0008-cloudflare-pages-git-integration.md)
-  and [`docs/runbooks/deploy-docs.md`](./runbooks/deploy-docs.md).
+- `ci.yml` - push + pull request to `main`. Calls reusable workflows in dependency order.
+- `re-lint.yml` - `pnpm format:check` (oxfmt + prettier-astro/md) and `pnpm typecheck` (`tsc` + `astro check`).
+- `re-test.yml` - Node matrix `[22.x, 24.x]`, `pnpm test:coverage`. Uploads coverage on Node 24.x only.
+- `re-build.yml` - `pnpm build` (also builds and verifies the CDN bundle,
+  via the docs app's `prebuild`/post-build gate).
+- `re-visual.yml` - Playwright Chromium visual regression for `apps/docs`.
+
+There is no release workflow. Docs deploy (and the CDN bundle with it)
+is handled by Cloudflare Pages with Git integration (`fcc-design`
+project, `design.freecodecamp.org`). The CF GitHub App watches the
+repo and runs the build on CF infra; no deploy workflow lives under
+`.github/workflows/`. See
+[`docs/adr/0008-cloudflare-pages-git-integration.md`](./adr/0008-cloudflare-pages-git-integration.md),
+[`docs/adr/0010-cdn-bundle-ships-with-docs-deploy.md`](./adr/0010-cdn-bundle-ships-with-docs-deploy.md),
+and [`docs/runbooks/deploy-docs.md`](./runbooks/deploy-docs.md).
 
 Composite action `.github/actions/setup-tooling/action.yml` installs pnpm
 and Node, with `node-version` defaulting to `22` (the floor).
@@ -272,11 +272,11 @@ local rules:
 
 ## See also
 
-- [`docs/packages.md`](./packages.md) — per-package entrypoints + exports.
-- [`docs/releasing.md`](./releasing.md) — release process.
-- [`docs/runbooks/deploy-docs.md`](./runbooks/deploy-docs.md) — Cloudflare Pages operator playbook.
-- [`docs/components-matrix.md`](./components-matrix.md) — peer comparison.
-- [`docs/v1.1-backlog.md`](./v1.1-backlog.md) — deferred items.
-- [`docs/adr/`](./adr/) — architecture decision log (locked decisions).
-- [`apps/docs/README.md`](../apps/docs/README.md) — Astro app internals.
-- [`CONTRIBUTING.md`](../CONTRIBUTING.md) — contributor narrative workflow.
+- [`docs/packages.md`](./packages.md) - per-package entrypoints + exports.
+- [`docs/releasing.md`](./releasing.md) - release process.
+- [`docs/runbooks/deploy-docs.md`](./runbooks/deploy-docs.md) - Cloudflare Pages operator playbook.
+- [`docs/components-matrix.md`](./components-matrix.md) - peer comparison.
+- [`docs/v1.1-backlog.md`](./v1.1-backlog.md) - deferred items.
+- [`docs/adr/`](./adr/) - architecture decision log (locked decisions).
+- [`apps/docs/README.md`](../apps/docs/README.md) - Astro app internals.
+- [`CONTRIBUTING.md`](../CONTRIBUTING.md) - contributor narrative workflow.

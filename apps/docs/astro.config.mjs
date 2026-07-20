@@ -39,7 +39,7 @@ export default defineConfig({
         ]
       ]
     }),
-    // Sitemap skips /api/* — reachable but excluded from search engines.
+    // Sitemap skips /api/* - reachable but excluded from search engines.
     sitemap({
       filter: page => !page.includes('/api/') && !/\/api\/?$/.test(page)
     }),

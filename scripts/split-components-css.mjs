@@ -26,7 +26,7 @@ const UIKIT = 'packages/uikit/src';
 const CSSPKG = 'packages/uikit-css/src';
 const DOCS = 'apps/docs/src/styles';
 
-/** [targetPath, startLine, endLine] — original order, ranges tile the file. */
+/** [targetPath, startLine, endLine] - original order, ranges tile the file. */
 const ranges = [
   [`${UIKIT}/primitives/button.css`, 1, 124],
   [`${UIKIT}/forms/toggle-button.css`, 125, 160],

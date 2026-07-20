@@ -145,7 +145,7 @@ test('isActiveHref with exact:false matches descendants', () => {
   );
 });
 
-test('isActiveHref default is exact — descendant paths do not match', () => {
+test('isActiveHref default is exact - descendant paths do not match', () => {
   assert.equal(isActiveHref('/components/button', '/components'), false);
 });
 

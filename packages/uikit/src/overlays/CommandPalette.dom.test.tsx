@@ -59,7 +59,7 @@ test('ArrowDown moves aria-selected forward, ArrowUp moves it back', () => {
   fireEvent.keyDown(document, { key: 'ArrowDown' });
   active = container.querySelector('[aria-selected="true"]');
   expect(active?.textContent).toContain('New task');
-  // Capped at last item — another ArrowDown stays put.
+  // Capped at last item - another ArrowDown stays put.
   fireEvent.keyDown(document, { key: 'ArrowDown' });
   active = container.querySelector('[aria-selected="true"]');
   expect(active?.textContent).toContain('New task');

@@ -31,7 +31,7 @@ flattening, and auto-dismiss after five seconds by default.
 
 ```tsx
 import { Toaster, createToaster } from './ui/toast/Toast';
-// Create once at module scope — the store is a singleton.
+// Create once at module scope - the store is a singleton.
 export const toaster = createToaster({ placement: 'top-end' });
 
 // Near the app root:
@@ -48,7 +48,7 @@ toaster.create({
 ### Vanilla JS
 
 For non-React pages, mark the container and triggers with `data-uikit-*`
-hooks. The IIFE bundle wires them on load — no imports needed.
+hooks. The IIFE bundle wires them on load - no imports needed.
 
 ```html
 <div data-uikit-toaster class="toaster"></div>
@@ -63,7 +63,7 @@ hooks. The IIFE bundle wires them on load — no imports needed.
 </button>
 ```
 
-## Props — `<Toast>`
+## Props - `<Toast>`
 
 The presentational item. Use it directly for custom integrations; the
 `<Toaster>` default renderer wires it up for you.
@@ -80,13 +80,13 @@ The presentational item. Use it directly for custom integrations; the
     {
       name: 'title',
       type: 'ReactNode',
-      default: '—',
+      default: '-',
       description: 'Short headline rendered in `.toast__title`.'
     },
     {
       name: 'description',
       type: 'ReactNode',
-      default: '—',
+      default: '-',
       description: 'Supporting copy rendered in `.toast__description`.'
     },
     {
@@ -98,7 +98,7 @@ The presentational item. Use it directly for custom integrations; the
     {
       name: 'onDismiss',
       type: '() => void',
-      default: '—',
+      default: '-',
       description: 'Click handler for the close button.'
     }
   ]}
@@ -109,19 +109,19 @@ The presentational item. Use it directly for custom integrations; the
 `info | success | warning` toasts render `role="status"` + `aria-live="polite"`
 so they are announced but do not interrupt. `danger` toasts upgrade to
 `role="alert"` so assistive tech interrupts for errors. Every toast owns
-a labelled close button — do not remove it unless the toast is strictly
+a labelled close button - do not remove it unless the toast is strictly
 informational and short-lived.
 
 <DoDont
   dos={[
     'Dismiss in ≤ 5 seconds unless the user actively hovers (pauses auto-dismiss).',
     'Pair a destructive toast with an Undo action so recovery stays one click away.',
-    'Surface a single stream — same placement, same spacing — across the app.'
+    'Surface a single stream - same placement, same spacing - across the app.'
   ]}
   donts={[
     'Nest toasts inside modals or panels; the provider mounts near the document root.',
     'Use a toast for errors that block the next action (use Alert or Modal).',
-    'Stack more than four at once — pick a lower `max`.'
+    'Stack more than four at once - pick a lower `max`.'
   ]}
 />
 

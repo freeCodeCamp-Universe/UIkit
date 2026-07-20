@@ -8,11 +8,11 @@ export interface TokenSwatchProps {
   label?: string;
   /** Defaults to `:root`. Override when reading from a scoped element. */
   scope?: string;
-  /** Controlled mode — parent supplies resolved value and owns the palette observer. */
+  /** Controlled mode - parent supplies resolved value and owns the palette observer. */
   value?: string;
 }
 
-const PLACEHOLDER = '—';
+const PLACEHOLDER = '-';
 
 function resolve(name: string, scope: string): string {
   if (typeof window === 'undefined') return '';

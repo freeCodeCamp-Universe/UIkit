@@ -1,4 +1,4 @@
-# 0006 — Husky v9 pre-commit layout
+# 0006 - Husky v9 pre-commit layout
 
 - Status: Accepted
 - Date: 2026-05-01
@@ -11,7 +11,7 @@ remove the following two lines …". The string surfaced as a P3 finding in
 the modernization audit. Probe revealed the file is husky v9's
 backward-compat shim for projects that still source `_/husky.sh` from their
 hook scripts (the v8 idiom). Our `.husky/pre-commit` is the modern v9
-form (`pnpm lint-staged` only — no `_/husky.sh` source line) and never
+form (`pnpm lint-staged` only - no `_/husky.sh` source line) and never
 invokes the shim. Eleven Phase 1 commits ran the hook with no DEPRECATED
 output emitted.
 
@@ -42,7 +42,7 @@ invalid option`. Recovery: `git config core.hooksPath .husky/_`.
 
 ## Alternatives considered
 
-- **Hand-write `pre-commit`, drop husky** — loses the cross-platform install
+- **Hand-write `pre-commit`, drop husky** - loses the cross-platform install
   story and the standard `prepare` flow.
-- **Switch to `lefthook` or `simple-git-hooks`** — no tangible win for our
+- **Switch to `lefthook` or `simple-git-hooks`** - no tangible win for our
   current hook surface (one pre-commit command).

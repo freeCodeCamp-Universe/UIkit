@@ -4,7 +4,7 @@
 # Spec:   https://developers.cloudflare.com/pages/configuration/redirects/
 # Limits: 2,000 static + 100 dynamic per file (well within scope).
 #
-# This file is intentionally empty at first deploy — the docs site has no
+# This file is intentionally empty at first deploy - the docs site has no
 # legacy URLs to redirect from, and Astro emits canonical trailing-slash
 # directories for every page.
 #

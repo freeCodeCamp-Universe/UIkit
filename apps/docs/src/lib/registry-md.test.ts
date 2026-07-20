@@ -116,7 +116,7 @@ describe('renderItemPage', () => {
     });
     expect(page).toContain('## Source: core.ts');
     expect(page).toContain(
-      `Too large to inline — fetch the raw file: ${SITE}/registry/vanilla/core.ts`
+      `Too large to inline - fetch the raw file: ${SITE}/registry/vanilla/core.ts`
     );
     expect(page).toContain('@zag-js/');
   });

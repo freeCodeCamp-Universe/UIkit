@@ -30,7 +30,7 @@ eyebrow: action
 status: stable
 since: "1.0.0"
 category: primitive
-summary: 'The workhorse — 3px square border.'
+summary: 'The workhorse - 3px square border.'
 ---
 
 # Button
@@ -57,13 +57,13 @@ test('parseFrontmatter handles quoted + unquoted values', () => {
   const fm = parseFrontmatter(
     `---
 title: Button
-summary: 'The workhorse — 3px square border.'
+summary: 'The workhorse - 3px square border.'
 since: "1.0.0"
 ---
 body`
   );
   assert.equal(fm.title, 'Button');
-  assert.equal(fm.summary, 'The workhorse — 3px square border.');
+  assert.equal(fm.summary, 'The workhorse - 3px square border.');
 });
 
 test('parseFrontmatter returns {} when no frontmatter block', () => {

@@ -27,7 +27,7 @@ const LAYER_SUBPATHS = [
   './games'
 ] as const;
 
-test('package is private — distribution is copy-source, not npm', () => {
+test('package is private - distribution is copy-source, not npm', () => {
   assert.equal(pkg.private, true);
   assert.equal(pkg.publishConfig, undefined);
   assert.equal(pkg.files, undefined);

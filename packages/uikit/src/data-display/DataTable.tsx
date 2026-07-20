@@ -57,7 +57,7 @@ const nextDirection = (
   if (current.direction === 'asc') {
     return { columnId, direction: 'desc' };
   }
-  // Third click clears the sort — matches common table UX.
+  // Third click clears the sort - matches common table UX.
   return null;
 };
 

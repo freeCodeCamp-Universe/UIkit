@@ -1,6 +1,6 @@
 # Packages
 
-This repo has one private app and six package workspaces — all private.
+This repo has one private app and five package workspaces - all private.
 Workspaces are the source of truth for the copy-source registry served at
 design.freecodecamp.org (see ADR-0009); nothing publishes to npm. The root
 package exists to run pnpm and Turbo workflows across all workspaces.
@@ -15,7 +15,6 @@ package exists to run pnpm and Turbo workflows across all workspaces.
 | `packages/uikit-js`       | Vanilla JavaScript runtime for `data-uikit-*` DOM hooks.             |
 | `packages/uikit-icons`    | Curated icon body map, React icon wrapper, and SVG sprite.           |
 | `packages/uikit-tailwind` | Tailwind preset and plugin that expose UIKit tokens.                 |
-| `packages/uikit-cdn`      | Internal CDN bundle builder and verifier.                            |
 
 ## Root package
 
@@ -27,7 +26,7 @@ Root `package.json` owns workspace-level scripts and shared dev tools:
 - linting: oxlint (`.oxlintrc.json`)
 - formatting: oxfmt for js/ts/json (`.oxfmtrc.json`); Prettier for `.astro`/`.md`/`.mdx`/`.yaml` (see [`adr/0002-oxc-suite-adoption.md`](./adr/0002-oxc-suite-adoption.md))
 - testing: Vitest, Testing Library, Playwright through the docs package
-- releases: the manual GitHub Actions CDN release workflow (docs + registry deploy automatically via Cloudflare Pages)
+- releases: none - docs, registry, and the CDN bundle all deploy automatically via Cloudflare Pages (see [`releasing.md`](./releasing.md))
 
 The root package should not contain product source. It coordinates packages.
 
@@ -35,12 +34,12 @@ The root package should not contain product source. It coordinates packages.
 
 Every workspace keeps:
 
-- `private: true` — distribution is copy-source + CDN, never npm
+- `private: true` - distribution is copy-source + CDN, never npm
 - `description`, `license`, `author`, `repository`, `bugs`, and `homepage`
 - a package-local `README.md`
 - an `exports` map pointing at TypeScript/CSS source (plus the few built
   artefacts other workspaces consume: `uikit/props.json`,
-  `uikit-icons/sprite.svg`, `uikit-js` dist for the CDN bundle)
+  `uikit-icons/sprite.svg`, `uikit-js` dist for the docs app's CDN bundle)
 
 ## `@freecodecamp/uikit`
 
@@ -211,7 +210,7 @@ accessible image name.
 
 Scripts:
 
-- `build` runs `build-sprite.mjs` (sprite only — the React wrapper and icon map ship as source).
+- `build` runs `build-sprite.mjs` (sprite only - the React wrapper and icon map ship as source).
 - `test`, `test:watch`, and `test:coverage` run Vitest.
 - `lint` runs oxlint.
 - `typecheck` runs `tsc --noEmit`.
@@ -249,46 +248,10 @@ Dependency notes:
 
 Scripts:
 
-- no build — ships source; the registry page serves preset.ts + plugin.ts.
+- no build - ships source; the registry page serves preset.ts + plugin.ts.
 - `test`, `test:watch`, and `test:coverage` run Vitest.
 - `lint` runs oxlint.
 - `typecheck` runs `tsc --noEmit`.
-
-## `@freecodecamp/uikit-cdn`
-
-Internal bundle builder for `freeCodeCamp/cdn`.
-
-Key files:
-
-- `packages/uikit-cdn/scripts/build.mjs`
-- `packages/uikit-cdn/scripts/verify.mjs`
-- `packages/uikit-cdn/scripts/build.test.ts`
-- `packages/uikit-cdn/vitest.config.ts`
-
-Build behavior:
-
-- bundles CSS with Lightning CSS
-- rewrites font URLs from `/fonts/...` to `./fonts/...`
-- writes `styles.min.css`, `tokens.min.css`, and `components.min.css`
-- copies fonts and brand assets
-- copies `uikit.global.js` from `@freecodecamp/uikit-js`
-- copies `sprite.svg` from `@freecodecamp/uikit-icons`
-- writes `manifest.json` with byte size, sha256, and W3C-style sha384
-  integrity values
-- mirrors the bundle under `latest`, major, minor, and exact-version aliases
-
-Verification behavior:
-
-- checks required files
-- checks font URL rewrites and referenced font files
-- recomputes manifest hashes
-- verifies alias directories match the top-level bundle
-
-Scripts:
-
-- `build` runs `node scripts/build.mjs`.
-- `verify` runs `node scripts/verify.mjs`.
-- `test`, `test:watch`, and `test:coverage` run Vitest.
 
 ## `@freecodecamp/uikit-docs`
 
@@ -304,6 +267,8 @@ Key files:
 - component showcases: `apps/docs/src/showcase/*.astro`
 - runtime islands: `apps/docs/src/showcase/_islands/*.tsx`
 - search integration: `apps/docs/integrations/search-index.ts`
+- CDN bundle builder: `apps/docs/scripts/build-cdn-bundle.mjs` (rolling,
+  unversioned; see [ADR-0010](./adr/0010-cdn-bundle-ships-with-docs-deploy.md))
 - Playwright config: `apps/docs/playwright.config.ts`
 - Vitest config: `apps/docs/vitest.config.ts`
 
@@ -314,8 +279,9 @@ still guarantees `props.json` exists when needed.
 
 Scripts:
 
-- `predev` and `prebuild` copy dogfood assets, build the brand asset kit, and
-  ensure `@freecodecamp/uikit` has built `props.json`.
+- `predev` and `prebuild` copy dogfood assets, build the brand asset kit,
+  ensure `@freecodecamp/uikit` has built `props.json`, and build the CDN
+  bundle into `public/cdn/`.
 - `dev` runs `astro dev`.
 - `build` runs `astro build`.
 - `preview` runs `astro preview`.

@@ -62,7 +62,7 @@ test('PlaygroundCard accepts the metadata props', () => {
   }
 });
 
-test('apiLinkMode prop deleted — fully retired /api references', () => {
+test('apiLinkMode prop deleted - fully retired /api references', () => {
   const src = readFileSync(cardPath, 'utf8');
   assert.doesNotMatch(
     src,
@@ -86,7 +86,7 @@ test('source prop required so the View source link always renders', () => {
   );
 });
 
-test('Showcase.astro forwarder deleted — zero consumers post-migration', () => {
+test('Showcase.astro forwarder deleted - zero consumers post-migration', () => {
   assert.ok(
     !existsSync(showcasePath),
     'Showcase.astro forwarder must be deleted; all 45 showcases import PlaygroundCard directly'

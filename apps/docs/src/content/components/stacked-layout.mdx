@@ -4,7 +4,7 @@ eyebrow: <StackedLayout />
 status: stable
 since: '0.3.0'
 category: layout
-summary: Page-scale chrome for top-nav pages — optional header, flex-grow main, optional footer. Use for marketing pages, articles, and any view that doesn't need a persistent side rail.
+summary: Page-scale chrome for top-nav pages - optional header, flex-grow main, optional footer. Use for marketing pages, articles, and any view that doesn't need a persistent side rail.
 a11yPattern: https://www.w3.org/WAI/ARIA/apg/patterns/landmarks/
 tokens:
   - --background-primary
@@ -20,7 +20,7 @@ import TokenChips from '../../components/site/TokenChips.astro';
 import DoDont from '../../components/site/DoDont.astro';
 import RelatedComponents from '../../components/site/RelatedComponents.astro';
 
-StackedLayout is the full-page shell for top-nav pages — a Navbar on
+StackedLayout is the full-page shell for top-nav pages - a Navbar on
 top, a flex-grow `<main>` for the content, and an optional footer
 row. Reach for it on marketing pages, blogs, and content-heavy views
 where a persistent side rail would only compete for attention.
@@ -32,13 +32,13 @@ where a persistent side rail would only compete for attention.
     {
       name: 'header',
       type: 'ReactNode',
-      default: '—',
+      default: '-',
       description: 'Top row. Typically a <Navbar />.'
     },
     {
       name: 'footer',
       type: 'ReactNode',
-      default: '—',
+      default: '-',
       description: 'Bottom row. Legal, copyright, links.'
     }
   ]}
@@ -46,7 +46,7 @@ where a persistent side rail would only compete for attention.
 
 ## Accessibility
 
-Semantic landmarks come from slot contents — Navbar brings
+Semantic landmarks come from slot contents - Navbar brings
 `role="banner"`, the main column is a native `<main>`, and the
 footer slot is a plain container (wrap with your own `<footer>` when
 you need `role="contentinfo"`).
@@ -69,14 +69,14 @@ you need `role="contentinfo"`).
   <Fragment slot='do'>
     <ul>
       <li>Use StackedLayout for marketing, docs, blogs, and article views.</li>
-      <li>Keep the footer focused on legal / contact / secondary nav — not primary actions.</li>
+      <li>Keep the footer focused on legal / contact / secondary nav - not primary actions.</li>
       <li>Pair with container constraints inside `<main>` to cap reading-measure width.</li>
     </ul>
   </Fragment>
   <Fragment slot='dont'>
     <ul>
-      <li>Don't reach for StackedLayout for app chrome — SidebarLayout is the better fit.</li>
-      <li>Don't nest StackedLayout inside another layout — one shell per route.</li>
+      <li>Don't reach for StackedLayout for app chrome - SidebarLayout is the better fit.</li>
+      <li>Don't nest StackedLayout inside another layout - one shell per route.</li>
       <li>Don't stuff navigation chrome in the footer; that belongs in the header.</li>
     </ul>
   </Fragment>

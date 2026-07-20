@@ -1,7 +1,7 @@
 ---
 title: Iconography
 eyebrow: Foundations · 04
-summary: A curated Lucide subset. 24x24 viewBox, 2px stroke, currentColor. One canonical source, three delivery modes — React, CSS sprite, inline body.
+summary: A curated Lucide subset. 24x24 viewBox, 2px stroke, currentColor. One canonical source, three delivery modes - React, CSS sprite, inline body.
 order: 4
 ---
 
@@ -18,7 +18,7 @@ component needs, keeping the bundle honest.
 
 ## Curated set
 
-Wave 2 expands the catalog to 60 Lucide glyphs across nine categories —
+Wave 2 expands the catalog to 60 Lucide glyphs across nine categories -
 arrows, feedback, object, identity, media, math, nav, editing, and a small
 miscellany (calendar, clock, mail, globe, filter, bell, eye, heart, star,
 bookmark, share). Every shipped component references from this set; nothing
@@ -50,10 +50,10 @@ outside it should appear in product UI without a review.
 ```tsx
 import { Icon } from './ui/icons/Icon';
 
-// Decorative (default) — sits next to a text label inside a button.
+// Decorative (default) - sits next to a text label inside a button.
 <Icon name="copy" size={16} />
 
-// Meaningful — icon stands alone and needs an accessible name.
+// Meaningful - icon stands alone and needs an accessible name.
 <Icon name="external-link" label="Open in new tab" />
 ```
 
@@ -69,4 +69,4 @@ Pure-HTML consumers reference the CSS sprite instead:
 
 - Use `aria-hidden` when an icon pairs with text; use `label` + `role="img"` when it stands alone.
 - Stick to the 24 / 20 / 16 size ladder. Inline buttons take 13–16; standalone buttons take 20; marketing/hero surfaces take 24.
-- Icons inherit colour via `currentColor`. Never set an explicit `stroke` override — theme the parent instead.
+- Icons inherit colour via `currentColor`. Never set an explicit `stroke` override - theme the parent instead.

@@ -1,12 +1,12 @@
 # build output
 dist/
-# CDN-ready bundle
-dist-cdn/
 packages/uikit-css/src/_cdn-entry.css
 # generated types
 .astro/
 # docs: sprite copied from uikit-icons/dist on predev/prebuild
 apps/docs/public/uikit/
+# docs: zero-build CDN bundle built on predev/prebuild (see scripts/build-cdn-bundle.mjs)
+apps/docs/public/cdn/
 # docs: brand asset kit built from public/brand/*.svg on predev/prebuild
 apps/docs/public/brand/asset-kit.zip
 

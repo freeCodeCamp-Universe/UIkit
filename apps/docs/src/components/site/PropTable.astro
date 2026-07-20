@@ -1,5 +1,5 @@
 ---
-// PropTable — renders a component's prop schema from an inline array.
+// PropTable - renders a component's prop schema from an inline array.
 // For Phase 2A we accept props explicitly from the MDX author; Wave 2
 // Tier 4 will add a build step that reads TS types directly so this
 // component becomes `<PropTable component="Button" />` only.
@@ -37,7 +37,7 @@ const { rows } = Astro.props;
             <td>
               <code>{row.type}</code>
             </td>
-            <td>{row.default ? <code>{row.default}</code> : '—'}</td>
+            <td>{row.default ? <code>{row.default}</code> : '-'}</td>
             <td>{row.description ?? ''}</td>
           </tr>
         ))

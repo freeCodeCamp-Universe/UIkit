@@ -35,7 +35,7 @@ with its content instead of using the default vertical scroll affordance.
       type: "'default' | 'mono'",
       default: "'default'",
       description:
-        'Swaps body font for the mono token — for code, commands, logs.'
+        'Swaps body font for the mono token - for code, commands, logs.'
     },
     {
       name: 'invalid',
@@ -54,7 +54,7 @@ with its content instead of using the default vertical scroll affordance.
     {
       name: '...rest',
       type: 'TextareaHTMLAttributes<HTMLTextAreaElement>',
-      default: '—',
+      default: '-',
       description:
         'Every native textarea prop passes through (rows, cols, placeholder, value, defaultValue, disabled, …).'
     }
@@ -63,7 +63,7 @@ with its content instead of using the default vertical scroll affordance.
 
 ## Accessibility
 
-Native `<textarea>` — every screen reader and keyboard affordance works
+Native `<textarea>` - every screen reader and keyboard affordance works
 out of the box. Pair with a `<label>` (or FormGroup + HelpBlock) for
 the accessible name. When `invalid` is set, surface a matching error
 message through HelpBlock so the assistive tech announcement has
@@ -92,7 +92,7 @@ something to read.
         footprint.
       </li>
       <li>
-        Use `autoResize` for comment boxes and prompts — the overflow guesswork
+        Use `autoResize` for comment boxes and prompts - the overflow guesswork
         disappears.
       </li>
       <li>
@@ -103,7 +103,7 @@ something to read.
   </Fragment>
   <Fragment slot='dont'>
     <ul>
-      <li>Don't forget the label — every Textarea needs an accessible name.</li>
+      <li>Don't forget the label - every Textarea needs an accessible name.</li>
       <li>
         Don't toggle `autoResize` on controls that must honour a fixed height.
       </li>

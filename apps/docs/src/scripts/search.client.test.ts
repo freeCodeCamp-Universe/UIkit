@@ -25,7 +25,7 @@ const OPTIONS: IFuseOptions<IndexEntry> = {
 const FIXTURE: IndexEntry[] = [
   {
     title: 'Button',
-    summary: 'The workhorse — 3px square border.',
+    summary: 'The workhorse - 3px square border.',
     tags: ['button', 'components', 'primitive'],
     href: '/playground#button'
   },

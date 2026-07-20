@@ -30,7 +30,7 @@ function renderOptions(
           '## Theming rules',
           '',
           '- The default palette is the freeCodeCamp theme and should stay intact wherever possible.',
-          '- To recolour, edit the token values in your copied tokens.css (e.g. `--cta-background`). Never hard-code colors in component CSS — components only reference tokens.',
+          '- To recolour, edit the token values in your copied tokens.css (e.g. `--cta-background`). Never hard-code colors in component CSS - components only reference tokens.',
           '- `base.css` carries shared helpers (`.sr-only`) that several components rely on.'
         ]
       };
@@ -42,7 +42,7 @@ function renderOptions(
           '',
           '1. Copy `Icon.tsx` (the React wrapper) into `src/ui/icons/`.',
           `2. \`icons.ts\` is the full curated Lucide map (~8k lines). Copy it whole from the raw URL, or subset it: keep the \`svgAttrs\` export, the \`IconName\` type and only the icon entries you use.`,
-          '3. Not using React? Fetch raw SVGs per icon, or use the CDN sprite: https://cdn.freecodecamp.org/uikit/latest/sprite.svg',
+          `3. Not using React? Fetch raw SVGs per icon, or use the CDN sprite: ${SITE}/cdn/sprite.svg`,
           '',
           '## Available icons',
           '',
@@ -60,7 +60,7 @@ function renderOptions(
           '',
           '1. Copy `core.ts` plus the adapters you need into `src/ui/vanilla/` and install the matching `@zag-js/*` packages.',
           '2. Each adapter binds one behaviour to `data-uikit-*` attributes in plain HTML (dialog, combobox, listbox, pagination, toast). Call the exported `init()` once after the DOM is parsed.',
-          '3. Zero-build alternative: `<script src="https://cdn.freecodecamp.org/uikit/latest/uikit.global.js" defer></script>` binds every behaviour automatically.'
+          `3. Zero-build alternative: \`<script src="${SITE}/cdn/uikit.global.js" defer></script>\` binds every behaviour automatically.`
         ]
       };
     case 'tailwind':
@@ -68,9 +68,9 @@ function renderOptions(
         intro: [
           '## Install',
           '',
-          '1. Optional — components are vanilla CSS and do not require Tailwind.',
+          '1. Optional - components are vanilla CSS and do not require Tailwind.',
           '2. Copy `preset.ts` + `plugin.ts` into your Tailwind (>=4) config directory and register them; they mirror UIKit tokens as utilities.',
-          `3. You still need the theme installed (${SITE}/registry/theme.md) — the preset references the same CSS custom properties.`
+          `3. You still need the theme installed (${SITE}/registry/theme.md) - the preset references the same CSS custom properties.`
         ]
       };
     default:

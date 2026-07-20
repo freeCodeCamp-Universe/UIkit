@@ -27,7 +27,7 @@ Format follows [MADR](https://adr.github.io/madr/) (lightly trimmed).
 ## Template
 
 ```markdown
-# NNNN — Title
+# NNNN - Title
 
 - Status: Proposed | Accepted | Superseded by 0XXX | Deprecated
 - Date: YYYY-MM-DD
@@ -49,6 +49,6 @@ The actual decision, in one or two sentences.
 
 ## Alternatives considered
 
-- Option A — why not.
-- Option B — why not.
+- Option A - why not.
+- Option B - why not.
 ```

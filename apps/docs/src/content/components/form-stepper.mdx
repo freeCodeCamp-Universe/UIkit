@@ -21,7 +21,7 @@ import RelatedComponents from '../../components/site/RelatedComponents.astro';
 import DoDont from '../../components/site/DoDont.astro';
 
 Use FormStepper to chunk long forms into ≤ 5 focused screens with
-progress. Each step resolves to a render-prop body — the stepper does
+progress. Each step resolves to a render-prop body - the stepper does
 not own the form state, just the navigation contract.
 
 ## Usage
@@ -54,26 +54,26 @@ const steps = [
     {
       name: 'steps',
       type: 'FormStepperStep[]',
-      default: '—',
+      default: '-',
       description: 'Ordered step definitions: `{ id, label, description? }`.'
     },
     {
       name: 'current',
       type: 'string',
-      default: '—',
+      default: '-',
       description:
         'Id of the active step. Fallback: first step if id does not match.'
     },
     {
       name: 'onStepChange',
       type: '(id: string) => void',
-      default: '—',
+      default: '-',
       description: 'Fires when a navigable step is clicked.'
     },
     {
       name: 'children',
       type: '(step: FormStepperStep) => ReactNode',
-      default: '—',
+      default: '-',
       description: 'Render prop receiving the resolved current step.'
     },
     {
@@ -101,9 +101,9 @@ the transition.
     'Name steps by outcome ("Review & submit"), not generic ("Step 3").'
   ]}
   donts={[
-    'Use FormStepper for branching or optional steps — reach for a flowchart component.',
+    'Use FormStepper for branching or optional steps - reach for a flowchart component.',
     'Auto-advance between steps; the user controls progression.',
-    'Hide the progress header on mobile — collapse labels but keep the indices visible.'
+    'Hide the progress header on mobile - collapse labels but keep the indices visible.'
   ]}
 />
 

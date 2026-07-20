@@ -4,7 +4,7 @@ eyebrow: <Combobox />
 status: stable
 since: '0.3.0'
 category: navigation
-summary: Text input paired with a filterable option list — the marquee Wave 2 component. Sync filter, custom item renderers, and a data-uikit-combobox adapter that boots the vanilla runtime for server-rendered pages.
+summary: Text input paired with a filterable option list - the marquee Wave 2 component. Sync filter, custom item renderers, and a data-uikit-combobox adapter that boots the vanilla runtime for server-rendered pages.
 a11yPattern: https://www.w3.org/WAI/ARIA/apg/patterns/combobox/
 tokens:
   - --background-quaternary
@@ -22,7 +22,7 @@ import TokenChips from '../../components/site/TokenChips.astro';
 import DoDont from '../../components/site/DoDont.astro';
 import RelatedComponents from '../../components/site/RelatedComponents.astro';
 
-Combobox is a text input paired with a filterable option list — the
+Combobox is a text input paired with a filterable option list - the
 marquee Wave 2 component. The React layer is fully controlled: you
 own `value`, `inputValue`, and the filtered `items` array; the
 component renders the resulting DOM. The vanilla runtime attaches to
@@ -31,7 +31,7 @@ handles arrow-key navigation, and dispatches
 `uikit:combobox-change` + `uikit:combobox-input` for server-rendered
 pages that want to stay behind native forms.
 
-Async filtering is scheduled for Phase 3D polish — this release covers
+Async filtering is scheduled for Phase 3D polish - this release covers
 the sync-filter case only.
 
 ## Props
@@ -41,7 +41,7 @@ the sync-filter case only.
     {
       name: 'items',
       type: 'Array<{ value: string; label: ReactNode; disabled?: boolean }>',
-      default: '—',
+      default: '-',
       description:
         'Currently visible options. Filter externally on input change and re-pass.'
     },
@@ -61,13 +61,13 @@ the sync-filter case only.
     {
       name: 'onValueChange',
       type: '(value: string) => void',
-      default: '—',
+      default: '-',
       description: 'Fires when the user picks an option.'
     },
     {
       name: 'onInputValueChange',
       type: '(inputValue: string) => void',
-      default: '—',
+      default: '-',
       description: 'Fires on every keystroke in the text input.'
     },
     {
@@ -80,7 +80,7 @@ the sync-filter case only.
     {
       name: 'placeholder',
       type: 'string',
-      default: '—',
+      default: '-',
       description: 'Input placeholder.'
     }
   ]}
@@ -88,7 +88,7 @@ the sync-filter case only.
 
 ## Helpers
 
-`filterItemsByLabel(items, query)` — exported alongside the component.
+`filterItemsByLabel(items, query)` - exported alongside the component.
 Case-insensitive substring match on each `item.label` (falling back to
 `item.value` when the label is not a string). Same predicate the
 vanilla adapter uses, so React and runtime renderers stay in sync.
@@ -131,7 +131,7 @@ with `aria-selected` and optional `aria-disabled`. Always pair with
   <Fragment slot='do'>
     <ul>
       <li>
-        Filter the `items` array in your own state hook — Combobox renders
+        Filter the `items` array in your own state hook - Combobox renders
         exactly what it receives.
       </li>
       <li>
@@ -147,15 +147,15 @@ with `aria-selected` and optional `aria-disabled`. Always pair with
   <Fragment slot='dont'>
     <ul>
       <li>
-        Don't reach for Combobox when a short, static Select does the job —
+        Don't reach for Combobox when a short, static Select does the job -
         fewer moving parts.
       </li>
       <li>
-        Don't attempt async filtering yet — that ships in Phase 3D with
+        Don't attempt async filtering yet - that ships in Phase 3D with
         dedicated loading states.
       </li>
       <li>
-        Don't forget the accessible name — an unlabelled Combobox is a footgun.
+        Don't forget the accessible name - an unlabelled Combobox is a footgun.
       </li>
     </ul>
   </Fragment>

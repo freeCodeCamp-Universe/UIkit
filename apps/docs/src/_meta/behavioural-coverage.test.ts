@@ -50,18 +50,18 @@ const READY: readonly string[] = [
   'tooltip'
 ];
 
-test('S2 — READY is a subset of REQUIRED_AT_GA (drift gate)', () => {
+test('S2 - READY is a subset of REQUIRED_AT_GA (drift gate)', () => {
   const target = new Set<string>(REQUIRED_AT_GA);
   for (const slug of READY) {
     expect(
       target.has(slug),
-      `READY contains '${slug}' but it is not in REQUIRED_AT_GA — remove or add to the target matrix`
+      `READY contains '${slug}' but it is not in REQUIRED_AT_GA - remove or add to the target matrix`
     ).toBe(true);
   }
 });
 
 for (const slug of READY) {
-  test(`S2 — '${slug}' has a behavioural spec`, () => {
+  test(`S2 - '${slug}' has a behavioural spec`, () => {
     const path = resolve(behaviouralDir, `${slug}.behaviour.spec.ts`);
     expect(
       existsSync(path),
@@ -72,5 +72,5 @@ for (const slug of READY) {
 
 const readySet = new Set<string>(READY);
 for (const slug of REQUIRED_AT_GA.filter(s => !readySet.has(s))) {
-  test.todo(`S2 — pending behavioural spec for '${slug}' (backfill)`);
+  test.todo(`S2 - pending behavioural spec for '${slug}' (backfill)`);
 }

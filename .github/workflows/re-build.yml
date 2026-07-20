@@ -1,20 +1,14 @@
 name: Build
 
 on:
-  workflow_call:
-    inputs:
-      upload-artifacts:
-        description: Upload dist + dist-cdn as build artefacts
-        required: false
-        type: boolean
-        default: false
+  workflow_call: {}
 
 permissions:
   contents: read
 
 jobs:
   build:
-    name: Build + verify CDN bundle
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
@@ -23,15 +17,3 @@ jobs:
         uses: ./.github/actions/setup-tooling
       - name: Build all packages
         run: pnpm build
-
-      - name: Verify CDN bundle
-        run: pnpm --filter @freecodecamp/uikit-cdn run verify
-
-      - name: Upload CDN bundle artefact
-        if: ${{ inputs.upload-artifacts }}
-        uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # v4.4.3
-        with:
-          name: dist-cdn
-          path: dist-cdn/
-          retention-days: 14
-          if-no-files-found: error

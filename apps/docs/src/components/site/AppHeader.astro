@@ -88,7 +88,7 @@ const pathname = Astro.url.pathname;
             close();
           }
         });
-        // Link-click dismisses without refocusing — destination page owns post-nav focus.
+        // Link-click dismisses without refocusing - destination page owns post-nav focus.
         sidebar.addEventListener('click', e => {
           const target = e.target;
           if (target instanceof HTMLElement && target.closest('a[href]')) {

@@ -20,7 +20,7 @@ import DoDont from '../../components/site/DoDont.astro';
 import RelatedComponents from '../../components/site/RelatedComponents.astro';
 import PlaygroundLink from '../../components/site/PlaygroundLink.astro';
 
-Overlay clickable regions on any background — an image `src`, a component, or an
+Overlay clickable regions on any background - an image `src`, a component, or an
 inline `<svg>`. Hotspot geometry is expressed against a `width` × `height`
 coordinate space, so shapes stay aligned as the widget scales. Use the exported
 shape primitives (`CircleHotspot`, `RectHotspot`, `EllipseHotspot`,
@@ -61,34 +61,34 @@ export function App() {
     {
       name: 'background',
       type: 'string | ReactNode',
-      default: '—',
+      default: '-',
       description:
-        'A string is rendered as an `<img>` (`backgroundAlt` supplies alt text). Any node — component or `<svg>` — is rendered as-is behind the overlay.'
+        'A string is rendered as an `<img>` (`backgroundAlt` supplies alt text). Any node - component or `<svg>` - is rendered as-is behind the overlay.'
     },
     {
       name: 'width / height',
       type: 'number',
-      default: '—',
+      default: '-',
       description:
         'The coordinate space hotspot shapes are drawn against. Also sets the stage aspect ratio.'
     },
     {
       name: 'hotspots',
       type: 'HotspotItem[]',
-      default: '—',
+      default: '-',
       description:
         'Each has an `id`, `label`, and a `shape` node. `disabled` skips a region.'
     },
     {
       name: 'targetId',
       type: 'string',
-      default: '—',
+      default: '-',
       description: 'Quiz mode: the correct hotspot. Omit for free selection.'
     },
     {
       name: 'prompt',
       type: 'ReactNode',
-      default: '—',
+      default: '-',
       description: 'Instruction shown above the stage.'
     },
     {
@@ -101,7 +101,7 @@ export function App() {
     {
       name: 'onSelect / onCorrect / onIncorrect',
       type: '(id: string) => void',
-      default: '—',
+      default: '-',
       description:
         '`onSelect` fires on every pick. `onCorrect` / `onIncorrect` fire in quiz mode.'
     }
@@ -150,7 +150,7 @@ does not rely on colour alone. The shape transition is suppressed under
     <ul>
       <li>Don't overlap hotspots so tightly that picks are ambiguous.</li>
       <li>
-        Don't hardcode fill on custom shapes — let the component drive state.
+        Don't hardcode fill on custom shapes - let the component drive state.
       </li>
       <li>
         Don't omit `backgroundAlt` when the background is an informative image.

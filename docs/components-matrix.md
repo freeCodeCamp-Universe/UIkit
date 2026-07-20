@@ -22,17 +22,17 @@ of 2026-04), **Ark UI** (`@ark-ui/react` 3.x), **Headless UI** (@headlessui/reac
 | Component   | UIKit | Catalyst | Ark UI | Headless UI | Primary spec                                                                                        |
 | ----------- | :---: | :------: | :----: | :---------: | --------------------------------------------------------------------------------------------------- |
 | Avatar      |  ✅   |    ✅    |   ✅   |     ⬜      | [ARIA: img](https://www.w3.org/TR/wai-aria-1.2/#img)                                                |
-| Badge       |  ✅   |    ✅    |   ⬜   |     ⬜      | — (decorative)                                                                                      |
+| Badge       |  ✅   |    ✅    |   ⬜   |     ⬜      | - (decorative)                                                                                      |
 | Button      |  ✅   |    ✅    |   ✅   |     ✅      | [APG · Button](https://www.w3.org/WAI/ARIA/apg/patterns/button/)                                    |
 | CloseButton |  ✅   |    ⬜    |   ⬜   |     ⬜      | [APG · Button](https://www.w3.org/WAI/ARIA/apg/patterns/button/)                                    |
 | Divider     |  ✅   |    ✅    |   ⬜   |     ⬜      | [ARIA: separator](https://www.w3.org/TR/wai-aria-1.2/#separator)                                    |
 | Heading     |  ✅   |    ✅    |   ⬜   |     ⬜      | [HTML: heading content](https://html.spec.whatwg.org/multipage/sections.html#headings-and-outlines) |
 | Image       |  ✅   |    ⬜    |   ⬜   |     ⬜      | [HTML: img](https://html.spec.whatwg.org/multipage/embedded-content.html#the-img-element)           |
 | Link        |  ✅   |    ✅    |   ⬜   |     ⬜      | [APG · Link](https://www.w3.org/WAI/ARIA/apg/patterns/link/)                                        |
-| Spacer      |  ✅   |    ⬜    |   ⬜   |     ⬜      | — (layout helper)                                                                                   |
-| Text        |  ✅   |    ✅    |   ⬜   |     ⬜      | — (polymorphic typographic wrapper)                                                                 |
+| Spacer      |  ✅   |    ⬜    |   ⬜   |     ⬜      | - (layout helper)                                                                                   |
+| Text        |  ✅   |    ✅    |   ⬜   |     ⬜      | - (polymorphic typographic wrapper)                                                                 |
 
-Gaps: Catalyst does not ship a dedicated `Spacer`, `Image`, or `CloseButton` —
+Gaps: Catalyst does not ship a dedicated `Spacer`, `Image`, or `CloseButton` -
 Tailwind spacing utilities cover it. Ark UI is pure headless primitive-set; it
 skips visual-only atoms like `Badge` and `Spacer`.
 
@@ -102,11 +102,11 @@ third-party adapters (`sonner`, `cmdk`). UIKit ships them as first-class.
 | Component  | UIKit | Catalyst | Ark UI | Headless UI | Primary spec                                                     |
 | ---------- | :---: | :------: | :----: | :---------: | ---------------------------------------------------------------- |
 | Alert      |  ✅   |    ⬜    |   ⬜   |     ⬜      | [APG · Alert](https://www.w3.org/WAI/ARIA/apg/patterns/alert/)   |
-| Callout    |  ✅   |    ⬜    |   ⬜   |     ⬜      | — (styled note block)                                            |
+| Callout    |  ✅   |    ⬜    |   ⬜   |     ⬜      | - (styled note block)                                            |
 | Skeleton   |  ✅   |    ⬜    |   ⬜   |     ⬜      | [ARIA: aria-busy](https://www.w3.org/TR/wai-aria-1.2/#aria-busy) |
-| EmptyState |  ✅   |    🟡    |   ⬜   |     ⬜      | — (compositional pattern)                                        |
+| EmptyState |  ✅   |    🟡    |   ⬜   |     ⬜      | - (compositional pattern)                                        |
 
-Gaps: None of the external three ship dedicated feedback primitives — the
+Gaps: None of the external three ship dedicated feedback primitives - the
 Tailwind ecosystem treats these as recipe patterns. UIKit ships them as
 structural components so the semantics (role, live-region, busy) travel
 with the DOM.
@@ -115,7 +115,7 @@ with the DOM.
 
 | Component       | UIKit | Catalyst | Ark UI | Headless UI | Primary spec                                                                            |
 | --------------- | :---: | :------: | :----: | :---------: | --------------------------------------------------------------------------------------- |
-| Card            |  ✅   |    ⬜    |   ⬜   |     ⬜      | — (pattern)                                                                             |
+| Card            |  ✅   |    ⬜    |   ⬜   |     ⬜      | - (pattern)                                                                             |
 | Panel           |  ✅   |    ⬜    |   ⬜   |     ⬜      | [ARIA: region](https://www.w3.org/TR/wai-aria-1.2/#region)                              |
 | Table           |  ✅   |    ✅    |   ⬜   |     ⬜      | [ARIA: table](https://www.w3.org/TR/wai-aria-1.2/#table)                                |
 | DataTable       |  ✅   |    🟡    |   ✅   |     ⬜      | [APG · Grid](https://www.w3.org/WAI/ARIA/apg/patterns/grid/)                            |
@@ -131,7 +131,7 @@ leaves tables to userland.
 | ------------- | :---: | :------: | :----: | :---------: | ------------------------------------------------------------------------------ |
 | SidebarLayout |  ✅   |    ✅    |   ⬜   |     ⬜      | [APG · Landmarks](https://www.w3.org/WAI/ARIA/apg/practices/landmark-regions/) |
 | StackedLayout |  ✅   |    ✅    |   ⬜   |     ⬜      | [APG · Landmarks](https://www.w3.org/WAI/ARIA/apg/practices/landmark-regions/) |
-| AuthLayout    |  ✅   |    ⬜    |   ⬜   |     ⬜      | — (marketing shell)                                                            |
+| AuthLayout    |  ✅   |    ⬜    |   ⬜   |     ⬜      | - (marketing shell)                                                            |
 
 Gaps: Catalyst ships the two dashboard shells (`StackedLayout`,
 `SidebarLayout`) and omits a dedicated centred-auth variant. UIKit
@@ -151,7 +151,7 @@ bundles `AuthLayout` for the sign-in / onboarding surface.
   under the hood for `Combobox`, `Listbox`, `Pagination`, `Switch`,
   `FormStepper`, `Toast`, `Tooltip`, `Modal`.
 - **Headless UI** covers the classic interaction primitives but skips
-  structural and feedback components — it composes upward into
+  structural and feedback components - it composes upward into
   frameworks rather than presenting an opinionated kit.
 
 Update cadence: re-review each minor release of the upstream libraries,

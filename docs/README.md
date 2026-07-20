@@ -10,12 +10,12 @@ documentation is the Astro docs site at
 | Doc                                              | What it covers                                                                         |
 | ------------------------------------------------ | -------------------------------------------------------------------------------------- |
 | [Tooling](./tooling.md)                          | Architecture, workspace inventory, toolchain pins, LTS policy, workspace tasks, CI/CD. |
-| [Packages](./packages.md)                        | Every workspace package — entrypoints, exports, scripts, tests, generated artifacts.   |
+| [Packages](./packages.md)                        | Every workspace package - entrypoints, exports, scripts, tests, generated artifacts.   |
 | [Components matrix](./components-matrix.md)      | UIKit coverage vs. Catalyst / Ark UI / Headless UI.                                    |
 | [Releasing](./releasing.md)                      | CDN bundle build, verification, GitHub Actions release flow, cross-repo publish PR.    |
 | [Deploy-docs runbook](./runbooks/deploy-docs.md) | Cloudflare Pages operator playbook (provisioning, DNS, rollback, secret rotation).     |
 | [v1.1 backlog](./v1.1-backlog.md)                | Deferred bugs, features, CI hardening, repo-going-public follow-ups.                   |
-| [ADRs](./adr/)                                   | Architecture decision records — locked decisions cited from code + other docs.         |
+| [ADRs](./adr/)                                   | Architecture decision records - locked decisions cited from code + other docs.         |
 | [`apps/docs` README](../apps/docs/README.md)     | Astro app shape, package alias resolution, content collections, dogfood assets.        |
 
 ## Source of truth
@@ -35,7 +35,7 @@ same PR.
 
 ## See also
 
-- [`README.md`](../README.md) — repo entrypoint.
-- [`CONTRIBUTING.md`](../CONTRIBUTING.md) — contributor narrative
+- [`README.md`](../README.md) - repo entrypoint.
+- [`CONTRIBUTING.md`](../CONTRIBUTING.md) - contributor narrative
   workflow (Setup, daily commands, lint/format/test, release checklist).
-- [`SECURITY.md`](../SECURITY.md) — security disclosure process.
+- [`SECURITY.md`](../SECURITY.md) - security disclosure process.

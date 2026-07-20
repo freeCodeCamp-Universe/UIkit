@@ -22,7 +22,7 @@
     "url": "https://github.com/freeCodeCamp/UIkit/issues"
   },
   "homepage": "https://design.freecodecamp.org",
-  "description": "Vanilla JS runtime for freeCodeCamp UIKit — wires data-uikit-* attributes to Zag state machines",
+  "description": "Vanilla JS runtime for freeCodeCamp UIKit - wires data-uikit-* attributes to Zag state machines",
   "sideEffects": false,
   "main": "./dist/uikit.js",
   "module": "./dist/uikit.js",

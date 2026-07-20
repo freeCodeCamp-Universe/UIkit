@@ -19,7 +19,7 @@ interface ComponentInfo {
   sourceFile: string;
 }
 
-/** Collect uppercase-named exports across packages/uikit/src — picks up co-located subcomponents. */
+/** Collect uppercase-named exports across packages/uikit/src - picks up co-located subcomponents. */
 function discoverComponents(): Map<string, ComponentInfo> {
   const map = new Map<string, ComponentInfo>();
   const stack: string[] = [uikitSrc];
@@ -250,7 +250,7 @@ test('every showcase React snippet uses ONLY declared props', () => {
     for (const snippet of snippets) {
       for (const { tag, props } of extractJsxTagsAndProps(snippet)) {
         if (tag === 'Fragment') continue;
-        // Subcomponents (Modal.Body) validate against root source only — accept any prop.
+        // Subcomponents (Modal.Body) validate against root source only - accept any prop.
         const isMember = tag.includes('.');
         const root = rootTag(tag);
         const info = components.get(root);
@@ -262,7 +262,7 @@ test('every showcase React snippet uses ONLY declared props', () => {
           if (explicit.has(prop)) continue;
           if (htmlFlexible) continue;
           violations.push(
-            `${file}: <${tag} ${prop}=...> — not declared on ${tag}Props`
+            `${file}: <${tag} ${prop}=...> - not declared on ${tag}Props`
           );
         }
       }
@@ -279,7 +279,7 @@ test('discoverComponents finds the obvious primitives + actions', () => {
   for (const required of ['Button', 'Heading', 'Text', 'Modal', 'Tabs']) {
     assert.ok(
       components.has(required),
-      `discoverComponents missed ${required} — audit would silently no-op`
+      `discoverComponents missed ${required} - audit would silently no-op`
     );
   }
   assert.ok(
@@ -289,7 +289,7 @@ test('discoverComponents finds the obvious primitives + actions', () => {
 });
 
 for (const file of showcaseFiles) {
-  test(`showcase audit — ${basename(file)}`, () => {
+  test(`showcase audit - ${basename(file)}`, () => {
     const src = readFileSync(resolve(showcaseDir, file), 'utf8');
     const snippets = extractReactSnippets(src);
     if (!snippets.length) return;
@@ -311,7 +311,7 @@ for (const file of showcaseFiles) {
           if (htmlFlexible) continue;
           assert.ok(
             explicit.has(prop),
-            `<${tag} ${prop}=...> in ${file} — not on ${tag}Props`
+            `<${tag} ${prop}=...> in ${file} - not on ${tag}Props`
           );
         }
       }

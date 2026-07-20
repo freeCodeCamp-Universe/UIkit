@@ -11,4 +11,4 @@ contact_links:
 
   - name: Security disclosure
     url: https://github.com/freeCodeCamp/UIkit/blob/main/SECURITY.md
-    about: Follow the disclosure process — do not open a public issue.
+    about: Follow the disclosure process - do not open a public issue.

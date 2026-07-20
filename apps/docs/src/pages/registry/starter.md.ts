@@ -16,14 +16,14 @@ export const GET: APIRoute = () => {
     'component:',
     '',
     `1. Discover: fetch ${SITE}/llms.txt (index) or ${SITE}/registry/index.json (machine-readable).`,
-    `2. Read the component page: ${SITE}/components/<slug>.md — it contains install steps, props and full source.`,
+    `2. Read the component page: ${SITE}/components/<slug>.md - it contains install steps, props and full source.`,
     '3. Copy the files into src/ui/<slug>/ and import the CSS once globally.',
-    '4. Tailor the copied source to this project as needed, but keep the CSS custom property (token) names intact — colors/spacing are themed in src/ui/theme/tokens.css, never hard-coded in component CSS.',
+    '4. Tailor the copied source to this project as needed, but keep the CSS custom property (token) names intact - colors/spacing are themed in src/ui/theme/tokens.css, never hard-coded in component CSS.',
     '5. The default palette is the freeCodeCamp theme; edit token values in tokens.css to recolour.'
   ].join('\n');
 
   const lines = [
-    '# UIKit starter — bootstrap a project with copy-source components',
+    '# UIKit starter - bootstrap a project with copy-source components',
     '',
     `> One-time setup for consuming ${SITE} as a copy-source (shadcn-style) registry. Registry version: ${registryVersion()}.`,
     '',
@@ -73,7 +73,7 @@ export const GET: APIRoute = () => {
     '',
     '## 6. Theming rules (non-negotiable defaults)',
     '',
-    '- Keep token NAMES intact — components reference them.',
+    '- Keep token NAMES intact - components reference them.',
     '- Recolour by editing token VALUES in your copied tokens.css.',
     '- Never hard-code colors in component CSS.',
     '',

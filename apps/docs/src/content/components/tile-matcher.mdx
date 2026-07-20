@@ -24,7 +24,7 @@ import PlaygroundLink from '../../components/site/PlaygroundLink.astro';
 A concentration-style game for reinforcement drills. Supply a list of `pairs`;
 the deck size is `2 × pairs.length`. Give a pair **one** face for a classic
 identical match, or **two** faces for a related match (term ↔ definition,
-image ↔ label). Faces accept any node — text, an `<img>`, `<Image>`, or an icon.
+image ↔ label). Faces accept any node - text, an `<img>`, `<Image>`, or an icon.
 
 <PlaygroundLink
   code={`import { TileMatcher } from './ui/tile-matcher/TileMatcher';
@@ -56,7 +56,7 @@ export function App() {
     {
       name: 'pairs',
       type: 'TileMatcherPair[]',
-      default: '—',
+      default: '-',
       description:
         'Deck definition. Each pair has an `id` and `faces` (one node → duplicated, two nodes → related). Match = equal pair `id`.'
     },
@@ -89,20 +89,20 @@ export function App() {
     {
       name: 'shuffle / seed',
       type: 'boolean / number',
-      default: 'true / —',
+      default: 'true / -',
       description:
         'Shuffle the deck. Pass `seed` for a deterministic order (tests, snapshots).'
     },
     {
       name: 'onMatch',
       type: '(pairId, [tileA, tileB]) => void',
-      default: '—',
+      default: '-',
       description: 'Fires when a pair is matched.'
     },
     {
       name: 'onComplete',
       type: '({ moves, matches }) => void',
-      default: '—',
+      default: '-',
       description: 'Fires once every pair is matched.'
     }
   ]}
@@ -150,7 +150,7 @@ suppressed under `prefers-reduced-motion`.
     <ul>
       <li>Don't pack too many pairs into a narrow column count.</li>
       <li>
-        Don't rely on colour alone — matched state also changes the border.
+        Don't rely on colour alone - matched state also changes the border.
       </li>
       <li>Don't omit accessible labels on image-only faces.</li>
     </ul>

@@ -46,8 +46,8 @@ const handbookSections = [
 ---
 
 <BaseLayout
-  title='freeCodeCamp UIKit — Handbook'
-  description='One-page reference — palette, typography, spacing, iconography, motion, voice, brand, install, CDN, overview, contributing.'
+  title='freeCodeCamp UIKit - Handbook'
+  description='One-page reference - palette, typography, spacing, iconography, motion, voice, brand, install, CDN, overview, contributing.'
 >
   <div class='app' id='top'>
     <AppHeader />
@@ -71,7 +71,7 @@ const handbookSections = [
             <h1 class='hero__title'>One page. Every rule.</h1>
             <p class='hero__lede'>
               Everything a builder needs to ship fluently with freeCodeCamp
-              UIKit — tokens, type, motion, voice, brand, install, CDN, and how
+              UIKit - tokens, type, motion, voice, brand, install, CDN, and how
               to contribute. Use the handbook navigation to jump between rules.
             </p>
           </section>
@@ -95,7 +95,7 @@ const handbookSections = [
             <h2 class='section__title'>Copy the source, own the code</h2>
             <p class='section__lede'>
               UIKit is a copy-source registry, shadcn-style: components are
-              copied into your project and tailored there — nothing installs
+              copied into your project and tailored there - nothing installs
               from npm. Every page under
               <code>/components/&lt;slug&gt;.md</code> carries install steps, props,
               and the full source.
@@ -105,7 +105,7 @@ const handbookSections = [
                 Copy <code>tokens.css</code> + <code>base.css</code> from
                 <a class='fcc-link' href='/registry/theme.md'
                   >/registry/theme.md</a
-                > into <code>src/ui/theme/</code>, then import them — tokens
+                > into <code>src/ui/theme/</code>, then import them - tokens
                 first. Fonts are listed in the
                 <a class='fcc-link' href='/registry/starter.md'>starter guide</a
                 >.
@@ -122,13 +122,13 @@ const handbookSections = [
 src/ui/button/Button.tsx
 src/ui/button/button.css`}</code></pre>
             </Panel>
-            <Panel title='3 · Use it — it is your code now'>
+            <Panel title='3 · Use it - it is your code now'>
               <pre><code>{`import { Button } from './ui/button/Button';
 
 <Button variant="cta">Start curriculum</Button>`}</code></pre>
               <p>
                 Tailor the component freely. Recolour by editing token values in
-                your copied <code>tokens.css</code> — keep the token names, and never
+                your copied <code>tokens.css</code> - keep the token names, and never
                 hard-code colors in component CSS.
               </p>
             </Panel>
@@ -154,19 +154,18 @@ src/ui/button/button.css`}</code></pre>
               and every font. Fonts resolve relative to the stylesheet URL.
             </p>
             <Panel title='CSS @import'>
-              <pre><code>{`@import url('https://cdn.freecodecamp.org/uikit/styles.min.css');`}</code></pre>
+              <pre><code>{`@import url('https://design.freecodecamp.org/cdn/styles.min.css');`}</code></pre>
             </Panel>
             <Panel title='Or the <link> tag'>
               <pre><code>{`<link
   rel="stylesheet"
-  href="https://cdn.freecodecamp.org/uikit/styles.min.css"
+  href="https://design.freecodecamp.org/cdn/styles.min.css"
   crossorigin="anonymous"
 />`}</code></pre>
             </Panel>
             <p>
-              Pin a specific version by swapping the root for
-              <code>https://cdn.freecodecamp.org/uikit/v1.0.0/</code>. The
-              un-versioned URL always serves <code>latest</code>.
+              This URL is rolling, not version-pinned - it always serves the
+              bundle built from the current <code>main</code>.
             </p>
           </section>
 
@@ -210,12 +209,12 @@ export default {
               </p>
               <ol class='guide-list handbook-steps'>
                 <li>
-                  <strong>Tailwind utility-first</strong> — import
+                  <strong>Tailwind utility-first</strong> - import
                   <code>tailwindcss</code> + the copied tokens only; let the preset
                   surface the tokens. Skip the component CSS entirely.
                 </li>
                 <li>
-                  <strong>BEM-first + Tailwind escape hatch</strong> — import both,
+                  <strong>BEM-first + Tailwind escape hatch</strong> - import both,
                   but order the copied component CSS before
                   <code>tailwindcss</code> so utility classes win the cascade.
                 </li>
@@ -344,7 +343,7 @@ export function Shell({ children }) {
                 green.
               </li>
               <li>
-                Commit with <code>type(scope): subject</code> — title-only, no body.
+                Commit with <code>type(scope): subject</code> - title-only, no body.
                 Use <code>feat</code>, <code>fix</code>, <code>refactor</code>, <code
                   >chore</code
                 >, <code>docs</code>, or <code>test</code>.
@@ -358,13 +357,13 @@ pnpm format:check
 pnpm --filter @freecodecamp/uikit-docs test:visual`}</code></pre>
               </li>
               <li>
-                Add a Changeset for user-visible changes —
+                Add a Changeset for user-visible changes -
                 <code>pnpm changeset</code>. Pick packages, bump type, and write
                 a one-line summary.
               </li>
               <li>
                 Open a PR against <code>main</code>. CodeRabbit reviews; CI is
-                the source of truth. Releases cut from merged PRs — individual
+                the source of truth. Releases cut from merged PRs - individual
                 PRs don't publish.
               </li>
             </ol>

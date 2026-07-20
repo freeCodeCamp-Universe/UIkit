@@ -20,7 +20,7 @@ import RelatedComponents from '../../components/site/RelatedComponents.astro';
 
 Breadcrumb renders the path-to-here trail above page content. The
 component is a labelled `<nav>` wrapping an ordered list; each item
-lands as either a link or — for the active leaf — a non-link span
+lands as either a link or - for the active leaf - a non-link span
 with `aria-current="page"`. The visible separator is a CSS
 pseudo-element that screen readers ignore, so the announced
 sequence stays "Home, Components, Breadcrumb" rather than the
@@ -38,7 +38,7 @@ could otherwise reach an `<a href>`.
     {
       name: 'children',
       type: 'ReactNode',
-      default: '—',
+      default: '-',
       description: 'A list of `<Breadcrumb.Item>` elements.'
     },
     {
@@ -50,7 +50,7 @@ could otherwise reach an `<a href>`.
     {
       name: 'className',
       type: 'string',
-      default: '—',
+      default: '-',
       description: 'Additional class composed onto the root `nav`.'
     }
   ]}
@@ -63,14 +63,14 @@ could otherwise reach an `<a href>`.
     {
       name: 'children',
       type: 'ReactNode',
-      default: '—',
+      default: '-',
       description:
         'Label content rendered inside the link or current-page span.'
     },
     {
       name: 'href',
       type: 'string',
-      default: '—',
+      default: '-',
       description:
         'Destination URL. Schemes outside the allowlist render as a non-link span and emit a console warning.'
     },
@@ -89,7 +89,7 @@ could otherwise reach an `<a href>`.
 Renders as `<nav aria-label="Breadcrumb"><ol><li>…</li></ol></nav>`.
 The active item drops the `<a>` and emits a span with
 `aria-current="page"`. The decorative separator is a CSS
-`::after` pseudo-element on every non-last item — invisible to
+`::after` pseudo-element on every non-last item - invisible to
 assistive tech, no extra DOM noise.
 
 ## Tokens consumed

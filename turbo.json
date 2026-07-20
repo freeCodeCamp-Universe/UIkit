@@ -4,7 +4,7 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**", "dist-cdn/**", ".astro/**", "!.astro/cache/**"]
+      "outputs": ["dist/**", ".astro/**", "!.astro/cache/**"]
     },
     "dev": {
       "cache": false,
@@ -57,10 +57,6 @@
     "@freecodecamp/uikit-css#build": {
       "dependsOn": [],
       "outputs": []
-    },
-    "@freecodecamp/uikit-cdn#build": {
-      "dependsOn": ["^build"],
-      "outputs": ["../../dist-cdn/**"]
     }
   }
 }

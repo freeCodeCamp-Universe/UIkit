@@ -17,9 +17,9 @@
   "ignorePatterns": [
     "**/node_modules",
     "**/dist",
-    "**/dist-cdn",
     "**/.astro",
     "**/public/uikit/",
+    "**/public/cdn/",
     "**/.next",
     "**/.turbo",
     "**/__coverage__",

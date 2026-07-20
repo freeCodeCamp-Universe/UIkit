@@ -4,7 +4,7 @@ eyebrow: <AuthLayout />
 status: stable
 since: '0.3.0'
 category: layout
-summary: Centered card shell for auth flows — login, signup, forgot-password, magic-link. Optional brand lockup above the card, optional footer below, optional background pattern for a little texture.
+summary: Centered card shell for auth flows - login, signup, forgot-password, magic-link. Optional brand lockup above the card, optional footer below, optional background pattern for a little texture.
 a11yPattern: https://www.w3.org/WAI/ARIA/apg/patterns/landmarks/
 tokens:
   - --background-primary
@@ -35,13 +35,13 @@ texture for a little visual interest on otherwise-empty auth routes.
     {
       name: 'brand',
       type: 'ReactNode',
-      default: '—',
+      default: '-',
       description: 'Rendered above the card. Typically a wordmark or logo.'
     },
     {
       name: 'footer',
       type: 'ReactNode',
-      default: '—',
+      default: '-',
       description: 'Rendered below the card. Legal, links, copyright.'
     },
     {
@@ -55,7 +55,7 @@ texture for a little visual interest on otherwise-empty auth routes.
 
 ## Accessibility
 
-The card wrapper is a native `<main>` — nothing fancier needed.
+The card wrapper is a native `<main>` - nothing fancier needed.
 Ensure the form inside carries an accessible heading (`<h1>` like
 "Sign in") so screen reader users know the purpose of the route.
 
@@ -79,7 +79,7 @@ Ensure the form inside carries an accessible heading (`<h1>` like
   <Fragment slot='do'>
     <ul>
       <li>
-        Use AuthLayout for every unauthenticated route — login, register,
+        Use AuthLayout for every unauthenticated route - login, register,
         forgot, magic-link.
       </li>
       <li>
@@ -95,13 +95,13 @@ Ensure the form inside carries an accessible heading (`<h1>` like
   <Fragment slot='dont'>
     <ul>
       <li>
-        Don't use AuthLayout for authenticated pages — SidebarLayout or
+        Don't use AuthLayout for authenticated pages - SidebarLayout or
         StackedLayout fit better.
       </li>
       <li>
         Don't stuff navigation chrome into `brand`; keep it purely visual.
       </li>
-      <li>Don't nest two AuthLayouts — one shell per route.</li>
+      <li>Don't nest two AuthLayouts - one shell per route.</li>
     </ul>
   </Fragment>
 </DoDont>

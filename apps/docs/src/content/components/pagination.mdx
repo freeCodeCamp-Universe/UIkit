@@ -4,7 +4,7 @@ eyebrow: <Pagination />
 status: stable
 since: '0.3.0'
 category: navigation
-summary: Page navigator for tabular and paged content. Ships a React layer for app code and a data-uikit-pagination adapter for the vanilla runtime — both speak the same DOM contract so the layers stay swappable.
+summary: Page navigator for tabular and paged content. Ships a React layer for app code and a data-uikit-pagination adapter for the vanilla runtime - both speak the same DOM contract so the layers stay swappable.
 a11yPattern: https://www.w3.org/WAI/ARIA/apg/patterns/
 tokens:
   - --font-mono
@@ -23,7 +23,7 @@ import RelatedComponents from '../../components/site/RelatedComponents.astro';
 
 Pagination renders a compact page navigator with ellipsis markers for
 large ranges, next/previous buttons, and keyboard arrow navigation.
-The React layer is a controlled component — you own `page` state and
+The React layer is a controlled component - you own `page` state and
 pass `onPageChange`. The vanilla runtime exposes the same DOM through
 `[data-uikit-pagination]` and fires `uikit:pagination-change` events
 so server-rendered pages can page without React.
@@ -35,19 +35,19 @@ so server-rendered pages can page without React.
     {
       name: 'count',
       type: 'number',
-      default: '—',
+      default: '-',
       description: 'Total item count. `pageCount = ceil(count / pageSize)`.'
     },
     {
       name: 'pageSize',
       type: 'number',
-      default: '—',
+      default: '-',
       description: 'Items per page.'
     },
     {
       name: 'page',
       type: 'number',
-      default: '—',
+      default: '-',
       description: '1-based current page. The component is fully controlled.'
     },
     {
@@ -60,7 +60,7 @@ so server-rendered pages can page without React.
     {
       name: 'onPageChange',
       type: '(page: number) => void',
-      default: '—',
+      default: '-',
       description:
         'Fires when the user clicks a page button, prev, next, or presses an arrow / Home / End.'
     },
@@ -93,7 +93,7 @@ so server-rendered pages can page without React.
 Renders as `<nav aria-label="pagination">`; the current page carries
 `aria-current="page"`. Ellipsis markers are non-interactive and
 `aria-hidden`. Keyboard navigation is handled by the vanilla adapter
-on the root — the React layer leaves key handling to consumers so
+on the root - the React layer leaves key handling to consumers so
 routing libraries can own the shortcut map.
 
 ## Tokens consumed
@@ -131,7 +131,7 @@ routing libraries can own the shortcut map.
   <Fragment slot='dont'>
     <ul>
       <li>
-        Don't uncontrol `page` — keep the source of truth in your router or
+        Don't uncontrol `page` - keep the source of truth in your router or
         store.
       </li>
       <li>

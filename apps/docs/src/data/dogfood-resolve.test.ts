@@ -90,7 +90,7 @@ test('each path target actually exists on disk', () => {
     const target = resolve(monorepoRoot, 'packages', pkg, 'src', 'index.ts');
     assert.ok(
       existsSync(target),
-      `expected ${target} to exist — packages/${pkg}/src/index.ts is the dogfood entry point`
+      `expected ${target} to exist - packages/${pkg}/src/index.ts is the dogfood entry point`
     );
   }
 });

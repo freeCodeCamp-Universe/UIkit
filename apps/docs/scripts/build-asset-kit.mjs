@@ -19,7 +19,7 @@ try {
   console.log(`[build-asset-kit] wrote ${path.relative(process.cwd(), out)}`);
 } catch (err) {
   console.error(
-    '[build-asset-kit] failed — is the `zip` CLI installed? (mac + debian ship it by default).'
+    '[build-asset-kit] failed - is the `zip` CLI installed? (mac + debian ship it by default).'
   );
   throw err;
 }

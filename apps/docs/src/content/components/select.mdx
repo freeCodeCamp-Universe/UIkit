@@ -4,7 +4,7 @@ eyebrow: <Select />
 status: stable
 since: '0.3.0'
 category: form
-summary: Native HTML select restyled to fit the terminal shell. A real <select> — no portal, no popover, no Combobox. Chevron is an inlined Lucide glyph.
+summary: Native HTML select restyled to fit the terminal shell. A real <select> - no portal, no popover, no Combobox. Chevron is an inlined Lucide glyph.
 a11yPattern: https://www.w3.org/WAI/ARIA/apg/patterns/combobox/
 tokens:
   - --background-quaternary
@@ -20,8 +20,8 @@ import TokenChips from '../../components/site/TokenChips.astro';
 import DoDont from '../../components/site/DoDont.astro';
 import RelatedComponents from '../../components/site/RelatedComponents.astro';
 
-Select is the native dropdown. It renders a real HTML `<select>` — no
-popover, no portal — styled with our border, spacing, and chevron so
+Select is the native dropdown. It renders a real HTML `<select>` - no
+popover, no portal - styled with our border, spacing, and chevron so
 it sits flush with the rest of the form shell. Reach for Combobox only
 when you need filtering, async loads, or custom option rendering.
 
@@ -39,7 +39,7 @@ when you need filtering, async loads, or custom option rendering.
     {
       name: '...rest',
       type: 'SelectHTMLAttributes<HTMLSelectElement>',
-      default: '—',
+      default: '-',
       description:
         'All native select props pass through (name, value, defaultValue, multiple, size, disabled, …).'
     }
@@ -48,7 +48,7 @@ when you need filtering, async loads, or custom option rendering.
 
 ## Accessibility
 
-Native `<select>` — every platform screen reader, keyboard navigation,
+Native `<select>` - every platform screen reader, keyboard navigation,
 and mobile picker works out of the box. Pair with a `<label>` (or
 FormGroup + HelpBlock) for an accessible name. Use `invalid` plus
 HelpBlock's error tone to signal validation failures.
@@ -81,10 +81,10 @@ HelpBlock's error tone to signal validation failures.
     <ul>
       <li>
         Don't use Select when users need to search, filter, or async-load
-        options — use Combobox.
+        options - use Combobox.
       </li>
       <li>
-        Don't style the dropdown list — browsers refuse to honour most of it
+        Don't style the dropdown list - browsers refuse to honour most of it
         anyway.
       </li>
       <li>Don't hide the label; every Select needs an accessible name.</li>

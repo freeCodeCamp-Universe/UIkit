@@ -18,7 +18,7 @@ import RelatedComponents from '../../components/site/RelatedComponents.astro';
 import DoDont from '../../components/site/DoDont.astro';
 
 Use EmptyState when a list, table, or result set has nothing to show.
-Pair it with a single concrete action — the thing the user can do to
+Pair it with a single concrete action - the thing the user can do to
 resolve the emptiness (file a task, import a CSV, connect an account).
 Leave the action out for states that are informational only.
 
@@ -29,36 +29,36 @@ Leave the action out for states that are informational only.
     {
       name: 'icon',
       type: 'ReactNode',
-      default: '—',
+      default: '-',
       description: 'Rendered in an `aria-hidden` 48×48 box above the title.'
     },
     {
       name: 'title',
       type: 'ReactNode',
-      default: '—',
+      default: '-',
       description:
-        'Short headline, rendered as `<h3>`. Keep it terse — "No matching results", not "Sorry, we could not find any matching results".'
+        'Short headline, rendered as `<h3>`. Keep it terse - "No matching results", not "Sorry, we could not find any matching results".'
     },
     {
       name: 'description',
       type: 'ReactNode',
-      default: '—',
+      default: '-',
       description:
         'One-sentence explanation. Renders in `.empty-state__description` at the secondary foreground.'
     },
     {
       name: 'action',
       type: 'ReactNode',
-      default: '—',
+      default: '-',
       description:
-        'Primary action slot — usually a `<Button>`. Appears below the description with 8px top margin.'
+        'Primary action slot - usually a `<Button>`. Appears below the description with 8px top margin.'
     }
   ]}
 />
 
 ## Accessibility
 
-The root is a plain `<div>` — pass `role="status"` if the empty state
+The root is a plain `<div>` - pass `role="status"` if the empty state
 replaces a freshly-loaded async region so assistive tech re-announces
 the state change. The icon wrapper carries `aria-hidden="true"` so its
 contents do not duplicate the title text.
@@ -70,8 +70,8 @@ contents do not duplicate the title text.
     'Swap the description to a friendlier tone if the empty state is a positive outcome (inbox zero).'
   ]}
   donts={[
-    'Stack multiple empty states in the same viewport — one per region.',
-    'Hide the empty state behind a toast — it belongs in the content region.',
+    'Stack multiple empty states in the same viewport - one per region.',
+    'Hide the empty state behind a toast - it belongs in the content region.',
     'Use it for loading states (reach for Skeleton) or errors (reach for Alert).'
   ]}
 />

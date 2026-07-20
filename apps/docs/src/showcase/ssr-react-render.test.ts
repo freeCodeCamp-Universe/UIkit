@@ -66,7 +66,7 @@ const files = readdirSync(here)
 
 const subjects = files.filter(slug => !STATEFUL.has(slug));
 
-test('+ + + P6.1 — 33 SSR-only showcases identified', () => {
+test('+ + + P6.1 - 33 SSR-only showcases identified', () => {
   assert.equal(
     subjects.length,
     33,

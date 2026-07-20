@@ -18,10 +18,10 @@ Key route → source mapping:
 
 | Route                          | Source                                                                 |
 | ------------------------------ | ---------------------------------------------------------------------- |
-| `/`                            | `src/pages/index.astro` — landing + foundations + component playground |
-| `/handbook`                    | `src/pages/handbook.astro` — one-page foundations + brand reference    |
+| `/`                            | `src/pages/index.astro` - landing + foundations + component playground |
+| `/handbook`                    | `src/pages/handbook.astro` - one-page foundations + brand reference    |
 | `/guides`, `/guides/[...slug]` | `src/pages/guides/`                                                    |
-| `/llms.txt`, `/llms-full.txt`  | `src/pages/llms*.txt.ts` — LLM-readable digest endpoints               |
+| `/llms.txt`, `/llms-full.txt`  | `src/pages/llms*.txt.ts` - LLM-readable digest endpoints               |
 | `/api`                         | redirected to `/`                                                      |
 
 Site shell uses `BaseLayout.astro`. Prose pages use `ProseLayout.astro`.
@@ -77,9 +77,9 @@ made it to `dist/`.
 
 Workspace-built runtime files served from the docs origin:
 
-- `/uikit/sprite.svg` — copied from `packages/uikit-icons/dist/`.
-- `/uikit/uikit.global.js` — copied from `packages/uikit-js/dist/`.
-- `/brand/asset-kit.zip` — generated from brand marks.
+- `/uikit/sprite.svg` - copied from `packages/uikit-icons/dist/`.
+- `/uikit/uikit.global.js` - copied from `packages/uikit-js/dist/`.
+- `/brand/asset-kit.zip` - generated from brand marks.
 
-**Do not hand-edit files under `public/uikit/`** — they are overwritten
+**Do not hand-edit files under `public/uikit/`** - they are overwritten
 by the predev / prebuild chain above.

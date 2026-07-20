@@ -70,14 +70,14 @@ the label, the current value, and the help/error text in order.
     <ul>
       <li>Place one FormControl per field; wrap the whole group in `<FormGroup>`.</li>
       <li>Use `help` for always-visible guidance, `error` for validation failures.</li>
-      <li>Keep labels concise — they're announced before every re-read.</li>
+      <li>Keep labels concise - they're announced before every re-read.</li>
     </ul>
   </Fragment>
   <Fragment slot='dont'>
     <ul>
-      <li>Don't wire `id`/`htmlFor` manually — FormControl owns that contract.</li>
+      <li>Don't wire `id`/`htmlFor` manually - FormControl owns that contract.</li>
       <li>Don't hide the label; use `sr-only` only when layout truly demands it.</li>
-      <li>Don't stack help _and_ error for the same field — error wins.</li>
+      <li>Don't stack help _and_ error for the same field - error wins.</li>
     </ul>
   </Fragment>
 </DoDont>

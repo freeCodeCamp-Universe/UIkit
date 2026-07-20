@@ -3,7 +3,7 @@ import type { ComboboxItem } from './Combobox';
 
 export interface UseAsyncComboboxItemsOptions<T extends ComboboxItem> {
   /**
-   * Fetches items for the current query. Receives an AbortSignal —
+   * Fetches items for the current query. Receives an AbortSignal -
    * honour it to avoid race conditions where a stale response
    * overwrites a newer one.
    */

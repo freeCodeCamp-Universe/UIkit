@@ -1,4 +1,4 @@
-# Runbook — Deploy the docs site to Cloudflare Pages
+# Runbook - Deploy the docs site to Cloudflare Pages
 
 Operator playbook for `apps/docs` (the `@freecodecamp/uikit-docs`
 Astro site) on Cloudflare Pages. Cite this file from any incident,
@@ -9,6 +9,13 @@ Decision context: [ADR-0008](../adr/0008-cloudflare-pages-git-integration.md)
 Repository wiring: `apps/docs/public/{_headers,_redirects,robots.txt}`,
 `apps/docs/scripts/verify-dist-pages-artefacts.mjs`,
 `apps/docs/src/_meta/pages-config.test.ts`.
+
+The zero-build CDN bundle (`styles.min.css`, `uikit.global.js`,
+`sprite.svg`, fonts, `manifest.json`) ships from the same deploy, at
+`/cdn/`. It is built by `apps/docs/scripts/build-cdn-bundle.mjs`
+during `prebuild`/`predev` and covered by the same post-build gate.
+See [ADR-0010](../adr/0010-cdn-bundle-ships-with-docs-deploy.md) - it
+is rolling/unversioned, not a separate release.
 
 ## Glossary
 
@@ -36,7 +43,7 @@ Repository wiring: `apps/docs/public/{_headers,_redirects,robots.txt}`,
 
 ## First-deploy procedure
 
-Run in order. Stop and triage if any step fails — do **not** skip.
+Run in order. Stop and triage if any step fails - do **not** skip.
 
 ### 1. Provision the Cloudflare Pages project
 
@@ -114,7 +121,7 @@ Re-run the smoke checks against the apex URL.
 
 In order of preference:
 
-### Option A — CF dashboard rollback (fastest)
+### Option A - CF dashboard rollback (fastest)
 
 CF dashboard → `fcc-design` → Deployments → find the last
 known-good deployment → "Manage deployment" → "Rollback to this
@@ -122,13 +129,13 @@ deployment".
 
 Instant, no rebuild.
 
-### Option B — Git revert
+### Option B - Git revert
 
 `git revert <commit>` on `main`, push. CF Git integration
 redeploys automatically. Use this when the bad change is in source
 rather than `_headers` / config.
 
-### Option C — `wrangler` CLI (advanced)
+### Option C - `wrangler` CLI (advanced)
 
 For operators with local CF credentials:
 
@@ -138,7 +145,7 @@ pnpm dlx wrangler pages deployment rollback <deployment-id> \
   --project-name=fcc-design
 ```
 
-### Option D — DNS detach (last resort)
+### Option D - DNS detach (last resort)
 
 CF dashboard → Custom Domains → `design.freecodecamp.org` →
 Remove. The site returns DNS-NXDOMAIN until reattached. Use only

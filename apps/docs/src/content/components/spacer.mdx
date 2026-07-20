@@ -24,7 +24,7 @@ import DoDont from '../../components/site/DoDont.astro';
 import RelatedComponents from '../../components/site/RelatedComponents.astro';
 
 `<Spacer>` is explicit layout gap. Reach for it when the surrounding
-components should not carry margin of their own — typical in MDX
+components should not carry margin of their own - typical in MDX
 content where paragraphs and code blocks already own their spacing.
 
 ## Props
@@ -50,7 +50,7 @@ content where paragraphs and code blocks already own their spacing.
 ## Accessibility
 
 Renders a presentation-only `<span>` with `aria-hidden="true"`. Screen
-readers skip it entirely. Don't rely on it for semantic separation —
+readers skip it entirely. Don't rely on it for semantic separation -
 use a heading or landmark for that.
 
 ## Tokens consumed
@@ -75,7 +75,7 @@ use a heading or landmark for that.
   <Fragment slot='do'>
     <ul>
       <li>
-        Prefer token steps over raw pixels — the spacing scale stays consistent.
+        Prefer token steps over raw pixels - the spacing scale stays consistent.
       </li>
       <li>
         Use vertical spacers in MDX; horizontal spacers inside inline groups.
@@ -86,12 +86,12 @@ use a heading or landmark for that.
   <Fragment slot='dont'>
     <ul>
       <li>
-        Don't add margin to neighbours when a spacer already exists — doubles
+        Don't add margin to neighbours when a spacer already exists - doubles
         gap.
       </li>
       <li>Don't nest spacers; use one with the combined step.</li>
       <li>
-        Don't use as a spacer-between-list-items — reach for `gap` on the
+        Don't use as a spacer-between-list-items - reach for `gap` on the
         parent.
       </li>
     </ul>

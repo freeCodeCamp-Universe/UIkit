@@ -36,28 +36,28 @@ hidden behind `.sr-only`.
     {
       name: 'width',
       type: 'number | string',
-      default: '—',
+      default: '-',
       description:
         'Inline width. Numbers coerce to pixels; strings pass through.'
     },
     {
       name: 'height',
       type: 'number | string',
-      default: '—',
+      default: '-',
       description:
         'Inline height. Numbers coerce to pixels; strings pass through.'
     },
     {
       name: 'lines',
       type: 'number',
-      default: '—',
+      default: '-',
       description:
         'For variant="text": number of stacked line bars. The last bar is 65% width to mimic a paragraph break.'
     },
     {
       name: 'label',
       type: 'ReactNode',
-      default: '—',
+      default: '-',
       description:
         'Screen-reader announcement rendered in a visually-hidden span.'
     }
@@ -67,7 +67,7 @@ hidden behind `.sr-only`.
 ## Accessibility
 
 Skeleton emits `role="status"` + `aria-busy="true"` + `aria-live="polite"`
-so assistive tech hears a loading cue. Keep the `label` terse — announce
+so assistive tech hears a loading cue. Keep the `label` terse - announce
 what is loading, not how long it will take. Animation pauses under
 `prefers-reduced-motion: reduce`.
 
@@ -75,12 +75,12 @@ what is loading, not how long it will take. Animation pauses under
   dos={[
     'Reserve the exact footprint of the content it is replacing.',
     'Pair a Skeleton with an `aria-label` that names what is loading.',
-    'Swap in real content as soon as any fragment is ready — do not wait for the full payload.'
+    'Swap in real content as soon as any fragment is ready - do not wait for the full payload.'
   ]}
   donts={[
-    'Stack six variants in the same viewport — one shape per region.',
+    'Stack six variants in the same viewport - one shape per region.',
     'Use Skeleton for states that will never resolve (use EmptyState).',
-    'Animate the shimmer manually — honour the reduced-motion CSS rule.'
+    'Animate the shimmer manually - honour the reduced-motion CSS rule.'
   ]}
 />
 

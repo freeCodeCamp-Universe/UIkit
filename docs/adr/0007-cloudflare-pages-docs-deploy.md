@@ -1,4 +1,4 @@
-# 0007 — Cloudflare Pages for the docs site (direct upload)
+# 0007 - Cloudflare Pages for the docs site (direct upload)
 
 - Status: Superseded by [0008](./0008-cloudflare-pages-git-integration.md)
 - Date: 2026-05-02
@@ -18,7 +18,7 @@ freeCodeCamp.org's broader infrastructure (the curriculum, news,
 Universe spike) is already converging on Cloudflare for static
 hosting and DNS, including a CDN that already lives at
 `cdn.freecodecamp.org`. The docs site is a small static (Astro SSG)
-deliverable with no SSR, no Functions, no Workers — fits a static
+deliverable with no SSR, no Functions, no Workers - fits a static
 host's free / cheap tier. Two deploy-style options on Cloudflare
 Pages: managed Git integration vs. direct upload from CI.
 
@@ -34,16 +34,16 @@ Pages: managed Git integration vs. direct upload from CI.
   with the GitHub Deployment created by the action's `gitHubToken`
   surfacing the preview URL on the PR sidebar.
 - Cloudflare-side configuration lives in repo:
-  - `apps/docs/wrangler.jsonc` — name, `pages_build_output_dir`,
+  - `apps/docs/wrangler.jsonc` - name, `pages_build_output_dir`,
     `compatibility_date`.
-  - `apps/docs/public/_headers` — security globals + cache rules.
+  - `apps/docs/public/_headers` - security globals + cache rules.
     Content-Security-Policy ships in **Report-Only** mode for the
     first deploy window; promotion to enforce-mode is a separate,
     explicitly-marked follow-up commit only after observed violation
     reports = 0 for ≥ 7 days. See `docs/runbooks/deploy-docs.md`.
-  - `apps/docs/public/_redirects` — comment-only stub today;
+  - `apps/docs/public/_redirects` - comment-only stub today;
     reserved for future canonical-host or legacy-URL aliases.
-  - `apps/docs/public/robots.txt` — allow-all, references
+  - `apps/docs/public/robots.txt` - allow-all, references
     `/sitemap-index.xml`.
 - Required secrets, user-managed in GitHub: `CLOUDFLARE_API_TOKEN`
   (Pages:Edit, account-scoped), `CLOUDFLARE_ACCOUNT_ID`. The deploy
@@ -94,9 +94,9 @@ Pages: managed Git integration vs. direct upload from CI.
 
 ## References
 
-- ADR-0001 (Node LTS floor) — composite action `node-version`
+- ADR-0001 (Node LTS floor) - composite action `node-version`
   (`22`) used by the deploy workflow.
-- ADR-0006 (Husky v9 pre-commit) — local guardrails before push.
-- `docs/runbooks/deploy-docs.md` — operator playbook for first
+- ADR-0006 (Husky v9 pre-commit) - local guardrails before push.
+- `docs/runbooks/deploy-docs.md` - operator playbook for first
   deploy, DNS cutover, rollback, secret rotation, CSP enforce-mode
   promotion.

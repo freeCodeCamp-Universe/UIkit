@@ -56,7 +56,7 @@ const CANONICAL_DIRECT_CHILDREN: readonly string[] = [
   'showcase__code'
 ];
 
-test.describe('@chrome S3 — every PlaygroundCard surfaces canonical chrome', () => {
+test.describe('@chrome S3 - every PlaygroundCard surfaces canonical chrome', () => {
   test.beforeEach(async ({ page }) => {
     // Showcases live at `/playground/` after the IA split (commit f1038b2).
     await page.goto('/playground/', { waitUntil: 'networkidle' });

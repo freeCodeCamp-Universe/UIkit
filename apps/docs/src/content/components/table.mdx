@@ -20,7 +20,7 @@ import DoDont from '../../components/site/DoDont.astro';
 import RelatedComponents from '../../components/site/RelatedComponents.astro';
 
 `<Table>` is the thin semantic wrapper over `<table>` / `<thead>` /
-`<tbody>` — it applies the Command-line Chic surface styling and
+`<tbody>` - it applies the Command-line Chic surface styling and
 exposes compound sub-components (`Table.Head`, `Table.Body`,
 `Table.Row`, `Table.Cell`) so you don't restyle every row by hand.
 
@@ -50,7 +50,7 @@ exposes compound sub-components (`Table.Head`, `Table.Body`,
       name: 'Table.Cell.scope',
       type: "'row' | 'col'",
       description:
-        'Marks header cells — forwards to the native `scope` attribute.'
+        'Marks header cells - forwards to the native `scope` attribute.'
     }
   ]}
 />
@@ -87,7 +87,7 @@ cell-to-header associations survive linearised reading.
   <Fragment slot='dont'>
     <ul>
       <li>Don't use tables for layout; reach for `<Grid>` or flex.</li>
-      <li>Don't style a div-grid to look like a table — assistive tech won't see the relationships.</li>
+      <li>Don't style a div-grid to look like a table - assistive tech won't see the relationships.</li>
       <li>Don't mix `<Table>` with `<DataTable>` on the same page; pick one.</li>
     </ul>
   </Fragment>

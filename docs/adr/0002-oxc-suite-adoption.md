@@ -1,4 +1,4 @@
-# 0002 — Adopt the oxc suite (oxlint + oxfmt)
+# 0002 - Adopt the oxc suite (oxlint + oxfmt)
 
 - Status: Accepted
 - Date: 2026-05-01
@@ -10,9 +10,9 @@ The Phase 1 modernization wave evaluated replacing the legacy ESLint + Prettier
 toolchain with the [oxc](https://oxc.rs) suite. Wall-clock probe on the
 existing repo:
 
-- `pnpm lint` (turbo + eslint per package) — ~11 s
-- `pnpm exec oxlint .` (one process, 326 files) — 12 ms
-- `pnpm exec oxfmt --check .` (376 files) — ~550 ms
+- `pnpm lint` (turbo + eslint per package) - ~11 s
+- `pnpm exec oxlint .` (one process, 326 files) - 12 ms
+- `pnpm exec oxfmt --check .` (376 files) - ~550 ms
 
 oxlint accepts `.astro` files (no parse errors), but `oxfmt 0.47.0` does not
 yet handle `.astro`, and emits a `printWidth` config error on `.md`.
@@ -54,6 +54,6 @@ removed, `oxlint`/`oxfmt`/`@oxc-project/**` added.
 
 ## Alternatives considered
 
-- **Stay on ESLint + Prettier** — no parity speed, more maintenance per upstream churn.
-- **Biome** — single-binary alternative; lacks astro support too, higher migration cost from existing ESLint flat config.
-- **oxc only, drop astro lint+format entirely** — would lose `.astro` formatting; rejected.
+- **Stay on ESLint + Prettier** - no parity speed, more maintenance per upstream churn.
+- **Biome** - single-binary alternative; lacks astro support too, higher migration cost from existing ESLint flat config.
+- **oxc only, drop astro lint+format entirely** - would lose `.astro` formatting; rejected.

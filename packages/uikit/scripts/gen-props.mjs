@@ -42,7 +42,7 @@ function walkTsx(dir) {
   return out;
 }
 
-/** Generic component signature `export const Name = <T,>(...)` — flag for stub envelope. */
+/** Generic component signature `export const Name = <T,>(...)` - flag for stub envelope. */
 const GENERIC_RE = /export\s+const\s+\w+\s*=\s*<\w+,?\s*>?\(/;
 
 function guessDisplayName(source, sourceFile) {

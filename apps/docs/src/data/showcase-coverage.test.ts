@@ -25,7 +25,7 @@ test('showcase/ directory has no orphans not in knownComponentSlugs', () => {
   for (const file of showcaseFiles) {
     assert.ok(
       knownComponentSlugs.has(file),
-      `showcase/${file}.astro is an orphan — add ${file} to knownComponentSlugs or delete the file`
+      `showcase/${file}.astro is an orphan - add ${file} to knownComponentSlugs or delete the file`
     );
   }
 });

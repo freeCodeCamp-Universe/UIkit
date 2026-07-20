@@ -1,4 +1,4 @@
-# 0004 — Canonical repository URL casing
+# 0004 - Canonical repository URL casing
 
 - Status: Accepted
 - Date: 2026-05-01
@@ -9,7 +9,7 @@
 Earlier inventory work flagged a suspected drift between
 `freeCodeCamp/UIkit.git` and `freeCodeCamp/ui.git` across `package.json`
 `repository.url` fields. Empirical sweep
-(`grep -rn "freeCodeCamp/ui" --include='*.json'`) returned zero matches —
+(`grep -rn "freeCodeCamp/ui" --include='*.json'`) returned zero matches -
 all manifests already pointed at `freeCodeCamp/UIkit.git`. The drift was a
 false positive from a stale documentation index.
 
@@ -35,6 +35,6 @@ The convention is enforced by reviewing diffs; no automated meta-gate yet.
 
 ## Alternatives considered
 
-- **`freeCodeCamp/ui.git`** — does not match the GitHub repo; rejected.
-- **All-lowercase `freecodecamp/uikit.git`** — works via GitHub redirect, but
+- **`freeCodeCamp/ui.git`** - does not match the GitHub repo; rejected.
+- **All-lowercase `freecodecamp/uikit.git`** - works via GitHub redirect, but
   diverges from organization branding; rejected.

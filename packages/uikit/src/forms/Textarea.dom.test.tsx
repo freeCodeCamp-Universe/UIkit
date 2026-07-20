@@ -54,7 +54,7 @@ test('autoResize re-fits the textarea on input', () => {
   }
 });
 
-test('autoResize off — no height style is written, onInput consumer still fires', () => {
+test('autoResize off - no height style is written, onInput consumer still fires', () => {
   let consumerCalled = 0;
   const { container } = render(
     <Textarea

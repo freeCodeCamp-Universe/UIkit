@@ -470,15 +470,15 @@ function propsJson(): PropsJson {
 export function propsTable(slug: string): string {
   const entry = propsJson()[pascal(slug)];
   if (!entry || typeof entry === 'string' || !entry.props) {
-    return 'Props could not be statically extracted — see the TypeScript source below.';
+    return 'Props could not be statically extracted - see the TypeScript source below.';
   }
   const names = Object.keys(entry.props);
   if (!names.length) {
-    return 'No component-specific props — accepts standard HTML attributes. See the TypeScript source below.';
+    return 'No component-specific props - accepts standard HTML attributes. See the TypeScript source below.';
   }
   const rows = names.map(name => {
     const p = entry.props[name];
-    const def = p.defaultValue == null ? '—' : `\`${p.defaultValue}\``;
+    const def = p.defaultValue == null ? '-' : `\`${p.defaultValue}\``;
     const desc = (p.description || '')
       .replaceAll('|', '\\|')
       .replaceAll('\n', ' ');
@@ -504,7 +504,7 @@ function showcaseSnippet(slug: string, slot: 'react' | 'html'): string | null {
   return m ? m[1] : null;
 }
 
-/** Showcase React snippet — authored with copied-source imports (./ui/...). */
+/** Showcase React snippet - authored with copied-source imports (./ui/...). */
 export function reactSnippet(slug: string): string | null {
   return showcaseSnippet(slug, 'react');
 }
@@ -516,7 +516,7 @@ export function htmlSnippet(slug: string): string | null {
 // --- version --------------------------------------------------------------
 
 let versionCache: string | null = null;
-/** `<git short sha> (<ISO date>)` — falls back to package version. */
+/** `<git short sha> (<ISO date>)` - falls back to package version. */
 export function registryVersion(): string {
   if (versionCache) return versionCache;
   try {

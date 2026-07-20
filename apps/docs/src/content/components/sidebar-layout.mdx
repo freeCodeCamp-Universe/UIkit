@@ -4,7 +4,7 @@ eyebrow: <SidebarLayout />
 status: stable
 since: '0.3.0'
 category: layout
-summary: Page-scale chrome — optional header row on top of a sidebar + main grid. The aside column collapses at the md breakpoint (≤ 768 px) so mobile screens stay single-column.
+summary: Page-scale chrome - optional header row on top of a sidebar + main grid. The aside column collapses at the md breakpoint (≤ 768 px) so mobile screens stay single-column.
 a11yPattern: https://www.w3.org/WAI/ARIA/apg/patterns/landmarks/
 tokens:
   - --background-primary
@@ -19,7 +19,7 @@ import RelatedComponents from '../../components/site/RelatedComponents.astro';
 
 SidebarLayout is the full-page shell for app screens with a persistent
 side rail. Drop a Navbar into `header`, a Sidebar into `sidebar`, and
-your route content as children — the grid math and responsive
+your route content as children - the grid math and responsive
 collapse are already wired.
 
 ## Props
@@ -29,13 +29,13 @@ collapse are already wired.
     {
       name: 'header',
       type: 'ReactNode',
-      default: '—',
+      default: '-',
       description: 'Top row. Typically a <Navbar />.'
     },
     {
       name: 'sidebar',
       type: 'ReactNode',
-      default: '—',
+      default: '-',
       description:
         'Left column. Typically a <Sidebar />. Hidden at widths ≤ 768 px.'
     }
@@ -44,7 +44,7 @@ collapse are already wired.
 
 ## Accessibility
 
-Semantic landmarks come from the slot contents — Navbar brings
+Semantic landmarks come from the slot contents - Navbar brings
 `role="banner"`, Sidebar brings `role="navigation"`, and the main
 column is a native `<main>`. The layout itself ships no landmarks so
 consumers can swap Navbar/Sidebar for custom chrome without
@@ -69,14 +69,14 @@ duplication.
       </li>
       <li>
         Lift the Sidebar into a drawer pattern at mobile widths if the rail is
-        essential — the layout hides it by default.
+        essential - the layout hides it by default.
       </li>
     </ul>
   </Fragment>
   <Fragment slot='dont'>
     <ul>
       <li>
-        Don't reach for SidebarLayout on marketing or content pages — use
+        Don't reach for SidebarLayout on marketing or content pages - use
         StackedLayout.
       </li>
       <li>

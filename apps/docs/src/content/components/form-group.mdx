@@ -41,7 +41,7 @@ consumers don't fight margins.
 
 ## Accessibility
 
-Adds no ARIA on its own — rely on nested `<FormControl>` for
+Adds no ARIA on its own - rely on nested `<FormControl>` for
 `label ↔ input` wiring, and `<HelpBlock>` for descriptive text
 (`aria-describedby`). When grouping multiple related inputs, use
 `as="fieldset"` and include a `<legend>` child.
@@ -62,9 +62,9 @@ Adds no ARIA on its own — rely on nested `<FormControl>` for
   </Fragment>
   <Fragment slot='dont'>
     <ul>
-      <li>Don't stack raw margin between field rows — that's FormGroup's job.</li>
+      <li>Don't stack raw margin between field rows - that's FormGroup's job.</li>
       <li>Don't nest FormGroups; use one per logical field.</li>
-      <li>Don't skip the `<legend>` when `as="fieldset"` — screen readers need it.</li>
+      <li>Don't skip the `<legend>` when `as="fieldset"` - screen readers need it.</li>
     </ul>
   </Fragment>
 </DoDont>

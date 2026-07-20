@@ -4,7 +4,7 @@ eyebrow: <Sidebar />
 status: stable
 since: '0.3.0'
 category: navigation
-summary: Vertical navigation rail with section eyebrows, icon + label items, and active-state highlighting. Compound component — Sidebar + SidebarSection + SidebarItem.
+summary: Vertical navigation rail with section eyebrows, icon + label items, and active-state highlighting. Compound component - Sidebar + SidebarSection + SidebarItem.
 a11yPattern: https://www.w3.org/WAI/ARIA/apg/patterns/landmarks/
 tokens:
   - --background-primary
@@ -38,7 +38,7 @@ section contains `<SidebarItem>` entries. Items render as `<a>` when
     {
       name: '...rest',
       type: 'HTMLAttributes<HTMLElement>',
-      default: '—',
+      default: '-',
       description:
         'All standard aside attributes pass through. Pair with aria-label for an accessible name.'
     }
@@ -52,7 +52,7 @@ section contains `<SidebarItem>` entries. Items render as `<a>` when
     {
       name: 'label',
       type: 'ReactNode',
-      default: '—',
+      default: '-',
       description: 'Rendered as a mono terminal eyebrow above the items.'
     }
   ]}
@@ -65,7 +65,7 @@ section contains `<SidebarItem>` entries. Items render as `<a>` when
     {
       name: 'href',
       type: 'string',
-      default: '—',
+      default: '-',
       description: 'When provided renders an <a>; otherwise a <button>.'
     },
     {
@@ -78,7 +78,7 @@ section contains `<SidebarItem>` entries. Items render as `<a>` when
     {
       name: 'icon',
       type: 'ReactNode',
-      default: '—',
+      default: '-',
       description: 'Rendered inside a .sidebar__icon slot before the label.'
     }
   ]}
@@ -86,7 +86,7 @@ section contains `<SidebarItem>` entries. Items render as `<a>` when
 
 ## Accessibility
 
-Sidebar renders `<aside role="navigation">` — always pair with
+Sidebar renders `<aside role="navigation">` - always pair with
 `aria-label` so screen readers can distinguish multiple navigation
 landmarks on the page. The active item carries `aria-current="page"`
 so users of assistive tech know where they are in the hierarchy.
@@ -117,20 +117,20 @@ so users of assistive tech know where they are in the hierarchy.
       </li>
       <li>Mark exactly one SidebarItem as `active` per page.</li>
       <li>
-        Use `href` for real links — it keeps `Cmd+click` / middle-click working.
+        Use `href` for real links - it keeps `Cmd+click` / middle-click working.
       </li>
     </ul>
   </Fragment>
   <Fragment slot='dont'>
     <ul>
       <li>
-        Don't bury primary actions inside the sidebar — they belong in the
+        Don't bury primary actions inside the sidebar - they belong in the
         Navbar.
       </li>
       <li>Don't nest sections; keep the tree flat for scanability.</li>
       <li>
         Don't render both `href` and a custom click handler that prevents
-        default — pick one.
+        default - pick one.
       </li>
     </ul>
   </Fragment>

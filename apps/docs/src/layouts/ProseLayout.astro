@@ -12,7 +12,7 @@ export interface Props {
 const { title, eyebrow, summary } = Astro.props;
 ---
 
-<BaseLayout title={`${title} — freeCodeCamp UIKit`} description={summary}>
+<BaseLayout title={`${title} - freeCodeCamp UIKit`} description={summary}>
   <div class='app app--no-sidebar' id='top'>
     <AppHeader />
     <div class='app__body app__body--single'>
@@ -43,7 +43,7 @@ const { title, eyebrow, summary } = Astro.props;
   </div>
 
   <script>
-    // TOC collector — walks `<h2>` elements inside `.prose` and
+    // TOC collector - walks `<h2>` elements inside `.prose` and
     // mirrors them into the prose-toc list. Cheap, no library.
     function buildToc() {
       const list = document.querySelector(

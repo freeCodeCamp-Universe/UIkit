@@ -4,7 +4,7 @@ eyebrow: <Tooltip />
 status: stable
 since: '1.0.0'
 category: overlay
-summary: A keyboard-friendly hint that surfaces on hover or focus. Renders as a CSS-only bubble — no portal, no JS, no third-party runtime.
+summary: A keyboard-friendly hint that surfaces on hover or focus. Renders as a CSS-only bubble - no portal, no JS, no third-party runtime.
 a11yPattern: https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/
 tokens:
   - --background-primary
@@ -21,7 +21,7 @@ import RelatedComponents from '../../components/site/RelatedComponents.astro';
 
 `<Tooltip>` wraps any trigger with a short explanatory hint. The bubble
 renders inline next to the trigger so there is no portal or positioning
-script — keep the hint under a dozen words.
+script - keep the hint under a dozen words.
 
 ## Usage
 
@@ -47,7 +47,7 @@ import { Tooltip } from './ui/tooltip/Tooltip';
     {
       name: 'children',
       type: 'ReactNode',
-      description: 'Required. The trigger — usually an icon button or link.'
+      description: 'Required. The trigger - usually an icon button or link.'
     }
   ]}
 />
@@ -82,7 +82,7 @@ substitute for a visible label: if the trigger has no text, give it an
   </Fragment>
   <Fragment slot='dont'>
     <ul>
-      <li>Don't stuff interactive content inside the tooltip — use `<Dropdown>` or `<Modal>`.</li>
+      <li>Don't stuff interactive content inside the tooltip - use `<Dropdown>` or `<Modal>`.</li>
       <li>Don't rely on a tooltip to convey required information.</li>
       <li>Don't nest Tooltips.</li>
     </ul>

@@ -23,7 +23,7 @@ import DoDont from '../../components/site/DoDont.astro';
 import RelatedComponents from '../../components/site/RelatedComponents.astro';
 
 Listbox renders a scrollable `<ul role="listbox">` for single or
-multi-select choices. The React layer is fully controlled — you own
+multi-select choices. The React layer is fully controlled - you own
 `value`, the component renders `aria-selected` attributes from it.
 The vanilla runtime attaches to `[data-uikit-listbox]` roots and
 handles keyboard navigation (arrows, Home/End, Enter/Space to select)
@@ -36,7 +36,7 @@ plus 600 ms type-ahead focus jumps.
     {
       name: 'items',
       type: 'Array<{ value: string; label: ReactNode; disabled?: boolean }>',
-      default: '—',
+      default: '-',
       description: 'Selectable items rendered in order.'
     },
     {
@@ -55,7 +55,7 @@ plus 600 ms type-ahead focus jumps.
     {
       name: 'onValueChange',
       type: '(value: string | string[]) => void',
-      default: '—',
+      default: '-',
       description: 'Fires when the user clicks an option.'
     }
   ]}
@@ -76,7 +76,7 @@ Follows the [APG Listbox pattern](https://www.w3.org/WAI/ARIA/apg/patterns/listb
 The root carries `role="listbox"` and `aria-multiselectable="true"`
 when in multi-select mode. Disabled items carry `aria-disabled="true"`
 and are skipped by focus and selection. Always supply an `aria-label`
-or `aria-labelledby` — there is no built-in visible label.
+or `aria-labelledby` - there is no built-in visible label.
 
 ## Tokens consumed
 
@@ -113,11 +113,11 @@ or `aria-labelledby` — there is no built-in visible label.
   <Fragment slot='dont'>
     <ul>
       <li>
-        Don't reach for Listbox when users need to filter or search — use
+        Don't reach for Listbox when users need to filter or search - use
         Combobox.
       </li>
       <li>
-        Don't render Listbox inside a Select — they solve different problems.
+        Don't render Listbox inside a Select - they solve different problems.
       </li>
       <li>Don't mix disabled and interactive behaviour in a single option.</li>
     </ul>

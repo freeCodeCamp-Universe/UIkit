@@ -1,4 +1,4 @@
-# 0003 — Pre-publish version reset to 0.1.0
+# 0003 - Pre-publish version reset to 0.1.0
 
 - Status: Accepted
 - Date: 2026-05-01
@@ -22,7 +22,7 @@ Reset every public package version to `0.1.0` before the first npm publish.
 
 - `apps/docs` and `packages/uikit-cdn` (private) keep their existing `0.1.0`.
 - The reset is a single commit (`chore(release): reset all public versions to 0.1.0`).
-- Direct `package.json` edit is the mechanism — Changesets does not support
+- Direct `package.json` edit is the mechanism - Changesets does not support
   bump-down. This is acceptable because no version exists on npm yet.
 - `pnpm release:check` (publint --strict + dry-run publish) must pass before
   the user runs `pnpm release` for the first time.
@@ -38,6 +38,6 @@ Reset every public package version to `0.1.0` before the first npm publish.
 
 ## Alternatives considered
 
-- **Publish at 1.0.0** — premature stability promise; rejected.
-- **Skip 0.x entirely and publish at 1.0.0-beta.x** — npm dist-tag complexity
+- **Publish at 1.0.0** - premature stability promise; rejected.
+- **Skip 0.x entirely and publish at 1.0.0-beta.x** - npm dist-tag complexity
   with no real benefit before adoption signal exists.

@@ -1,4 +1,4 @@
-# 0008 — Switch docs deploy from direct upload to Cloudflare Pages Git integration
+# 0008 - Switch docs deploy from direct upload to Cloudflare Pages Git integration
 
 - Status: Accepted
 - Date: 2026-05-03
@@ -22,7 +22,7 @@ disproportionately affect a public OSS docs site:
   secrets to PRs originating from forks. The
   `deploy-docs-preview.yml` `if:` guard avoids a confusing auth
   error, but it means external contributors never see their
-  changes deployed — exactly the audience freeCodeCamp/UIkit
+  changes deployed - exactly the audience freeCodeCamp/UIkit
   targets.
 - **`CLOUDFLARE_API_TOKEN` rotation overhead.** The runbook
   mandated annual rotation plus immediate rotation on suspected
@@ -118,9 +118,9 @@ For the OSS docs site the trade-offs lean toward the managed path.
 
 ## References
 
-- [ADR-0001](./0001-node-lts-floor.md) — Node LTS floor; feeds
+- [ADR-0001](./0001-node-lts-floor.md) - Node LTS floor; feeds
   `NODE_VERSION` env var on the CF project.
-- [ADR-0007](./0007-cloudflare-pages-docs-deploy.md) — superseded
+- [ADR-0007](./0007-cloudflare-pages-docs-deploy.md) - superseded
   by this ADR; retained for historical context.
-- `docs/runbooks/deploy-docs.md` — operator playbook (rewritten
+- `docs/runbooks/deploy-docs.md` - operator playbook (rewritten
   for Git integration in the same wave that landed this ADR).

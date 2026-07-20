@@ -1,4 +1,4 @@
-# 0000 — Record architecture decisions
+# 0000 - Record architecture decisions
 
 - Status: Accepted
 - Date: 2026-05-01
@@ -31,5 +31,5 @@ Adopt MADR-style architecture decision records under `docs/adr/`.
 
 ## Alternatives considered
 
-- **Inline comments only** — too easy to lose; fragmented across files.
-- **GitHub Discussions** — drifts away from source; no version snapshot for offline / fresh-clone work.
+- **Inline comments only** - too easy to lose; fragmented across files.
+- **GitHub Discussions** - drifts away from source; no version snapshot for offline / fresh-clone work.

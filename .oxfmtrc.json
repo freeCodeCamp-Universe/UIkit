@@ -12,7 +12,6 @@
   "ignorePatterns": [
     "**/node_modules",
     "**/dist",
-    "**/dist-cdn",
     "**/.astro",
     "**/__coverage__",
     "**/.turbo",

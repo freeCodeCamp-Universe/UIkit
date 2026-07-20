@@ -54,9 +54,9 @@ pnpm typecheck     # turbo run typecheck
 
 Configs:
 
-- `.oxlintrc.json` — oxlint rule overrides (no-unused-vars `^_` exception, typescript no-empty-object-type allowing single-extends).
-- `.oxfmtrc.json` — oxfmt config (single quotes, semi, no trailing commas, 2-space tab).
-- `prettier.config.js` + `prettier-plugin-astro` — Prettier fallback for `.astro`/`.md`/`.mdx`/`.yaml`.
+- `.oxlintrc.json` - oxlint rule overrides (no-unused-vars `^_` exception, typescript no-empty-object-type allowing single-extends).
+- `.oxfmtrc.json` - oxfmt config (single quotes, semi, no trailing commas, 2-space tab).
+- `prettier.config.js` + `prettier-plugin-astro` - Prettier fallback for `.astro`/`.md`/`.mdx`/`.yaml`.
 
 Why two formatters: oxfmt 0.47 does not yet handle `.astro` or `.md`. Track upstream support; remove Prettier when both land. Decision recorded in [`docs/adr/0002-oxc-suite-adoption.md`](./docs/adr/0002-oxc-suite-adoption.md).
 
@@ -71,37 +71,29 @@ pnpm test:visual:update  # refresh goldens after intentional UI change
 
 ## CI and release flow
 
-- `CI` runs on pushes to `main` and pull requests targeting `main`: `pnpm format:check`, `pnpm test`, `pnpm build`, `pnpm --filter @freecodecamp/uikit-cdn run verify`.
-- `Release` is manual. Trigger from GitHub Actions with `workflow_dispatch` and pick the ref to release.
-- The release workflow builds the CDN bundle, then opens a PR on `freeCodeCamp/cdn` that updates `build/uikit/`.
-- Cross-repo push uses the `CDN_PUSH_TOKEN` secret (fine-grained PAT scoped to `freeCodeCamp/cdn`). The default `GITHUB_TOKEN` is never used outside this repo.
-- There is no npm publishing — UIKit is a copy-source registry (see
+- `CI` runs on pushes to `main` and pull requests targeting `main`: `pnpm format:check`, `pnpm test`, `pnpm build`.
+- There is no separate release workflow. The CDN bundle (rolling,
+  unversioned) and the copy-source registry both ship with every docs
+  build - see [ADR-0010](./docs/adr/0010-cdn-bundle-ships-with-docs-deploy.md).
+- There is no npm publishing - UIKit is a copy-source registry (see
   [ADR-0009](./docs/adr/0009-copy-source-registry-distribution.md));
   registry pages ship with every docs deploy.
-- Docs site deploys to Cloudflare Pages (project `fcc-design`,
-  `design.freecodecamp.org`) via the Cloudflare GitHub App + Git
-  integration. Pushes to `main` deploy production; every PR
+- Docs site (and CDN bundle) deploy to Cloudflare Pages (project
+  `fcc-design`, `design.freecodecamp.org`) via the Cloudflare GitHub
+  App + Git integration. Pushes to `main` deploy production; every PR
   (including forks) gets a preview at
   `https://<branch>.fcc-design.pages.dev`. No repo-side deploy
-  workflow and no `CLOUDFLARE_*` secrets are required. See the
-  operator runbook in
+  workflow and no `CLOUDFLARE_*`/`CDN_PUSH_TOKEN` secrets are
+  required. See the operator runbook in
   [`docs/runbooks/deploy-docs.md`](./docs/runbooks/deploy-docs.md)
-  and the decision in
+  and the decisions in
   [ADR-0008](./docs/adr/0008-cloudflare-pages-git-integration.md)
-  (which supersedes ADR-0007).
-
-## Release checklist
-
-Registry + docs deploy automatically on merge to `main`. To cut a CDN release:
-
-1. Confirm `packages/uikit/package.json` has the intended `x.y.z` version.
-2. Run `pnpm build && pnpm verify:cdn` from a clean checkout.
-3. Run the `Release` workflow with `ref: main` to publish the CDN bundle.
-4. Review and merge the PR it opens on `freeCodeCamp/cdn`.
+  (supersedes ADR-0007) and
+  [ADR-0010](./docs/adr/0010-cdn-bundle-ships-with-docs-deploy.md).
 
 ## More docs
 
-- Release runbook: [docs/releasing.md](./docs/releasing.md)
+- Release notes: [docs/releasing.md](./docs/releasing.md)
 - Docs-deploy runbook: [docs/runbooks/deploy-docs.md](./docs/runbooks/deploy-docs.md)
 - CDN usage guide: [apps/docs/src/pages/guides/cdn.astro](./apps/docs/src/pages/guides/cdn.astro)
 - Components matrix: [docs/components-matrix.md](./docs/components-matrix.md)

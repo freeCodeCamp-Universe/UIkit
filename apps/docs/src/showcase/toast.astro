@@ -9,7 +9,7 @@ import { ToastDemo } from './_islands/ToastDemo';
   slug='Toast'
   title='Toast'
   previewStacked
-  description='Transient status surface — Ark UI toaster machine, reduced-motion aware.'
+  description='Transient status surface - Ark UI toaster machine, reduced-motion aware.'
   source='overlays/Toast.tsx'
   status='stable'
   since='1.0.0'
@@ -22,10 +22,10 @@ import { ToastDemo } from './_islands/ToastDemo';
     lang='tsx'
     code={`import { Toast, Toaster, createToaster } from './ui/toast/Toast';
 
-// 1) Static — render Toast directly (the showcase variant).
+// 1) Static - render Toast directly (the showcase variant).
 <Toast variant='success' title='Saved' description='Synced.' />
 
-// 2) Dynamic — drive a stack via createToaster + <Toaster>.
+// 2) Dynamic - drive a stack via createToaster + <Toaster>.
 const toaster = createToaster({});
 
 <Toaster toaster={toaster} />

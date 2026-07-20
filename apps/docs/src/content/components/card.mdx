@@ -56,7 +56,7 @@ native `<div>`.
 ## Accessibility
 
 The root renders as `<article>`. Provide a heading inside `Card.Header`
-when the card appears in a list — assistive tech uses headings to navigate.
+when the card appears in a list - assistive tech uses headings to navigate.
 For collections, wrap cards in a `<ul>` / `<li>` so the count is exposed.
 
 ## Tokens consumed
@@ -78,17 +78,17 @@ For collections, wrap cards in a `<ul>` / `<li>` so the count is exposed.
     <ul>
       <li>Give cards a heading when they appear in a grid.</li>
       <li>Use `bordered` when the card sits on a busy background.</li>
-      <li>Keep the body terse — link out for long content.</li>
+      <li>Keep the body terse - link out for long content.</li>
     </ul>
   </Fragment>
   <Fragment slot='dont'>
     <ul>
       <li>
-        Don't wrap the entire card in an anchor — give it a focused action
+        Don't wrap the entire card in an anchor - give it a focused action
         instead.
       </li>
       <li>Don't nest Cards inside Cards.</li>
-      <li>Don't style Card with its own shadow — rely on the token scale.</li>
+      <li>Don't style Card with its own shadow - rely on the token scale.</li>
     </ul>
   </Fragment>
 </DoDont>

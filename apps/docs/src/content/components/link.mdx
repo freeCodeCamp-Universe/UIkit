@@ -20,7 +20,7 @@ import RelatedComponents from '../../components/site/RelatedComponents.astro';
 
 `<Link>` is the styled anchor. It forwards every native anchor
 attribute and adds a `block` boolean so the anchor can own an entire
-row — navigation menus, card-wide click targets.
+row - navigation menus, card-wide click targets.
 
 ## Props
 
@@ -65,7 +65,7 @@ row — navigation menus, card-wide click targets.
 
 Renders a native `<a>`, so assistive tech treats it like a link and not
 a button. Use `<Button>` for actions that change state on the current
-page — don't weaponise links for that purpose.
+page - don't weaponise links for that purpose.
 
 ## Tokens consumed
 
@@ -78,16 +78,16 @@ page — don't weaponise links for that purpose.
 <DoDont>
   <Fragment slot='do'>
     <ul>
-      <li>Use `block` when the link fills a card or row — makes the whole area clickable.</li>
+      <li>Use `block` when the link fills a card or row - makes the whole area clickable.</li>
       <li>Set `external` for cross-origin links so users know the jump.</li>
-      <li>Write descriptive text ("View component source") — avoid "click here".</li>
+      <li>Write descriptive text ("View component source") - avoid "click here".</li>
     </ul>
   </Fragment>
   <Fragment slot='dont'>
     <ul>
-      <li>Don't style a `<Button>` as a link or vice versa — semantics match behaviour.</li>
+      <li>Don't style a `<Button>` as a link or vice versa - semantics match behaviour.</li>
       <li>Don't nest interactive children; WCAG disallows button-inside-link.</li>
-      <li>Don't use `subtle` as the only signal — pair with underline on hover.</li>
+      <li>Don't use `subtle` as the only signal - pair with underline on hover.</li>
     </ul>
   </Fragment>
 </DoDont>

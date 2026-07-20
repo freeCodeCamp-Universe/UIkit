@@ -87,16 +87,16 @@ readers announce the state as "toggle button, pressed" /
 <DoDont>
   <Fragment slot='do'>
     <ul>
-      <li>Keep the visible label stable — let `aria-pressed` carry the state.</li>
+      <li>Keep the visible label stable - let `aria-pressed` carry the state.</li>
       <li>Group related toggles in a `role="toolbar"` container.</li>
       <li>Pair with a tooltip when the icon isn't self-explanatory.</li>
     </ul>
   </Fragment>
   <Fragment slot='dont'>
     <ul>
-      <li>Don't swap the label between "On" and "Off" — use `aria-pressed` instead.</li>
+      <li>Don't swap the label between "On" and "Off" - use `aria-pressed` instead.</li>
       <li>Don't use it for one-off actions; reach for `<Button>` there.</li>
-      <li>Don't nest a ToggleButton inside a form submit — it dispatches clicks.</li>
+      <li>Don't nest a ToggleButton inside a form submit - it dispatches clicks.</li>
     </ul>
   </Fragment>
 </DoDont>

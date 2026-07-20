@@ -1,45 +1,45 @@
 ---
 title: Do / Don't
 eyebrow: Foundations · 09
-summary: Cross-cutting visual rules that no single foundation captures. Composition, contrast, density, voice — caught here so they cannot leak into shipping pages.
+summary: Cross-cutting visual rules that no single foundation captures. Composition, contrast, density, voice - caught here so they cannot leak into shipping pages.
 order: 9
 ---
 
 ## Composition
 
-- **Do** anchor primary actions on the bottom-right of forms and modals; the eye lands there last on left-to-right scans. **Don't** float a CTA in the middle of a form — the surrounding fields will compete for attention.
-- **Do** use the eight-step spacing scale exclusively. **Don't** ship `padding: 13px` because "it looks better" — open the inspector and find the token that solves it.
+- **Do** anchor primary actions on the bottom-right of forms and modals; the eye lands there last on left-to-right scans. **Don't** float a CTA in the middle of a form - the surrounding fields will compete for attention.
+- **Do** use the eight-step spacing scale exclusively. **Don't** ship `padding: 13px` because "it looks better" - open the inspector and find the token that solves it.
 - **Do** group related controls inside a `<Fieldset>` with a real legend. **Don't** rely on visual proximity alone; assistive tech needs the structural hint.
 - **Do** keep one primary CTA per visible viewport. **Don't** ship two `<Button variant='cta'>` in the same fold; the second cancels the first.
 
 ## Contrast
 
-- **Do** check every text-on-surface pair against WCAG AA (4.5:1 body, 3:1 large). **Don't** assume token combinations are always safe — `--foreground-tertiary` on `--background-secondary` is a known borderline pair on the dark palette.
+- **Do** check every text-on-surface pair against WCAG AA (4.5:1 body, 3:1 large). **Don't** assume token combinations are always safe - `--foreground-tertiary` on `--background-secondary` is a known borderline pair on the dark palette.
 - **Do** show focus rings with ≥3:1 contrast against both the focused element and its surrounding surface. **Don't** rely on the browser default outline; `<Button>` and friends ship explicit `:focus-visible` rules.
 - **Do** carry information in shape, label, and color together. **Don't** encode meaning in color alone; learners with deuteranopia will lose the signal.
 
 ## Density
 
-- **Do** lean dense in tooling surfaces (dashboards, data tables, admin panels) — the audience is professional and visiting often. **Don't** lean airy where dense reads as scaffolding gaps.
-- **Do** lean spacious in marketing and curriculum surfaces — the audience is reading deeply for the first time. **Don't** copy the dashboard density into the news site; it reads as cluttered.
-- **Do** truncate honestly. **Don't** truncate without an affordance — every `…` needs a hover, click, or `aria-expanded` to recover the full string.
+- **Do** lean dense in tooling surfaces (dashboards, data tables, admin panels) - the audience is professional and visiting often. **Don't** lean airy where dense reads as scaffolding gaps.
+- **Do** lean spacious in marketing and curriculum surfaces - the audience is reading deeply for the first time. **Don't** copy the dashboard density into the news site; it reads as cluttered.
+- **Do** truncate honestly. **Don't** truncate without an affordance - every `…` needs a hover, click, or `aria-expanded` to recover the full string.
 
 ## Voice
 
-- **Do** name the action on the button verb-first ("Run tests", "Save draft"). **Don't** ship "Submit" or "OK" — those are placeholder verbs.
-- **Do** write error messages that name the cause and the fix ("Token expired — sign in again."). **Don't** ship "Something went wrong"; learners blame themselves.
+- **Do** name the action on the button verb-first ("Run tests", "Save draft"). **Don't** ship "Submit" or "OK" - those are placeholder verbs.
+- **Do** write error messages that name the cause and the fix ("Token expired - sign in again."). **Don't** ship "Something went wrong"; learners blame themselves.
 - **Do** use sentence case in product UI (`Save changes`). **Don't** use Title Case (`Save Changes`) outside of marketing splash heroes.
-- **Do** let empty states recommend an action ("No certifications yet — pick a track."). **Don't** apologize on behalf of the product ("Oops! Nothing here yet 😅").
+- **Do** let empty states recommend an action ("No certifications yet - pick a track."). **Don't** apologize on behalf of the product ("Oops! Nothing here yet 😅").
 
 ## Iconography
 
-- **Do** pair every icon-only button with an `aria-label`. **Don't** assume meaning from the glyph alone — the meaning lives in the label.
+- **Do** pair every icon-only button with an `aria-label`. **Don't** assume meaning from the glyph alone - the meaning lives in the label.
 - **Do** keep the 24x24 viewBox + 2px stroke. **Don't** mix Lucide with another icon set; the stroke weight will fight.
 - **Do** color icons with `currentColor` so they inherit text tone. **Don't** hardcode a hex on an SVG; it will not re-theme.
 
 ## Motion
 
-- **Do** wrap any non-essential transition in `prefers-reduced-motion`. **Don't** ship a parallax hero, ever — the brand has none.
+- **Do** wrap any non-essential transition in `prefers-reduced-motion`. **Don't** ship a parallax hero, ever - the brand has none.
 - **Do** keep exits faster than enters (120–140 ms). **Don't** mirror enter timing on exit; a slow dismiss feels stuck.
 - **Do** snap to the end state on interaction. **Don't** introduce overshoot or bounce; the kit has zero springs.
 
@@ -51,4 +51,4 @@ order: 9
 
 ## When you find an exception
 
-If you find yourself bending one of these rules, write it down in the pull request description. Brand and design review can sign off on the exception, but the friction is intentional — the rules exist because the kit's recognizability depends on them. Two surfaces breaking the same rule is no longer an exception; it is a rule change. Open an issue against this handbook so the rule moves with the practice.
+If you find yourself bending one of these rules, write it down in the pull request description. Brand and design review can sign off on the exception, but the friction is intentional - the rules exist because the kit's recognizability depends on them. Two surfaces breaking the same rule is no longer an exception; it is a rule change. Open an issue against this handbook so the rule moves with the practice.

@@ -15,7 +15,7 @@ function grep(pattern: string, root: string): string {
       { encoding: 'utf8' }
     );
   } catch (err) {
-    // grep exits 1 when no matches — that's the success path here.
+    // grep exits 1 when no matches - that's the success path here.
     const e = err as { status?: number; stdout?: string };
     if (e.status === 1) return '';
     throw err;

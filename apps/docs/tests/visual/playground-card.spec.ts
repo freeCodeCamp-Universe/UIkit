@@ -26,19 +26,19 @@ for (const slug of SLUGS) {
       (testInfo.project.name === 'desktop' ||
         testInfo.project.name === 'desktop-light') &&
         slug === 'modal',
-      'Flaky sub-pixel font jitter — see UIkit-aq0'
+      'Flaky sub-pixel font jitter - see UIkit-aq0'
     );
     test.skip(
       slug === 'combobox' &&
         (testInfo.project.name === 'tablet' ||
           testInfo.project.name === 'desktop'),
-      'Flaky 1-px height oscillation — combobox card height drifts ±1 px between runs even inside the pinned Playwright Docker image (see docs/v1.1-backlog.md)'
+      'Flaky 1-px height oscillation - combobox card height drifts ±1 px between runs even inside the pinned Playwright Docker image (see docs/v1.1-backlog.md)'
     );
     test.skip(
       slug === 'navbar' &&
         (testInfo.project.name === 'mobile' ||
           testInfo.project.name === 'tablet'),
-      'Flaky 1-px height oscillation — navbar card drifts ±1 px between runs (see docs/v1.1-backlog.md)'
+      'Flaky 1-px height oscillation - navbar card drifts ±1 px between runs (see docs/v1.1-backlog.md)'
     );
     await page.goto(`/playground#${slug}`, { waitUntil: 'networkidle' });
     await page.evaluate(async () => {

@@ -3,7 +3,9 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import {
+  findCdnBundleProblems,
   findMissingArtefacts,
+  REQUIRED_CDN_ARTEFACTS,
   REQUIRED_GENERATED_ARTEFACTS,
   REQUIRED_PAGES_ARTEFACTS
 } from '../../scripts/verify-dist-pages-artefacts.mjs';
@@ -40,7 +42,7 @@ function parseHeadersFile(
   return blocks;
 }
 
-describe('public/_headers — Cloudflare Pages headers', () => {
+describe('public/_headers - Cloudflare Pages headers', () => {
   const raw = readFileSync(join(PUBLIC_ROOT, '_headers'), 'utf8');
   const blocks = parseHeadersFile(raw);
 
@@ -143,7 +145,7 @@ describe('public/_headers — Cloudflare Pages headers', () => {
   });
 });
 
-describe('public/_redirects — Cloudflare Pages redirects', () => {
+describe('public/_redirects - Cloudflare Pages redirects', () => {
   const path = join(PUBLIC_ROOT, '_redirects');
 
   it('file exists (CF Pages parses it during deploy)', () => {
@@ -172,7 +174,7 @@ describe('public/_redirects — Cloudflare Pages redirects', () => {
   });
 });
 
-describe('public/robots.txt — crawler directives', () => {
+describe('public/robots.txt - crawler directives', () => {
   const raw = readFileSync(join(PUBLIC_ROOT, 'robots.txt'), 'utf8');
 
   it('declares a wildcard User-agent rule', () => {
@@ -187,7 +189,7 @@ describe('public/robots.txt — crawler directives', () => {
   });
 });
 
-describe('playwright.config.ts — snapshot path template', () => {
+describe('playwright.config.ts - snapshot path template', () => {
   it('encodes `{platform}` so macOS + Linux goldens coexist', () => {
     // Goldens diverge pixel-for-pixel between macOS + Linux Chromium
     // even at the same version. CI Ubuntu compares `*-linux.png`,
@@ -203,7 +205,7 @@ describe('playwright.config.ts — snapshot path template', () => {
   });
 });
 
-describe('verify-dist-pages-artefacts.mjs — post-build gate', () => {
+describe('verify-dist-pages-artefacts.mjs - post-build gate', () => {
   it('declares the canonical Cloudflare Pages artefact list', () => {
     // Order is documentation-only, but presence locks the contract.
     expect([...REQUIRED_PAGES_ARTEFACTS].sort()).toEqual([
@@ -218,7 +220,7 @@ describe('verify-dist-pages-artefacts.mjs — post-build gate', () => {
 
   it('declares the build-generated registry artefact list', () => {
     // These come from prerendered endpoints, not public/, so they live in
-    // their own list — the public/ source-of-truth check must skip them.
+    // their own list - the public/ source-of-truth check must skip them.
     expect([...REQUIRED_GENERATED_ARTEFACTS].sort()).toEqual([
       'llms-full.txt',
       'llms.txt',
@@ -260,5 +262,22 @@ describe('verify-dist-pages-artefacts.mjs — post-build gate', () => {
       name => !name.startsWith('sitemap')
     );
     expect(sourceMissing).toEqual([]);
+  });
+
+  it('declares the rolling, unversioned CDN bundle artefact list', () => {
+    // See apps/docs/scripts/build-cdn-bundle.mjs - no version aliases.
+    expect([...REQUIRED_CDN_ARTEFACTS].sort()).toEqual([
+      'cdn/components.min.css',
+      'cdn/manifest.json',
+      'cdn/sprite.svg',
+      'cdn/styles.min.css',
+      'cdn/tokens.min.css',
+      'cdn/uikit.global.js'
+    ]);
+  });
+
+  it('reports a missing manifest as a single CDN bundle problem', () => {
+    const tmp = mkdtempSync(join(tmpdir(), 'fcc-cdn-empty-'));
+    expect(findCdnBundleProblems(tmp)).toEqual(['cdn/manifest.json missing']);
   });
 });

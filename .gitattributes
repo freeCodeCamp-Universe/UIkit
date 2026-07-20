@@ -1,12 +1,11 @@
 # Default: text, normalise to LF on commit
 * text=auto eol=lf
 
-# Lockfile is generated — keep diff stats clean
+# Lockfile is generated - keep diff stats clean
 pnpm-lock.yaml linguist-generated=true -diff
 
 # CSS bundles + sprite are built artefacts
 **/dist/** linguist-generated=true
-**/dist-cdn/** linguist-generated=true
 
 # Fonts are binary
 *.woff binary

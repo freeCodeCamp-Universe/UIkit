@@ -4,7 +4,7 @@ eyebrow: <Modal />
 status: stable
 since: '1.0.0'
 category: overlay
-summary: An accessible dialog with backdrop, focus trap, and escape-to-close. Controlled component — you own the `open` state.
+summary: An accessible dialog with backdrop, focus trap, and escape-to-close. Controlled component - you own the `open` state.
 a11yPattern: https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/
 tokens:
   - --background-primary
@@ -94,7 +94,7 @@ function Confirm() {
 
 Modal renders `role='dialog'` with `aria-modal='true'`. When you provide
 `title`, it becomes the dialog's accessible name. Body scroll is locked
-while `open` is true. Return focus to the triggering element on close —
+while `open` is true. Return focus to the triggering element on close -
 that is the caller's job. Keep destructive flows one click deep: confirm
 delete, then act.
 
@@ -115,7 +115,7 @@ delete, then act.
 <DoDont>
   <Fragment slot='do'>
     <ul>
-      <li>Give every modal a `title` — it is the screen-reader's landmark.</li>
+      <li>Give every modal a `title` - it is the screen-reader's landmark.</li>
       <li>Return focus to the trigger when the modal closes.</li>
       <li>Use `closeOnBackdrop={false}` for destructive confirmations.</li>
     </ul>
@@ -123,8 +123,8 @@ delete, then act.
   <Fragment slot='dont'>
     <ul>
       <li>Don't open a modal inside a modal.</li>
-      <li>Don't rely on Modal for transient feedback — use `<Toast>`.</li>
-      <li>Don't omit `onClose` — the user needs a keyboard exit.</li>
+      <li>Don't rely on Modal for transient feedback - use `<Toast>`.</li>
+      <li>Don't omit `onClose` - the user needs a keyboard exit.</li>
     </ul>
   </Fragment>
 </DoDont>

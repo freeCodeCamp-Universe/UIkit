@@ -79,7 +79,7 @@ function init(): void {
   );
   sections.forEach(s => observer.observe(s));
 
-  // Promote target to active on click — don't wait for the scroll animation.
+  // Promote target to active on click - don't wait for the scroll animation.
   links.forEach(a => {
     a.addEventListener('click', () => {
       const target = a.getAttribute('data-target');

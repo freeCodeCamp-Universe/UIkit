@@ -66,14 +66,14 @@ const groups = [
     {
       name: 'onClose',
       type: '() => void',
-      default: '—',
+      default: '-',
       description:
         'Fires on Escape, backdrop click, or after an onSelect handler chooses to close.'
     },
     {
       name: 'onSelect',
       type: '(id: string) => void',
-      default: '—',
+      default: '-',
       description: 'Fires with the selected item id on Enter or click.'
     },
     {
@@ -92,14 +92,14 @@ const groups = [
     {
       name: 'emptyState',
       type: 'ReactNode',
-      default: '—',
+      default: '-',
       description:
         'Rendered when filtering removes every item. Use <EmptyState> for a structured variant.'
     },
     {
       name: 'value / onValueChange',
       type: 'string / (next: string) => void',
-      default: '—',
+      default: '-',
       description: 'Controlled search value. Omit both for uncontrolled.'
     }
   ]}
@@ -117,12 +117,12 @@ outside the palette closes it.
   dos={[
     'Open on a discoverable shortcut (⌘K / Ctrl+K is the expected muscle memory).',
     'Group items by workspace role ("Navigation", "Admin", "Search"). Keep group counts ≤ 4.',
-    'Let `onSelect` close the palette — single-select is the norm.'
+    'Let `onSelect` close the palette - single-select is the norm.'
   ]}
   donts={[
-    'Ship more than ~50 items — reach for inline search in the main region instead.',
+    'Ship more than ~50 items - reach for inline search in the main region instead.',
     'Nest a CommandPalette inside a Modal; the palette is already a dialog.',
-    'Fire network requests on every keystroke — filter the cached groups client-side.'
+    'Fire network requests on every keystroke - filter the cached groups client-side.'
   ]}
 />
 

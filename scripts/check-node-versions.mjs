@@ -121,7 +121,6 @@ console.log('@types/node major');
     'packages/uikit-icons/package.json',
     'packages/uikit-js/package.json',
     'packages/uikit-tailwind/package.json',
-    'packages/uikit-cdn/package.json',
     'apps/docs/package.json'
   ];
   for (const rel of allPkgs) {

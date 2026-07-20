@@ -18,7 +18,7 @@ import DoDont from '../../components/site/DoDont.astro';
 import RelatedComponents from '../../components/site/RelatedComponents.astro';
 
 `<Image>` is the responsive image primitive. It forwards every native
-`<img>` attribute and enforces the `alt` contract at the type level —
+`<img>` attribute and enforces the `alt` contract at the type level -
 there's no way to render the component without declaring one, which
 keeps the accessibility floor high.
 
@@ -59,7 +59,7 @@ keeps the accessibility floor high.
 ## Accessibility
 
 Renders a native `<img>`; screen readers read `alt` in place of the
-image. Empty `alt=""` signals purely decorative — the image is skipped
+image. Empty `alt=""` signals purely decorative - the image is skipped
 in the reading order. Use `caption` when the image is meaningful but
 the surrounding prose already describes it; captions are
 programmatically associated via `<figcaption>`.
@@ -80,9 +80,9 @@ programmatically associated via `<figcaption>`.
   </Fragment>
   <Fragment slot='dont'>
     <ul>
-      <li>Don't write "image of…" in `alt` — screen readers already announce the role.</li>
+      <li>Don't write "image of…" in `alt` - screen readers already announce the role.</li>
       <li>Don't embed text inside a bitmap image; use real text next to it.</li>
-      <li>Don't use `<Image>` for icons — reach for `@freecodecamp/uikit-icons`.</li>
+      <li>Don't use `<Image>` for icons - reach for `@freecodecamp/uikit-icons`.</li>
     </ul>
   </Fragment>
 </DoDont>

@@ -4,7 +4,7 @@ eyebrow: <Callout />
 status: stable
 since: '1.0.0'
 category: data-display
-summary: A flagged prose block for tips, notes, warnings, and cautions — the Markdown admonition we reach for inside long-form docs.
+summary: A flagged prose block for tips, notes, warnings, and cautions - the Markdown admonition we reach for inside long-form docs.
 tokens:
   - --background-secondary
   - --foreground-primary
@@ -21,7 +21,7 @@ import DoDont from '../../components/site/DoDont.astro';
 import RelatedComponents from '../../components/site/RelatedComponents.astro';
 
 Callouts are the static admonition block used inside prose. They nudge the
-reader without interrupting the reading order — unlike `<Alert>`, they do not
+reader without interrupting the reading order - unlike `<Alert>`, they do not
 live-announce.
 
 ## Usage
@@ -56,7 +56,7 @@ import { Callout } from './ui/callout/Callout';
 ## Accessibility
 
 Renders as `<aside>`. Treat the label as a proper sub-heading when you nest
-callouts inside article flow. Callouts are not live regions — if the state
+callouts inside article flow. Callouts are not live regions - if the state
 must be announced, use `<Alert>` instead.
 
 ## Tokens consumed
@@ -79,13 +79,13 @@ must be announced, use `<Alert>` instead.
     <ul>
       <li>Use `tip` for encouragements and optimisations.</li>
       <li>Use `warning` when the next step has a foot-gun.</li>
-      <li>Keep the label short — one word reads best.</li>
+      <li>Keep the label short - one word reads best.</li>
     </ul>
   </Fragment>
   <Fragment slot='dont'>
     <ul>
-      <li>Don't stack two callouts in a row — they compete for attention.</li>
-      <li>Don't use Callout to substitute for an Alert — they are silent.</li>
+      <li>Don't stack two callouts in a row - they compete for attention.</li>
+      <li>Don't use Callout to substitute for an Alert - they are silent.</li>
       <li>Don't nest Callouts inside other Callouts.</li>
     </ul>
   </Fragment>

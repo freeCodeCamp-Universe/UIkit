@@ -88,7 +88,7 @@ test('clicking the current page button is a no-op (guarded by go())', () => {
   expect(calls).toBe(0);
 });
 
-test('out-of-range navigation is guarded — prev on page 1 + next on last fire nothing', () => {
+test('out-of-range navigation is guarded - prev on page 1 + next on last fire nothing', () => {
   let calls = 0;
   const { container, rerender } = render(
     <Pagination
@@ -114,7 +114,7 @@ test('out-of-range navigation is guarded — prev on page 1 + next on last fire 
 
 test('pageCount falls back to 1 when count <= 0 (single page render)', () => {
   const { container } = render(<Pagination count={0} pageSize={10} page={1} />);
-  // One page button rendered — "1".
+  // One page button rendered - "1".
   const pages = container.querySelectorAll('button[data-part="page"]');
   expect(pages.length).toBe(1);
   expect(pages[0]!.textContent).toBe('1');

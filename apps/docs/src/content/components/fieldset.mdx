@@ -4,7 +4,7 @@ eyebrow: <Fieldset />
 status: stable
 since: '0.3.0'
 category: form
-summary: Semantic field grouping with legend. Native fieldset + legend styled to the terminal shell — the right container for any cluster of related form controls.
+summary: Semantic field grouping with legend. Native fieldset + legend styled to the terminal shell - the right container for any cluster of related form controls.
 a11yPattern: https://www.w3.org/WAI/ARIA/apg/patterns/
 tokens:
   - --font-mono
@@ -32,7 +32,7 @@ it with FormGroup, FormControl, Checkbox, Radio, and friends.
     {
       name: 'legend',
       type: 'ReactNode',
-      default: '—',
+      default: '-',
       description: 'Rendered inside <legend>. Accepts text or nodes.'
     },
     {
@@ -45,14 +45,14 @@ it with FormGroup, FormControl, Checkbox, Radio, and friends.
       name: 'disabled',
       type: 'boolean',
       default: 'false',
-      description: 'Native disabled — cascades to every contained control.'
+      description: 'Native disabled - cascades to every contained control.'
     }
   ]}
 />
 
 ## Accessibility
 
-Uses the native `fieldset` + `legend` pair — screen readers announce the
+Uses the native `fieldset` + `legend` pair - screen readers announce the
 legend as the group label for every control inside. Prefer this over an
 ad-hoc `div` + heading pattern whenever a group of controls needs a
 shared name. `disabled` cascades automatically; no extra ARIA needed.
@@ -79,7 +79,7 @@ shared name. `disabled` cascades automatically; no extra ARIA needed.
         single Fieldset.
       </li>
       <li>
-        Give every Fieldset a `legend` — it's the group's accessible name.
+        Give every Fieldset a `legend` - it's the group's accessible name.
       </li>
       <li>
         Use `disabled` at the Fieldset level to lock a whole section at once.
@@ -89,10 +89,10 @@ shared name. `disabled` cascades automatically; no extra ARIA needed.
   <Fragment slot='dont'>
     <ul>
       <li>
-        Don't nest Fieldsets more than one level — screen readers get noisy
+        Don't nest Fieldsets more than one level - screen readers get noisy
         fast.
       </li>
-      <li>Don't reach for Fieldset as a generic card — use Card or Panel.</li>
+      <li>Don't reach for Fieldset as a generic card - use Card or Panel.</li>
       <li>
         Don't hide the legend visually; if the group truly needs no label, it
         probably doesn't need a Fieldset.

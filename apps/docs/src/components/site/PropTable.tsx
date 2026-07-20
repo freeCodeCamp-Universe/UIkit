@@ -19,7 +19,7 @@ export interface PropTableProps {
 }
 
 function defaultDisplay(value: string | null): string {
-  if (value == null) return '—';
+  if (value == null) return '-';
   // Stringified arrow functions can be multi-line; show the first line truncated.
   const first = value.split('\n')[0].trim();
   return first.length > 60 ? `${first.slice(0, 60)}…` : first;

@@ -31,7 +31,7 @@ const meta = { title: 'x', summary: 'x', category: 'x' };
 const nonComponentNames = new Set(nonComponentItems().map(i => i.name));
 
 for (const slug of knownComponentSlugs) {
-  test(`registry coverage — ${slug}`, () => {
+  test(`registry coverage - ${slug}`, () => {
     const source = componentSource(slug);
     assert.ok(
       source,
@@ -44,7 +44,7 @@ for (const slug of knownComponentSlugs) {
     const cssFile = item.files.find(f => f.lang === 'css');
     assert.ok(
       cssFile && existsSync(cssFile.absPath),
-      `${slug}: colocated ${slug}.css missing — every component ships its CSS`
+      `${slug}: colocated ${slug}.css missing - every component ships its CSS`
     );
 
     assert.ok(
@@ -105,7 +105,7 @@ test('every non-component registry item file exists on disk', () => {
     for (const file of item.files) {
       assert.ok(
         existsSync(file.absPath),
-        `${item.name}: file missing on disk — ${file.absPath}`
+        `${item.name}: file missing on disk - ${file.absPath}`
       );
     }
   }
@@ -127,6 +127,6 @@ test('llms-full source payload stays under budget (icons map excluded)', () => {
   // Embedded sources dominate llms-full.txt; keep the dump agent-friendly.
   assert.ok(
     bytes < 800_000,
-    `registry source payload is ${bytes} bytes — llms-full.txt is drifting past its ~1 MB budget`
+    `registry source payload is ${bytes} bytes - llms-full.txt is drifting past its ~1 MB budget`
   );
 });

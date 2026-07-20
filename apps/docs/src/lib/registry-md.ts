@@ -104,7 +104,7 @@ export function renderComponentPage(meta: ComponentPageMeta): string {
   lines.push('## Install (copy source)');
   lines.push('');
   lines.push(
-    `1. Ensure the theme is installed once per project — tokens.css + base.css imported globally, fonts available. See ${SITE}/registry/theme.md and ${SITE}/registry/starter.md.`
+    `1. Ensure the theme is installed once per project - tokens.css + base.css imported globally, fonts available. See ${SITE}/registry/theme.md and ${SITE}/registry/starter.md.`
   );
   if (item) {
     lines.push(
@@ -118,7 +118,7 @@ export function renderComponentPage(meta: ComponentPageMeta): string {
     }
   }
   lines.push(
-    `${item && item.registryDependencies.filter(d => d !== 'theme').length ? 4 : 3}. Colors, spacing and type come from tokens — tailor the component by editing the copied source; recolour by editing tokens.css, not the component CSS.`
+    `${item && item.registryDependencies.filter(d => d !== 'theme').length ? 4 : 3}. Colors, spacing and type come from tokens - tailor the component by editing the copied source; recolour by editing tokens.css, not the component CSS.`
   );
   lines.push('');
 
@@ -159,7 +159,7 @@ export function renderComponentPage(meta: ComponentPageMeta): string {
     lines.push(fence('html', html));
     lines.push('');
     lines.push(
-      `Interactive behaviours for plain HTML come from the vanilla runtime (data-uikit-* attributes): ${SITE}/registry/vanilla.md — or via CDN: https://cdn.freecodecamp.org/uikit/latest/uikit.global.js`
+      `Interactive behaviours for plain HTML come from the vanilla runtime (data-uikit-* attributes): ${SITE}/registry/vanilla.md - or via CDN: ${SITE}/cdn/uikit.global.js`
     );
     lines.push('');
   }
@@ -189,7 +189,7 @@ export function renderItemPage(
     if (opts.skipSources?.has(f.name)) {
       lines.push(`## Source: ${f.name}`);
       lines.push('');
-      lines.push(`Too large to inline — fetch the raw file: ${SITE}${f.url}`);
+      lines.push(`Too large to inline - fetch the raw file: ${SITE}${f.url}`);
       lines.push('');
       continue;
     }

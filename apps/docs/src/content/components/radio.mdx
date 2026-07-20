@@ -23,7 +23,7 @@ Radio is the native single-choice control. It renders a real
 `<input type="radio">` wrapped in a `<label>` when `label` is provided.
 RadioGroup is a thin container that wires a shared `name`, the current
 `value`, and the `onChange` handler to every child Radio through
-context — no prop-drilling.
+context - no prop-drilling.
 
 ## Props
 
@@ -32,13 +32,13 @@ context — no prop-drilling.
     {
       name: 'label',
       type: 'ReactNode',
-      default: '—',
+      default: '-',
       description: 'Wraps the input in a <label> with this content.'
     },
     {
       name: 'value',
       type: 'string',
-      default: '—',
+      default: '-',
       description:
         'Native value. Matched against the parent RadioGroup value to decide checked state.'
     },
@@ -51,7 +51,7 @@ context — no prop-drilling.
     {
       name: 'labelClassName',
       type: 'string',
-      default: '—',
+      default: '-',
       description: 'Extra class applied to the wrapping <label>.'
     }
   ]}
@@ -64,20 +64,20 @@ context — no prop-drilling.
     {
       name: 'name',
       type: 'string',
-      default: '—',
+      default: '-',
       description: 'Form field name shared by every child Radio.'
     },
     {
       name: 'value',
       type: 'string',
-      default: '—',
+      default: '-',
       description:
         'Currently selected value; the matching Radio renders as checked.'
     },
     {
       name: 'onChange',
       type: '(e: ChangeEvent<HTMLInputElement>) => void',
-      default: '—',
+      default: '-',
       description: 'Change handler forwarded to every Radio.'
     }
   ]}
@@ -89,7 +89,7 @@ Follows the [APG Radio Group pattern](https://www.w3.org/WAI/ARIA/apg/patterns/r
 RadioGroup carries `role="radiogroup"`; pair with `aria-label` or
 `aria-labelledby` (for example via a preceding heading or a
 wrapping Fieldset+Legend). Keyboard behaviour comes from the native
-radio pair — Tab to enter, arrow keys to move within the group.
+radio pair - Tab to enter, arrow keys to move within the group.
 
 ## Tokens consumed
 
@@ -115,20 +115,20 @@ radio pair — Tab to enter, arrow keys to move within the group.
         Pair with a Fieldset + legend whenever the group needs a visible label.
       </li>
       <li>
-        Use `value` + `onChange` on RadioGroup for controlled state — keep
+        Use `value` + `onChange` on RadioGroup for controlled state - keep
         children declarative.
       </li>
     </ul>
   </Fragment>
   <Fragment slot='dont'>
     <ul>
-      <li>Don't reach for Radio for multi-select — use Checkbox.</li>
+      <li>Don't reach for Radio for multi-select - use Checkbox.</li>
       <li>
         Don't skip the RadioGroup and set `name` on every Radio by hand; context
         exists for a reason.
       </li>
       <li>
-        Don't hide the label visually — every Radio needs an accessible name.
+        Don't hide the label visually - every Radio needs an accessible name.
       </li>
     </ul>
   </Fragment>

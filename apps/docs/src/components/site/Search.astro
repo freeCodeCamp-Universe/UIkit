@@ -46,7 +46,7 @@
 
     document.addEventListener('fcc:open-search', openSearch);
 
-    // Close on backdrop click — native <dialog> does not do this.
+    // Close on backdrop click - native <dialog> does not do this.
     dialog.addEventListener('click', function (e) {
       if (e.target === dialog) dialog.close();
     });

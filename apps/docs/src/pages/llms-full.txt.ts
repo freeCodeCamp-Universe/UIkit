@@ -9,12 +9,12 @@ export const GET: APIRoute = async () => {
   components.sort((a, b) => a.id.localeCompare(b.id));
 
   const lines: string[] = [];
-  lines.push('# freeCodeCamp UIKit — full dump');
+  lines.push('# freeCodeCamp UIKit - full dump');
   lines.push('');
   lines.push(`Source: ${SITE}/llms.txt`);
   lines.push('');
   lines.push(
-    'This file concatenates every registry page — full copyable source included.'
+    'This file concatenates every registry page - full copyable source included.'
   );
   lines.push('Each item is delimited by a level-1 heading.');
   lines.push(

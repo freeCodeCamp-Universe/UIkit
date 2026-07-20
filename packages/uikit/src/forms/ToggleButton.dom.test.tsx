@@ -5,7 +5,7 @@ import { ToggleButton } from './ToggleButton';
 
 afterEach(cleanup);
 
-test('uncontrolled — clicking flips aria-pressed', () => {
+test('uncontrolled - clicking flips aria-pressed', () => {
   const { container } = render(<ToggleButton>Bold</ToggleButton>);
   const btn = container.querySelector('button')!;
   expect(btn.getAttribute('aria-pressed')).toBe('false');
@@ -15,7 +15,7 @@ test('uncontrolled — clicking flips aria-pressed', () => {
   expect(btn.getAttribute('aria-pressed')).toBe('false');
 });
 
-test('uncontrolled with defaultPressed — initial state honours seed', () => {
+test('uncontrolled with defaultPressed - initial state honours seed', () => {
   const { container } = render(
     <ToggleButton defaultPressed>Italic</ToggleButton>
   );
@@ -24,7 +24,7 @@ test('uncontrolled with defaultPressed — initial state honours seed', () => {
   );
 });
 
-test('controlled — pressed prop wins, internal state ignored', () => {
+test('controlled - pressed prop wins, internal state ignored', () => {
   let last = false;
   function Probe(): JSX.Element {
     const [pressed, setPressed] = useState(false);

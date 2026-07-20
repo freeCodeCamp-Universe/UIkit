@@ -16,7 +16,7 @@ interface SubgroupSpec {
 const GROUPS: readonly SubgroupSpec[] = [
   {
     heading: 'Gray ramp',
-    blurb: 'Surface stack — primary through quaternary.',
+    blurb: 'Surface stack - primary through quaternary.',
     swatches: [
       { name: '--background-primary' },
       { name: '--background-secondary' },
@@ -28,7 +28,7 @@ const GROUPS: readonly SubgroupSpec[] = [
   },
   {
     heading: 'Accents',
-    blurb: 'CTA + highlight pairs — gold-on-navy, click magnets.',
+    blurb: 'CTA + highlight pairs - gold-on-navy, click magnets.',
     swatches: [
       { name: '--cta-background' },
       { name: '--cta-foreground' },
@@ -37,7 +37,7 @@ const GROUPS: readonly SubgroupSpec[] = [
   },
   {
     heading: 'Semantic',
-    blurb: 'Status colors — success / warning / danger / info.',
+    blurb: 'Status colors - success / warning / danger / info.',
     swatches: [
       { name: '--success-color' },
       { name: '--warning-color' },
@@ -91,7 +91,7 @@ export function FoundationsBand(): JSX.Element {
         <p className='section__lede'>
           The whole kit reads from a small CSS custom-property layer. Swap a
           palette class on <code>&lt;html&gt;</code> and the entire surface
-          changes — no component edits, no JavaScript.
+          changes - no component edits, no JavaScript.
         </p>
       </header>
       <div className='foundations-band__grid'>

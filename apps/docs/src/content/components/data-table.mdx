@@ -21,7 +21,7 @@ import DoDont from '../../components/site/DoDont.astro';
 
 Use DataTable for lists with comparable fields (users, tasks,
 incidents). For cards or read-heavy summaries reach for `<Panel>` or
-`<DescriptionList>`. Sort and selection are controlled — the table
+`<DescriptionList>`. Sort and selection are controlled - the table
 stays pure and lets the caller wire URL state, persistence, etc.
 
 ## Usage
@@ -55,16 +55,16 @@ const columns = [
     {
       name: 'columns',
       type: 'DataTableColumn[]',
-      default: '—',
+      default: '-',
       description:
         'Column definitions. `accessor` is a key or a `(row) => ReactNode` function. Supports `sortable`, `align`, `width`.'
     },
     {
       name: 'rows',
       type: 'TRow[]',
-      default: '—',
+      default: '-',
       description:
-        'Ordered rows. The table does not sort internally — pass pre-sorted data.'
+        'Ordered rows. The table does not sort internally - pass pre-sorted data.'
     },
     {
       name: 'rowId',
@@ -75,14 +75,14 @@ const columns = [
     {
       name: 'sortBy / onSortChange',
       type: "{columnId, direction: 'asc'|'desc'} | null / (next) => void",
-      default: '—',
+      default: '-',
       description:
         'Controlled sort. Click sortable header cycles asc → desc → null. Table fires onSortChange; caller re-orders rows.'
     },
     {
       name: 'selection / onSelectionChange',
       type: 'ReadonlySet<string> / (next: Set<string>) => void',
-      default: '—',
+      default: '-',
       description:
         'Controlled selection. Enables checkbox column + select-all header checkbox with indeterminate state.'
     },
@@ -96,14 +96,14 @@ const columns = [
     {
       name: 'emptyState',
       type: 'ReactNode',
-      default: '—',
+      default: '-',
       description:
         'Rendered in a full-width cell when `rows.length === 0` and not loading. Pair with `<EmptyState>`.'
     },
     {
       name: 'caption',
       type: 'ReactNode',
-      default: '—',
+      default: '-',
       description: 'Optional `<caption>` for screen readers + visual summaries.'
     }
   ]}
@@ -111,7 +111,7 @@ const columns = [
 
 ## Accessibility
 
-Renders a native `<table>` — sortable headers use `aria-sort` and wrap
+Renders a native `<table>` - sortable headers use `aria-sort` and wrap
 the label in a `<button>` so keyboard users can cycle sort direction.
 Selected rows carry `data-selected="true"`. The select-all checkbox
 enters `indeterminate` when some (but not all) rows are selected. Use
@@ -119,13 +119,13 @@ enters `indeterminate` when some (but not all) rows are selected. Use
 
 <DoDont
   dos={[
-    'Pre-sort the row array before passing — the table does not sort internally.',
+    'Pre-sort the row array before passing - the table does not sort internally.',
     'Pair loading + empty states with Skeleton and EmptyState respectively.',
     'Keep column count ≤ 6 on mobile; scroll horizontally is OK but not across dense data.'
   ]}
   donts={[
-    'Build filtering inside DataTable — filter outside, pass the result as `rows`.',
-    'Rely on row drag or virtualisation here — Phase 3D candidate.',
+    'Build filtering inside DataTable - filter outside, pass the result as `rows`.',
+    'Rely on row drag or virtualisation here - Phase 3D candidate.',
     'Use DataTable for layout grids; reach for `<Card>` + CSS grid.'
   ]}
 />

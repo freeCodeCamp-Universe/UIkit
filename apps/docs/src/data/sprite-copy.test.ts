@@ -57,7 +57,7 @@ test('copy-sprite emits non-empty assets under public/uikit/', t => {
     const size = statSync(dest).size;
     assert.ok(size > 0, `${asset.name} must be non-empty (got ${size}B)`);
 
-    // Copy must match source byte size — guards against truncated writes.
+    // Copy must match source byte size - guards against truncated writes.
     const srcSize = statSync(resolve(monorepoRoot, asset.upstream)).size;
     assert.equal(
       size,

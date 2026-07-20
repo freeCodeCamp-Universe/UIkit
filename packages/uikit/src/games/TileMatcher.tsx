@@ -10,7 +10,7 @@ import React, {
 export type TileFace =
   | React.ReactNode
   | {
-      /** Tile content: text, `<img>`, `<Image>`, an icon — any node. */
+      /** Tile content: text, `<img>`, `<Image>`, an icon - any node. */
       content: React.ReactNode;
       /** Accessible name, used when `content` is non-text (e.g. an image). */
       label?: string;

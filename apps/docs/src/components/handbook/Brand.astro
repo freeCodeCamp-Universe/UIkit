@@ -1,10 +1,10 @@
 ---
-// Brand — five subsections that land under `/handbook#brand`:
-//   1. Marks          — three marks with a clear-space overlay + per-mark download
-//   2. Clear space    — range slider that tightens the envelope; frame turns red under 0.5x
-//   3. Misuse         — DoDont grid: stretched / recoloured / busy background
-//   4. Wordmark usage — "freeCodeCamp" vs "fCC" vs puck-only
-//   5. Asset kit      — single zip download
+// Brand - five subsections that land under `/handbook#brand`:
+//   1. Marks          - three marks with a clear-space overlay + per-mark download
+//   2. Clear space    - range slider that tightens the envelope; frame turns red under 0.5x
+//   3. Misuse         - DoDont grid: stretched / recoloured / busy background
+//   4. Wordmark usage - "freeCodeCamp" vs "fCC" vs puck-only
+//   5. Asset kit      - single zip download
 //
 // The asset-kit zip is generated at predev + prebuild by
 // `apps/docs/scripts/build-asset-kit.mjs`; `public/brand/asset-kit.zip`
@@ -21,12 +21,12 @@ const marks: readonly {
   {
     file: 'fcc-primary.svg',
     label: 'Primary',
-    desc: 'Full lockup — wordmark + puck. Default for hero + header.'
+    desc: 'Full lockup - wordmark + puck. Default for hero + header.'
   },
   {
     file: 'fcc-secondary.svg',
     label: 'Secondary',
-    desc: 'Compact lockup — wordmark only. Navs, cards, footers.',
+    desc: 'Compact lockup - wordmark only. Navs, cards, footers.',
     previewTone: 'light'
   },
   {
@@ -42,7 +42,7 @@ const marks: readonly {
   <article class='brand__sub' id='brand-marks'>
     <h3 class='brand__sub-title'>Marks</h3>
     <p class='brand__sub-lede'>
-      Three official marks. The dotted frame is the clear-space envelope —
+      Three official marks. The dotted frame is the clear-space envelope -
       nothing else enters that margin.
     </p>
     <ul class='brand-marks'>
@@ -74,7 +74,7 @@ const marks: readonly {
     <h3 class='brand__sub-title'>Clear space</h3>
     <p class='brand__sub-lede'>
       The puck height <code>x</code> is the minimum margin on every side. Drag the
-      slider to tighten the margin — the frame turns red when it falls below <code
+      slider to tighten the margin - the frame turns red when it falls below <code
         >0.5x</code
       >.
     </p>
@@ -128,19 +128,19 @@ const marks: readonly {
           <img src='/brand/fcc-primary.svg' alt='Stretched mark' />
         </div>
         <p class='brand-dodont__caption'>
-          Don't stretch — aspect ratio is locked.
+          Don't stretch - aspect ratio is locked.
         </p>
         <div class='brand-dodont brand-dodont--recoloured'>
           <img src='/brand/fcc-primary.svg' alt='Recoloured mark' />
         </div>
         <p class='brand-dodont__caption'>
-          Don't recolour — use the kit palette.
+          Don't recolour - use the kit palette.
         </p>
         <div class='brand-dodont brand-dodont--busy'>
           <img src='/brand/fcc-primary.svg' alt='Mark on busy background' />
         </div>
         <p class='brand-dodont__caption'>
-          Don't sit on a busy background — find a calm surface.
+          Don't sit on a busy background - find a calm surface.
         </p>
       </Fragment>
     </DoDont>
@@ -196,7 +196,7 @@ const marks: readonly {
 </div>
 
 <script>
-  // Clear-space demo — tighten the outer padding as the slider moves.
+  // Clear-space demo - tighten the outer padding as the slider moves.
   // Below 0.5x the stage flips `data-under-threshold` so CSS can flag
   // the violation in red.
   function mountClearSpace(): void {

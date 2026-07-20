@@ -6,7 +6,7 @@ export interface HotspotItem {
   /** Accessible name for the region (announced to screen readers). */
   label: string;
   /**
-   * The clickable shape — a `CircleHotspot` / `RectHotspot` / `EllipseHotspot`
+   * The clickable shape - a `CircleHotspot` / `RectHotspot` / `EllipseHotspot`
    * / `PolygonHotspot`, or any custom SVG node carrying `hotspots__shape`.
    */
   shape: React.ReactNode;
@@ -21,7 +21,7 @@ export interface HotspotsProps extends Omit<
   background: React.ReactNode;
   /** Alt text used when `background` is an image `src` string. */
   backgroundAlt?: string;
-  /** Coordinate space width — hotspot geometry is expressed against this. */
+  /** Coordinate space width - hotspot geometry is expressed against this. */
   width: number;
   /** Coordinate space height. Also sets the container aspect ratio. */
   height: number;
@@ -89,7 +89,7 @@ export const Hotspots = forwardRef<HTMLDivElement, HotspotsProps>(
             setAnnouncement(`Correct: ${item.label}`);
             onCorrect?.(item.id);
           } else {
-            setAnnouncement('Not quite — try again');
+            setAnnouncement('Not quite - try again');
             onIncorrect?.(item.id);
           }
         } else {
@@ -172,12 +172,12 @@ export const Hotspots = forwardRef<HTMLDivElement, HotspotsProps>(
         <div className='hotspots__status'>
           {correct && (
             <p className='hotspots__feedback hotspots__feedback--correct'>
-              ✓ Correct{targetLabel ? ` — ${targetLabel}` : ''}.
+              ✓ Correct{targetLabel ? ` - ${targetLabel}` : ''}.
             </p>
           )}
           {wrong && (
             <p className='hotspots__feedback hotspots__feedback--incorrect'>
-              Not quite. Try again — look for the region in the prompt.
+              Not quite. Try again - look for the region in the prompt.
             </p>
           )}
           {showHint && targetLabel && (

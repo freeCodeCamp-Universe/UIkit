@@ -20,7 +20,7 @@ import RelatedComponents from '../../components/site/RelatedComponents.astro';
 
 `<CloseButton>` wraps a native `<button>` with the shared dismiss
 visual and a default `aria-label`. It's the right primitive for toast
-close affordances, modal close-×, and dismissible banners — a single
+close affordances, modal close-×, and dismissible banners - a single
 component keeps every dismiss target looking the same.
 
 ## Props
@@ -57,7 +57,7 @@ component keeps every dismiss target looking the same.
 ## Accessibility
 
 Native `<button>` labelled `"Close"` by default. Always pair with a
-discoverable keyboard path — Escape on `<Modal>` mirrors the click.
+discoverable keyboard path - Escape on `<Modal>` mirrors the click.
 Override `aria-label` when the surface context matters
 ("Close filter drawer").
 
@@ -83,8 +83,8 @@ Override `aria-label` when the surface context matters
   </Fragment>
   <Fragment slot='dont'>
     <ul>
-      <li>Don't use it for "Cancel" or "Back" — those deserve text labels.</li>
-      <li>Don't shrink below 24 px — accessibility target minimum.</li>
+      <li>Don't use it for "Cancel" or "Back" - those deserve text labels.</li>
+      <li>Don't shrink below 24 px - accessibility target minimum.</li>
       <li>Don't restyle the × glyph; it's part of the design contract.</li>
     </ul>
   </Fragment>

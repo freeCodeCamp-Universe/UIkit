@@ -85,7 +85,7 @@ export function App() {
 ## Accessibility
 
 Renders a native `<button>` element. The focus ring is 3 px solid
-`--blue-mid` — the same ring every interactive primitive uses.
+`--blue-mid` - the same ring every interactive primitive uses.
 Disabled buttons forward `aria-disabled="true"` and drop out of the
 tab order.
 
@@ -109,14 +109,14 @@ tab order.
     <ul>
       <li>Use one `primary` button per view to anchor the main action.</li>
       <li>Pair `secondary` with `primary` for cancel / save decisions.</li>
-      <li>Write the action verb on the button — never the noun.</li>
+      <li>Write the action verb on the button - never the noun.</li>
     </ul>
   </Fragment>
   <Fragment slot='dont'>
     <ul>
       <li>Don't stack more than one `primary` in a row.</li>
       <li>Don't use `danger` for "delete" if the action is reversible.</li>
-      <li>Don't swap Buttons for Links — each carries a different contract.</li>
+      <li>Don't swap Buttons for Links - each carries a different contract.</li>
     </ul>
   </Fragment>
 </DoDont>

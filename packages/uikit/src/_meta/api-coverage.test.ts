@@ -18,7 +18,7 @@ function walk(dir: string, acc: string[] = []): string[] {
 }
 
 if (!existsSync(propsPath)) {
-  test.skip('S1 — dist/props.json missing; run `pnpm -F @freecodecamp/uikit build` first', () => {});
+  test.skip('S1 - dist/props.json missing; run `pnpm -F @freecodecamp/uikit build` first', () => {});
 } else {
   const props = JSON.parse(readFileSync(propsPath, 'utf8')) as Record<
     string,
@@ -29,7 +29,7 @@ if (!existsSync(propsPath)) {
   const haystack = testFiles.map(f => readFileSync(f, 'utf8')).join('\n\n');
 
   for (const name of exported) {
-    test(`S1 — '${name}' is referenced by at least one contract test`, () => {
+    test(`S1 - '${name}' is referenced by at least one contract test`, () => {
       const re = new RegExp(`\\b${name}\\b`);
       expect(
         re.test(haystack),

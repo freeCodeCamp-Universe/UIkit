@@ -10,7 +10,7 @@ export const GET: APIRoute = async () => {
   );
 
   const lines: string[] = [];
-  lines.push('# freeCodeCamp UIKit — Handbook');
+  lines.push('# freeCodeCamp UIKit - Handbook');
   lines.push('');
   lines.push(`HTML: ${SITE}/handbook`);
   lines.push('');

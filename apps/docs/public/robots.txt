@@ -1,4 +1,4 @@
-# freeCodeCamp UIKit docs site — crawler directives.
+# freeCodeCamp UIKit docs site - crawler directives.
 # Spec: https://www.rfc-editor.org/rfc/rfc9309
 User-agent: *
 Allow: /

@@ -9,9 +9,9 @@
     "test:playwright:update": "playwright test --update-snapshots",
     "test:visual": "playwright test",
     "test:visual:update": "playwright test --update-snapshots",
-    "predev": "node scripts/copy-sprite.mjs && node scripts/build-asset-kit.mjs && node scripts/ensure-uikit-built.mjs",
+    "predev": "node scripts/copy-sprite.mjs && node scripts/build-asset-kit.mjs && node scripts/ensure-uikit-built.mjs && node scripts/build-cdn-bundle.mjs",
     "dev": "astro dev",
-    "prebuild": "node scripts/copy-sprite.mjs && node scripts/build-asset-kit.mjs && node scripts/ensure-uikit-built.mjs",
+    "prebuild": "node scripts/copy-sprite.mjs && node scripts/build-asset-kit.mjs && node scripts/ensure-uikit-built.mjs && node scripts/build-cdn-bundle.mjs",
     "build": "astro build && node scripts/verify-dist-pages-artefacts.mjs",
     "preview": "astro preview",
     "lint": "astro check && oxlint",
@@ -29,7 +29,7 @@
     "url": "https://github.com/freeCodeCamp/UIkit/issues"
   },
   "homepage": "https://design.freecodecamp.org",
-  "description": "freeCodeCamp UIKit — living design-system documentation site",
+  "description": "freeCodeCamp UIKit - living design-system documentation site",
   "private": true,
   "dependencies": {
     "@astrojs/mdx": "^5.0.4",
@@ -50,6 +50,7 @@
     "@playwright/test": "~1.59.1",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
+    "lightningcss": "^1.32.0",
     "rehype-autolink-headings": "^7.1.0",
     "rehype-slug": "^6.0.0"
   }

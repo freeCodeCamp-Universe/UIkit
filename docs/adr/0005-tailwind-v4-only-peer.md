@@ -1,4 +1,4 @@
-# 0005 — Tailwind v4 as the only supported peer
+# 0005 - Tailwind v4 as the only supported peer
 
 - Status: Accepted
 - Date: 2026-05-01
@@ -40,10 +40,10 @@ probe (probe-only, not part of the test suite).
 
 ## Alternatives considered
 
-- **Keep `>=3 <5` peer + ignore type drift** — type contract lies to consumers;
+- **Keep `>=3 <5` peer + ignore type drift** - type contract lies to consumers;
   silent failures at compile.
-- **Hand-roll a base type (`Pick<Config, 'theme'>`) shared between v3 + v4** —
+- **Hand-roll a base type (`Pick<Config, 'theme'>`) shared between v3 + v4** -
   rejected for v0.1 because it requires custom type plumbing for one preset
   field shared across both.
-- **Ship two distinct presets (`preset-v3` + `preset-v4`)** — viable but
+- **Ship two distinct presets (`preset-v3` + `preset-v4`)** - viable but
   premature for v0.1; defer until v3 demand surfaces.

@@ -21,7 +21,7 @@ function setClosed(el: HTMLElement): void {
     el.remove();
   };
   el.addEventListener('animationend', onEnd);
-  // Animation fallback — if reduced-motion disables animation, yank now.
+  // Animation fallback - if reduced-motion disables animation, yank now.
   setTimeout(() => {
     if (el.isConnected) el.remove();
   }, 250);

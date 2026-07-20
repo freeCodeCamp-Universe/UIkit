@@ -14,20 +14,20 @@ export const GET: APIRoute = async () => {
     'distributed as a copy-source registry: components are copied into your'
   );
   lines.push(
-    'project source (shadcn-style) and tailored there — NOT installed from npm.'
+    'project source (shadcn-style) and tailored there - NOT installed from npm.'
   );
   lines.push('');
 
   lines.push('## Start here');
   lines.push('');
   lines.push(
-    `- [Starter guide](${SITE}/registry/starter.md) — bootstrap a project: theme, fonts, directory layout, AGENTS.md snippet.`
+    `- [Starter guide](${SITE}/registry/starter.md) - bootstrap a project: theme, fonts, directory layout, AGENTS.md snippet.`
   );
   lines.push(
-    `- [Theme](${SITE}/registry/theme.md) — tokens.css + base.css. Required by every component. Edit token values to recolour; keep token names.`
+    `- [Theme](${SITE}/registry/theme.md) - tokens.css + base.css. Required by every component. Edit token values to recolour; keep token names.`
   );
   lines.push(
-    `- [Machine index](${SITE}/registry/index.json) — every item, its files (raw URLs) and dependencies, as JSON.`
+    `- [Machine index](${SITE}/registry/index.json) - every item, its files (raw URLs) and dependencies, as JSON.`
   );
   lines.push('');
 
@@ -39,7 +39,7 @@ export const GET: APIRoute = async () => {
   lines.push('');
   for (const c of components) {
     lines.push(
-      `- [${c.data.title}](${SITE}/components/${c.id}.md) — ${c.data.summary}`
+      `- [${c.data.title}](${SITE}/components/${c.id}.md) - ${c.data.summary}`
     );
   }
   lines.push('');
@@ -48,26 +48,26 @@ export const GET: APIRoute = async () => {
   lines.push('');
   for (const item of nonComponentItems()) {
     lines.push(
-      `- [${item.title}](${SITE}${item.docsPath}) — ${item.description}`
+      `- [${item.title}](${SITE}${item.docsPath}) - ${item.description}`
     );
   }
   lines.push('');
 
   lines.push('## Human surfaces');
   lines.push('');
-  lines.push(`- [Landing](${SITE}/) — overview + quickstart.`);
+  lines.push(`- [Landing](${SITE}/) - overview + quickstart.`);
   lines.push(
-    `- [Playground](${SITE}/playground) — every component, paired code.`
+    `- [Playground](${SITE}/playground) - every component, paired code.`
   );
   lines.push(
-    `- [Handbook](${SITE}/handbook) — design philosophy, tokens, brand, install, CDN, Tailwind, recipes, contributing.`
+    `- [Handbook](${SITE}/handbook) - design philosophy, tokens, brand, install, CDN, Tailwind, recipes, contributing.`
   );
   lines.push('');
 
   lines.push('## Concatenated dump');
   lines.push('');
   lines.push(
-    `- [llms-full.txt](${SITE}/llms-full.txt) — every component page incl. full source, single file.`
+    `- [llms-full.txt](${SITE}/llms-full.txt) - every component page incl. full source, single file.`
   );
   lines.push('');
 
